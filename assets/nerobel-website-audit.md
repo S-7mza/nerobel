@@ -608,7 +608,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S0-06 | SAV and locator scope cleanup (solar, partner retailers, SLA text) | S-06, N-04 | S | S0-01 | ✅ |
 | S0-07 | Positioning wording and footer (group owner) | H-04, B-13 | S | S0-01 | ✅ |
 | S0-08 | Legal pages + consent on forms 🔶 | H-10, S-02, C-04, P-02 | M | S0-01 | ✅ |
-| S0-09 | Hide the dead PDF block | P-01 | S | S0-01 | ⬜ |
+| S0-09 | Hide the dead PDF block | P-01 | S | S0-01 | ✅ |
 | **Sprint 1 — Message & content** | | | | | |
 | S1-01 | Facts file and contact normalisation | H-11 | S | S0-05 | ⬜ |
 | S1-02 | Vocabulary pass | H-05, N-07, P-04, C-03, S-05 | M | S0-04 | ⬜ |
@@ -1205,6 +1205,7 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-17 | [S0-06] Removed solar & thermodynamic category and brand options from SAV and Network pages; removed Bricoma/Marjane partner retailers from filters and locator data. |
 | 2026-10-17 | [S0-07] Applied verbatim group positioning line and copyright across all footers, replaced distributor/leader claims and "Disponible chez" badges with "Une marque Nerobel Group", and set Brands H1 to "Nos marques". |
 | 2026-10-17 | [S0-08] Created `mentions-legales.html` and `confidentialite.html` with required client placeholders, updated footer legal links across all pages, and added required consent checkboxes with validation on SAV, B2B, and Contact forms. |
+| 2026-10-17 | [S0-09] Removed dead PDF download cards (`href="#"`) and document promises on `b2b.html`; all 10 `audit-check.sh` rules now pass. |
 
 
 
