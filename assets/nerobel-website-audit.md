@@ -600,7 +600,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | ID | Task | Closes | Size | Depends on | Status |
 |---|---|---|---|---|---|
 | **Sprint 0 — Blockers & cleanup** | | | | | |
-| S0-01 | Repo recon + check scripts | — | S | — | ⬜ |
+| S0-01 | Repo recon + check scripts | — | S | — | ✅ |
 | S0-02 | Staging protection, absolute og:image | H-01 | S | S0-01 | ⬜ |
 | S0-03 | Remove language switch and stray Arabic, `lang="fr"` | H-08 | S | S0-01 | ⬜ |
 | S0-04 | Remove tracking and demo content | H-15, S-01, S-04, S-09, S-11 | M | S0-01 | ⬜ |
@@ -647,7 +647,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 
 ### 9.3 Assumptions and tooling
 
-**Assumed repository layout** (confirm and correct in S0-01): a static site served from the repository root on GitHub Pages: `index.html`, `brands.html`, `sav.html`, `network.html`, `b2b.html`, `contact.html`, `assets/img/*.jpg`, `assets/icons/*.svg` (confirmed from the page markup), plus CSS and JavaScript under `assets/` whose file names are not visible from outside. Unknown paths are written as `assets/css/*` and `assets/js/*` below.
+**Confirmed repository layout** (updated in S0-01): a static site served from the repository root on GitHub Pages: `index.html`, `brands.html`, `sav.html`, `network.html`, `b2b.html`, `contact.html`, `404.html`, `sitemap.xml`, `robots.txt`, `assets/img/*.{jpg,webp}`, `assets/icons/*.svg`, plus CSS under `css/` (`css/theme.css`, `css/main.css`, `css/sav.css`, `css/icons.css`) and JavaScript under `js/` (`js/main.js`, `js/sav.js`, `js/network.js`, `js/i18n.js`, `js/theme.js`, `js/animations.js`). See `docs/repo-map.md` for the full mapping.
 
 **New files introduced by the plan:** `pacific.html`, `confidentialite.html`, `mentions-legales.html`, `404.html`, `sitemap.xml`, `robots.txt`, `content/facts.json`, `content/catalogue.json`, `content/outlets.json`, `content/claims-register.md`, `assets/css/tokens.css`, `assets/css/components.css`, `scripts/audit-check.sh`, `scripts/audit_meta.py`, `scripts/images.mjs`, `tests/layout.spec.js`, `docs/repo-map.md`.
 
@@ -1197,3 +1197,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-17 | Design review, mobile diagnosis and test matrix added. |
 | 2026-10-17 | Improvement plan, KPIs, ideal-version spec, QA checklist and open decisions added; executive summary and scorecard added; status set to v1 complete. |
 | 2026-10-17 | Owner decisions 1–8 recorded in 8.4 with their effect on findings and roadmap; roadmap note added. The executive summary reflects the audit before these decisions. |
+| 2026-10-17 | [S0-01] Completed repo recon (`docs/repo-map.md`), created `scripts/audit-check.sh` and `scripts/audit_meta.py`, and recorded baseline check output in `docs/baseline-checks.txt`. |

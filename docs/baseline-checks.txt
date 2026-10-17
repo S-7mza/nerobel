@@ -1,0 +1,221 @@
+✗ no 150+ claim
+./index.html:162:              <span><i class="ti ti-map-pin"></i> <span data-i18n="statDistributorsLabel">150+ Showrooms au Maroc</span></span>
+js/i18n.js:27:    statDistributors: "150+",
+js/i18n.js:196:    statDistributors: "150+",
+js/i18n.js:365:    statDistributors: "150+",
+✗ no SLA figures
+./b2b.html:147:          <p class="section-desc" style="margin-bottom:24px;">Remplissez ce formulaire pour être contacté par notre direction commerciale grands comptes sous 24h ouvrables.</p>
+./b2b.html:149:          <form id="b2bForm" onsubmit="event.preventDefault(); window.showToast('Demande partenaire enregistrée avec succès. Notre équipe B2B vous contactera sous 24h.', 'success'); this.reset();">
+./b2b.html:200:              <span>Réponse Commerciale sous 24h</span>
+./index.html:231:            <div class="metric-num">24/48<span class="plus">h</span></div>
+./index.html:261:              Déposez une réclamation en 2 minutes, demandez l'intervention d'un technicien certifié ou suivez votre ticket en temps réel.
+./index.html:644:              <span><i class="ti ti-headset"></i> <strong>Support SAV Réactif 48h</strong></span>
+./sav.html:115:          Déclarez votre demande d'intervention en 3 étapes. Notre équipe technique prend en charge votre dossier sous 24 à 48 heures ouvrables.
+./sav.html:154:              <span data-i18n="savPerk1">Intervention rapide sous 24 à 48h ouvrables</span>
+js/animations.js:104:            if (rawText.includes('24/48')) {
+js/animations.js:105:              numEl.innerHTML = `24/48<span class="plus">h</span>`;
+js/i18n.js:31:    statSavSpeed: "24/48h",
+js/i18n.js:79:    savHeroLead: "Remplissez ce formulaire direct en 3 étapes. Notre équipe technique prend en charge votre demande sous 24 à 48 heures ouvrables.",
+js/i18n.js:80:    savPerk1: "Intervention rapide sous 24 à 48h ouvrables",
+js/i18n.js:200:    statSavSpeed: "24/48س",
+js/i18n.js:369:    statSavSpeed: "24/48h",
+js/sav.js:552:            <tr><td class="key">Délai Garanti</td><td>Prise de contact sous 24 à 48 heures ouvrables</td></tr>
+js/sav.js:676:        slot: 'Planification sous 24h ouvrables',
+✗ no warranty figures
+./404.html:185:          <a href="#">Conditions Générales de Garantie</a>
+./b2b.html:196:              <span>Garantie Constructeur Directe</span>
+./b2b.html:328:          <a href="#">Conditions Générales de Garantie</a>
+./brands.html:149:              <span class="seal-nerobel-text">Garantie 12 Mois sous conditions · Disponible chez</span>
+./brands.html:413:              <div class="tech-specs-item"><span>Garantie moteur</span><strong>10 Ans</strong></div>
+./brands.html:543:          <a href="#">Conditions Générales de Garantie</a>
+./contact.html:279:          <a href="#">Conditions Générales de Garantie</a>
+./index.html:161:              <span><i class="ti ti-shield-check"></i> <strong data-i18n="statWarrantyLabel">Garantie Constructeur</strong></span>
+./index.html:170:          <!-- Right Column Spacer: 100% Unobstructed Product & Architectural View -->
+./index.html:228:            <div class="metric-label" data-i18n="statWarrantyLabel">Garantie Constructeur Certifiée</div>
+./index.html:559:                <linearGradient id="fineLaserBeam" x1="0%" y1="0%" x2="0%" y2="100%">
+./index.html:565:                  <stop offset="100%" stop-color="#1A4080" stop-opacity="0" />
+./index.html:569:                <linearGradient id="fineLaserAura" x1="0%" y1="0%" x2="0%" y2="100%">
+./index.html:574:                  <stop offset="100%" stop-color="#082048" stop-opacity="0" />
+./index.html:578:                <linearGradient id="fineWedgeShadow" x1="0%" y1="0%" x2="100%" y2="40%">
+./index.html:582:                  <stop offset="100%" stop-color="#01040D" stop-opacity="0.95" />
+./index.html:645:              <span><i class="ti ti-tool"></i> <strong>100% Pièces d'Origine</strong></span>
+./index.html:667:                <strong style="display:block; color:#FFFFFF; font-size:0.95rem;">Qualité Constructeur Garantie</strong>
+./index.html:769:          <a href="#">Conditions Générales de Garantie</a>
+./network.html:258:          <a href="#">Conditions Générales de Garantie</a>
+✗ no tracking/demo
+./b2b.html:164:                <input type="text" id="b2bContact" name="contact" class="form-input" placeholder="Ex: Karim Benjelloun" required autocomplete="name">
+./brands.html:176:                <div class="demo-widget-badge">LIVE APP TEST</div>
+./index.html:610:            <h3 data-i18n="trackerTitle">Suivi en Direct de votre Dossier SAV</h3>
+./index.html:611:            <p data-i18n="trackerDesc">Entrez votre numéro de ticket (ex: NERO-2026-8921) pour vérifier l'état d'avancement de votre intervention ou planifier un passage technicien.</p>
+./index.html:614:            <input type="text" class="tracker-input" id="quickTrackerInput" placeholder="Code ticket (ex: NERO-2026-8921)" data-i18n-placeholder="trackerPlaceholder" required>
+./sav.html:130:          <span class="tab-label-desktop">2. Suivi en Temps Réel (Nexenflow)</span>
+./sav.html:131:          <span class="tab-label-mobile">2. Suivi Nexenflow</span>
+./sav.html:423:    <!-- PANEL 2: NEXENFLOW LIVE TICKET TRACKER -->
+./sav.html:425:      <div class="nexenflow-tracker-container">
+./sav.html:431:            <span>Synchronisation Nexenflow Live · Télématique Maroc</span>
+./sav.html:444:              <input type="text" id="liveTrackInput" class="tracker-input-field" placeholder="Ex : NERO-2026-9842 ou 0612345678" value="NERO-2026-9842" autocomplete="off" spellcheck="false">
+./sav.html:457:            <button type="button" class="sample-chip active" data-code="NERO-2026-9842">
+./sav.html:458:              <span class="sample-dot blue"></span> NERO-2026-9842 (Technicien assigné)
+./sav.html:460:            <button type="button" class="sample-chip" data-code="NERO-2026-8921">
+./sav.html:461:              <span class="sample-dot green"></span> NERO-2026-8921 (Clôturé &amp; Garanti)
+./sav.html:463:            <button type="button" class="sample-chip" data-code="NERO-2026-1044">
+./sav.html:464:              <span class="sample-dot amber"></span> NERO-2026-1044 (Diagnostic &amp; Pièces)
+./sav.html:476:                <span class="dossier-code" id="trackActiveCode">NERO-2026-9842</span>
+./sav.html:532:                  <div class="timeline-item-title">1. Réclamation Réceptionnée sur Nexenflow</div>
+./sav.html:575:                      <div class="tech-name" id="techName">Karim Benjelloun</div>
+✗ no partner retailers
+./network.html:156:              <option value="gsb">Grandes Surfaces (Bricoma / Marjane)</option>
+js/network.js:38:    name: "Bricoma Casablanca Bouskoura (Partenaire GSB)",
+✗ no solar range
+./network.html:144:              <option value="Theros">Theros (Électrique &amp; Solaire)</option>
+./sav.html:208:                  <div class="type-card-name" data-i18n="typeSolar">Solaire & Thermodynamique</div>
+./sav.html:209:                  <div class="type-card-desc" data-i18n="typeSolarDesc">Systèmes solaires thermiques sous pression</div>
+./sav.html:300:                    <option value="Theros">Theros (Électrique / Solaire)</option>
+js/i18n.js:98:    typeSolar: "Solaire & Thermodynamique",
+js/i18n.js:99:    typeSolarDesc: "Systèmes solaires thermiques sous pression",
+js/sav.js:185:      solar: "Solaire & Thermodynamique",
+✗ no distributor wording
+./b2b.html:325:        <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel.</div>
+./brands.html:540:        <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel.</div>
+./contact.html:276:        <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel.</div>
+./index.html:7:  <meta name="description" content="Nerobel Group : Consumer Tech for Modern Homes. Distributeur et fabricant des marques leaders Theros, Pacific et Eurogas au Maroc. Électroménager contemporain, Smart TV et confort thermique.">
+./index.html:15:  <meta property="og:description" content="Distributeur et fabricant des marques leaders Theros, Pacific et Eurogas au Maroc. Électroménager contemporain et confort thermique.">
+./index.html:145:              Groupe industriel et technologique d'avant-garde. Nerobel conçoit et distribue l'électroménager contemporain, les Smart TV et les solutions thermiques de référence au Maroc : Theros, Pacific et Eurogas.
+./index.html:541:                <span class="seal-nerobel-text">Marque Constructeur</span>
+./index.html:766:        <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel.</div>
+./network.html:255:        <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel.</div>
+./sav.html:804:        <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel.</div>
+js/i18n.js:22:    heroLead: "Groupe industriel et technologique d'avant-garde. Nerobel conçoit et distribue l'électroménager moderne, les Smart TV et les solutions thermiques leaders au Maroc : Theros, Pacific et Eurogas.",
+js/i18n.js:174:    footerRights: "© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel."
+✗ no leader claims
+./404.html:142:            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+./b2b.html:282:            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+./brands.html:113:        <h1 class="page-title">L'Alliance des Marques Leaders au Maroc</h1>
+./brands.html:497:            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+./contact.html:233:            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+./index.html:7:  <meta name="description" content="Nerobel Group : Consumer Tech for Modern Homes. Distributeur et fabricant des marques leaders Theros, Pacific et Eurogas au Maroc. Électroménager contemporain, Smart TV et confort thermique.">
+./index.html:15:  <meta property="og:description" content="Distributeur et fabricant des marques leaders Theros, Pacific et Eurogas au Maroc. Électroménager contemporain et confort thermique.">
+./index.html:441:          <h2 class="section-title" data-i18n="brandsSectionTitle">Des Marques Leaders Dédiées à Votre Confort</h2>
+./index.html:723:            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+./network.html:212:            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+./sav.html:761:            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+js/i18n.js:22:    heroLead: "Groupe industriel et technologique d'avant-garde. Nerobel conçoit et distribue l'électroménager moderne, les Smart TV et les solutions thermiques leaders au Maroc : Theros, Pacific et Eurogas.",
+js/i18n.js:40:    brandsSectionTitle: "Des Marques Leaders Dédiées à Votre Confort",
+js/i18n.js:170:    footerDesc: "Nerobel Group est le leader marocain en électroménager moderne, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.",
+js/i18n.js:508:    footerDesc: "Nerobel Group is the Moroccan leader in modern home appliances, Smart TVs, and thermal comfort: Theros, Pacific, and Eurogas.",
+✗ no Arabic / lang switch
+./404.html:47:        <div class="lang-dropdown">
+./404.html:48:          <button type="button" class="lang-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Changer de langue">
+./404.html:52:          <div class="lang-dropdown-menu" role="menu">
+./404.html:60:              <span class="lang-item-name">العربية</span>
+./b2b.html:50:        <div class="lang-dropdown">
+./b2b.html:51:          <button type="button" class="lang-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Changer de langue">
+./b2b.html:55:          <div class="lang-dropdown-menu" role="menu">
+./b2b.html:63:              <span class="lang-item-name">العربية</span>
+./brands.html:49:        <div class="lang-dropdown">
+./brands.html:50:          <button type="button" class="lang-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Changer de langue">
+./brands.html:54:          <div class="lang-dropdown-menu" role="menu">
+./brands.html:62:              <span class="lang-item-name">العربية</span>
+./contact.html:50:        <div class="lang-dropdown">
+./contact.html:51:          <button type="button" class="lang-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Changer de langue">
+./contact.html:55:          <div class="lang-dropdown-menu" role="menu">
+./contact.html:63:              <span class="lang-item-name">العربية</span>
+./index.html:56:        <div class="lang-dropdown">
+./index.html:57:          <button type="button" class="lang-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Changer de langue">
+./index.html:61:          <div class="lang-dropdown-menu" role="menu">
+./index.html:69:              <span class="lang-item-name">العربية</span>
+✗ no dead # links
+./404.html:184:          <a href="#">Politique de Confidentialité</a>
+./404.html:185:          <a href="#">Conditions Générales de Garantie</a>
+./b2b.html:218:            <a href="#" class="doc-download-card" onclick="event.preventDefault(); window.showToast('Téléchargement de la fiche technique Theros Pro-Slim lancé.', 'info');">
+./b2b.html:226:            <a href="#" class="doc-download-card" onclick="event.preventDefault(); window.showToast('Téléchargement du schéma de montage Pacific lancé.', 'info');">
+./b2b.html:234:            <a href="#" class="doc-download-card" onclick="event.preventDefault(); window.showToast('Téléchargement du dossier de sécurité Eurogas ODS lancé.', 'info');">
+./b2b.html:242:            <a href="#" class="doc-download-card" onclick="event.preventDefault(); window.showToast('Téléchargement du catalogue Nerobel Tech lancé.', 'info');">
+./b2b.html:327:          <a href="#">Politique de Confidentialité</a>
+./b2b.html:328:          <a href="#">Conditions Générales de Garantie</a>
+./brands.html:542:          <a href="#">Politique de Confidentialité</a>
+./brands.html:543:          <a href="#">Conditions Générales de Garantie</a>
+./contact.html:278:          <a href="#">Politique de Confidentialité</a>
+./contact.html:279:          <a href="#">Conditions Générales de Garantie</a>
+./index.html:768:          <a href="#">Politique de Confidentialité</a>
+./index.html:769:          <a href="#">Conditions Générales de Garantie</a>
+./network.html:257:          <a href="#">Politique de Confidentialité</a>
+./network.html:258:          <a href="#">Conditions Générales de Garantie</a>
+./sav.html:408:              <a href="#" class="btn btn-whatsapp" id="btnWhatsAppAction" target="_blank" rel="noopener">
+./sav.html:806:          <a href="#">Politique de Confidentialité</a>
+./sav.html:807:          <a href="#">Conditions Générales de Garantie</a>
+=== audit_meta.py ===
+✗ 404.html: og:image must be an absolute URL
+✗ 404.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ 404.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ 404.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ 404.html: heading jump h1 -> h4
+✗ b2b.html: og:image must be an absolute URL
+✗ b2b.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ b2b.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ b2b.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ b2b.html: heading jump h1 -> h3
+✗ b2b.html: heading jump h2 -> h4
+✗ brands.html: title length 65 (1-60)
+✗ brands.html: description length 195 (1-155)
+✗ brands.html: og:image must be an absolute URL
+✗ brands.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ brands.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ brands.html: img without width/height: assets/icons/theros-logo.svg
+✗ brands.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ brands.html: img without width/height: assets/icons/pacific-logo.svg
+✗ brands.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ brands.html: img without width/height: assets/icons/eurogas-logo.svg
+✗ brands.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ brands.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ contact.html: og:image must be an absolute URL
+✗ contact.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ contact.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ contact.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ contact.html: heading jump h2 -> h4
+✗ index.html: title length 74 (1-60)
+✗ index.html: description length 190 (1-155)
+✗ index.html: og:image must be an absolute URL
+✗ index.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ index.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ index.html: img without width/height: assets/img/theros_brand_article.jpg
+✗ index.html: img without width/height: assets/img/pacific-waterheater-poster.jpg
+✗ index.html: img without width/height: assets/img/eurogas-boiler.jpg
+✗ index.html: img without width/height: assets/img/nerobel-banner-appliances.jpg
+✗ index.html: img without width/height: assets/img/nerobel-tech-showcase.jpg
+✗ index.html: img without width/height: assets/img/theros_brand_article.jpg
+✗ index.html: img without width/height: assets/icons/theros-logo.svg
+✗ index.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ index.html: img without width/height: assets/img/pacific-waterheater-poster.jpg
+✗ index.html: img without width/height: assets/icons/pacific-logo.svg
+✗ index.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ index.html: img without width/height: assets/img/eurogas-boiler.jpg
+✗ index.html: img without width/height: assets/icons/eurogas-logo.svg
+✗ index.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ index.html: img without width/height: assets/img/nerobel-tech-showcase.jpg
+✗ index.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ index.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ index.html: img without width/height: assets/img/nerobel-banner-appliances.jpg
+✗ index.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ index.html: heading jump h1 -> h3
+✗ index.html: heading jump h2 -> h4
+✗ index.html: link without text or aria-label: https://theros.ma/ (check if an img alt covers it)
+✗ index.html: link without text or aria-label: sav.html (check if an img alt covers it)
+✗ index.html: link without text or aria-label: https://eurogas.ma/ (check if an img alt covers it)
+✗ index.html: link without text or aria-label: network.html (check if an img alt covers it)
+✗ network.html: og:image must be an absolute URL
+✗ network.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ network.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ network.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ network.html: heading jump h1 -> h3
+✗ sav.html: title length 64 (1-60)
+✗ sav.html: description length 172 (1-155)
+✗ sav.html: og:image must be an absolute URL
+✗ sav.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ sav.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ sav.html: img without width/height: 
+✗ sav.html: img without width/height: assets/icons/serial-guide.svg
+✗ sav.html: img without width/height: ?
+✗ sav.html: img without width/height: assets/icons/nerobel-logo.svg
+✗ sav.html: heading jump h2 -> h4
+73 problem(s)
