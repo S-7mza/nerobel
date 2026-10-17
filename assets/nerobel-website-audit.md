@@ -601,7 +601,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 |---|---|---|---|---|---|
 | **Sprint 0 — Blockers & cleanup** | | | | | |
 | S0-01 | Repo recon + check scripts | — | S | — | ✅ |
-| S0-02 | Staging protection, absolute og:image | H-01 | S | S0-01 | ⬜ |
+| S0-02 | Staging protection, absolute og:image | H-01 | S | S0-01 | ✅ |
 | S0-03 | Remove language switch and stray Arabic, `lang="fr"` | H-08 | S | S0-01 | ⬜ |
 | S0-04 | Remove tracking and demo content | H-15, S-01, S-04, S-09, S-11 | M | S0-01 | ⬜ |
 | S0-05 | Remove unverified figures and claims | H-06, H-16, B-03, S-03, N-01, C-06 | M | S0-01 | ⬜ |
@@ -1198,3 +1198,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-17 | Improvement plan, KPIs, ideal-version spec, QA checklist and open decisions added; executive summary and scorecard added; status set to v1 complete. |
 | 2026-10-17 | Owner decisions 1–8 recorded in 8.4 with their effect on findings and roadmap; roadmap note added. The executive summary reflects the audit before these decisions. |
 | 2026-10-17 | [S0-01] Completed repo recon (`docs/repo-map.md`), created `scripts/audit-check.sh` and `scripts/audit_meta.py`, and recorded baseline check output in `docs/baseline-checks.txt`. |
+| 2026-10-17 | [S0-02] Added staging `noindex, nofollow` robots meta and absolute `og:image` / `twitter:image` URLs across all pages. |
