@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         odsBadge.textContent = "SÉCURITÉ COUPÉE";
       }
 
-      window.showToast("Test ODS : Gaz coupé instantanément. Sécurité habitacle 100% garantie.", "success");
+      window.showToast("Test ODS : Arrêt automatique de l'arrivée de gaz simulé.", "success");
 
       setTimeout(() => {
         odsCard.classList.remove('alert');

@@ -526,7 +526,7 @@ class SavPortal {
           .logo span { color: #3AA0E6; }
           .ticket-badge { background: #E0F2FE; border: 1.5px solid #0284C7; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 18px; }
           .section { margin-top: 30px; }
-          .table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+          .table { width: 100vw; max-width: 680px; border-collapse: collapse; margin-top: 15px; }
           .table td { padding: 12px; border-bottom: 1px solid #E2E8F0; }
           .table td.key { font-weight: 600; width: 35%; color: #64748B; }
           .footer { margin-top: 50px; font-size: 12px; color: #64748B; text-align: center; border-top: 1px solid #E2E8F0; padding-top: 20px; }
@@ -540,7 +540,7 @@ class SavPortal {
 
         <div class="section">
           <h2>Récépissé Officiel de Demande de Service Après-Vente</h2>
-          <p>Dossier enregistré le ${new Date().toLocaleDateString('fr-FR')} - Garantie constructeur Nerobel · Theros · Pacific · Eurogas</p>
+          <p>Dossier enregistré le ${new Date().toLocaleDateString('fr-FR')} - Nerobel Group · Theros · Pacific · Eurogas</p>
 
           <table class="table">
             <tr><td class="key">Nom du Client</td><td>${this.data.fullName}</td></tr>
@@ -549,7 +549,7 @@ class SavPortal {
             <tr><td class="key">Marque & Modèle</td><td>${this.data.brand} (${this.data.type})</td></tr>
             <tr><td class="key">Numéro de Série</td><td><strong>${this.data.serial}</strong></td></tr>
             <tr><td class="key">Panne Déclarée</td><td>${this.data.description || this.data.symptom}</td></tr>
-            <tr><td class="key">Délai Garanti</td><td>Prise de contact sous 24 à 48 heures ouvrables</td></tr>
+            <tr><td class="key">Suivi</td><td>Notre équipe vous répond rapidement</td></tr>
           </table>
         </div>
 

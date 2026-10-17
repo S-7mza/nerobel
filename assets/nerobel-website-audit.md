@@ -604,7 +604,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S0-02 | Staging protection, absolute og:image | H-01 | S | S0-01 | ✅ |
 | S0-03 | Remove language switch and stray Arabic, `lang="fr"` | H-08 | S | S0-01 | ✅ |
 | S0-04 | Remove tracking and demo content | H-15, S-01, S-04, S-09, S-11 | M | S0-01 | ✅ |
-| S0-05 | Remove unverified figures and claims | H-06, H-16, B-03, S-03, N-01, C-06 | M | S0-01 | ⬜ |
+| S0-05 | Remove unverified figures and claims | H-06, H-16, B-03, S-03, N-01, C-06 | M | S0-01 | ✅ |
 | S0-06 | SAV and locator scope cleanup (solar, partner retailers, SLA text) | S-06, N-04 | S | S0-01 | ⬜ |
 | S0-07 | Positioning wording and footer (group owner) | H-04, B-13 | S | S0-01 | ⬜ |
 | S0-08 | Legal pages + consent on forms 🔶 | H-10, S-02, C-04, P-02 | M | S0-01 | ⬜ |
@@ -1201,4 +1201,6 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-17 | [S0-02] Added staging `noindex, nofollow` robots meta and absolute `og:image` / `twitter:image` URLs across all pages. |
 | 2026-10-17 | [S0-03] Removed FR/AR/EN language switcher, `js/i18n.js`, and stray Arabic text on Pacific card; ensured `<html lang="fr">` with `dir` unset. |
 | 2026-10-17 | [S0-04] Removed Home SAV quick tracker, SAV tab switcher and Nexenflow tracking panel (`#panel-tracker`), updated success WhatsApp CTA, and replaced `LIVE APP TEST` badge and demo person placeholder. |
+| 2026-10-17 | [S0-05] Removed all unverified SLA, warranty, and 150+ showroom claims across pages and scripts; replaced Home metrics strip with 3 verified statements and removed warranty-terms footer links. |
+
 

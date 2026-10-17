@@ -101,15 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
           if (numEl && !numEl.dataset.animated) {
             numEl.dataset.animated = 'true';
             const rawText = numEl.textContent.trim();
-            if (rawText.includes('24/48')) {
-              numEl.innerHTML = `24/48<span class="plus">h</span>`;
-            } else {
-              const match = rawText.match(/(\d+)(.*)/);
-              if (match) {
-                const targetVal = parseInt(match[1], 10);
-                const suffix = match[2] || '';
-                animateCounter(numEl, targetVal, '', suffix);
-              }
+            const match = rawText.match(/^(\d+)$/);
+            if (match) {
+              const targetVal = parseInt(match[1], 10);
+              animateCounter(numEl, targetVal, '', '');
             }
           }
           observer.unobserve(entry.target);
