@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Portail SAV Officiel · Nerobel Group · Theros, Pacific & Eurogas</title>
+  <meta name="description" content="Plateforme officielle du Service Après-Vente Nerobel Group. Enregistrement direct des réclamations pour vos appareils Theros, Pacific et Eurogas sous garantie constructeur.">
+  <link rel="canonical" href="https://nerobel.com/sav.html">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nerobel.com/sav.html">
+  <meta property="og:title" content="Portail SAV Officiel · Nerobel Group">
+  <meta property="og:description" content="Plateforme officielle SAV Nerobel Group. Enregistrement direct des réclamations pour vos appareils Theros, Pacific et Eurogas.">
+  <meta property="og:image" content="assets/img/nerobel-banner-appliances.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Montserrat:ital,wght@0,700;0,800;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- High-Performance Zero-Latency Local SVG Icons (Zero Carré, Instant First Paint) -->
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/sav.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="Nerobel Group">
+        <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL">
+      </a>
+
+      <nav aria-label="Navigation Principale">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link" data-i18n="navHome">Groupe</a></li>
+          <li><a href="brands.html" class="nav-link" data-i18n="navBrands">Marques</a></li>
+          <li><a href="sav.html" class="nav-link active" data-i18n="navSav">Support SAV</a></li>
+          <li><a href="network.html" class="nav-link" data-i18n="navNetwork">Showrooms</a></li>
+          <li><a href="b2b.html" class="nav-link" data-i18n="navB2b">Professionnels</a></li>
+          <li><a href="contact.html" class="nav-link" data-i18n="navContact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Space-Optimized Language Dropdown -->
+        <div class="lang-dropdown">
+          <button type="button" class="lang-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Changer de langue">
+            <span class="lang-current-code">FR</span>
+            <i class="ti ti-chevron-down lang-chevron"></i>
+          </button>
+          <div class="lang-dropdown-menu" role="menu">
+            <button type="button" class="lang-menu-item active" data-lang="fr" role="menuitem">
+              <span class="lang-item-code">FR</span>
+              <span class="lang-item-name">Français</span>
+              <i class="ti ti-check lang-item-check"></i>
+            </button>
+            <button type="button" class="lang-menu-item" data-lang="ar" role="menuitem">
+              <span class="lang-item-code">AR</span>
+              <span class="lang-item-name">العربية</span>
+              <i class="ti ti-check lang-item-check"></i>
+            </button>
+            <button type="button" class="lang-menu-item" data-lang="en" role="menuitem">
+              <span class="lang-item-code">EN</span>
+              <span class="lang-item-name">English</span>
+              <i class="ti ti-check lang-item-check"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="theme-btn" aria-label="Changer de thème">
+          <i class="ti ti-sun"></i>
+        </button>
+
+        <a href="#savStepsContainer" class="btn-cta-sav">
+          <i class="ti ti-tool"></i>
+          <span data-i18n="ctaSav">Demande SAV</span>
+        </a>
+
+        <button type="button" class="mobile-nav-toggle" aria-label="Menu Mobile">
+          <i class="ti ti-menu-2"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu Navigation Mobile">
+    <div class="mobile-drawer-header">
+      <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL">
+      <button type="button" class="mobile-drawer-close" aria-label="Fermer"><i class="ti ti-x"></i></button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" data-i18n="navHome">Groupe</a></li>
+      <li><a href="brands.html" data-i18n="navBrands">Marques</a></li>
+      <li><a href="sav.html" class="active" data-i18n="navSav">Support SAV</a></li>
+      <li><a href="network.html" data-i18n="navNetwork">Showrooms</a></li>
+      <li><a href="b2b.html" data-i18n="navB2b">Professionnels</a></li>
+      <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
+    </ul>
+  </div>
+
+  <main id="main-content" aria-label="Portail SAV">
+    <!-- Unified Page Hero Banner -->
+    <section class="page-hero">
+      <div class="container text-center">
+        <div class="eyebrow"><i class="ti ti-tool"></i> Support Technique &amp; Garantie Officielle</div>
+        <h1 class="page-title" data-i18n="savHeroTitle">Portail SAV Officiel Nerobel</h1>
+        <p class="page-subtitle" data-i18n="savHeroLead">
+          Déclarez votre demande d'intervention en 3 étapes. Notre équipe technique prend en charge votre dossier sous 24 à 48 heures ouvrables.
+        </p>
+      </div>
+    </section>
+
+    <!-- 2-Mode SAV Service Switcher -->
+    <div class="container sav-tabs-container">
+      <div class="sav-mode-tabs" role="tablist">
+        <button type="button" class="sav-tab-btn active" data-tab="claim">
+          <i class="ti ti-tool"></i>
+          <span class="tab-label-desktop">1. Déclarer une Réclamation (Express)</span>
+          <span class="tab-label-mobile">1. Réclamation Express</span>
+        </button>
+        <button type="button" class="sav-tab-btn" data-tab="tracker">
+          <i class="ti ti-activity"></i>
+          <span class="tab-label-desktop">2. Suivi en Temps Réel (Nexenflow)</span>
+          <span class="tab-label-mobile">2. Suivi Nexenflow</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PANEL 1: SAV CLAIM 3-STEP WIZARD -->
+    <div class="sav-panel active" id="panel-claim">
+      <div class="sav-wrapper">
+        <!-- SAV Sticky Hero Sidebar -->
+        <aside class="sav-sidebar">
+          <div class="sav-sidebar-eyebrow" data-i18n="savEyebrow">
+            Assistance Garantie
+          </div>
+          <h2 class="sav-sidebar-title">
+            Votre Réclamation Express
+          </h2>
+          <p class="sav-sidebar-lead">
+            Complétez ce formulaire direct pour générer votre numéro de ticket officiel et déclencher l'intervention de nos techniciens agréés.
+          </p>
+
+          <ul class="sav-perks-list">
+            <li class="sav-perk-item">
+              <div class="sav-perk-icon icon-speed"><i class="ti ti-bolt"></i></div>
+              <span data-i18n="savPerk1">Intervention rapide sous 24 à 48h ouvrables</span>
+            </li>
+            <li class="sav-perk-item">
+              <div class="sav-perk-icon icon-oem"><i class="ti ti-certificate"></i></div>
+              <span data-i18n="savPerk2">Pièces d'origine pour Theros, Pacific et Eurogas</span>
+            </li>
+            <li class="sav-perk-item">
+              <div class="sav-perk-icon icon-whatsapp"><i class="ti ti-brand-whatsapp"></i></div>
+              <span data-i18n="savPerk3">Suivi personnalisé en direct via WhatsApp (+212 787 013 201)</span>
+            </li>
+          </ul>
+
+          <div class="sav-warranty-badge">
+            <i class="ti ti-rosette-discount-check" style="color:var(--gold); font-size:1.35rem;"></i>
+            <span data-i18n="savWarrantyNotice">Garantie officielle Nerobel · Theros · Pacific · Eurogas</span>
+          </div>
+        </aside>
+
+        <!-- SAV Main Form Card -->
+        <section class="sav-main-card">
+          <div id="savStepsContainer">
+            <!-- Stepper Header -->
+            <div class="stepper-header">
+              <div class="stepper-progress-bars">
+                <div class="step-bar active" id="bar-1"></div>
+                <div class="step-bar" id="bar-2"></div>
+                <div class="step-bar" id="bar-3"></div>
+              </div>
+              <div class="step-indicator-text" id="stepIndicator">Étape 1 sur 3 · Type d'Appareil</div>
+            </div>
+
+            <!-- SCREEN 1: TYPE SELECTION -->
+            <div class="sav-step active" id="sav-step-1">
+              <h2 class="step-title" data-i18n="step1Title">Sélectionnez votre type d'appareil</h2>
+              <p class="step-subtitle" data-i18n="step1Subtitle">Choisissez la catégorie correspondant à votre équipement</p>
+
+              <div class="service-types-grid">
+                <button type="button" class="type-select-card selected" data-type="electric">
+                  <div class="type-radio-check"><i class="ti ti-check"></i></div>
+                  <div class="type-icon-box"><i class="ti ti-bolt"></i></div>
+                  <div class="type-card-name" data-i18n="typeElectric">Chauffe-eau Électrique</div>
+                  <div class="type-card-desc" data-i18n="typeElectricDesc">Theros Pro-Slim, Pacific double réservoir ou standard</div>
+                </button>
+
+                <button type="button" class="type-select-card" data-type="gas">
+                  <div class="type-radio-check"><i class="ti ti-check"></i></div>
+                  <div class="type-icon-box"><i class="ti ti-flame"></i></div>
+                  <div class="type-card-name" data-i18n="typeGas">Chauffe-eau à Gaz</div>
+                  <div class="type-card-desc" data-i18n="typeGasDesc">Eurogas instantané 6L, 10L ou chaudière gaz</div>
+                </button>
+
+                <button type="button" class="type-select-card" data-type="solar">
+                  <div class="type-radio-check"><i class="ti ti-check"></i></div>
+                  <div class="type-icon-box"><i class="ti ti-sun"></i></div>
+                  <div class="type-card-name" data-i18n="typeSolar">Solaire & Thermodynamique</div>
+                  <div class="type-card-desc" data-i18n="typeSolarDesc">Systèmes solaires thermiques sous pression</div>
+                </button>
+
+                <button type="button" class="type-select-card" data-type="appliances">
+                  <div class="type-radio-check"><i class="ti ti-check"></i></div>
+                  <div class="type-icon-box"><i class="ti ti-device-tv"></i></div>
+                  <div class="type-card-name" data-i18n="typeAppliances">Électroménager & Télévision</div>
+                  <div class="type-card-desc" data-i18n="typeAppliancesDesc">Réfrigérateurs, Smart TV, lave-linge, climatiseurs</div>
+                </button>
+              </div>
+
+              <div class="step-nav-bar" style="justify-content:flex-end;">
+                <button type="button" class="btn btn-primary" id="btn-to-step2">
+                  <span data-i18n="btnContinue">Continuer</span>
+                  <i class="ti ti-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- SCREEN 2: DETAILS & DIAGNOSTICS -->
+            <div class="sav-step" id="sav-step-2">
+              <h2 class="step-title" data-i18n="step2Title">Détails de la Réclamation</h2>
+              <p class="step-subtitle" data-i18n="step2Subtitle">Renseignez les coordonnées et le descriptif de votre panne</p>
+
+              <div class="form-section-title">
+                <i class="ti ti-user"></i>
+                <span data-i18n="sectionContact">Coordonnées du Client</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="savFullName">
+                  <span data-i18n="lblFullName">Nom et Prénom</span>
+                  <span class="req">*</span>
+                </label>
+                <input type="text" id="savFullName" class="form-input" placeholder="Ex: Mohamed Alami" required>
+                <div class="field-error-msg"><i class="ti ti-alert-circle"></i> <span data-i18n="errRequired">Ce champ est obligatoire</span></div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="savPhone">
+                  <span data-i18n="lblPhone">Numéro de Téléphone (WhatsApp)</span>
+                  <span class="req">*</span>
+                </label>
+                <div class="phone-field-group">
+                  <div class="phone-flag-box"><span>🇲🇦 +212</span></div>
+                  <input type="tel" id="savPhone" class="form-input" placeholder="0612345678" required>
+                </div>
+                <div class="field-error-msg"><i class="ti ti-alert-circle"></i> <span data-i18n="errPhone">Numéro marocain invalide</span></div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label class="form-label" for="savCity"><span data-i18n="lblCity">Ville / Région</span> <span class="req">*</span></label>
+                  <select id="savCity" class="form-select">
+                    <option value="Casablanca">Casablanca</option>
+                    <option value="Rabat">Rabat</option>
+                    <option value="Marrakech">Marrakech</option>
+                    <option value="Tanger">Tanger</option>
+                    <option value="Fès">Fès</option>
+                    <option value="Meknès">Meknès</option>
+                    <option value="Agadir">Agadir</option>
+                    <option value="Oujda">Oujda</option>
+                    <option value="Autre">Autre Ville</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="savAddress"><span data-i18n="lblAddress">Adresse d'intervention</span></label>
+                  <input type="text" id="savAddress" class="form-input" placeholder="Quartier, N° Rue, Résidence...">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="gps-box">
+                  <button type="button" class="btn-gps" id="btnGpsTrigger">
+                    <i class="ti ti-map-pin"></i>
+                    <span data-i18n="btnGps">Capturer ma Position GPS</span>
+                  </button>
+                  <div class="gps-feedback-text" id="gpsFeedback" style="display:none;"></div>
+                </div>
+              </div>
+
+              <div class="form-section-title">
+                <i class="ti ti-package"></i>
+                <span data-i18n="sectionEquipment">Équipement &amp; Panne</span>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label class="form-label" for="savBrand"><span data-i18n="lblBrand">Marque de l'appareil</span> <span class="req">*</span></label>
+                  <select id="savBrand" class="form-select">
+                    <option value="Theros">Theros (Électrique / Solaire)</option>
+                    <option value="Pacific">Pacific (Électrique Multi-Position)</option>
+                    <option value="Eurogas">Eurogas (Gaz / Chaudière)</option>
+                    <option value="Nerobel">Nerobel (Électroménager / TV)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="savSerial"><span data-i18n="lblSerial">Numéro de Série</span> <span class="req">*</span></label>
+                  <div class="input-with-action">
+                    <input type="text" id="savSerial" class="form-input" placeholder="Ex: PC202604150892" required>
+                    <button type="button" class="input-action-btn" id="btnSerialGuide" title="Guide numéro de série">
+                      <i class="ti ti-help"></i> <span data-i18n="btnSerialGuide">Aide</span>
+                    </button>
+                  </div>
+                  <div class="field-error-msg"><i class="ti ti-alert-circle"></i> <span data-i18n="errSerial">Format invalide</span></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="savProblem"><span data-i18n="lblProblem">Type de Panne Constatée</span> <span class="req">*</span></label>
+                <select id="savProblem" class="form-select">
+                  <option value="Pas d'eau chaude">Pas d'eau chaude / Chauffage inefficace</option>
+                  <option value="Fuite d'eau">Fuite d'eau apparente ou soupape</option>
+                  <option value="Défaut d'allumage gaz">Défaut d'allumage ou veilleuse éteinte (Gaz)</option>
+                  <option value="Disjonction électrique">L'appareil fait sauter le disjoncteur</option>
+                  <option value="Code erreur digital">Code erreur affiché à l'écran</option>
+                  <option value="Autre problème">Autre problème technique</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="savDescription"><span data-i18n="lblDescription">Description détaillée</span></label>
+                <textarea id="savDescription" class="form-textarea" placeholder="Précisez les symptômes, code erreur ou circonstances de la panne..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label"><span data-i18n="lblPhotos">Photos de l'appareil ou facture</span></label>
+                <div class="dropzone-box" id="fileDropzone">
+                  <i class="ti ti-cloud-upload dropzone-icon"></i>
+                  <div class="dropzone-text" data-i18n="dropzoneText">Glissez vos photos ici ou <strong>cliquez pour parcourir</strong></div>
+                  <div class="dropzone-hint" data-i18n="dropzoneHint">JPG, PNG ou PDF (max 10 Mo)</div>
+                  <div class="dropzone-actions">
+                    <button type="button" class="btn-file-sub" id="btnWebcamTrigger">
+                      <i class="ti ti-camera"></i> <span data-i18n="btnWebcam">Prendre une photo</span>
+                    </button>
+                  </div>
+                  <input type="file" id="fileInput" accept="image/*,application/pdf" style="display:none;">
+                </div>
+
+                <div class="file-preview-card" id="filePreviewCard">
+                  <img src="" alt="Aperçu" class="file-preview-img" id="filePreviewImg">
+                  <div class="file-meta-box">
+                    <div class="file-meta-title" id="filePreviewTitle">fichier.jpg</div>
+                    <div class="file-meta-size" id="filePreviewSize">1.2 Mo</div>
+                  </div>
+                  <button type="button" class="btn-remove-file" id="btnRemoveFile" title="Supprimer"><i class="ti ti-trash"></i></button>
+                </div>
+              </div>
+
+              <div class="step-nav-bar">
+                <button type="button" class="btn btn-secondary" id="btn-back-to-step1">
+                  <i class="ti ti-arrow-left"></i> <span data-i18n="btnBack">Retour</span>
+                </button>
+                <button type="button" class="btn btn-primary" id="btn-to-step3">
+                  <span data-i18n="btnContinue">Continuer</span> <i class="ti ti-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- SCREEN 3: REVIEW & CONFIRM -->
+            <div class="sav-step" id="sav-step-3">
+              <h2 class="step-title" data-i18n="step3Title">Confirmation de votre Demande</h2>
+              <p class="step-subtitle" data-i18n="step3Subtitle">Vérifiez les données avant envoi à nos équipes techniques</p>
+
+              <div class="review-card">
+                <div class="review-row"><span class="review-key" data-i18n="revType">Catégorie</span><span class="review-val" id="revType">—</span></div>
+                <div class="review-row"><span class="review-key" data-i18n="revName">Client</span><span class="review-val" id="revName">—</span></div>
+                <div class="review-row"><span class="review-key" data-i18n="revPhone">Téléphone</span><span class="review-val" id="revPhone">—</span></div>
+                <div class="review-row"><span class="review-key" data-i18n="revCity">Ville</span><span class="review-val" id="revCity">—</span></div>
+                <div class="review-row"><span class="review-key" data-i18n="revAddress">Adresse</span><span class="review-val" id="revAddress">—</span></div>
+                <div class="review-row"><span class="review-key" data-i18n="revSerial">Numéro de Série</span><span class="review-val" id="revSerial">—</span></div>
+                <div class="review-row"><span class="review-key" data-i18n="revIssue">Panne</span><span class="review-val" id="revIssue">—</span></div>
+              </div>
+
+              <div class="step-nav-bar">
+                <button type="button" class="btn btn-secondary" id="btn-back-to-step2">
+                  <i class="ti ti-arrow-left"></i> <span data-i18n="btnBack">Retour</span>
+                </button>
+                <button type="button" class="btn btn-primary" id="btnSubmitFinal">
+                  <i class="ti ti-send"></i> <span data-i18n="btnSubmit">Transmettre ma Demande SAV</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUCCESS SCREEN -->
+          <div class="sav-success-panel" id="savSuccessPanel">
+            <div class="success-check-badge"><i class="ti ti-check"></i></div>
+            <h2 class="step-title" style="font-size:2rem;" data-i18n="successTitle">Demande SAV Enregistrée avec Succès !</h2>
+            <p class="step-subtitle" data-i18n="successDesc">Votre dossier a été transmis à notre service technique. Voici votre numéro de référence :</p>
+
+            <div class="ticket-number-box">
+              <span class="ticket-code" id="displayTicketCode">NERO-2026-XXXX</span>
+              <button type="button" class="btn-copy-code" id="btnCopyCode" data-i18n="btnCopy">Copier</button>
+            </div>
+
+            <div class="success-actions-row">
+              <a href="#" class="btn btn-whatsapp" id="btnWhatsAppAction" target="_blank" rel="noopener">
+                <i class="ti ti-brand-whatsapp"></i> <span data-i18n="btnWhatsApp">Suivre sur WhatsApp</span>
+              </a>
+              <button type="button" class="btn btn-primary" id="btnDownloadPdf">
+                <i class="ti ti-file-text"></i> <span data-i18n="btnDownloadPdf">Télécharger le Reçu (PDF)</span>
+              </button>
+              <a href="sav.html" class="btn btn-secondary">
+                <i class="ti ti-refresh"></i> <span data-i18n="btnNewRequest">Nouvelle Réclamation</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- PANEL 2: NEXENFLOW LIVE TICKET TRACKER -->
+    <div class="sav-panel" id="panel-tracker">
+      <div class="nexenflow-tracker-container">
+        
+        <!-- Header & Live Telematics Indicator -->
+        <div class="tracker-intro-header">
+          <div class="tracker-live-badge">
+            <span class="pulse-dot"></span>
+            <span>Synchronisation Nexenflow Live · Télématique Maroc</span>
+          </div>
+          <h2 class="tracker-title">Suivez l'État d'Intervention en Direct</h2>
+          <p class="tracker-subtitle">
+            Consultez en temps réel l'avancement de votre réclamation, la mise à disposition des composants certifiés et la géolocalisation de votre technicien agréé.
+          </p>
+        </div>
+
+        <!-- Smart Search & Interactive Quick Samples -->
+        <div class="tracker-search-card">
+          <form class="tracker-search-bar" id="liveTrackForm" onsubmit="return false;">
+            <div class="tracker-input-wrap">
+              <i class="ti ti-search tracker-input-icon"></i>
+              <input type="text" id="liveTrackInput" class="tracker-input-field" placeholder="Ex : NERO-2026-9842 ou 0612345678" value="NERO-2026-9842" autocomplete="off" spellcheck="false">
+              <button type="button" class="tracker-clear-btn" id="btnTrackClear" title="Effacer la recherche" aria-label="Effacer">
+                <i class="ti ti-x"></i>
+              </button>
+            </div>
+            <button type="button" class="btn btn-primary tracker-search-btn" id="btnLiveTrack">
+              <i class="ti ti-radar"></i>
+              <span>Vérifier le Statut</span>
+            </button>
+          </form>
+
+          <div class="tracker-samples-row">
+            <span class="samples-label"><i class="ti ti-sparkles"></i> Démonstrations en direct :</span>
+            <button type="button" class="sample-chip active" data-code="NERO-2026-9842">
+              <span class="sample-dot blue"></span> NERO-2026-9842 (Technicien assigné)
+            </button>
+            <button type="button" class="sample-chip" data-code="NERO-2026-8921">
+              <span class="sample-dot green"></span> NERO-2026-8921 (Clôturé &amp; Garanti)
+            </button>
+            <button type="button" class="sample-chip" data-code="NERO-2026-1044">
+              <span class="sample-dot amber"></span> NERO-2026-1044 (Diagnostic &amp; Pièces)
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Status Dashboard Card -->
+        <div class="tracker-dashboard-card" id="liveTrackTimeline">
+          <!-- Card Header -->
+          <div class="tracker-dash-header">
+            <div class="dossier-meta-group">
+              <span class="dossier-label">Dossier Technique Actif</span>
+              <div class="dossier-code-wrap">
+                <span class="dossier-code" id="trackActiveCode">NERO-2026-9842</span>
+                <button type="button" class="btn-copy-chip" id="btnCopyTrackCode" title="Copier le code">
+                  <i class="ti ti-copy"></i> <span id="copyChipText">Copier</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="dossier-status-group">
+              <span class="status-pill-badge planned" id="trackActiveBadge">
+                <span class="pulse-ring"></span>
+                <span id="trackBadgeText">PLANIFIÉ · TECHNICIEN ASSIGNÉ</span>
+              </span>
+              <span class="sync-timestamp" id="trackSyncTime">
+                <i class="ti ti-clock"></i> <span id="trackSyncTimeText">Synchronisé en temps réel</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Key Metadata Grid -->
+          <div class="tracker-meta-grid" id="trackMetaGrid">
+            <div class="meta-tile">
+              <span class="meta-tile-label"><i class="ti ti-flame"></i> Appareil</span>
+              <span class="meta-tile-val" id="metaAppliance">Theros Pro-Slim 80L</span>
+            </div>
+            <div class="meta-tile">
+              <span class="meta-tile-label"><i class="ti ti-map-pin"></i> Secteur</span>
+              <span class="meta-tile-val" id="metaLocation">Casablanca · Anfa</span>
+            </div>
+            <div class="meta-tile">
+              <span class="meta-tile-label"><i class="ti ti-calendar-time"></i> Créneau Estimé</span>
+              <span class="meta-tile-val" id="metaSlot">Aujourd'hui · 14h30 – 16h30</span>
+            </div>
+            <div class="meta-tile">
+              <span class="meta-tile-label"><i class="ti ti-shield-check"></i> Garantie</span>
+              <span class="meta-tile-val" id="metaWarranty">Validée (0 DH · Pièces &amp; MO)</span>
+            </div>
+          </div>
+
+          <!-- Progress Bar Section -->
+          <div class="tracker-progress-section">
+            <div class="progress-header-row">
+              <span class="progress-text" id="progressStatusText">Étape 3 sur 5 · En cours d'acheminement</span>
+              <span class="progress-pct" id="progressPctText">60%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="trackProgressFill" style="width: 60%;"></div>
+            </div>
+          </div>
+
+          <!-- Detailed Vertical Stepper -->
+          <div class="timeline-modern" id="timelineStepsContainer">
+            <!-- Step 1 -->
+            <div class="timeline-item completed" id="stepNode1">
+              <div class="timeline-node"><i class="ti ti-check"></i></div>
+              <div class="timeline-content-card">
+                <div class="timeline-header-line">
+                  <div class="timeline-item-title">1. Réclamation Réceptionnée sur Nexenflow</div>
+                  <span class="timeline-item-time" id="step1Time">Aujourd'hui · 09:15</span>
+                </div>
+                <div class="timeline-item-desc" id="step1Desc">
+                  Dossier enregistré et géolocalisé avec succès. Pièces justificatives et numéro de série vérifiés par le pôle technique Nerobel.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="timeline-item completed" id="stepNode2">
+              <div class="timeline-node"><i class="ti ti-check"></i></div>
+              <div class="timeline-content-card">
+                <div class="timeline-header-line">
+                  <div class="timeline-item-title">2. Diagnostic Technique &amp; Pièces d'Origine Réservées</div>
+                  <span class="timeline-item-time" id="step2Time">Aujourd'hui · 10:45</span>
+                </div>
+                <div class="timeline-item-desc" id="step2Desc">
+                  Vérification de la référence d'appareil en stock. Pack résistance stéatite &amp; thermostat certifié mis à disposition au centre logistique régional.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 (Current / Active) -->
+            <div class="timeline-item current" id="stepNode3">
+              <div class="timeline-node" id="step3NodeIcon"><i class="ti ti-user-check"></i></div>
+              <div class="timeline-content-card">
+                <div class="timeline-header-line">
+                  <div class="timeline-item-title" id="step3Title">3. Technicien Agréé Assigné &amp; En Route</div>
+                  <span class="timeline-item-time" id="step3Time" style="color:var(--az); font-weight:700;">En déplacement</span>
+                </div>
+                <div class="timeline-item-desc" id="step3Desc">
+                  Votre technicien certifié a pris en charge le dossier avec l'outillage et les pièces de rechange d'origine requises.
+                </div>
+
+                <!-- Rich Technician Card -->
+                <div class="tech-dispatch-card" id="techDispatchCard">
+                  <div class="tech-info-wrap">
+                    <div class="tech-avatar">
+                      <span id="techInitials">KB</span>
+                      <span class="verified-check" title="Technicien Officiel Nerobel Group"><i class="ti ti-check"></i></span>
+                    </div>
+                    <div class="tech-details">
+                      <div class="tech-name" id="techName">Karim Benjelloun</div>
+                      <div class="tech-role" id="techRole">Technicien Référent Nerobel · Zone Grand Casablanca</div>
+                      <div class="tech-score">
+                        <i class="ti ti-star-filled"></i> <strong>4.9/5</strong> · 148 interventions certifiées
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tech-actions">
+                    <a href="https://wa.me/212787013201?text=Bonjour%20Karim,%20je%20suis%20le%20client%20NERO-2026-9842" target="_blank" rel="noopener" class="btn btn-whatsapp" id="btnTrackWhatsApp" style="padding: 8px 16px; font-size: 0.84rem;">
+                      <i class="ti ti-brand-whatsapp"></i> <span>WhatsApp Direct</span>
+                    </a>
+                    <a href="tel:+212787013201" class="btn btn-secondary" style="padding: 8px 14px; font-size: 0.84rem;">
+                      <i class="ti ti-phone"></i> <span>Appeler</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="timeline-item" id="stepNode4">
+              <div class="timeline-node" id="step4NodeIcon">4</div>
+              <div class="timeline-content-card">
+                <div class="timeline-header-line">
+                  <div class="timeline-item-title" id="step4Title">4. Intervention à Domicile Programmée</div>
+                  <span class="timeline-item-time" id="step4Time">Aujourd'hui · 14h30 – 16h30</span>
+                </div>
+                <div class="timeline-item-desc" id="step4Desc">
+                  Diagnostic in situ, remplacement sous protocole constructeur officiel et contrôle d'étanchéité sous pression.
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="timeline-item" id="stepNode5">
+              <div class="timeline-node" id="step5NodeIcon">5</div>
+              <div class="timeline-content-card">
+                <div class="timeline-header-line">
+                  <div class="timeline-item-title" id="step5Title">5. Clôture Numérique &amp; Prolongation de Garantie</div>
+                  <span class="timeline-item-time" id="step5Time">À venir</span>
+                </div>
+                <div class="timeline-item-desc" id="step5Desc">
+                  Signature dématérialisée du bon de réparation sur tablette et émission de l'extension de garantie constructeur Nerobel.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Footer & Reassurance -->
+          <div class="tracker-bottom-actions">
+            <div class="tracker-trust-note">
+              <i class="ti ti-rosette-discount-check"></i>
+              <span>Garantie Constructeur Nerobel · Pièces d'origine 100% certifiées avec traçabilité usine</span>
+            </div>
+            <div class="tracker-btn-group">
+              <button type="button" class="btn btn-secondary" id="btnModifySlot" style="padding: 8px 16px; font-size: 0.84rem;">
+                <i class="ti ti-calendar-event"></i> <span>Modifier le Créneau</span>
+              </button>
+              <button type="button" class="btn btn-secondary" id="btnPrintTrackCard" style="padding: 8px 16px; font-size: 0.84rem;">
+                <i class="ti ti-printer"></i> <span>Imprimer</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Serial Guide Modal -->
+  <div class="modal-overlay" id="serialGuideModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon"><i class="ti ti-barcode"></i></div>
+          <div>
+            <div class="modal-title" data-i18n="guideModalTitle">Emplacement de la Plaque Signalétique</div>
+            <div class="modal-subtitle" data-i18n="guideModalSubtitle">Guide pour trouver votre numéro de série (ex: PC202604150892)</div>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeSerialGuideModal"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <img src="assets/icons/serial-guide.svg" alt="Emplacement Plaque Signalétique" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--bd);">
+        <p style="font-size:0.88rem; color:var(--tx2); margin-top:16px;" data-i18n="guideModalTip">
+          La plaque métallique est généralement collée sous le chauffe-eau ou sur le panneau latéral.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnUnderstood" data-i18n="btnModalUnderstood">J'ai compris</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GPS Map Verification Modal -->
+  <div class="modal-overlay" id="gpsMapModal">
+    <div class="modal-card" style="max-width:680px;">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon"><i class="ti ti-map-pin"></i></div>
+          <div>
+            <div class="modal-title">Positionnement de l'Intervention</div>
+            <div class="modal-subtitle">Déplacez la carte pour caler le repère sur votre immeuble ou maison</div>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeGpsModal"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="gps-map-frame">
+          <div id="leafletMap"></div>
+          <div class="map-crosshair">
+            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="#3AA0E6" stroke="#050505" stroke-width="1.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnConfirmGps" style="width:100%;">
+          <i class="ti ti-check"></i>
+          <span>Confirmer cet Emplacement</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Webcam Capture Modal -->
+  <div class="modal-overlay" id="webcamModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon"><i class="ti ti-camera"></i></div>
+          <div>
+            <div class="modal-title">Prendre une Photo en Direct</div>
+            <div class="modal-subtitle">Photographiez la plaque signalétique ou le dysfonctionnement</div>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeWebcamModal"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="webcam-feed-frame">
+          <video id="webcamVideo" autoplay playsinline></video>
+          <img id="webcamCapturedPreview" style="display:none;" alt="Aperçu Photo">
+        </div>
+      </div>
+      <div class="modal-footer" style="display:flex; justify-content:space-between;">
+        <button type="button" class="btn btn-secondary" id="btnRetakePhoto" style="display:none;">
+          <i class="ti ti-refresh"></i> Recommencer
+        </button>
+        <button type="button" class="btn btn-primary" id="btnCapturePhoto">
+          <i class="ti ti-camera"></i> Déclencher
+        </button>
+        <button type="button" class="btn btn-primary" id="btnConfirmWebcamPhoto" style="display:none;">
+          <i class="ti ti-check"></i> Valider la Photo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Sticky Action Bar -->
+  <nav class="mobile-sticky-bar" aria-label="Actions rapides mobiles">
+    <a href="tel:+212522998877" class="mobile-bar-btn">
+      <i class="ti ti-phone"></i>
+      <span>Appeler</span>
+    </a>
+    <a href="https://wa.me/212787013201?text=Bonjour%20Nerobel" target="_blank" rel="noopener" class="mobile-bar-btn wa-highlight">
+      <i class="ti ti-brand-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="sav.html" class="mobile-bar-btn sav-highlight">
+      <i class="ti ti-tool"></i>
+      <span>SAV Express</span>
+    </a>
+    <a href="network.html" class="mobile-bar-btn">
+      <i class="ti ti-map-pin"></i>
+      <span>Showrooms</span>
+    </a>
+  </nav>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL">
+          <p data-i18n="footerDesc">
+            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+          </p>
+          <div class="footer-social-row">
+            <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="social-btn" title="WhatsApp Support" aria-label="WhatsApp Support"><i class="ti ti-brand-whatsapp text-wa"></i></a>
+            <a href="https://www.facebook.com/nerobel" target="_blank" rel="noopener" class="social-btn" title="Facebook" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+            <a href="https://www.linkedin.com/company/nerobel/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title" data-i18n="footerColBrands">Nos Marques</h4>
+          <ul class="footer-links">
+            <li><a href="brands.html#theros">Theros Water Heaters</a></li>
+            <li><a href="brands.html#pacific">Pacific Chauffe-eaux</a></li>
+            <li><a href="brands.html#eurogas">Eurogas Gas Solutions</a></li>
+            <li><a href="brands.html#nerobel-tech">Nerobel Consumer Tech</a></li>
+            <li><a href="https://theros.ma/" target="_blank" rel="noopener">Site Officiel Theros</a></li>
+            <li><a href="https://eurogas.ma/" target="_blank" rel="noopener">Site Officiel Eurogas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title" data-i18n="footerColServices">Services &amp; Support</h4>
+          <ul class="footer-links">
+            <li><a href="sav.html">Portail Réclamation SAV</a></li>
+            <li><a href="network.html">Showrooms &amp; Distributeurs</a></li>
+            <li><a href="b2b.html">Espace Installateurs &amp; B2B</a></li>
+            <li><a href="tel:+212787013201">WhatsApp : +212 787 013 201</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title" data-i18n="footerColGroup">Le Groupe</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Siège &amp; Coordonnées</a></li>
+            <li><a href="b2b.html">Devenir Partenaire Agréé</a></li>
+            <li><a href="contact.html">Presse &amp; Partenariats</a></li>
+            <li><a href="tel:+212522998877">+212 (0) 522 99 88 77</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel.</div>
+        <div class="footer-legal-links">
+          <a href="#">Politique de Confidentialité</a>
+          <a href="#">Conditions Générales de Garantie</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/sav.js"></script>
+</body>
+</html>

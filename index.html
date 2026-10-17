@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>NEROBEL GROUP · Consumer Tech for Modern Homes · Theros, Pacific & Eurogas</title>
+  <meta name="description" content="Nerobel Group : Consumer Tech for Modern Homes. Distributeur et fabricant des marques leaders Theros, Pacific et Eurogas au Maroc. Électroménager contemporain, Smart TV et confort thermique.">
+  <link rel="canonical" href="https://nerobel.com/">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nerobel.com/">
+  <meta property="og:title" content="NEROBEL GROUP · Consumer Tech for Modern Homes">
+  <meta property="og:description" content="Distributeur et fabricant des marques leaders Theros, Pacific et Eurogas au Maroc. Électroménager contemporain et confort thermique.">
+  <meta property="og:image" content="assets/img/nerobel-banner-appliances.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+
+  <!-- High-Performance Zero-Latency Local SVG Icons (Zero Carré, Instant First Paint) -->
+  <link rel="stylesheet" href="css/icons.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Official Nerobel Exact Vector Logo -->
+      <a href="index.html" class="brand-logo" aria-label="Nerobel Group">
+        <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL">
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav aria-label="Navigation Principale">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active" data-i18n="navHome">Groupe</a></li>
+          <li><a href="brands.html" class="nav-link" data-i18n="navBrands">Marques</a></li>
+          <li><a href="sav.html" class="nav-link" data-i18n="navSav">Support SAV</a></li>
+          <li><a href="network.html" class="nav-link" data-i18n="navNetwork">Showrooms</a></li>
+          <li><a href="b2b.html" class="nav-link" data-i18n="navB2b">Professionnels</a></li>
+          <li><a href="contact.html" class="nav-link" data-i18n="navContact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Utilities (Language, Theme, CTA) -->
+      <div class="header-actions">
+        <!-- Space-Optimized Language Dropdown -->
+        <div class="lang-dropdown">
+          <button type="button" class="lang-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Changer de langue">
+            <span class="lang-current-code">FR</span>
+            <i class="ti ti-chevron-down lang-chevron"></i>
+          </button>
+          <div class="lang-dropdown-menu" role="menu">
+            <button type="button" class="lang-menu-item active" data-lang="fr" role="menuitem">
+              <span class="lang-item-code">FR</span>
+              <span class="lang-item-name">Français</span>
+              <i class="ti ti-check lang-item-check"></i>
+            </button>
+            <button type="button" class="lang-menu-item" data-lang="ar" role="menuitem">
+              <span class="lang-item-code">AR</span>
+              <span class="lang-item-name">العربية</span>
+              <i class="ti ti-check lang-item-check"></i>
+            </button>
+            <button type="button" class="lang-menu-item" data-lang="en" role="menuitem">
+              <span class="lang-item-code">EN</span>
+              <span class="lang-item-name">English</span>
+              <i class="ti ti-check lang-item-check"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button type="button" class="theme-btn" aria-label="Changer de thème">
+          <i class="ti ti-sun"></i>
+        </button>
+
+        <!-- Direct SAV CTA -->
+        <a href="sav.html" class="btn-cta-sav">
+          <i class="ti ti-tool"></i>
+          <span data-i18n="ctaSav">Demande SAV</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button type="button" class="mobile-nav-toggle" aria-label="Menu Mobile">
+          <i class="ti ti-menu-2"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu Navigation Mobile">
+    <div class="mobile-drawer-header">
+      <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL">
+      <button type="button" class="mobile-drawer-close" aria-label="Fermer"><i class="ti ti-x"></i></button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="active" data-i18n="navHome">Groupe</a></li>
+      <li><a href="brands.html" data-i18n="navBrands">Marques</a></li>
+      <li><a href="sav.html" data-i18n="navSav">Support SAV</a></li>
+      <li><a href="network.html" data-i18n="navNetwork">Showrooms</a></li>
+      <li><a href="b2b.html" data-i18n="navB2b">Professionnels</a></li>
+      <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
+    </ul>
+    <div class="drawer-cta-wrap">
+      <a href="sav.html" class="btn btn-primary btn-block"><i class="ti ti-tool"></i> <span data-i18n="ctaSav">Demande SAV</span></a>
+    </div>
+  </div>
+
+  <main id="main-content" aria-label="Contenu Principal">
+    <!-- Refined Hero Section: Clear, Spacious & Poised -->
+    <section class="hero-section" id="heroSection">
+      <!-- Background Slides Layer (Cinematic Animated Changer) -->
+      <div class="hero-bg-layer" id="heroBgLayer">
+        <div class="hero-bg-slide active" data-index="0" style="background-image: url('assets/img/theros-hero-hook.webp');"></div>
+        <div class="hero-bg-slide" data-index="1" style="background-image: url('assets/img/theros-living-room-hook.webp');"></div>
+        <div class="hero-bg-slide" data-index="2" style="background-image: url('assets/img/eurogas-hero-hook.webp');"></div>
+        <div class="hero-bg-slide" data-index="3" style="background-image: url('assets/img/theros-bedroom-hook.webp');"></div>
+        <div class="hero-bg-scrim"></div>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left Column: Clear Presentation & Value Proposition -->
+          <div class="hero-content" data-reveal="fade-up">
+            <div class="eyebrow">
+              <i class="ti ti-smart-home"></i>
+              <span data-i18n="eyebrowGroup">Consumer Tech for Modern Homes</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span data-i18n="heroTitlePart1">L'Excellence du Confort & de la </span>
+              <span class="highlight-blue" data-i18n="heroTitleHighlight">Maison Moderne</span>
+            </h1>
+
+            <p class="hero-lead" data-i18n="heroLead">
+              Groupe industriel et technologique d'avant-garde. Nerobel conçoit et distribue l'électroménager contemporain, les Smart TV et les solutions thermiques de référence au Maroc : Theros, Pacific et Eurogas.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#collections-signatures" class="btn btn-primary">
+                <span data-i18n="heroCtaBrands">Explorer les Collections</span>
+                <i class="ti ti-arrow-right"></i>
+              </a>
+              <a href="sav.html" class="btn btn-outline-blue">
+                <i class="ti ti-tool"></i>
+                <span data-i18n="heroCtaSav">Accéder au Portail SAV</span>
+              </a>
+            </div>
+
+            <!-- Reassurance Trust Badges -->
+            <div class="hero-badges-row">
+              <span><i class="ti ti-shield-check"></i> <strong data-i18n="statWarrantyLabel">Garantie Constructeur</strong></span>
+              <span><i class="ti ti-map-pin"></i> <span data-i18n="statDistributorsLabel">150+ Showrooms au Maroc</span></span>
+              <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="hero-wa-link">
+                <i class="ti ti-brand-whatsapp text-wa"></i>
+                <span>+212 787 013 201</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column Spacer: 100% Unobstructed Product & Architectural View -->
+          <div class="hero-spacer" aria-hidden="true"></div>
+        </div>
+
+        <!-- Miniature Hero Controller Dock at Bottom Right (Architectural Precision HUD) -->
+        <div class="hero-miniature-dock" id="heroContextCard" data-reveal="fade-up">
+          <div class="hero-mini-status">
+            <span class="context-live-dot" id="heroLiveDot"></span>
+            <span class="context-counter" id="heroContextCounter">01/04</span>
+            <div class="hero-mini-text" id="heroContextInfo">
+              <span class="hero-mini-title" id="heroContextTitle">Theros Pro-Slim 50L</span>
+            </div>
+          </div>
+
+          <div class="hero-mini-divider"></div>
+
+          <div class="hero-mini-controls">
+            <button type="button" class="hero-nav-arrow" id="heroPrevSlide" aria-label="Précédent">
+              <i class="ti ti-chevron-left"></i>
+            </button>
+            <div class="hero-nav-indicators" id="heroIndicators">
+              <button type="button" class="indicator-bar active" data-slide="0" aria-label="Slide 1">
+                <span class="bar-fill"></span>
+              </button>
+              <button type="button" class="indicator-bar" data-slide="1" aria-label="Slide 2">
+                <span class="bar-fill"></span>
+              </button>
+              <button type="button" class="indicator-bar" data-slide="2" aria-label="Slide 3">
+                <span class="bar-fill"></span>
+              </button>
+              <button type="button" class="indicator-bar" data-slide="3" aria-label="Slide 4">
+                <span class="bar-fill"></span>
+              </button>
+            </div>
+            <button type="button" class="hero-nav-arrow" id="heroNextSlide" aria-label="Suivant">
+              <i class="ti ti-chevron-right"></i>
+            </button>
+          </div>
+          <span class="sr-only" id="heroContextEyebrow">Theros · Confort Thermique</span>
+          <p class="sr-only" id="heroContextDesc">Connecté Wi-Fi · Écran tactile digital 55°C · Finition titane brossé</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metrics Trust Strip: Uncrowded & Distinct with Live Counters -->
+    <section class="metrics-strip">
+      <div class="container">
+        <div class="metrics-grid" data-reveal-stagger>
+          <div class="metric-item" data-reveal="fade-up">
+            <div class="metric-num">25<span class="plus">+</span></div>
+            <div class="metric-label" data-i18n="statYearsLabel">Ans d'Ingénierie & Innovation</div>
+          </div>
+          <div class="metric-item" data-reveal="fade-up">
+            <div class="metric-num">150<span class="plus">+</span></div>
+            <div class="metric-label" data-i18n="statDistributorsLabel">Distributeurs & Showrooms au Maroc</div>
+          </div>
+          <div class="metric-item" data-reveal="fade-up">
+            <div class="metric-num">100<span class="plus">%</span></div>
+            <div class="metric-label" data-i18n="statWarrantyLabel">Garantie Constructeur Certifiée</div>
+          </div>
+          <div class="metric-item" data-reveal="fade-up">
+            <div class="metric-num">24/48<span class="plus">h</span></div>
+            <div class="metric-label" data-i18n="statSavSpeedLabel">Délai Moyen d'Intervention SAV</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 Core Gateway Pillars (Instant Orientation) -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="gateways-grid" data-reveal-stagger>
+          <!-- Gateway 1: Brands -->
+          <a href="#marques" class="gateway-card" data-reveal="fade-up">
+            <div class="gateway-icon">
+              <i class="ti ti-layout-grid"></i>
+            </div>
+            <h3 class="gateway-title">Marques & Équipements</h3>
+            <p class="gateway-desc">
+              Découvrez les chauffe-eaux connectés Theros, la polyvalence Pacific, la sécurité gaz Eurogas et l'électroménager Nerobel.
+            </p>
+            <span class="gateway-link">Explorer le portefeuille <i class="ti ti-arrow-right"></i></span>
+          </a>
+
+          <!-- Gateway 2: SAV Support -->
+          <a href="sav.html" class="gateway-card" data-reveal="fade-up">
+            <div class="gateway-icon">
+              <i class="ti ti-tool"></i>
+            </div>
+            <h3 class="gateway-title">Support & Service Après-Vente</h3>
+            <p class="gateway-desc">
+              Déposez une réclamation en 2 minutes, demandez l'intervention d'un technicien certifié ou suivez votre ticket en temps réel.
+            </p>
+            <span class="gateway-link">Accéder au portail SAV <i class="ti ti-arrow-right"></i></span>
+          </a>
+
+          <!-- Gateway 3: B2B Network -->
+          <a href="b2b.html" class="gateway-card" data-reveal="fade-up">
+            <div class="gateway-icon">
+              <i class="ti ti-building-store"></i>
+            </div>
+            <h3 class="gateway-title">Espace Professionnels & B2B</h3>
+            <p class="gateway-desc">
+              Promoteurs immobiliers, plombiers installateurs et revendeurs agréés : bénéficiez d'un approvisionnement direct et d'un support dédié.
+            </p>
+            <span class="gateway-link">Découvrir le programme Pro <i class="ti ti-arrow-right"></i></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- GROHE-INSPIRED SIGNATURE COLLECTIONS SLIDER                    -->
+    <!-- ============================================================== -->
+    <section class="collection-showcase" id="collections-signatures" aria-label="Collections Signatures Nerobel">
+      <div class="container">
+        
+        <!-- En-tête éditorial avec commandes minimalistes -->
+        <div class="collection-header" data-reveal="fade-up">
+          <div class="collection-intro">
+            <div class="eyebrow eyebrow-gold">
+              <i class="ti ti-cpu"></i>
+              <span data-i18n="collectionEyebrow">Design &amp; Ingénierie de Précision</span>
+            </div>
+            <h2 class="section-title" data-i18n="collectionTitle">
+              Les Collections Signatures de l'Habitat Moderne
+            </h2>
+            <p class="collection-lead" data-i18n="collectionLead">
+              Découvrez la fusion de l'ingénierie thermique d'avant-garde et de matériaux rigoureusement sélectionnés. Des solutions connectées Theros à l'électroménager noir mat Nerobel, chaque ligne est pensée pour sublimer les intérieurs contemporains.
+            </p>
+          </div>
+
+          <!-- Commandes de navigation de type GROHE -->
+          <div class="collection-controls" role="group" aria-label="Contrôles du carrousel">
+            <button type="button" class="ctrl-btn ctrl-prev" id="collPrevBtn" aria-label="Collection précédente">
+              <i class="ti ti-chevron-left"></i>
+            </button>
+            <button type="button" class="ctrl-btn ctrl-next" id="collNextBtn" aria-label="Collection suivante">
+              <i class="ti ti-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Piste de défilement (Track) -->
+        <div class="collection-track-wrapper">
+          <div class="collection-track" id="collectionTrack" tabindex="0" role="region" aria-roledescription="carousel">
+            
+            <!-- Carte 1 : Theros Pro-Slim -->
+            <article class="collection-card" role="group" aria-roledescription="slide" aria-label="1 sur 5 : Theros Pro-Slim">
+              <a href="brands.html#theros" class="collection-card-link">
+                <div class="collection-visual-pane">
+                  <picture>
+                    <source srcset="assets/img/theros_brand_article.webp" type="image/webp">
+                    <img src="assets/img/theros_brand_article.jpg" alt="Theros Pro-Slim Chauffe-eau Connecté" loading="lazy" class="collection-img">
+                  </picture>
+                  <span class="collection-badge-tag"><i class="ti ti-wifi"></i> Wi-Fi Smart</span>
+                </div>
+                <div class="collection-info-pane">
+                  <div class="collection-brand-sub">THEROS · SMART THERMAL</div>
+                  <h3 class="collection-card-title">Theros Pro-Slim</h3>
+                  <p class="collection-card-desc">L'art du confort thermique ultra-plat (25 cm) piloté au degré près par smartphone.</p>
+                  <span class="collection-card-action">
+                    <span data-i18n="collectionCardAction">Découvrir la collection</span>
+                    <i class="ti ti-arrow-right"></i>
+                  </span>
+                </div>
+              </a>
+            </article>
+
+            <!-- Carte 2 : Pacific Horizon -->
+            <article class="collection-card" role="group" aria-roledescription="slide" aria-label="2 sur 5 : Pacific Horizon">
+              <a href="brands.html#pacific" class="collection-card-link">
+                <div class="collection-visual-pane">
+                  <img src="assets/img/pacific-waterheater-poster.jpg" alt="Pacific Chauffe-eau Multi-Position" loading="lazy" class="collection-img">
+                  <span class="collection-badge-tag"><i class="ti ti-arrows-maximize"></i> Multi-Position</span>
+                </div>
+                <div class="collection-info-pane">
+                  <div class="collection-brand-sub">PACIFIC · HAUTE FIABILITÉ</div>
+                  <h3 class="collection-card-title">Pacific Horizon</h3>
+                  <p class="collection-card-desc">Installation universelle réversible, double cuve en acier vitrifié et cadran digital 75°C.</p>
+                  <span class="collection-card-action">
+                    <span data-i18n="collectionCardAction">Découvrir la collection</span>
+                    <i class="ti ti-arrow-right"></i>
+                  </span>
+                </div>
+              </a>
+            </article>
+
+            <!-- Carte 3 : Eurogas Master Force -->
+            <article class="collection-card" role="group" aria-roledescription="slide" aria-label="3 sur 5 : Eurogas Master Flame">
+              <a href="brands.html#eurogas" class="collection-card-link">
+                <div class="collection-visual-pane">
+                  <img src="assets/img/eurogas-boiler.jpg" alt="Eurogas Chauffe-eau à Gaz et Chaudière" loading="lazy" class="collection-img">
+                  <span class="collection-badge-tag"><i class="ti ti-flame"></i> Sécurité ODS</span>
+                </div>
+                <div class="collection-info-pane">
+                  <div class="collection-brand-sub">EUROGAS · SÉCURITÉ GAZ</div>
+                  <h3 class="collection-card-title">Eurogas Master Flame</h3>
+                  <p class="collection-card-desc">Production instantanée, brûleur cuivre à allumage basse pression et triple protection certifiée CE.</p>
+                  <span class="collection-card-action">
+                    <span data-i18n="collectionCardAction">Découvrir la collection</span>
+                    <i class="ti ti-arrow-right"></i>
+                  </span>
+                </div>
+              </a>
+            </article>
+
+            <!-- Carte 4 : Nerobel Black Titanium -->
+            <article class="collection-card" role="group" aria-roledescription="slide" aria-label="4 sur 5 : Nerobel Black Titanium">
+              <a href="brands.html#nerobel-tech" class="collection-card-link">
+                <div class="collection-visual-pane">
+                  <picture>
+                    <source srcset="assets/img/nerobel-banner-appliances.webp" type="image/webp">
+                    <img src="assets/img/nerobel-banner-appliances.jpg" alt="Nerobel Gamme Électroménager & Smart TV" loading="lazy" class="collection-img">
+                  </picture>
+                  <span class="collection-badge-tag"><i class="ti ti-snowflake"></i> Inverter No-Frost</span>
+                </div>
+                <div class="collection-info-pane">
+                  <div class="collection-brand-sub">NEROBEL · MODERN LIVING</div>
+                  <h3 class="collection-card-title">Black Titanium French-Door</h3>
+                  <p class="collection-card-desc">Froid haute capacité multi-portes, finition acier noir mat anti-traces et compresseur Inverter silencieux.</p>
+                  <span class="collection-card-action">
+                    <span data-i18n="collectionCardAction">Découvrir la collection</span>
+                    <i class="ti ti-arrow-right"></i>
+                  </span>
+                </div>
+              </a>
+            </article>
+
+            <!-- Carte 5 : Nerobel Vision OLED -->
+            <article class="collection-card" role="group" aria-roledescription="slide" aria-label="5 sur 5 : Nerobel Vision OLED">
+              <a href="brands.html#nerobel-tech" class="collection-card-link">
+                <div class="collection-visual-pane">
+                  <img src="assets/img/nerobel-tech-showcase.jpg" alt="Nerobel Smart TV OLED 4K" loading="lazy" class="collection-img">
+                  <span class="collection-badge-tag"><i class="ti ti-device-tv"></i> OLED 4K HDR</span>
+                </div>
+                <div class="collection-info-pane">
+                  <div class="collection-brand-sub">NEROBEL · ENTERTAINMENT</div>
+                  <h3 class="collection-card-title">Vision Bezel-Less OLED</h3>
+                  <p class="collection-card-desc">Contraste absolu des noirs, profil ultra-fin de 4 mm, interface connectée et immersion sonore cinéma.</p>
+                  <span class="collection-card-action">
+                    <span data-i18n="collectionCardAction">Découvrir la collection</span>
+                    <i class="ti ti-arrow-right"></i>
+                  </span>
+                </div>
+              </a>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Barre de Progression Segmentée (Type GROHE) -->
+        <div class="collection-progress-bar" id="collProgressBar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5">
+          <div class="progress-segment active" data-index="0"></div>
+          <div class="progress-segment" data-index="1"></div>
+          <div class="progress-segment" data-index="2"></div>
+          <div class="progress-segment" data-index="3"></div>
+          <div class="progress-segment" data-index="4"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Brand Showcase Section: 4 Universes (Clean CSS, No Inline Styles) -->
+    <section class="section" id="marques">
+      <div class="container">
+        <div class="section-header" data-reveal="fade-up">
+          <div class="eyebrow eyebrow-gold">
+            <i class="ti ti-award"></i>
+            <span data-i18n="brandsSectionEyebrow">Portefeuille de Marques d'Élite</span>
+          </div>
+          <h2 class="section-title" data-i18n="brandsSectionTitle">Des Marques Leaders Dédiées à Votre Confort</h2>
+          <p class="section-desc" data-i18n="brandsSectionDesc">
+            Chaque marque du groupe Nerobel répond aux normes de sécurité internationales les plus strictes pour offrir durabilité, confort et économies d'énergie.
+          </p>
+        </div>
+
+        <div class="brands-grid-4" data-reveal-stagger>
+          <!-- Brand 1: Theros -->
+          <article class="brand-card" data-reveal="fade-up">
+            <div class="brand-card-img-wrap">
+              <picture>
+                <source srcset="assets/img/theros_brand_article.webp" type="image/webp">
+                <img src="assets/img/theros_brand_article.jpg" alt="Theros Pro-Slim Chauffe-eau Connecté" class="brand-card-img" loading="lazy">
+              </picture>
+              <div class="brand-card-badge">
+                <img src="assets/icons/theros-logo.svg" alt="Theros">
+              </div>
+            </div>
+            <div class="brand-card-body">
+              <div class="eyebrow"><i class="ti ti-wifi"></i> <span data-i18n="therosBadge">Votre Confort, Connecté</span></div>
+              <h3 class="card-title">THEROS · Smart Thermal</h3>
+              <p class="brand-card-lead">
+                Chauffe-eau Pro-Slim extra-plat connecté par smartphone. Double réservoir titane &amp; 3 puissances (500W / 1300W / 2000W).
+              </p>
+              <div class="seal-nerobel seal-nerobel--sm">
+                <span class="seal-nerobel-text">Disponible chez</span>
+                <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL" class="seal-nerobel-logo">
+              </div>
+              <div class="card-actions-row">
+                <a href="brands.html#theros" class="btn btn-outline-blue btn-flex">Détails</a>
+                <a href="https://theros.ma/" target="_blank" rel="noopener" class="btn btn-secondary" title="Visiter theros.ma"><i class="ti ti-external-link"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Brand 2: Pacific -->
+          <article class="brand-card" data-reveal="fade-up">
+            <div class="brand-card-img-wrap">
+              <img src="assets/img/pacific-waterheater-poster.jpg" alt="Pacific Chauffe-eau Multi-Position" class="brand-card-img">
+              <div class="brand-card-badge">
+                <img src="assets/icons/pacific-logo.svg" alt="Pacific">
+              </div>
+            </div>
+            <div class="brand-card-body">
+              <div class="eyebrow eyebrow-gold"><i class="ti ti-arrows-maximize"></i> <span data-i18n="pacificBadge">Eau Chaude Fiable &amp; Flexible</span></div>
+              <h3 class="card-title">PACIFIC · Haute Fiabilité</h3>
+              <p class="brand-card-lead">
+                Montage universel réversible horizontal ou vertical. Double réservoir en acier vitrifié et écran digital réglable à 75°C.
+              </p>
+              <div class="seal-nerobel seal-nerobel--sm">
+                <span class="seal-nerobel-text">متوفر لدى NEROBEL</span>
+                <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL" class="seal-nerobel-logo">
+              </div>
+              <div class="card-actions-row">
+                <a href="brands.html#pacific" class="btn btn-outline-blue btn-flex">Détails</a>
+                <a href="sav.html" class="btn btn-secondary" title="Support SAV"><i class="ti ti-tool"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Brand 3: Eurogas -->
+          <article class="brand-card" data-reveal="fade-up">
+            <div class="brand-card-img-wrap">
+              <img src="assets/img/eurogas-boiler.jpg" alt="Eurogas Chauffe-eau à Gaz et Chaudière" class="brand-card-img">
+              <div class="brand-card-badge">
+                <img src="assets/icons/eurogas-logo.svg" alt="Eurogas">
+              </div>
+            </div>
+            <div class="brand-card-body">
+              <div class="eyebrow"><i class="ti ti-flame"></i> <span data-i18n="eurogasBadge">Systèmes Gaz &amp; Chaudières</span></div>
+              <h3 class="card-title">EUROGAS™ · Sécurité Gaz</h3>
+              <p class="brand-card-lead">
+                Chauffe-eaux instantanés et chaudières murales. Triple sécurité ODS, allumage basse pression et conformité européenne CE.
+              </p>
+              <div class="seal-nerobel seal-nerobel--sm">
+                <span class="seal-nerobel-text">Disponible chez</span>
+                <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL" class="seal-nerobel-logo">
+              </div>
+              <div class="card-actions-row">
+                <a href="brands.html#eurogas" class="btn btn-outline-blue btn-flex">Détails</a>
+                <a href="https://eurogas.ma/" target="_blank" rel="noopener" class="btn btn-secondary" title="Visiter eurogas.ma"><i class="ti ti-external-link"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Brand 4: Nerobel Consumer Tech -->
+          <article class="brand-card" data-reveal="fade-up">
+            <div class="brand-card-img-wrap">
+              <img src="assets/img/nerobel-tech-showcase.jpg" alt="Nerobel Consumer Tech - Électroménager & Smart TV" class="brand-card-img">
+              <div class="brand-card-badge">
+                <img src="assets/icons/nerobel-logo.svg" alt="Nerobel">
+              </div>
+            </div>
+            <div class="brand-card-body">
+              <div class="eyebrow"><i class="ti ti-device-tv"></i> <span>Modern Living</span></div>
+              <h3 class="card-title">NEROBEL · Consumer Tech</h3>
+              <p class="brand-card-lead">
+                L'électroménager contemporain et les Smart TV OLED 4K. Réfrigérateurs multi-portes noir mat et climatiseurs Inverter éco-énergétiques.
+              </p>
+              <div class="seal-nerobel seal-nerobel--sm">
+                <span class="seal-nerobel-text">Marque Constructeur</span>
+                <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL" class="seal-nerobel-logo">
+              </div>
+              <div class="card-actions-row">
+                <a href="brands.html#nerobel-tech" class="btn btn-outline-blue btn-flex">Gamme Tech</a>
+                <a href="network.html" class="btn btn-secondary" title="Showrooms"><i class="ti ti-map-pin"></i></a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Dedicated SAV Quick Tracker Box -->
+        <div class="tracker-box" data-reveal="fade-up">
+          <!-- Signature Curved Architectural Laser Blade (Ultra-Fine Haute Précision) -->
+          <div class="tracker-laser-blade" aria-hidden="true">
+            <svg class="tracker-laser-svg" viewBox="0 0 1272 206" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Ultra-Fine Laser Filament Gradient: authentic ice blue (#ADD8FF) to electric azure (#3AA0E6) -->
+                <linearGradient id="fineLaserBeam" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#80C0FF" stop-opacity="0" />
+                  <stop offset="15%" stop-color="#A0D0FF" stop-opacity="0.8" />
+                  <stop offset="42%" stop-color="#FFFFFF" stop-opacity="1" />
+                  <stop offset="70%" stop-color="#80C4FF" stop-opacity="0.9" />
+                  <stop offset="90%" stop-color="#3A90E6" stop-opacity="0.6" />
+                  <stop offset="100%" stop-color="#1A4080" stop-opacity="0" />
+                </linearGradient>
+
+                <!-- Subtle Soft Halo Gradient (Tight & Discreet) -->
+                <linearGradient id="fineLaserAura" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#4090E0" stop-opacity="0" />
+                  <stop offset="20%" stop-color="#60A8F5" stop-opacity="0.35" />
+                  <stop offset="50%" stop-color="#3A8BE0" stop-opacity="0.45" />
+                  <stop offset="85%" stop-color="#1A50A0" stop-opacity="0.2" />
+                  <stop offset="100%" stop-color="#082048" stop-opacity="0" />
+                </linearGradient>
+
+                <!-- Pure Volumetric Indigo-Navy Shadow (Matching the Photographic Chiaroscuro Below) -->
+                <linearGradient id="fineWedgeShadow" x1="0%" y1="0%" x2="100%" y2="40%">
+                  <stop offset="0%" stop-color="#0A224A" stop-opacity="0.28" />
+                  <stop offset="25%" stop-color="#051430" stop-opacity="0.6" />
+                  <stop offset="65%" stop-color="#020818" stop-opacity="0.85" />
+                  <stop offset="100%" stop-color="#01040D" stop-opacity="0.95" />
+                </linearGradient>
+
+                <!-- Ultra-Fine Glow Filter (Very Small Radius) -->
+                <filter id="fineLaserGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="1.5" />
+                </filter>
+                <filter id="fineLaserSubtle" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="4" />
+                </filter>
+              </defs>
+
+              <!-- Discreet Volumetric Navy Shadow -->
+              <path d="M 1045,-10 C 1012,60 968,135 935,216 L 1290,216 L 1290,-10 Z" fill="url(#fineWedgeShadow)" />
+
+              <!-- Layer 1: Whispering Ambient Azure Dispersion (Very low opacity, tight) -->
+              <path d="M 1045,-10 C 1012,60 968,135 935,216" stroke="url(#fineLaserAura)" stroke-width="5" filter="url(#fineLaserSubtle)" opacity="0.35" />
+
+              <!-- Layer 2: Tight Optical Flare Halo -->
+              <path d="M 1045,-10 C 1012,60 968,135 935,216" stroke="url(#fineLaserBeam)" stroke-width="2" filter="url(#fineLaserGlow)" opacity="0.75" />
+
+              <!-- Layer 3: Ultra-Fine Razor-Sharp Filament (1.1px Haute Précision) -->
+              <path d="M 1045,-10 C 1012,60 968,135 935,216" stroke="url(#fineLaserBeam)" stroke-width="1.1" opacity="1" />
+            </svg>
+          </div>
+
+          <div class="tracker-info">
+            <div class="eyebrow"><i class="ti ti-radar"></i> Suivi &amp; Prise en Charge</div>
+            <h3 data-i18n="trackerTitle">Suivi en Direct de votre Dossier SAV</h3>
+            <p data-i18n="trackerDesc">Entrez votre numéro de ticket (ex: NERO-2026-8921) pour vérifier l'état d'avancement de votre intervention ou planifier un passage technicien.</p>
+          </div>
+          <form class="tracker-form" id="quickTrackerForm">
+            <input type="text" class="tracker-input" id="quickTrackerInput" placeholder="Code ticket (ex: NERO-2026-8921)" data-i18n-placeholder="trackerPlaceholder" required>
+            <button type="submit" class="btn btn-primary">
+              <i class="ti ti-search"></i>
+              <span data-i18n="trackerBtn">Vérifier</span>
+            </button>
+            <a href="sav.html" class="btn btn-secondary">
+              <i class="ti ti-plus"></i> Nouveau Dossier
+            </a>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Heritage & About Section (D7: Storytelling Narrative) -->
+    <section class="section section--alt" id="groupe">
+      <div class="container">
+        <div class="group-story-grid">
+          <div data-reveal="fade-right">
+            <div class="eyebrow eyebrow-gold">
+              <i class="ti ti-building-factory-2"></i>
+              <span data-i18n="aboutGroupEyebrow">Héritage &amp; Savoir-Faire Industriel</span>
+            </div>
+            <h2 class="section-title" data-i18n="aboutGroupTitle">
+              Plus de 25 Ans au Cœur de l'Innovation Domestique
+            </h2>
+            <div class="nerobel-laser-line"></div>
+            <p class="section-desc" data-i18n="aboutGroupDesc" style="margin-bottom:24px;">
+              Nerobel Group s'est imposé comme le partenaire technologique incontournable des foyers marocains et des professionnels du bâtiment, alliant fiabilité rigoureuse, sécurité certifiée et élégance contemporaine.
+            </p>
+            <div class="hero-badges-row" style="border:none; padding:0; margin-bottom:28px;">
+              <span><i class="ti ti-headset"></i> <strong>Support SAV Réactif 48h</strong></span>
+              <span><i class="ti ti-tool"></i> <strong>100% Pièces d'Origine</strong></span>
+            </div>
+            <div class="hero-actions">
+              <a href="b2b.html" class="btn btn-primary">
+                <span>Espace Partenaires B2B</span>
+                <i class="ti ti-arrow-right"></i>
+              </a>
+              <a href="network.html" class="btn btn-secondary">
+                <i class="ti ti-map-pin"></i>
+                <span>Nos Showrooms au Maroc</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="group-story-card" data-reveal="scale">
+            <picture>
+              <source srcset="assets/img/nerobel-banner-appliances.webp" type="image/webp">
+              <img src="assets/img/nerobel-banner-appliances.jpg" alt="Ingénierie et Showroom Nerobel Group" loading="lazy">
+            </picture>
+            <div class="group-story-badge">
+              <i class="ti ti-award" style="font-size:1.8rem; color:var(--gold);"></i>
+              <div>
+                <strong style="display:block; color:#FFFFFF; font-size:0.95rem;">Qualité Constructeur Garantie</strong>
+                <span style="font-size:0.8rem; color:var(--tx2);">Theros · Pacific · Eurogas · Nerobel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Morocco Showroom & Regional Network Teaser -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="network-teaser-row" data-reveal="fade-up">
+          <div class="network-teaser-text">
+            <div class="eyebrow"><i class="ti ti-map"></i> Réseau National au Maroc</div>
+            <h2 class="section-title">Un Réseau de Proximité dans Toutes les Régions</h2>
+            <p class="section-desc">
+              Retrouvez nos marques Theros, Pacific, Eurogas et nos centres SAV agréés à Casablanca, Rabat, Marrakech, Tanger, Fès, Agadir et Oujda.
+            </p>
+          </div>
+          <div class="network-teaser-actions">
+            <a href="network.html" class="btn btn-primary"><i class="ti ti-map-pin"></i> Trouver un Showroom Agréé</a>
+            <a href="contact.html" class="btn btn-secondary"><i class="ti ti-phone"></i> Contacter le Siège</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Mobile Sticky Action Bar -->
+  <nav class="mobile-sticky-bar" aria-label="Actions rapides mobiles">
+    <a href="tel:+212522998877" class="mobile-bar-btn">
+      <i class="ti ti-phone"></i>
+      <span>Appeler</span>
+    </a>
+    <a href="https://wa.me/212787013201?text=Bonjour%20Nerobel" target="_blank" rel="noopener" class="mobile-bar-btn wa-highlight">
+      <i class="ti ti-brand-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="sav.html" class="mobile-bar-btn sav-highlight">
+      <i class="ti ti-tool"></i>
+      <span>SAV Express</span>
+    </a>
+    <a href="network.html" class="mobile-bar-btn">
+      <i class="ti ti-map-pin"></i>
+      <span>Showrooms</span>
+    </a>
+  </nav>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL">
+          <p data-i18n="footerDesc">
+            Nerobel Group est le leader marocain en électroménager contemporain, Smart TV et solutions de confort thermique : Theros, Pacific et Eurogas.
+          </p>
+          <div class="footer-social-row">
+            <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="social-btn" title="WhatsApp Support" aria-label="WhatsApp Support"><i class="ti ti-brand-whatsapp text-wa"></i></a>
+            <a href="https://www.facebook.com/nerobel" target="_blank" rel="noopener" class="social-btn" title="Facebook" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+            <a href="https://www.linkedin.com/company/nerobel/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title" data-i18n="footerColBrands">Nos Marques</h4>
+          <ul class="footer-links">
+            <li><a href="brands.html#theros">Theros Water Heaters</a></li>
+            <li><a href="brands.html#pacific">Pacific Chauffe-eaux</a></li>
+            <li><a href="brands.html#eurogas">Eurogas Gas Solutions</a></li>
+            <li><a href="brands.html#nerobel-tech">Nerobel Consumer Tech</a></li>
+            <li><a href="https://theros.ma/" target="_blank" rel="noopener">Site Officiel Theros</a></li>
+            <li><a href="https://eurogas.ma/" target="_blank" rel="noopener">Site Officiel Eurogas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title" data-i18n="footerColServices">Services &amp; Support</h4>
+          <ul class="footer-links">
+            <li><a href="sav.html">Portail Réclamation SAV</a></li>
+            <li><a href="network.html">Showrooms &amp; Distributeurs</a></li>
+            <li><a href="b2b.html">Espace Installateurs &amp; B2B</a></li>
+            <li><a href="tel:+212787013201">WhatsApp : +212 787 013 201</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title" data-i18n="footerColGroup">Le Groupe</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Siège &amp; Coordonnées</a></li>
+            <li><a href="b2b.html">Devenir Partenaire Agréé</a></li>
+            <li><a href="contact.html">Presse &amp; Partenariats</a></li>
+            <li><a href="tel:+212522998877">+212 (0) 522 99 88 77</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés. Theros, Pacific et Eurogas sont distribués par Nerobel.</div>
+        <div class="footer-legal-links">
+          <a href="#">Politique de Confidentialité</a>
+          <a href="#">Conditions Générales de Garantie</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

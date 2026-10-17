@@ -1,0 +1,44 @@
+# Root screenshots, test captures, and scratch visual assets
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+/debug_*.*
+/scratch_*.*
+/test_*.*
+/crop*.*
+/aligned_*.*
+/artifacts_*.*
+/preview_*.*
+/current_*.*
+/final_*.*
+/new_*.*
+/playwright_*.*
+/screenshot_*.*
+/v3_*.*
+/v4_*.*
+/verified_*.*
+/real_*.*
+/c2_text.png
+/pac_nerobel.png
+/pacific_*.*
+/eurogas_*.*
+/theros_*.*
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Operating System and IDE files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.log
+*.tmp
