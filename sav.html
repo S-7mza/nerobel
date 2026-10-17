@@ -304,6 +304,14 @@
                 </div>
               </div>
 
+              <div class="form-group form-consent-group">
+                <label class="form-consent-label" for="savConsent">
+                  <input type="checkbox" id="savConsent" name="consent" required>
+                  <span>J'accepte que mes données soient utilisées pour traiter ma demande. Voir la <a href="confidentialite.html">politique de confidentialité</a>.</span>
+                </label>
+                <div class="field-error-msg" id="savConsentError"><i class="ti ti-alert-circle"></i> <span>Veuillez accepter pour envoyer votre demande.</span></div>
+              </div>
+
               <div class="step-nav-bar">
                 <button type="button" class="btn btn-secondary" id="btn-back-to-step1">
                   <i class="ti ti-arrow-left"></i> <span data-i18n="btnBack">Retour</span>
@@ -530,7 +538,8 @@
       <div class="footer-bottom">
         <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés.</div>
         <div class="footer-legal-links">
-          <a href="#">Politique de Confidentialité</a>
+          <a href="confidentialite.html">Politique de confidentialité</a>
+          <a href="mentions-legales.html">Mentions légales</a>
         </div>
       </div>
     </div>

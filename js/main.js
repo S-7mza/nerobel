@@ -77,6 +77,64 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // Form Consent & Required Validation (B2B & Contact)
+  function bindStandardForm(formId, successMessage) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    const consentCheckbox = form.querySelector('input[name="consent"]');
+    const consentError = form.querySelector('.form-consent-group .field-error-msg');
+
+    if (consentCheckbox) {
+      consentCheckbox.addEventListener('change', () => {
+        if (consentCheckbox.checked) {
+          consentCheckbox.classList.remove('has-error');
+          if (consentError) consentError.classList.remove('visible');
+        }
+      });
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      form.querySelectorAll('input[required]:not([type="checkbox"]), textarea[required], select[required]').forEach((field) => {
+        if (!field.value.trim()) {
+          field.classList.add('has-error');
+          valid = false;
+        } else {
+          field.classList.remove('has-error');
+        }
+      });
+
+      if (consentCheckbox) {
+        if (!consentCheckbox.checked) {
+          consentCheckbox.classList.add('has-error');
+          if (consentError) consentError.classList.add('visible');
+          valid = false;
+        } else {
+          consentCheckbox.classList.remove('has-error');
+          if (consentError) consentError.classList.remove('visible');
+        }
+      }
+
+      if (!valid) {
+        if (consentCheckbox && !consentCheckbox.checked) {
+          window.showToast("Veuillez accepter pour envoyer votre demande.", "error");
+        } else {
+          window.showToast("Veuillez remplir tous les champs obligatoires.", "error");
+        }
+        return;
+      }
+
+      window.showToast(successMessage, 'success');
+      form.reset();
+    });
+  }
+
+  bindStandardForm('b2bForm', 'Demande partenaire enregistrée avec succès. Notre équipe vous répond rapidement.');
+  bindStandardForm('contactForm', 'Message transmis à la direction Nerobel avec succès.');
 });
 
 /* ─────────────────────────────────────────────────────────────

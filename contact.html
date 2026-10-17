@@ -139,26 +139,26 @@
             <h2 class="card-title">Formulaire de Correspondance</h2>
             <p class="section-desc" style="margin-bottom:24px;">Transmettez-nous votre message, nous vous répondrons dans les plus brefs délais.</p>
 
-            <form onsubmit="event.preventDefault(); window.showToast('Message transmis à la direction Nerobel avec succès.', 'success'); this.reset();">
+            <form id="contactForm" novalidate>
               <div class="form-row-2col">
                 <div class="form-group">
-                  <label class="form-label">Nom et Prénom <span class="req">*</span></label>
-                  <input type="text" class="form-input" placeholder="Ex: Youssef El Mansouri" required>
+                  <label class="form-label" for="contactName">Nom et Prénom <span class="req">*</span></label>
+                  <input type="text" id="contactName" name="name" class="form-input" placeholder="Ex: Youssef El Mansouri" required>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Numéro de Téléphone <span class="req">*</span></label>
-                  <input type="tel" class="form-input" placeholder="0612345678" required>
+                  <label class="form-label" for="contactPhone">Numéro de Téléphone <span class="req">*</span></label>
+                  <input type="tel" id="contactPhone" name="phone" class="form-input" placeholder="0612345678" required>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="form-label">Adresse Email</label>
-                <input type="email" class="form-input" placeholder="youssef@example.com">
+                <label class="form-label" for="contactEmail">Adresse Email</label>
+                <input type="email" id="contactEmail" name="email" class="form-input" placeholder="youssef@example.com">
               </div>
 
               <div class="form-group">
-                <label class="form-label">Département Concerné</label>
-                <select class="form-select">
+                <label class="form-label" for="contactDept">Département Concerné</label>
+                <select id="contactDept" name="dept" class="form-select">
                   <option value="commercial">Direction Commerciale &amp; Ventes</option>
                   <option value="sav">Support Technique &amp; SAV (Theros, Pacific, Eurogas)</option>
                   <option value="partenariat">Partenariat Professionnel &amp; Distribution</option>
@@ -167,8 +167,16 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label">Votre Message <span class="req">*</span></label>
-                <textarea class="form-textarea" placeholder="Détaillez votre demande ou votre projet..." required></textarea>
+                <label class="form-label" for="contactMessage">Votre Message <span class="req">*</span></label>
+                <textarea id="contactMessage" name="message" class="form-textarea" placeholder="Détaillez votre demande ou votre projet..." required></textarea>
+              </div>
+
+              <div class="form-group form-consent-group">
+                <label class="form-consent-label" for="contactConsent">
+                  <input type="checkbox" id="contactConsent" name="consent" required>
+                  <span>J'accepte que mes données soient utilisées pour traiter ma demande. Voir la <a href="confidentialite.html">politique de confidentialité</a>.</span>
+                </label>
+                <div class="field-error-msg" id="contactConsentError"><i class="ti ti-alert-circle"></i> <span>Veuillez accepter pour envoyer votre demande.</span></div>
               </div>
 
               <button type="submit" class="btn btn-primary btn-block">
@@ -253,7 +261,8 @@
       <div class="footer-bottom">
         <div data-i18n="footerRights">© 2026 Nerobel Group. Tous droits réservés.</div>
         <div class="footer-legal-links">
-          <a href="#">Politique de Confidentialité</a>
+          <a href="confidentialite.html">Politique de confidentialité</a>
+          <a href="mentions-legales.html">Mentions légales</a>
         </div>
       </div>
     </div>

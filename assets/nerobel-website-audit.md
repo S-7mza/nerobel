@@ -607,7 +607,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S0-05 | Remove unverified figures and claims | H-06, H-16, B-03, S-03, N-01, C-06 | M | S0-01 | ✅ |
 | S0-06 | SAV and locator scope cleanup (solar, partner retailers, SLA text) | S-06, N-04 | S | S0-01 | ✅ |
 | S0-07 | Positioning wording and footer (group owner) | H-04, B-13 | S | S0-01 | ✅ |
-| S0-08 | Legal pages + consent on forms 🔶 | H-10, S-02, C-04, P-02 | M | S0-01 | ⬜ |
+| S0-08 | Legal pages + consent on forms 🔶 | H-10, S-02, C-04, P-02 | M | S0-01 | ✅ |
 | S0-09 | Hide the dead PDF block | P-01 | S | S0-01 | ⬜ |
 | **Sprint 1 — Message & content** | | | | | |
 | S1-01 | Facts file and contact normalisation | H-11 | S | S0-05 | ⬜ |
@@ -1204,6 +1204,7 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-17 | [S0-05] Removed all unverified SLA, warranty, and 150+ showroom claims across pages and scripts; replaced Home metrics strip with 3 verified statements and removed warranty-terms footer links. |
 | 2026-10-17 | [S0-06] Removed solar & thermodynamic category and brand options from SAV and Network pages; removed Bricoma/Marjane partner retailers from filters and locator data. |
 | 2026-10-17 | [S0-07] Applied verbatim group positioning line and copyright across all footers, replaced distributor/leader claims and "Disponible chez" badges with "Une marque Nerobel Group", and set Brands H1 to "Nos marques". |
+| 2026-10-17 | [S0-08] Created `mentions-legales.html` and `confidentialite.html` with required client placeholders, updated footer legal links across all pages, and added required consent checkboxes with validation on SAV, B2B, and Contact forms. |
 
 
 

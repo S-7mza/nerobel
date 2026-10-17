@@ -132,6 +132,21 @@ class SavPortal {
     this.data.symptom = document.getElementById('savProblem').value;
     this.data.description = document.getElementById('savDescription').value.trim();
 
+    // Consent
+    const consentInput = document.getElementById('savConsent');
+    const consentError = document.getElementById('savConsentError');
+    if (consentInput) {
+      if (!consentInput.checked) {
+        consentInput.classList.add('has-error');
+        if (consentError) consentError.classList.add('visible');
+        isValid = false;
+      } else {
+        consentInput.classList.remove('has-error');
+        if (consentError) consentError.classList.remove('visible');
+        this.data.consent = true;
+      }
+    }
+
     if (!isValid) {
       window.showToast("Veuillez corriger les champs en rouge avant de continuer", "error");
     }
@@ -199,11 +214,21 @@ class SavPortal {
     const btnBackToStep1 = document.getElementById('btn-back-to-step1');
     const btnToStep3 = document.getElementById('btn-to-step3');
     const btnBackToStep2 = document.getElementById('btn-back-to-step2');
+    const consentInput = document.getElementById('savConsent');
+    const consentError = document.getElementById('savConsentError');
 
     if (btnToStep2) btnToStep2.addEventListener('click', () => this.goToStep(2));
     if (btnBackToStep1) btnBackToStep1.addEventListener('click', () => this.goToStep(1));
     if (btnToStep3) btnToStep3.addEventListener('click', () => this.goToStep(3));
     if (btnBackToStep2) btnBackToStep2.addEventListener('click', () => this.goToStep(2));
+    if (consentInput) {
+      consentInput.addEventListener('change', () => {
+        if (consentInput.checked) {
+          consentInput.classList.remove('has-error');
+          if (consentError) consentError.classList.remove('visible');
+        }
+      });
+    }
   }
 
   // ─────────────────────────────────────────
