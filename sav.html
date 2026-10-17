@@ -95,22 +95,6 @@
       </div>
     </section>
 
-    <!-- 2-Mode SAV Service Switcher -->
-    <div class="container sav-tabs-container">
-      <div class="sav-mode-tabs" role="tablist">
-        <button type="button" class="sav-tab-btn active" data-tab="claim">
-          <i class="ti ti-tool"></i>
-          <span class="tab-label-desktop">1. Déclarer une Réclamation (Express)</span>
-          <span class="tab-label-mobile">1. Réclamation Express</span>
-        </button>
-        <button type="button" class="sav-tab-btn" data-tab="tracker">
-          <i class="ti ti-activity"></i>
-          <span class="tab-label-desktop">2. Suivi en Temps Réel (Nexenflow)</span>
-          <span class="tab-label-mobile">2. Suivi Nexenflow</span>
-        </button>
-      </div>
-    </div>
-
     <!-- PANEL 1: SAV CLAIM 3-STEP WIZARD -->
     <div class="sav-panel active" id="panel-claim">
       <div class="sav-wrapper">
@@ -134,10 +118,6 @@
             <li class="sav-perk-item">
               <div class="sav-perk-icon icon-oem"><i class="ti ti-certificate"></i></div>
               <span data-i18n="savPerk2">Pièces d'origine pour Theros, Pacific et Eurogas</span>
-            </li>
-            <li class="sav-perk-item">
-              <div class="sav-perk-icon icon-whatsapp"><i class="ti ti-brand-whatsapp"></i></div>
-              <span data-i18n="savPerk3">Suivi personnalisé en direct via WhatsApp (+212 787 013 201)</span>
             </li>
           </ul>
 
@@ -383,8 +363,8 @@
             </div>
 
             <div class="success-actions-row">
-              <a href="#" class="btn btn-whatsapp" id="btnWhatsAppAction" target="_blank" rel="noopener">
-                <i class="ti ti-brand-whatsapp"></i> <span data-i18n="btnWhatsApp">Suivre sur WhatsApp</span>
+              <a href="https://wa.me/212787013201?text=Bonjour%20Nerobel%2C%20ma%20demande%20SAV%20porte%20le%20num%C3%A9ro%20" class="btn btn-whatsapp" id="btnWhatsAppAction" target="_blank" rel="noopener">
+                <i class="ti ti-brand-whatsapp"></i> <span data-i18n="btnWhatsApp">Écrire sur WhatsApp</span>
               </a>
               <button type="button" class="btn btn-primary" id="btnDownloadPdf">
                 <i class="ti ti-file-text"></i> <span data-i18n="btnDownloadPdf">Télécharger le Reçu (PDF)</span>
@@ -395,226 +375,6 @@
             </div>
           </div>
         </section>
-      </div>
-    </div>
-
-    <!-- PANEL 2: NEXENFLOW LIVE TICKET TRACKER -->
-    <div class="sav-panel" id="panel-tracker">
-      <div class="nexenflow-tracker-container">
-        
-        <!-- Header & Live Telematics Indicator -->
-        <div class="tracker-intro-header">
-          <div class="tracker-live-badge">
-            <span class="pulse-dot"></span>
-            <span>Synchronisation Nexenflow Live · Télématique Maroc</span>
-          </div>
-          <h2 class="tracker-title">Suivez l'État d'Intervention en Direct</h2>
-          <p class="tracker-subtitle">
-            Consultez en temps réel l'avancement de votre réclamation, la mise à disposition des composants certifiés et la géolocalisation de votre technicien agréé.
-          </p>
-        </div>
-
-        <!-- Smart Search & Interactive Quick Samples -->
-        <div class="tracker-search-card">
-          <form class="tracker-search-bar" id="liveTrackForm" onsubmit="return false;">
-            <div class="tracker-input-wrap">
-              <i class="ti ti-search tracker-input-icon"></i>
-              <input type="text" id="liveTrackInput" class="tracker-input-field" placeholder="Ex : NERO-2026-9842 ou 0612345678" value="NERO-2026-9842" autocomplete="off" spellcheck="false">
-              <button type="button" class="tracker-clear-btn" id="btnTrackClear" title="Effacer la recherche" aria-label="Effacer">
-                <i class="ti ti-x"></i>
-              </button>
-            </div>
-            <button type="button" class="btn btn-primary tracker-search-btn" id="btnLiveTrack">
-              <i class="ti ti-radar"></i>
-              <span>Vérifier le Statut</span>
-            </button>
-          </form>
-
-          <div class="tracker-samples-row">
-            <span class="samples-label"><i class="ti ti-sparkles"></i> Démonstrations en direct :</span>
-            <button type="button" class="sample-chip active" data-code="NERO-2026-9842">
-              <span class="sample-dot blue"></span> NERO-2026-9842 (Technicien assigné)
-            </button>
-            <button type="button" class="sample-chip" data-code="NERO-2026-8921">
-              <span class="sample-dot green"></span> NERO-2026-8921 (Clôturé &amp; Garanti)
-            </button>
-            <button type="button" class="sample-chip" data-code="NERO-2026-1044">
-              <span class="sample-dot amber"></span> NERO-2026-1044 (Diagnostic &amp; Pièces)
-            </button>
-          </div>
-        </div>
-
-        <!-- Live Status Dashboard Card -->
-        <div class="tracker-dashboard-card" id="liveTrackTimeline">
-          <!-- Card Header -->
-          <div class="tracker-dash-header">
-            <div class="dossier-meta-group">
-              <span class="dossier-label">Dossier Technique Actif</span>
-              <div class="dossier-code-wrap">
-                <span class="dossier-code" id="trackActiveCode">NERO-2026-9842</span>
-                <button type="button" class="btn-copy-chip" id="btnCopyTrackCode" title="Copier le code">
-                  <i class="ti ti-copy"></i> <span id="copyChipText">Copier</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="dossier-status-group">
-              <span class="status-pill-badge planned" id="trackActiveBadge">
-                <span class="pulse-ring"></span>
-                <span id="trackBadgeText">PLANIFIÉ · TECHNICIEN ASSIGNÉ</span>
-              </span>
-              <span class="sync-timestamp" id="trackSyncTime">
-                <i class="ti ti-clock"></i> <span id="trackSyncTimeText">Synchronisé en temps réel</span>
-              </span>
-            </div>
-          </div>
-
-          <!-- Key Metadata Grid -->
-          <div class="tracker-meta-grid" id="trackMetaGrid">
-            <div class="meta-tile">
-              <span class="meta-tile-label"><i class="ti ti-flame"></i> Appareil</span>
-              <span class="meta-tile-val" id="metaAppliance">Theros Pro-Slim 80L</span>
-            </div>
-            <div class="meta-tile">
-              <span class="meta-tile-label"><i class="ti ti-map-pin"></i> Secteur</span>
-              <span class="meta-tile-val" id="metaLocation">Casablanca · Anfa</span>
-            </div>
-            <div class="meta-tile">
-              <span class="meta-tile-label"><i class="ti ti-calendar-time"></i> Créneau Estimé</span>
-              <span class="meta-tile-val" id="metaSlot">Aujourd'hui · 14h30 – 16h30</span>
-            </div>
-            <div class="meta-tile">
-              <span class="meta-tile-label"><i class="ti ti-shield-check"></i> Garantie</span>
-              <span class="meta-tile-val" id="metaWarranty">Validée (0 DH · Pièces &amp; MO)</span>
-            </div>
-          </div>
-
-          <!-- Progress Bar Section -->
-          <div class="tracker-progress-section">
-            <div class="progress-header-row">
-              <span class="progress-text" id="progressStatusText">Étape 3 sur 5 · En cours d'acheminement</span>
-              <span class="progress-pct" id="progressPctText">60%</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill" id="trackProgressFill" style="width: 60%;"></div>
-            </div>
-          </div>
-
-          <!-- Detailed Vertical Stepper -->
-          <div class="timeline-modern" id="timelineStepsContainer">
-            <!-- Step 1 -->
-            <div class="timeline-item completed" id="stepNode1">
-              <div class="timeline-node"><i class="ti ti-check"></i></div>
-              <div class="timeline-content-card">
-                <div class="timeline-header-line">
-                  <div class="timeline-item-title">1. Réclamation Réceptionnée sur Nexenflow</div>
-                  <span class="timeline-item-time" id="step1Time">Aujourd'hui · 09:15</span>
-                </div>
-                <div class="timeline-item-desc" id="step1Desc">
-                  Dossier enregistré et géolocalisé avec succès. Pièces justificatives et numéro de série vérifiés par le pôle technique Nerobel.
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="timeline-item completed" id="stepNode2">
-              <div class="timeline-node"><i class="ti ti-check"></i></div>
-              <div class="timeline-content-card">
-                <div class="timeline-header-line">
-                  <div class="timeline-item-title">2. Diagnostic Technique &amp; Pièces d'Origine Réservées</div>
-                  <span class="timeline-item-time" id="step2Time">Aujourd'hui · 10:45</span>
-                </div>
-                <div class="timeline-item-desc" id="step2Desc">
-                  Vérification de la référence d'appareil en stock. Pack résistance stéatite &amp; thermostat certifié mis à disposition au centre logistique régional.
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 3 (Current / Active) -->
-            <div class="timeline-item current" id="stepNode3">
-              <div class="timeline-node" id="step3NodeIcon"><i class="ti ti-user-check"></i></div>
-              <div class="timeline-content-card">
-                <div class="timeline-header-line">
-                  <div class="timeline-item-title" id="step3Title">3. Technicien Agréé Assigné &amp; En Route</div>
-                  <span class="timeline-item-time" id="step3Time" style="color:var(--az); font-weight:700;">En déplacement</span>
-                </div>
-                <div class="timeline-item-desc" id="step3Desc">
-                  Votre technicien certifié a pris en charge le dossier avec l'outillage et les pièces de rechange d'origine requises.
-                </div>
-
-                <!-- Rich Technician Card -->
-                <div class="tech-dispatch-card" id="techDispatchCard">
-                  <div class="tech-info-wrap">
-                    <div class="tech-avatar">
-                      <span id="techInitials">KB</span>
-                      <span class="verified-check" title="Technicien Officiel Nerobel Group"><i class="ti ti-check"></i></span>
-                    </div>
-                    <div class="tech-details">
-                      <div class="tech-name" id="techName">Karim Benjelloun</div>
-                      <div class="tech-role" id="techRole">Technicien Référent Nerobel · Zone Grand Casablanca</div>
-                      <div class="tech-score">
-                        <i class="ti ti-star-filled"></i> <strong>4.9/5</strong> · 148 interventions certifiées
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tech-actions">
-                    <a href="https://wa.me/212787013201?text=Bonjour%20Karim,%20je%20suis%20le%20client%20NERO-2026-9842" target="_blank" rel="noopener" class="btn btn-whatsapp" id="btnTrackWhatsApp" style="padding: 8px 16px; font-size: 0.84rem;">
-                      <i class="ti ti-brand-whatsapp"></i> <span>WhatsApp Direct</span>
-                    </a>
-                    <a href="tel:+212787013201" class="btn btn-secondary" style="padding: 8px 14px; font-size: 0.84rem;">
-                      <i class="ti ti-phone"></i> <span>Appeler</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="timeline-item" id="stepNode4">
-              <div class="timeline-node" id="step4NodeIcon">4</div>
-              <div class="timeline-content-card">
-                <div class="timeline-header-line">
-                  <div class="timeline-item-title" id="step4Title">4. Intervention à Domicile Programmée</div>
-                  <span class="timeline-item-time" id="step4Time">Aujourd'hui · 14h30 – 16h30</span>
-                </div>
-                <div class="timeline-item-desc" id="step4Desc">
-                  Diagnostic in situ, remplacement sous protocole constructeur officiel et contrôle d'étanchéité sous pression.
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 5 -->
-            <div class="timeline-item" id="stepNode5">
-              <div class="timeline-node" id="step5NodeIcon">5</div>
-              <div class="timeline-content-card">
-                <div class="timeline-header-line">
-                  <div class="timeline-item-title" id="step5Title">5. Clôture Numérique &amp; Prolongation de Garantie</div>
-                  <span class="timeline-item-time" id="step5Time">À venir</span>
-                </div>
-                <div class="timeline-item-desc" id="step5Desc">
-                  Signature dématérialisée du bon de réparation sur tablette et émission de l'extension de garantie constructeur Nerobel.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card Footer & Reassurance -->
-          <div class="tracker-bottom-actions">
-            <div class="tracker-trust-note">
-              <i class="ti ti-rosette-discount-check"></i>
-              <span>Garantie Constructeur Nerobel · Pièces d'origine 100% certifiées avec traçabilité usine</span>
-            </div>
-            <div class="tracker-btn-group">
-              <button type="button" class="btn btn-secondary" id="btnModifySlot" style="padding: 8px 16px; font-size: 0.84rem;">
-                <i class="ti ti-calendar-event"></i> <span>Modifier le Créneau</span>
-              </button>
-              <button type="button" class="btn btn-secondary" id="btnPrintTrackCard" style="padding: 8px 16px; font-size: 0.84rem;">
-                <i class="ti ti-printer"></i> <span>Imprimer</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </main>
