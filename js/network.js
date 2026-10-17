@@ -17,7 +17,8 @@ const SHOWROOMS_DATA = [
     hours: "Lun - Sam : 08:30 - 19:30",
     brands: ["Theros", "Pacific", "Eurogas", "Consumer Tech"],
     lat: 33.5898,
-    lng: -7.6322
+    lng: -7.6322,
+    confirmed: false
   },
   {
     id: 2,
@@ -31,21 +32,8 @@ const SHOWROOMS_DATA = [
     hours: "Lun - Ven : 08:00 - 18:00",
     brands: ["Theros", "Pacific", "Eurogas"],
     lat: 33.6064,
-    lng: -7.5321
-  },
-  {
-    id: 3,
-    name: "Bricoma Casablanca Bouskoura (Partenaire GSB)",
-    type: "gsb",
-    typeLabel: "Grande Surface Bricolage",
-    city: "Casablanca",
-    address: "Centre Commercial Bouskoura Ville Verte",
-    phone: "+212 522 654 000",
-    whatsapp: "+212787013201",
-    hours: "7j/7 : 09:00 - 20:30",
-    brands: ["Theros", "Pacific", "Eurogas"],
-    lat: 33.4521,
-    lng: -7.6492
+    lng: -7.5321,
+    confirmed: false
   },
   {
     id: 4,
@@ -59,7 +47,8 @@ const SHOWROOMS_DATA = [
     hours: "Lun - Sam : 09:00 - 19:00",
     brands: ["Theros", "Pacific", "Eurogas"],
     lat: 34.0041,
-    lng: -6.8496
+    lng: -6.8496,
+    confirmed: false
   },
   {
     id: 5,
@@ -73,7 +62,8 @@ const SHOWROOMS_DATA = [
     hours: "Lun - Sam : 08:00 - 18:30",
     brands: ["Pacific", "Eurogas"],
     lat: 34.0152,
-    lng: -6.8321
+    lng: -6.8321,
+    confirmed: false
   },
   {
     id: 6,
@@ -87,7 +77,8 @@ const SHOWROOMS_DATA = [
     hours: "Lun - Sam : 09:00 - 20:00",
     brands: ["Theros", "Pacific", "Eurogas", "Consumer Tech"],
     lat: 31.6346,
-    lng: -8.0142
+    lng: -8.0142,
+    confirmed: false
   },
   {
     id: 7,
@@ -101,7 +92,8 @@ const SHOWROOMS_DATA = [
     hours: "Lun - Sam : 09:00 - 19:30",
     brands: ["Theros", "Pacific", "Eurogas"],
     lat: 35.7725,
-    lng: -5.7924
+    lng: -5.7924,
+    confirmed: false
   },
   {
     id: 8,
@@ -115,7 +107,8 @@ const SHOWROOMS_DATA = [
     hours: "Lun - Sam : 08:30 - 19:00",
     brands: ["Theros", "Pacific", "Eurogas"],
     lat: 34.0208,
-    lng: -4.9998
+    lng: -4.9998,
+    confirmed: false
   },
   {
     id: 9,
@@ -129,7 +122,8 @@ const SHOWROOMS_DATA = [
     hours: "Lun - Sam : 09:00 - 19:30",
     brands: ["Theros", "Pacific", "Eurogas"],
     lat: 30.4211,
-    lng: -9.5982
+    lng: -9.5982,
+    confirmed: false
   }
 ];
 
@@ -247,10 +241,15 @@ class NetworkManager {
       listEl.innerHTML = `
         <div class="showrooms-empty-state">
           <i class="ti ti-map-pin-off"></i>
-          <p>Aucun point de vente ne correspond à vos filtres actuels.</p>
-          <button type="button" class="btn btn-secondary btn-sm" id="resetNetworkFilters">
-            <i class="ti ti-rotate"></i> Réinitialiser les filtres
-          </button>
+          <p>La liste de nos points de vente est en cours de mise à jour. Contactez-nous sur WhatsApp.</p>
+          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px;">
+            <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">
+              <i class="ti ti-brand-whatsapp"></i> Écrire sur WhatsApp
+            </a>
+            <button type="button" class="btn btn-secondary btn-sm" id="resetNetworkFilters">
+              <i class="ti ti-rotate"></i> Réinitialiser les filtres
+            </button>
+          </div>
         </div>
       `;
       const resetBtn = document.getElementById('resetNetworkFilters');

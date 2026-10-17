@@ -182,7 +182,6 @@ class SavPortal {
     const typeNames = {
       electric: "Chauffe-eau Électrique (Theros / Pacific)",
       gas: "Chauffe-eau à Gaz (Eurogas)",
-      solar: "Solaire & Thermodynamique",
       appliances: "Électroménager / TV (Nerobel)"
     };
 
