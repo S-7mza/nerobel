@@ -1,0 +1,18 @@
+{
+  "group": "Nerobel Group",
+  "positioning": "Nerobel Group détient et gère quatre marques pour la maison : Theros, Pacific, Eurogas et Nerobel.",
+  "brands": [
+    {"id": "theros", "name": "Theros", "site": "https://theros.ma/"},
+    {"id": "pacific", "name": "Pacific", "site": null, "page": "pacific.html"},
+    {"id": "eurogas", "name": "Eurogas", "site": "https://eurogas.ma/"},
+    {"id": "nerobel", "name": "Nerobel", "site": null, "page": "brands.html#nerobel"}
+  ],
+  "contact": {
+    "address": "Angle Boulevard d'Anfa & Rue Mozart, Casablanca, Maroc",
+    "switchboard": {"label": "Standard", "display": "+212 522 99 88 77", "tel": "+212522998877"},
+    "whatsapp": {"label": "WhatsApp Nerobel", "display": "+212 787 013 201", "tel": "+212787013201"},
+    "email": "contact@nerobel.com",
+    "hours": "Lun - Sam : 08h30 - 19h30",
+    "social": {"facebook": "https://www.facebook.com/nerobel", "linkedin": "https://www.linkedin.com/company/nerobel/"}
+  }
+}

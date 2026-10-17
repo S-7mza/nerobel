@@ -12,7 +12,7 @@ const SHOWROOMS_DATA = [
     typeLabel: "Showroom Officiel",
     city: "Casablanca",
     address: "Angle Bd d'Anfa & Rue Mozart, Casablanca",
-    phone: "+212 522 998 877",
+    phone: "+212 522 99 88 77",
     whatsapp: "+212787013201",
     hours: "Lun - Sam : 08:30 - 19:30",
     brands: ["Theros", "Pacific", "Eurogas", "Consumer Tech"],
