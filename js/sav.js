@@ -164,9 +164,9 @@ class SavPortal {
     }
 
     const indicator = document.getElementById('stepIndicator');
-    if (indicator && window.i18n) {
-      const stepName = (this.currentStep === 1) ? window.i18n.t('step1Name') : (this.currentStep === 2) ? window.i18n.t('step2Name') : window.i18n.t('step3Name');
-      indicator.textContent = `${window.i18n.t('stepOf', { current: this.currentStep, total: 3 })} · ${stepName}`;
+    if (indicator) {
+      const stepName = (this.currentStep === 1) ? "Type d'Appareil" : (this.currentStep === 2) ? "Informations & Panne" : "Récapitulatif & Validation";
+      indicator.textContent = `Étape ${this.currentStep} sur 3 · ${stepName}`;
     }
   }
 
