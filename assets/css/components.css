@@ -524,3 +524,22 @@
   aspect-ratio: 4 / 3;
 }
 
+/* Global overflow control */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Header mobile responsiveness */
+@media (max-width: 767px) {
+  .header-actions .btn-cta-sav {
+    display: none;
+  }
+}
+
+/* Mobile drawer off-screen containment */
+.mobile-drawer:not(.open) {
+  display: none !important;
+}
+
+
