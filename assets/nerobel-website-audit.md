@@ -615,7 +615,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S1-03 | Product catalogue and naming continuity 🔶 | B-01, B-02, B-07 | M | S0-05 | ✅ |
 | S1-04 | Home hero and entry-card copy | H-03 | S | S0-07, S1-02 | ✅ |
 | S1-05 | Uniform brand CTA pair, accessible icon links | H-09, H-12, B-11 | S | S1-02 | ✅ |
-| S1-06 | Pacific page inside the Nerobel site | B-11 | M | S1-03, S1-05 | ⬜ |
+| S1-06 | Pacific page inside the Nerobel site | B-11 | M | S1-03, S1-05 | ✅ |
 | S1-07 | Titles, descriptions, heading order | H-02, N-08, P-07 | S | S1-06 | ⬜ |
 | S1-08 | Claims register and reword unverifiable product claims 🔶 | B-04, B-05, B-06 | M | S0-05 | ⬜ |
 | **Sprint 2 — Design system, imagery, Home** | | | | | |
@@ -1211,3 +1211,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-18 | [S1-03] Created `content/catalogue.json` (`confirmed: false` pending O-01) and aligned all product names (`Theros Pro-Slim`, `Pacific Horizon`, `Eurogas Master Flame`, `Réfrigérateur Multi-Portes 520 L`, `Climatiseur Split Inverter R32`, `Lave-Linge Direct Drive 10,5 kg`, `Smart TV OLED 4K 65"`), finish terms (`noir graphite brossé`, `finition titane brossé`) and specs (`écran tactile digital`, `réglable jusqu'à 75 °C`) across `index.html`, `brands.html`, and `js/main.js`. |
 | 2026-10-18 | [S1-04] Applied verbatim Home hero copy (`Nerobel Group`, `Quatre marques pour le confort de la maison`, positioning sub-line, `Choisir une marque` → `#marques`, `Demande SAV` → `sav.html`, `WhatsApp Nerobel` link) and entry-card copy (`Marques`, `SAV`, `Espace Pro`) in `index.html`. |
 | 2026-10-18 | [S1-05] Applied uniform two-button CTA pair on all brand cards across `index.html` and `brands.html`, linked Pacific to `pacific.html` in all footers, and added French `aria-label` attributes on all icon-only links (`audit_meta.py` reports 0 links without text or `aria-label`). |
+| 2026-10-18 | [S1-06] Created `pacific.html` inside the Nerobel site with Pacific presentation, 3 proof points, spec table, and interactive multi-position mounting simulator (moved from `brands.html`). |
