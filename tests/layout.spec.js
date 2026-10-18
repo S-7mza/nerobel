@@ -26,3 +26,31 @@ test('mobile action bar targets are at least 48px', async ({ page }) => {
   expect(sizes.length).toBeGreaterThan(0);
   sizes.forEach(h => expect(h).toBeGreaterThanOrEqual(48));
 });
+
+test('mobile action bar is hidden on desktop @1024', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 800 });
+  await page.goto('/index.html');
+  const visible = await page.$eval('.mobile-bar', el => window.getComputedStyle(el).display !== 'none');
+  expect(visible).toBe(false);
+});
+
+test('sav.html mobile bar has contact link as third item', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/sav.html');
+  const thirdText = await page.$eval('.mobile-bar a:nth-child(3) span', el => el.textContent.trim());
+  const thirdHref = await page.$eval('.mobile-bar a:nth-child(3)', el => el.getAttribute('href'));
+  expect(thirdText).toBe('Contact');
+  expect(thirdHref).toBe('contact.html');
+});
+
+test('last footer line is not covered by mobile action bar @390x844', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/index.html');
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(300);
+  const lastLineBottom = await page.$eval('.footer-bottom', el => el.getBoundingClientRect().bottom);
+  const barTop = await page.$eval('.mobile-bar', el => el.getBoundingClientRect().top);
+  expect(lastLineBottom).toBeLessThanOrEqual(barTop);
+});
+
+
