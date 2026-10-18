@@ -360,6 +360,20 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNotice();
   }
 
+  function syncFooterAccordions() {
+    const isDesktop = window.innerWidth >= 768;
+    document.querySelectorAll('details.footer-col').forEach(details => {
+      if (isDesktop) {
+        details.setAttribute('open', '');
+      } else {
+        details.removeAttribute('open');
+      }
+    });
+  }
+
+  window.addEventListener('resize', syncFooterAccordions);
+  syncFooterAccordions();
+
   bindStandardForm('b2bForm', 'b2b');
   bindStandardForm('contactForm', 'contact');
   initB2BActivityPreselection();

@@ -542,7 +542,10 @@ html, body {
 /* Header mobile responsiveness */
 @media (max-width: 767px) {
   .header-actions .btn-cta-sav {
-    display: none;
+    display: inline-flex;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    gap: 6px;
   }
 }
 
@@ -968,6 +971,103 @@ html, body {
   line-height: 1.5;
   margin-bottom: 12px;
 }
+
+/* ───────────────────────────────────────────────
+   MOBILE PASS (S3-07, closes M-06, M-09…M-15)
+   ─────────────────────────────────────────────── */
+
+/* 1. Header on phones (logo + menu button + Demande SAV only) */
+@media (max-width: 767px) {
+  .site-header .theme-btn {
+    display: none !important;
+  }
+}
+
+/* 2. Footer Accordion on Mobile (< 768px) */
+@media (max-width: 767px) {
+  .footer-col {
+    border-bottom: 1px solid var(--bd, rgba(255, 255, 255, 0.08));
+    padding: 0;
+  }
+  .footer-col summary.footer-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 48px;
+    cursor: pointer;
+    margin-bottom: 0;
+    list-style: none;
+    user-select: none;
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--tx, #fff);
+  }
+  .footer-col summary.footer-title::-webkit-details-marker {
+    display: none;
+  }
+  .footer-col summary.footer-title::marker {
+    display: none;
+  }
+  .footer-col summary.footer-title .footer-accordion-icon {
+    font-size: 1rem;
+    color: var(--tx2, #94a3b8);
+    transition: transform var(--trans, 0.2s ease);
+  }
+  .footer-col[open] summary.footer-title .footer-accordion-icon {
+    transform: rotate(180deg);
+  }
+  .footer-col .footer-links {
+    padding-top: 4px;
+    padding-bottom: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer-col {
+    display: block !important;
+  }
+  .footer-col summary.footer-title {
+    pointer-events: none;
+    cursor: default;
+    list-style: none;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .footer-col summary.footer-title::-webkit-details-marker {
+    display: none;
+  }
+  .footer-col summary.footer-title::marker {
+    display: none;
+  }
+  .footer-col summary.footer-title .footer-accordion-icon {
+    display: none !important;
+  }
+  .footer-col .footer-links {
+    display: block !important;
+  }
+}
+
+/* 3. Tablet Card Grids (2-column layout on tablet 768px-1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .brands-grid,
+  .products-grid,
+  .b2b-perks-grid,
+  .contact-path-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* 4. Motion & Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 
 
 

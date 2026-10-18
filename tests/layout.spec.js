@@ -363,8 +363,91 @@ test('contact.html: department list has no SAV, ?dept=presse preselects departme
   expect(pathCards.length).toBe(3);
 });
 
+test('S3-07: no 100vh used for hero or drawer in stylesheets', async () => {
+  const fs = require('fs');
+  const cssFiles = [
+    'css/main.css',
+    'css/sav.css',
+    'css/theme.css',
+    'assets/css/tokens.css',
+    'assets/css/components.css'
+  ];
+  for (const f of cssFiles) {
+    if (fs.existsSync(f)) {
+      const content = fs.readFileSync(f, 'utf8');
+      expect(content).not.toMatch(/:\s*100vh\b/);
+    }
+  }
+});
 
+test('S3-07: footer columns are details accordions: closed at 390px, open at 1280px', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/index.html');
+  const mobileDetails = await page.$$eval('footer details.footer-col', els => els.map(e => e.open));
+  expect(mobileDetails.length).toBeGreaterThan(0);
+  mobileDetails.forEach(isOpen => expect(isOpen).toBe(false));
 
+  const summaryHeight = await page.$eval('footer details.footer-col summary', el => el.getBoundingClientRect().height);
+  expect(summaryHeight).toBeGreaterThanOrEqual(48);
 
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/index.html');
+  const desktopDetails = await page.$$eval('footer details.footer-col', els => els.map(e => e.open));
+  expect(desktopDetails.length).toBeGreaterThan(0);
+  desktopDetails.forEach(isOpen => expect(isOpen).toBe(true));
+});
 
+test('S3-07: phone header @360px shows logo, CTA SAV, and mobile menu toggle; hides theme button', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  await page.goto('/index.html');
+
+  const logoVisible = await page.$eval('.brand-logo', el => window.getComputedStyle(el).display !== 'none');
+  expect(logoVisible).toBe(true);
+
+  const savCtaVisible = await page.$eval('.btn-cta-sav', el => window.getComputedStyle(el).display !== 'none');
+  expect(savCtaVisible).toBe(true);
+
+  const menuToggleVisible = await page.$eval('.mobile-nav-toggle', el => window.getComputedStyle(el).display !== 'none');
+  expect(menuToggleVisible).toBe(true);
+
+  const themeBtnHidden = await page.$eval('.theme-btn', el => window.getComputedStyle(el).display === 'none');
+  expect(themeBtnHidden).toBe(true);
+});
+
+test('S3-07: captures screenshots for all pages across viewports 360, 390, 768, 1024', async ({ page }) => {
+  test.setTimeout(180000);
+  const fs = require('fs');
+  const path = require('path');
+  const screenDir = path.join(__dirname, '..', 'docs', 'screens');
+  if (!fs.existsSync(screenDir)) {
+    fs.mkdirSync(screenDir, { recursive: true });
+  }
+
+  const screenPages = [
+    { slug: 'index', path: '/index.html' },
+    { slug: 'brands', path: '/brands.html' },
+    { slug: 'pacific', path: '/pacific.html' },
+    { slug: 'sav', path: '/sav.html' },
+    { slug: 'network', path: '/network.html' },
+    { slug: 'b2b', path: '/b2b.html' },
+    { slug: 'contact', path: '/contact.html' },
+    { slug: 'mentions-legales', path: '/mentions-legales.html' },
+    { slug: 'confidentialite', path: '/confidentialite.html' },
+    { slug: 'casablanca', path: '/ou-acheter/casablanca.html' }
+  ];
+  const screenWidths = [360, 390, 768, 1024];
+
+  for (const p of screenPages) {
+    for (const w of screenWidths) {
+      await page.setViewportSize({ width: w, height: 800 });
+      await page.goto(p.path, { waitUntil: 'domcontentloaded' });
+      await page.waitForTimeout(100);
+      const outPath = path.join(screenDir, `${p.slug}-${w}.png`);
+      await page.screenshot({ path: outPath, fullPage: false });
+    }
+  }
+
+  const generatedFiles = fs.readdirSync(screenDir).filter(f => f.endsWith('.png'));
+  expect(generatedFiles.length).toBe(screenPages.length * screenWidths.length);
+});
 

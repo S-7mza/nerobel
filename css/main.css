@@ -826,7 +826,6 @@
   position: relative;
   padding: 60px 0 60px;
   overflow: hidden;
-  min-height: calc(100vh - 84px);
   min-height: calc(100dvh - 84px);
   display: flex;
   align-items: center;
@@ -2655,7 +2654,7 @@
 
 @media (min-width: 1040px) {
   .network-map-frame {
-    height: calc(100vh - 150px);
+    height: calc(100dvh - 150px);
     min-height: 580px;
     max-height: 760px;
     position: sticky;

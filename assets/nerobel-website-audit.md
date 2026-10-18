@@ -633,7 +633,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S3-04 | Network page and outlets data 🔶 | N-01, N-05, N-06, M-08 | L | S2-02 | ✅ |
 | S3-05 | B2B page | P-02…P-07 | M | S0-08, S2-02 | ✅ |
 | S3-06 | Contact page | C-01, C-02, C-05 | M | S0-08, S2-02 | ✅ |
-| S3-07 | Mobile pass | M-06, M-09…M-15 | M | S3-01…S3-06 | ⬜ |
+| S3-07 | Mobile pass | M-06, M-09…M-15 | M | S3-01…S3-06 | ✅ |
 | **Sprint 4 — SEO, accessibility, performance, launch** | | | | | |
 | S4-01 | Structured data | 4.3 | S | S3-04 | ⬜ |
 | S4-02 | sitemap.xml, robots.txt, 404.html | 4.3 | S | S3-06 | ⬜ |
@@ -1227,3 +1227,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-18 | [S3-04] Created content/outlets.json with confirmed headquarters showroom seed data; updated js/network.js to strictly read only entries with confirmed: true, support URL parameters (?brand=, ?city=), mobile list/map view toggle with list first at 390px, bottom-sheet <dialog> filter modal, and "Autour de moi" haversine distance with denial error message; created scripts/build-city-pages.mjs generating ou-acheter/{ville}.html (ou-acheter/casablanca.html) with LocalBusiness JSON-LD; updated audit_meta.py and audit-check.sh; verified with 54 Playwright tests. |
 | 2026-10-18 | [S3-05] Replaced 3 value cards on b2b.html with 4-card « Pour qui ? » row (Installateurs, Revendeurs, Promoteurs, Bureaux d'études) with « Demander un compte » buttons; updated B2B form fields with required email, Moroccan cities select, preselection from ?type=, and brands checkboxes; added all-pdf-links-exist-on-disk rule to scripts/audit-check.sh; verified with 56 Playwright tests. |
 | 2026-10-18 | [S3-06] Added 3 path cards above contact form (Demande SAV, Commercial, Presse et partenariats) with ?dept= preselection; removed SAV from department select; added Partenariat Pro notice linking to b2b.html#demande; added Google Maps directions link from content/facts.json; updated email label to Contact, WhatsApp text to « Pour vos questions et vos demandes SAV. », and updated footer Presse link across all pages to contact.html?dept=presse; verified with 57 Playwright tests. |
+| 2026-10-18 | [S3-07] Completed mobile pass: replaced all 100vh with 100dvh across main and SAV stylesheets; converted footer columns to details accordions (closed below 768px with >=48px touch summary and chevron, open on desktop); tuned mobile header (<768px shows logo, Demande SAV CTA, and mobile toggle, hiding theme button); added tablet 2-column card grid rules; added reduced-motion reset; captured 40 screenshots across 10 pages at 360, 390, 768, and 1024px into docs/screens/; verified with 61 Playwright tests. |
