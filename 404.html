@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Page Non Trouvée · 404 · Nerobel Group</title>
-  <meta name="description" content="La page demandée n'existe pas ou a été déplacée. Retournez à l'accueil Nerobel Group ou accédez à la demande SAV.">
+  <title>Page non trouvée · Nerobel Group</title>
+  <meta name="description" content="La page demandée n'existe pas ou a été déplacée. Retrouvez l'accueil, les points de vente où acheter et le service après-vente Nerobel Group.">
   <!-- STAGING: remove at go-live (S4-06) -->
   <meta name="robots" content="noindex, nofollow">
-  <meta property="og:image" content="https://s-7mza.github.io/nerobel/assets/img/nerobel-banner-appliances.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nerobel.com/404.html">
+  <meta property="og:title" content="Page non trouvée · Nerobel Group">
+  <meta property="og:description" content="La page demandée n'existe pas ou a été déplacée. Retrouvez l'accueil, les points de vente où acheter et le service après-vente Nerobel Group.">
+  <meta property="og:image" content="https://s-7mza.github.io/nerobel/assets/img/og/index.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://s-7mza.github.io/nerobel/assets/img/nerobel-banner-appliances.jpg">
+  <meta name="twitter:image" content="https://s-7mza.github.io/nerobel/assets/img/og/index.jpg">
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 
   <!-- Google Fonts Preconnect -->
@@ -98,20 +102,40 @@
         <div class="hero-actions" style="justify-content:center;">
           <a href="index.html" class="btn btn-primary">
             <i class="ti ti-home"></i>
-            <span>Retour à l'Accueil</span>
+            <span>Accueil</span>
           </a>
-          <a href="sav.html" class="btn btn-outline-blue">
+          <a href="network.html" class="btn btn-outline-blue">
+            <i class="ti ti-map-pin"></i>
+            <span>Où acheter</span>
+          </a>
+          <a href="sav.html" class="btn btn-secondary">
             <i class="ti ti-tool"></i>
             <span>Demande SAV</span>
-          </a>
-          <a href="contact.html" class="btn btn-secondary">
-            <i class="ti ti-phone"></i>
-            <span>Contacter le Support</span>
           </a>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Mobile Sticky Action Bar -->
+  <nav class="mobile-sticky-bar mobile-bar" aria-label="Actions rapides mobiles">
+    <a href="tel:+212522998877" class="mobile-bar-btn" aria-label="Appeler Nerobel">
+      <i class="ti ti-phone"></i>
+      <span>Appeler</span>
+    </a>
+    <a href="https://wa.me/212787013201?text=Bonjour%20Nerobel" target="_blank" rel="noopener" class="mobile-bar-btn wa-highlight" aria-label="WhatsApp Nerobel">
+      <i class="ti ti-brand-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="sav.html" class="mobile-bar-btn sav-highlight" aria-label="Demande SAV">
+      <i class="ti ti-tool"></i>
+      <span>Demande SAV</span>
+    </a>
+    <a href="network.html" class="mobile-bar-btn" aria-label="Où acheter">
+      <i class="ti ti-map-pin"></i>
+      <span>Où acheter</span>
+    </a>
+  </nav>
 
   <!-- Site Footer -->
   <footer class="site-footer">
@@ -129,34 +153,37 @@
           </div>
         </div>
 
-        <div>
-          <h2 class="footer-title" data-i18n="footerColBrands">Nos Marques</h2>
+        <details class="footer-col" open>
+          <summary class="footer-title"><span>Nos Marques</span><i class="ti ti-chevron-down footer-accordion-icon"></i></summary>
           <ul class="footer-links">
             <li><a href="brands.html#theros">Theros Water Heaters</a></li>
             <li><a href="pacific.html">Pacific Chauffe-eaux</a></li>
             <li><a href="brands.html#eurogas">Eurogas Gas Solutions</a></li>
             <li><a href="brands.html#nerobel-tech">Nerobel Consumer Tech</a></li>
+            <li><a href="https://theros.ma/" target="_blank" rel="noopener">Site Officiel Theros</a></li>
+            <li><a href="https://eurogas.ma/" target="_blank" rel="noopener">Site Officiel Eurogas</a></li>
           </ul>
-        </div>
+        </details>
 
-        <div>
-          <h2 class="footer-title" data-i18n="footerColServices">Services &amp; Support</h2>
+        <details class="footer-col" open>
+          <summary class="footer-title"><span>Services &amp; Support</span><i class="ti ti-chevron-down footer-accordion-icon"></i></summary>
           <ul class="footer-links">
             <li><a href="sav.html">Demande SAV</a></li>
             <li><a href="network.html">Où acheter</a></li>
             <li><a href="b2b.html">Espace Pro</a></li>
             <li><a href="tel:+212787013201">WhatsApp Nerobel : +212 787 013 201</a></li>
           </ul>
-        </div>
+        </details>
 
-        <div>
-          <h2 class="footer-title" data-i18n="footerColGroup">Le Groupe</h2>
+        <details class="footer-col" open>
+          <summary class="footer-title"><span>Le Groupe</span><i class="ti ti-chevron-down footer-accordion-icon"></i></summary>
           <ul class="footer-links">
             <li><a href="contact.html">Siège &amp; Coordonnées</a></li>
             <li><a href="b2b.html">Espace Pro</a></li>
+            <li><a href="contact.html?dept=presse">Presse &amp; Partenariats</a></li>
             <li><a href="tel:+212522998877">Standard : +212 522 99 88 77</a></li>
           </ul>
-        </div>
+        </details>
       </div>
 
       <div class="footer-bottom">

@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const pages = ['index', 'brands', 'pacific', 'sav', 'network', 'b2b', 'contact'];
+const pages = ['index', 'brands', 'pacific', 'sav', 'network', 'b2b', 'contact', '404'];
 const widths = [360, 390, 430, 768, 1280];
 
 for (const p of pages) for (const w of widths) {
@@ -461,5 +461,42 @@ test('S4-01: scripts/check_jsonld.py passes and index.html contains Organization
   expect(jsonLdContent['@type']).toBe('Organization');
   expect(jsonLdContent.name).toBe('Nerobel Group');
   expect(jsonLdContent.brand.length).toBe(4);
+});
+
+test('S4-02: sitemap.xml is valid XML with all pages; robots.txt disallows staging; 404.html has required links', async ({ page }) => {
+  const fs = require('fs');
+
+  // Verify robots.txt
+  const robots = fs.readFileSync('robots.txt', 'utf8');
+  expect(robots).toMatch(/User-agent:\s*\*\s*\nDisallow:\s*\//);
+
+  // Verify sitemap.xml
+  const sitemap = fs.readFileSync('sitemap.xml', 'utf8');
+  expect(sitemap).toContain('<?xml version="1.0" encoding="UTF-8"?>');
+  expect(sitemap).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+  const expectedPages = [
+    'https://s-7mza.github.io/nerobel/',
+    'https://s-7mza.github.io/nerobel/brands.html',
+    'https://s-7mza.github.io/nerobel/pacific.html',
+    'https://s-7mza.github.io/nerobel/sav.html',
+    'https://s-7mza.github.io/nerobel/network.html',
+    'https://s-7mza.github.io/nerobel/ou-acheter/casablanca.html',
+    'https://s-7mza.github.io/nerobel/b2b.html',
+    'https://s-7mza.github.io/nerobel/contact.html',
+    'https://s-7mza.github.io/nerobel/mentions-legales.html',
+    'https://s-7mza.github.io/nerobel/confidentialite.html'
+  ];
+  for (const exp of expectedPages) {
+    expect(sitemap).toContain(`<loc>${exp}</loc>`);
+  }
+
+  // Verify 404.html links
+  await page.goto('/404.html');
+  const homeLink = await page.$('a[href="index.html"]');
+  const networkLink = await page.$('a[href="network.html"]');
+  const savLink = await page.$('a[href="sav.html"]');
+  expect(homeLink).not.toBeNull();
+  expect(networkLink).not.toBeNull();
+  expect(savLink).not.toBeNull();
 });
 
