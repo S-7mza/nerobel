@@ -612,4 +612,66 @@ html, body {
   }
 }
 
+/* ───────────────────────────────────────────────
+   BRAND BLOCK TEMPLATE (S3-01)
+   ─────────────────────────────────────────────── */
+.brand-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .brand-block {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+
+  .brand-block--reverse .brand-block__content {
+    order: 2;
+  }
+
+  .brand-block--reverse .brand-block__media {
+    order: 1;
+  }
+}
+
+.brand-article-link {
+  margin-top: var(--space-4, 16px);
+}
+
+.brand-article-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold, #C9A96A);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.brand-article-link a:hover {
+  color: #FFFFFF;
+  transform: translateX(4px);
+}
+
+.theros-power-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.theros-power-modes .power-mode-btn {
+  min-height: 48px;
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+}
+
+
 

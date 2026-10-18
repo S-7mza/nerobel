@@ -166,15 +166,77 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (powerBtns.length) {
-    powerBtns.forEach(btn => {
+    powerBtns.forEach((btn, idx) => {
       btn.addEventListener('click', () => {
-        powerBtns.forEach(b => b.classList.remove('active'));
+        powerBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
         currentPower = parseInt(btn.getAttribute('data-power'));
         const temp = tempSlider ? parseInt(tempSlider.value) : 55;
         updateTherosMetrics(temp, currentPower);
       });
+
+      // Keyboard arrow navigation for radiogroup
+      btn.addEventListener('keydown', (e) => {
+        let nextBtn = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          nextBtn = powerBtns[(idx + 1) % powerBtns.length];
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          nextBtn = powerBtns[(idx - 1 + powerBtns.length) % powerBtns.length];
+        }
+        if (nextBtn) {
+          e.preventDefault();
+          nextBtn.focus();
+          nextBtn.click();
+        }
+      });
     });
+  }
+
+  // Brand Tabs Navigation Controller (S3-01)
+  const brandTabs = document.querySelectorAll('.brand-tabs__link');
+  if (brandTabs.length) {
+    brandTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const href = tab.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          brandTabs.forEach(t => {
+            t.classList.remove('active');
+            t.removeAttribute('aria-current');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-current', 'true');
+        }
+      });
+    });
+
+    const sections = ['#theros', '#eurogas', '#nerobel']
+      .map(id => document.querySelector(id))
+      .filter(Boolean);
+
+    if (sections.length && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = '#' + entry.target.id;
+            brandTabs.forEach(tab => {
+              if (tab.getAttribute('href') === id) {
+                tab.classList.add('active');
+                tab.setAttribute('aria-current', 'true');
+              } else if (tab.getAttribute('href') && tab.getAttribute('href').startsWith('#')) {
+                tab.classList.remove('active');
+                tab.removeAttribute('aria-current');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -60% 0px' });
+
+      sections.forEach(sec => observer.observe(sec));
+    }
   }
 
   // 2. Pacific 360° Installation Mode Toggle

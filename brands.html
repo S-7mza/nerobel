@@ -96,12 +96,24 @@
         </p>
       </div>
     </section>
+ 
+    <!-- Sticky Brand Tabs Navigation (S3-01) -->
+    <nav class="brand-tabs" aria-label="Navigation des marques">
+      <div class="container">
+        <ul class="brand-tabs__list" role="tablist">
+          <li role="presentation"><a href="#theros" class="brand-tabs__link active" aria-current="true" role="tab">Theros</a></li>
+          <li role="presentation"><a href="pacific.html" class="brand-tabs__link" role="tab">Pacific</a></li>
+          <li role="presentation"><a href="#eurogas" class="brand-tabs__link" role="tab">Eurogas</a></li>
+          <li role="presentation"><a href="#nerobel" class="brand-tabs__link" role="tab">Nerobel</a></li>
+        </ul>
+      </div>
+    </nav>
 
     <!-- Brand 1: THEROS Detailed Deep Dive -->
     <section class="section" id="theros">
       <div class="container">
-        <div class="brand-detail-grid">
-          <div data-reveal="fade-right">
+        <div class="brand-detail-grid brand-block">
+          <div class="brand-block__content" data-reveal="fade-right">
             <div class="brand-detail-badge">
               <img src="assets/icons/theros-logo.svg" alt="Theros Logo" width="120" height="32">
             </div>
@@ -112,7 +124,7 @@
               La gamme <strong>Theros Pro-Slim</strong> introduit le pilotage à distance par smartphone pour une gestion sur-mesure de l'eau chaude. Grâce à son double réservoir, sa finition titane brossé, son écran tactile digital et sa programmation horaire, la température est réglable jusqu'à 75 °C et vous choisissez entre 3 puissances (500 W, 1 300 W ou 2 000 W).
             </p>
 
-            <div class="brand-features-grid">
+            <div class="brand-features-grid spec-list">
               <div class="feature-mini-card">
                 <div class="feature-mini-icon text-az"><i class="ti ti-device-mobile"></i></div>
                 <div class="feature-mini-title">Application Wi-Fi Dédiée</div>
@@ -121,7 +133,12 @@
               <div class="feature-mini-card">
                 <div class="feature-mini-icon text-gold"><i class="ti ti-dimensions"></i></div>
                 <div class="feature-mini-title">Gabarit Pro-Slim</div>
-                <div class="feature-mini-desc">Largeur: 46 cm · Hauteur: 85 cm · Profondeur: 25 cm seulement.</div>
+                <div class="feature-mini-desc">Largeur : 46 cm · Hauteur : 85 cm · Profondeur : 25 cm seulement.</div>
+              </div>
+              <div class="feature-mini-card">
+                <div class="feature-mini-icon text-ok"><i class="ti ti-bolt"></i></div>
+                <div class="feature-mini-title">3 Puissances Réglables</div>
+                <div class="feature-mini-desc">500 W (Éco), 1 300 W (Standard) ou 2 000 W (Turbo).</div>
               </div>
             </div>
 
@@ -129,22 +146,26 @@
               <span class="seal-nerobel-text">Une marque Nerobel Group</span>
             </div>
 
-            <div class="btn-actions-wrap">
+            <!-- O-07: Download placeholder -->
+            <!-- <a href="assets/docs/theros-pro-slim-fiche.pdf" download class="btn btn-ghost">Fiche technique PDF</a> -->
+
+            <div class="btn-actions-wrap cta-pair">
               <a href="https://theros.ma/" target="_blank" rel="noopener" class="btn btn-primary">
                 <span>Visiter theros.ma</span>
                 <i class="ti ti-external-link"></i>
               </a>
               <a href="sav.html?brand=theros" class="btn btn-secondary">
-                <i class="ti ti-tool"></i> Assistance SAV
+                <i class="ti ti-tool"></i> Demande SAV
               </a>
             </div>
           </div>
 
-          <div class="brand-showcase-frame" data-reveal="scale">
+          <div class="brand-showcase-frame brand-block__media" data-reveal="scale">
             <div class="brand-showcase-media">
               <picture>
-                <source srcset="assets/img/theros_brand_page_withlogo_crop.webp" type="image/webp">
-                <img src="assets/img/theros_brand_page_withlogo_crop.jpg" alt="Theros Pro-Slim Wi-Fi piloté depuis l'application smartphone" width="1800" height="1200" loading="lazy">
+                <source type="image/avif" srcset="assets/img/theros-pro-slim-page-4x3-480.avif 480w, assets/img/theros-pro-slim-page-4x3-800.avif 800w, assets/img/theros-pro-slim-page-4x3-1200.avif 1200w" sizes="(max-width: 768px) 100vw, 50vw">
+                <source type="image/webp" srcset="assets/img/theros-pro-slim-page-4x3-480.webp 480w, assets/img/theros-pro-slim-page-4x3-800.webp 800w, assets/img/theros-pro-slim-page-4x3-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 50vw">
+                <img src="assets/img/theros-pro-slim-page-4x3-800.webp" alt="Theros Pro-Slim Wi-Fi piloté depuis l'application smartphone" width="800" height="600" loading="lazy">
               </picture>
             </div>
 
@@ -155,11 +176,11 @@
                 <div class="demo-widget-badge">Démo interactive — valeurs indicatives</div>
               </div>
 
-              <div class="theros-temp-display">
+              <div class="theros-temp-display" aria-live="polite">
                 <span class="theros-temp-val" id="therosTempDisplay">55</span>
                 <span class="theros-temp-unit">°C</span>
               </div>
-              <div class="text-center" style="font-size:0.8rem; color:var(--tx2);" id="therosTempDesc">Température Idéale &middot; Douche & Bain Famille</div>
+              <div class="text-center" style="font-size:0.8rem; color:var(--tx2);" id="therosTempDesc" aria-live="polite">Température Idéale &middot; Confort Famille & Douche</div>
 
               <div class="theros-slider-wrap">
                 <input type="range" min="30" max="75" value="55" class="theros-slider" id="therosTempSlider" aria-label="Ajuster la température">
@@ -170,10 +191,10 @@
                 </div>
               </div>
 
-              <div class="theros-power-modes">
-                <button type="button" class="power-mode-btn" data-power="500">500 W (Éco)</button>
-                <button type="button" class="power-mode-btn active" data-power="1300">1 300 W (Standard)</button>
-                <button type="button" class="power-mode-btn" data-power="2000">2 000 W (Turbo)</button>
+              <div class="theros-power-modes" role="radiogroup" aria-label="Mode de puissance">
+                <button type="button" role="radio" aria-checked="false" class="power-mode-btn" data-power="500">500 W (Éco)</button>
+                <button type="button" role="radio" aria-checked="true" class="power-mode-btn active" data-power="1300">1 300 W (Standard)</button>
+                <button type="button" role="radio" aria-checked="false" class="power-mode-btn" data-power="2000">2 000 W (Turbo)</button>
               </div>
             </div>
           </div>
@@ -181,20 +202,11 @@
       </div>
     </section>
 
-    <!-- Brand 2: PACIFIC Detailed Deep Dive -->
+    <!-- Brand 2: PACIFIC Summary -->
     <section class="section section--alt" id="pacific">
       <div class="container">
-        <div class="brand-detail-grid">
-          <div class="brand-showcase-frame" data-reveal="scale">
-            <div class="brand-showcase-media">
-              <picture>
-                <source srcset="assets/img/pacific_brand_page_withlogo.webp" type="image/webp">
-                <img src="assets/img/pacific_brand_page_withlogo.jpg" alt="Chauffe-eau Pacific Montage Flexible Horizontal et Vertical" width="1800" height="1200" loading="lazy">
-              </picture>
-            </div>
-          </div>
-
-          <div data-reveal="fade-left">
+        <div class="brand-detail-grid brand-block brand-block--reverse">
+          <div class="brand-block__content" data-reveal="fade-left">
             <div class="brand-detail-badge">
               <img src="assets/icons/pacific-logo.svg" alt="Pacific Logo" width="120" height="32">
             </div>
@@ -205,7 +217,7 @@
               Conçu pour s'adapter à toutes les configurations de plomberie et d'architecture intérieure au Maroc, le chauffe-eau <strong>Pacific Horizon</strong> propose un <strong>montage universel flexible (horizontal ou vertical)</strong>. Équipé d'un double réservoir et d'un écran digital avec température réglable jusqu'à 75 °C (Conformité CE).
             </p>
 
-            <div class="brand-features-grid">
+            <div class="brand-features-grid spec-list">
               <div class="feature-mini-card">
                 <div class="feature-mini-icon text-az"><i class="ti ti-arrows-maximize"></i></div>
                 <div class="feature-mini-title">Montage Flexible 360°</div>
@@ -216,19 +228,37 @@
                 <div class="feature-mini-title">Conformité CE</div>
                 <div class="feature-mini-desc">Double réservoir et écran digital réglable jusqu'à 75 °C.</div>
               </div>
+              <div class="feature-mini-card">
+                <div class="feature-mini-icon text-gold"><i class="ti ti-layers-intersect"></i></div>
+                <div class="feature-mini-title">Double Réservoir</div>
+                <div class="feature-mini-desc">Optimisation thermique et montée en température rapide.</div>
+              </div>
             </div>
 
             <div class="seal-nerobel seal-nerobel--sm">
               <span class="seal-nerobel-text">Une marque Nerobel Group</span>
             </div>
 
-            <div class="btn-actions-wrap">
+            <!-- O-07: Download placeholder -->
+            <!-- <a href="assets/docs/pacific-schema-montage.pdf" download class="btn btn-ghost">Schéma de montage PDF</a> -->
+
+            <div class="btn-actions-wrap cta-pair">
               <a href="pacific.html" class="btn btn-primary">
                 <span>Voir la page Pacific</span> <i class="ti ti-arrow-right"></i>
               </a>
               <a href="sav.html?brand=pacific" class="btn btn-secondary">
-                <i class="ti ti-tool"></i> Assistance SAV
+                <i class="ti ti-tool"></i> Demande SAV
               </a>
+            </div>
+          </div>
+
+          <div class="brand-showcase-frame brand-block__media" data-reveal="scale">
+            <div class="brand-showcase-media">
+              <picture>
+                <source type="image/avif" srcset="assets/img/pacific-water-heater-card-4x3-480.avif 480w, assets/img/pacific-water-heater-card-4x3-800.avif 800w, assets/img/pacific-water-heater-card-4x3-1200.avif 1200w" sizes="(max-width: 768px) 100vw, 50vw">
+                <source type="image/webp" srcset="assets/img/pacific-water-heater-card-4x3-480.webp 480w, assets/img/pacific-water-heater-card-4x3-800.webp 800w, assets/img/pacific-water-heater-card-4x3-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 50vw">
+                <img src="assets/img/pacific-water-heater-card-4x3-800.webp" alt="Chauffe-eau Pacific Montage Flexible Horizontal et Vertical" width="800" height="600" loading="lazy">
+              </picture>
             </div>
           </div>
         </div>
@@ -238,8 +268,8 @@
     <!-- Brand 3: EUROGAS Detailed Deep Dive -->
     <section class="section" id="eurogas">
       <div class="container">
-        <div class="brand-detail-grid">
-          <div data-reveal="fade-right">
+        <div class="brand-detail-grid brand-block">
+          <div class="brand-block__content" data-reveal="fade-right">
             <div class="brand-detail-badge">
               <img src="assets/icons/eurogas-logo.svg" alt="Eurogas Logo" width="120" height="32">
             </div>
@@ -250,7 +280,7 @@
               La gamme <strong>Eurogas Master Flame</strong> réunit nos chauffe-eaux instantanés au gaz et chaudières murales. Les appareils Eurogas intègrent le dispositif de <strong>Sécurité ODS (Oxygen Depletion Sensor)</strong> avec arrêt automatique de l'arrivée de gaz.
             </p>
 
-            <div class="brand-features-grid">
+            <div class="brand-features-grid spec-list">
               <div class="feature-mini-card">
                 <div class="feature-mini-icon text-ok"><i class="ti ti-flame"></i></div>
                 <div class="feature-mini-title">Sécurité ODS</div>
@@ -261,71 +291,54 @@
                 <div class="feature-mini-title">Allumage basse pression</div>
                 <div class="feature-mini-desc">Démarrage adapté aux installations à faible débit d'eau sanitaire.</div>
               </div>
+              <div class="feature-mini-card">
+                <div class="feature-mini-icon text-gold"><i class="ti ti-shield-check"></i></div>
+                <div class="feature-mini-title">Brûleur Cuivre</div>
+                <div class="feature-mini-desc">Échangeur thermique robuste et rendement énergétique élevé.</div>
+              </div>
             </div>
 
             <div class="seal-nerobel seal-nerobel--sm">
               <span class="seal-nerobel-text">Une marque Nerobel Group</span>
             </div>
 
-            <div class="btn-actions-wrap">
+            <!-- O-07: Download placeholder -->
+            <!-- <a href="assets/docs/eurogas-certificats.pdf" download class="btn btn-ghost">Certificats de conformité PDF</a> -->
+
+            <div class="btn-actions-wrap cta-pair">
               <a href="https://eurogas.ma/" target="_blank" rel="noopener" class="btn btn-primary">
                 <span>Visiter eurogas.ma</span>
                 <i class="ti ti-external-link"></i>
               </a>
               <a href="sav.html?brand=eurogas" class="btn btn-secondary">
-                <i class="ti ti-tool"></i> Assistance SAV
+                <i class="ti ti-tool"></i> Demande SAV
               </a>
             </div>
+
+            <p class="brand-article-link">
+              <a href="https://eurogas.ma/chauffe-eau-a-gaz-comment-ca-fonctionne/conseils/" target="_blank" rel="noopener">
+                <span>Lire : chauffe-eau à gaz, comment ça fonctionne ?</span>
+                <i class="ti ti-arrow-right"></i>
+              </a>
+            </p>
           </div>
 
-          <div class="brand-showcase-frame" data-reveal="scale">
+          <div class="brand-showcase-frame brand-block__media" data-reveal="scale">
             <div class="brand-showcase-media">
               <picture>
-                <source srcset="assets/img/eurogas_brand_page_withlogo.webp" type="image/webp">
-                <img src="assets/img/eurogas_brand_page_withlogo.jpg" alt="Chauffe-eau à gaz instantané Eurogas avec sécurité ODS et profil ultra-slim" width="1800" height="1200" loading="lazy">
+                <source type="image/avif" srcset="assets/img/eurogas-boiler-card-4x3-480.avif 480w, assets/img/eurogas-boiler-card-4x3-800.avif 800w, assets/img/eurogas-boiler-card-4x3-1200.avif 1200w" sizes="(max-width: 768px) 100vw, 50vw">
+                <source type="image/webp" srcset="assets/img/eurogas-boiler-card-4x3-480.webp 480w, assets/img/eurogas-boiler-card-4x3-800.webp 800w, assets/img/eurogas-boiler-card-4x3-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 50vw">
+                <img src="assets/img/eurogas-boiler-card-4x3-800.webp" alt="Chauffe-eau à gaz instantané Eurogas avec sécurité ODS et profil ultra-slim" width="800" height="600" loading="lazy">
               </picture>
             </div>
-
-            <!-- Featured Official Article from Eurogas.ma -->
-            <article class="brand-article-box">
-              <div class="article-badge-row">
-                <span class="article-topic-tag"><i class="ti ti-flame text-ok"></i> Article Technique · Eurogas.ma</span>
-                <span class="article-read-badge"><i class="ti ti-clock"></i> 3 min de lecture</span>
-              </div>
-
-              <h3 class="article-headline">
-                Chauffe-eau à gaz : comment ça fonctionne ?
-              </h3>
-
-              <p class="article-summary">
-                Comprendre le principe de la chauffe instantanée par échangeur thermique, la combustion optimisée gaz naturel / GPL et les dispositifs de sécurité indispensables pour votre foyer.
-              </p>
-
-              <div class="article-highlights-list">
-                <div class="highlight-item">
-                  <i class="ti ti-circle-check text-ok"></i>
-                  <span><strong>Chauffe à la demande :</strong> L'eau est chauffée instantanément lors du puisage sans gaspillage lié à une réserve stockée.</span>
-                </div>
-                <div class="highlight-item">
-                  <i class="ti ti-circle-check text-ok"></i>
-                  <span><strong>Sécurité &amp; Régulation :</strong> Contrôle de flamme continu, capteurs anti-refoulement et arrêt automatique de l'arrivée de gaz.</span>
-                </div>
-              </div>
-
-              <div class="article-footer-row">
-                <a href="https://eurogas.ma/chauffe-eau-a-gaz-comment-ca-fonctionne/conseils/" target="_blank" rel="noopener" class="btn-outline-eurogas">
-                  <span>Lire l'Article Complet sur Eurogas.ma</span>
-                  <i class="ti ti-external-link"></i>
-                </a>
-              </div>
-            </article>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Nerobel Consumer Tech & Appliances Line (Transformed from dead-end banner to full interactive grid) -->
-    <section class="section section--alt" id="nerobel-tech">
+    <!-- Nerobel Consumer Tech & Appliances Line -->
+    <section class="section section--alt" id="nerobel">
+      <span id="nerobel-tech" style="position:relative; top:-80px;"></span>
       <div class="container">
         <div class="section-header" data-reveal="fade-up">
           <div class="eyebrow"><i class="ti ti-device-tv"></i> Consumer Tech · Maroc</div>
@@ -338,88 +351,98 @@
         <div class="brand-showcase-frame brand-showcase-frame--banner" data-reveal="scale">
           <div class="brand-showcase-media">
             <picture>
-              <source srcset="assets/img/nerobel-banner-appliances.webp" type="image/webp">
-              <img src="assets/img/nerobel-banner-appliances.jpg" alt="Nerobel Consumer Tech Range" width="1920" height="1072" loading="lazy">
+              <source type="image/avif" srcset="assets/img/nerobel-appliances-banner-16x9-480.avif 480w, assets/img/nerobel-appliances-banner-16x9-800.avif 800w, assets/img/nerobel-appliances-banner-16x9-1200.avif 1200w" sizes="(max-width: 768px) 100vw, 80vw">
+              <source type="image/webp" srcset="assets/img/nerobel-appliances-banner-16x9-480.webp 480w, assets/img/nerobel-appliances-banner-16x9-800.webp 800w, assets/img/nerobel-appliances-banner-16x9-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 80vw">
+              <img src="assets/img/nerobel-appliances-banner-16x9-800.webp" alt="Gamme Électroménager et Smart TV Nerobel" width="1200" height="675" loading="lazy">
             </picture>
           </div>
         </div>
 
         <!-- 4-Category Interactive Product Grid -->
-        <div class="tech-products-grid" data-reveal-stagger>
+        <div class="tech-products-grid products-grid-2" data-reveal-stagger>
           <!-- Product 1: Refrigerator -->
-          <div class="tech-product-card" data-reveal="fade-up">
+          <article class="product-card" data-brand="nerobel" data-reveal="fade-up">
             <div class="tech-card-header">
               <div class="tech-card-icon"><i class="ti ti-fridge"></i></div>
-              <span class="tech-card-badge">FROST-FREE</span>
+              <span class="tech-card-badge">Froid ventilé total</span>
             </div>
-            <h3 class="tech-card-title">Réfrigérateur Multi-Portes 520 L</h3>
-            <p class="tech-card-desc">Finition noir graphite brossé, compresseur Dual Inverter silencieux et zone fraîcheur convertible.</p>
-            <div class="tech-specs-list">
-              <div class="tech-specs-item"><span>Volume utile</span><strong>520 Litres</strong></div>
-              <div class="tech-specs-item"><span>Technologie</span><strong>No-Frost Total</strong></div>
-              <div class="tech-specs-item"><span>Garantie</span><strong>Conditions sur demande</strong></div>
+            <div class="product-card-body">
+              <h3 class="product-card-title">Réfrigérateur Multi-Portes 520 L</h3>
+              <p class="product-card-desc">Finition noir graphite brossé, compresseur Dual Inverter silencieux et zone fraîcheur convertible.</p>
+              <div class="spec-list">
+                <div class="spec-list-item"><span>Volume utile</span><strong>520 Litres</strong></div>
+                <div class="spec-list-item"><span>Technologie</span><strong>No-Frost Total</strong></div>
+                <div class="spec-list-item"><span>Garantie</span><strong>Conditions sur demande</strong></div>
+              </div>
+              <div class="btn-actions-wrap cta-pair">
+                <a href="network.html?brand=nerobel" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
+                <a href="sav.html?brand=nerobel" class="btn btn-secondary"><i class="ti ti-tool"></i> Demande SAV</a>
+              </div>
             </div>
-            <div class="btn-actions-wrap">
-              <a href="network.html" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
-              <a href="sav.html?brand=nerobel" class="btn btn-secondary"><i class="ti ti-tool"></i> Assistance SAV</a>
-            </div>
-          </div>
+          </article>
 
           <!-- Product 2: Inverter AC -->
-          <div class="tech-product-card" data-reveal="fade-up">
+          <article class="product-card" data-brand="nerobel" data-reveal="fade-up">
             <div class="tech-card-header">
               <div class="tech-card-icon"><i class="ti ti-wind"></i></div>
-              <span class="tech-card-badge">T3 TROPICAL</span>
+              <span class="tech-card-badge">Climat tropical T3</span>
             </div>
-            <h3 class="tech-card-title">Climatiseur Split Inverter R32</h3>
-            <p class="tech-card-desc">Climatisation réversible Split Inverter au fluide R32 et contrôle Wi-Fi via application mobile.</p>
-            <div class="tech-specs-list">
-              <div class="tech-specs-item"><span>Capacité</span><strong>12 000 / 18 000 BTU</strong></div>
-              <div class="tech-specs-item"><span>Fluide éco</span><strong>Gaz R32</strong></div>
-              <div class="tech-specs-item"><span>Connectivité</span><strong>Application Mobile</strong></div>
+            <div class="product-card-body">
+              <h3 class="product-card-title">Climatiseur Split Inverter R32</h3>
+              <p class="product-card-desc">Climatisation réversible Split Inverter au fluide R32 et contrôle Wi-Fi via application mobile.</p>
+              <div class="spec-list">
+                <div class="spec-list-item"><span>Capacité</span><strong>12 000 / 18 000 BTU</strong></div>
+                <div class="spec-list-item"><span>Fluide éco</span><strong>Gaz R32</strong></div>
+                <div class="spec-list-item"><span>Connectivité</span><strong>Application Mobile</strong></div>
+              </div>
+              <div class="btn-actions-wrap cta-pair">
+                <a href="network.html?brand=nerobel" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
+                <a href="sav.html?brand=nerobel" class="btn btn-secondary"><i class="ti ti-tool"></i> Demande SAV</a>
+              </div>
             </div>
-            <div class="btn-actions-wrap">
-              <a href="network.html" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
-              <a href="sav.html?brand=nerobel" class="btn btn-secondary"><i class="ti ti-tool"></i> Assistance SAV</a>
-            </div>
-          </div>
+          </article>
 
           <!-- Product 3: Smart Washing Machine -->
-          <div class="tech-product-card" data-reveal="fade-up">
+          <article class="product-card" data-brand="nerobel" data-reveal="fade-up">
             <div class="tech-card-header">
               <div class="tech-card-icon"><i class="ti ti-wash-machine"></i></div>
-              <span class="tech-card-badge">STEAM CARE</span>
+              <span class="tech-card-badge">Programme vapeur</span>
             </div>
-            <h3 class="tech-card-title">Lave-Linge Direct Drive 10,5 kg</h3>
-            <p class="tech-card-desc">Programme vapeur, essorage 1 400 tr/min et moteur à induction sans courroie.</p>
-            <div class="tech-specs-list">
-              <div class="tech-specs-item"><span>Capacité</span><strong>10,5 kg</strong></div>
-              <div class="tech-specs-item"><span>Programme rapide</span><strong>15 minutes</strong></div>
+            <div class="product-card-body">
+              <h3 class="product-card-title">Lave-Linge Direct Drive 10,5 kg</h3>
+              <p class="product-card-desc">Programme vapeur, essorage 1 400 tr/min et moteur à induction sans courroie.</p>
+              <div class="spec-list">
+                <div class="spec-list-item"><span>Capacité</span><strong>10,5 kg</strong></div>
+                <div class="spec-list-item"><span>Essorage</span><strong>1 400 tr/min</strong></div>
+                <div class="spec-list-item"><span>Programme rapide</span><strong>15 minutes</strong></div>
+              </div>
+              <div class="btn-actions-wrap cta-pair">
+                <a href="network.html?brand=nerobel" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
+                <a href="sav.html?brand=nerobel" class="btn btn-secondary"><i class="ti ti-tool"></i> Demande SAV</a>
+              </div>
             </div>
-            <div class="btn-actions-wrap">
-              <a href="network.html" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
-              <a href="sav.html?brand=nerobel" class="btn btn-secondary"><i class="ti ti-tool"></i> Assistance SAV</a>
-            </div>
-          </div>
+          </article>
 
           <!-- Product 4: OLED 4K Smart TV -->
-          <div class="tech-product-card" data-reveal="fade-up">
+          <article class="product-card" data-brand="nerobel" data-reveal="fade-up">
             <div class="tech-card-header">
               <div class="tech-card-icon"><i class="ti ti-device-tv"></i></div>
-              <span class="tech-card-badge">120 HZ CINEMA</span>
+              <span class="tech-card-badge">Dalle 120 Hz OLED</span>
             </div>
-            <h3 class="tech-card-title">Smart TV OLED 4K 65"</h3>
-            <p class="tech-card-desc">Noirs absolus, Dolby Vision & Atmos, processeur IA 4K et commande vocale avec Google TV.</p>
-            <div class="tech-specs-list">
-              <div class="tech-specs-item"><span>Dalle</span><strong>OLED Pure Black</strong></div>
-              <div class="tech-specs-item"><span>Audio</span><strong>Dolby Atmos 40W</strong></div>
-              <div class="tech-specs-item"><span>Connectique</span><strong>HDMI 2.1 & eARC</strong></div>
+            <div class="product-card-body">
+              <h3 class="product-card-title">Smart TV OLED 4K 65"</h3>
+              <p class="product-card-desc">Noirs absolus, Dolby Vision & Atmos, processeur IA 4K et commande vocale avec Google TV.</p>
+              <div class="spec-list">
+                <div class="spec-list-item"><span>Dalle</span><strong>OLED Pure Black</strong></div>
+                <div class="spec-list-item"><span>Audio</span><strong>Dolby Atmos 40W</strong></div>
+                <div class="spec-list-item"><span>Connectique</span><strong>HDMI 2.1 & eARC</strong></div>
+              </div>
+              <div class="btn-actions-wrap cta-pair">
+                <a href="network.html?brand=nerobel" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
+                <a href="sav.html?brand=nerobel" class="btn btn-secondary"><i class="ti ti-tool"></i> Demande SAV</a>
+              </div>
             </div>
-            <div class="btn-actions-wrap">
-              <a href="network.html" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
-              <a href="sav.html?brand=nerobel" class="btn btn-secondary"><i class="ti ti-tool"></i> Assistance SAV</a>
-            </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>

@@ -53,4 +53,29 @@ test('last footer line is not covered by mobile action bar @390x844', async ({ p
   expect(lastLineBottom).toBeLessThanOrEqual(barTop);
 });
 
+test('brands.html @390px: every .brand-block has H2 above its media', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/brands.html');
+  const blocks = await page.$$('.brand-block');
+  expect(blocks.length).toBeGreaterThanOrEqual(3);
+  for (const block of blocks) {
+    const h2Top = await block.$eval('h2', el => el.getBoundingClientRect().top);
+    const mediaTop = await block.$eval('.brand-block__media', el => el.getBoundingClientRect().top);
+    expect(h2Top).toBeLessThan(mediaTop);
+  }
+});
+
+test('brand-tabs are keyboard accessible and activate on enter', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/brands.html');
+  const tabs = await page.$$('.brand-tabs__link');
+  expect(tabs.length).toBe(4);
+  
+  await page.focus('.brand-tabs__link[href="#eurogas"]');
+  await page.keyboard.press('Enter');
+  const activeHref = await page.$eval('.brand-tabs__link.active', el => el.getAttribute('href'));
+  expect(activeHref).toBe('#eurogas');
+});
+
+
 
