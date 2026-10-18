@@ -336,10 +336,10 @@
 
 /* Mathematically calibrated optical sizing for harmonious perceived visual mass */
 .brand-card__logo--theros {
-  height: 28px !important;
-  max-height: 28px !important;
+  height: 30px !important;
+  max-height: 30px !important;
   width: auto !important;
-  max-width: 125px !important;
+  max-width: 135px !important;
 }
 
 .brand-card__logo--pacific {
