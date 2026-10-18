@@ -77,5 +77,78 @@ test('brand-tabs are keyboard accessible and activate on enter', async ({ page }
   expect(activeHref).toBe('#eurogas');
 });
 
+test('sav.html?brand=eurogas starts on step 2 with Eurogas selected', async ({ page }) => {
+  const consoleErrors = [];
+  page.on('console', msg => {
+    if (msg.type() === 'error') consoleErrors.push(msg.text());
+  });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/sav.html?brand=eurogas');
+
+  const isStep2Active = await page.$eval('#sav-step-2', el => el.classList.contains('active'));
+  expect(isStep2Active).toBe(true);
+
+  const brandVal = await page.$eval('#savBrand', el => el.value);
+  expect(brandVal).toBe('Eurogas');
+
+  const isBrandDisabled = await page.$eval('#savBrand', el => el.disabled);
+  expect(isBrandDisabled).toBe(true);
+
+  const bannerVisible = await page.$eval('#changeDeviceBanner', el => window.getComputedStyle(el).display !== 'none');
+  expect(bannerVisible).toBe(true);
+
+  expect(consoleErrors).toEqual([]);
+});
+
+test('sav.html: ticking "Je ne trouve pas mon numéro de série" makes the serial optional', async ({ page }) => {
+  await page.goto('/sav.html?brand=eurogas');
+
+  await page.fill('#savFullName', 'Mohamed Alami');
+  await page.fill('#savPhone', '0612345678');
+  await page.check('#savNoSerial');
+  await page.check('#savConsent');
+
+  await page.click('#btn-to-step3');
+
+  const isStep3Active = await page.$eval('#sav-step-3', el => el.classList.contains('active'));
+  expect(isStep3Active).toBe(true);
+
+  const reviewSerial = await page.$eval('#revSerial', el => el.textContent);
+  expect(reviewSerial).toContain('Eurogas');
+});
+
+test('sav.html: submission is blocked without consent and moves focus to first invalid field', async ({ page }) => {
+  await page.goto('/sav.html?brand=eurogas');
+
+  await page.fill('#savFullName', 'Mohamed Alami');
+  await page.fill('#savPhone', '0612345678');
+  await page.fill('#savSerial', 'PC202612345');
+  // Leave consent unchecked
+
+  await page.click('#btn-to-step3');
+
+  const isStep3Active = await page.$eval('#sav-step-3', el => el.classList.contains('active'));
+  expect(isStep3Active).toBe(false);
+
+  const errorSummaryVisible = await page.$eval('#step2ErrorSummary', el => window.getComputedStyle(el).display !== 'none');
+  expect(errorSummaryVisible).toBe(true);
+
+  const focusedId = await page.evaluate(() => document.activeElement ? document.activeElement.id : null);
+  expect(focusedId).toBe('savConsent');
+});
+
+test('sav.html: empty step 2 validation moves focus to the first invalid field', async ({ page }) => {
+  await page.goto('/sav.html?brand=eurogas');
+
+  await page.click('#btn-to-step3');
+
+  const focusedId = await page.evaluate(() => document.activeElement ? document.activeElement.id : null);
+  expect(focusedId).toBe('savFullName');
+
+  const errorSummaryVisible = await page.$eval('#step2ErrorSummary', el => window.getComputedStyle(el).display !== 'none');
+  expect(errorSummaryVisible).toBe(true);
+});
+
 
 

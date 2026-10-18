@@ -176,8 +176,18 @@
 
             <!-- SCREEN 2: DETAILS & DIAGNOSTICS -->
             <div class="sav-step" id="sav-step-2">
+              <div class="change-device-banner" id="changeDeviceBanner" style="display:none;">
+                <span>Appareil sélectionné : <strong id="selectedDeviceText">Chauffe-eau Électrique</strong></span>
+                <button type="button" class="btn-change-device" id="btnChangeDevice">Changer d'appareil</button>
+              </div>
+
               <h2 class="step-title" data-i18n="step2Title">Détails de votre demande</h2>
               <p class="step-subtitle" data-i18n="step2Subtitle">Renseignez les coordonnées et le descriptif de votre panne</p>
+
+              <div id="step2ErrorSummary" class="error-summary" role="alert" style="display:none;" aria-live="assertive">
+                <div class="error-summary-title"><i class="ti ti-alert-circle"></i> Veuillez corriger les erreurs suivantes :</div>
+                <ul class="error-summary-list" id="step2ErrorList"></ul>
+              </div>
 
               <div class="form-section-title">
                 <i class="ti ti-user"></i>
@@ -189,8 +199,8 @@
                   <span data-i18n="lblFullName">Nom et Prénom</span>
                   <span class="req">*</span>
                 </label>
-                <input type="text" id="savFullName" class="form-input" placeholder="Ex: Mohamed Alami" required>
-                <div class="field-error-msg"><i class="ti ti-alert-circle"></i> <span data-i18n="errRequired">Ce champ est obligatoire</span></div>
+                <input type="text" id="savFullName" class="form-input" placeholder="Ex: Mohamed Alami" autocomplete="name" required>
+                <div class="field-error-msg" id="savFullNameError"><i class="ti ti-alert-circle"></i> <span data-i18n="errRequired">Ce champ est obligatoire</span></div>
               </div>
 
               <div class="form-group">
@@ -199,10 +209,10 @@
                   <span class="req">*</span>
                 </label>
                 <div class="phone-field-group">
-                  <div class="phone-flag-box"><span>🇲🇦 +212</span></div>
-                  <input type="tel" id="savPhone" class="form-input" placeholder="0612345678" required>
+                  <div class="phone-flag-box" aria-hidden="true"><span>🇲🇦 +212</span></div>
+                  <input type="tel" id="savPhone" class="form-input" placeholder="0612345678" inputmode="tel" autocomplete="tel-national" required>
                 </div>
-                <div class="field-error-msg"><i class="ti ti-alert-circle"></i> <span data-i18n="errPhone">Numéro marocain invalide</span></div>
+                <div class="field-error-msg" id="savPhoneError"><i class="ti ti-alert-circle"></i> <span data-i18n="errPhone">Numéro marocain invalide</span></div>
               </div>
 
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
@@ -217,13 +227,14 @@
                     <option value="Meknès">Meknès</option>
                     <option value="Agadir">Agadir</option>
                     <option value="Oujda">Oujda</option>
-                    <option value="Autre">Autre Ville</option>
+                    <option value="Autre ville">Autre ville</option>
                   </select>
+                  <input type="text" id="savOtherCity" class="form-input" placeholder="Précisez votre ville" style="display:none; margin-top:8px;" aria-label="Nom de votre ville">
                 </div>
 
                 <div class="form-group">
                   <label class="form-label" for="savAddress"><span data-i18n="lblAddress">Adresse d'intervention</span></label>
-                  <input type="text" id="savAddress" class="form-input" placeholder="Quartier, N° Rue, Résidence...">
+                  <input type="text" id="savAddress" class="form-input" placeholder="Quartier, N° Rue, Résidence..." autocomplete="street-address">
                 </div>
               </div>
 
@@ -248,20 +259,24 @@
                   <select id="savBrand" class="form-select">
                     <option value="Theros">Theros (Électrique)</option>
                     <option value="Pacific">Pacific (Électrique Multi-Position)</option>
-                    <option value="Eurogas">Eurogas (Gaz / Chaudière)</option>
-                    <option value="Nerobel">Nerobel (Électroménager / TV)</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label" for="savSerial"><span data-i18n="lblSerial">Numéro de Série</span> <span class="req">*</span></label>
+                  <label class="form-label" for="savSerial"><span data-i18n="lblSerial">Numéro de Série</span> <span class="req" id="savSerialReqMark">*</span></label>
                   <div class="input-with-action">
-                    <input type="text" id="savSerial" class="form-input" placeholder="Ex: PC202604150892" required>
+                    <input type="text" id="savSerial" class="form-input" placeholder="Ex: PC202604150892" autocapitalize="characters" autocomplete="off" required>
                     <button type="button" class="input-action-btn" id="btnSerialGuide" title="Guide numéro de série">
                       <i class="ti ti-help"></i> <span data-i18n="btnSerialGuide">Aide</span>
                     </button>
                   </div>
-                  <div class="field-error-msg"><i class="ti ti-alert-circle"></i> <span data-i18n="errSerial">Format invalide</span></div>
+                  <div class="serial-checkbox-wrap">
+                    <label for="savNoSerial">
+                      <input type="checkbox" id="savNoSerial">
+                      <span>Je ne trouve pas mon numéro de série</span>
+                    </label>
+                  </div>
+                  <div class="field-error-msg" id="savSerialError"><i class="ti ti-alert-circle"></i> <span id="savSerialErrorText" data-i18n="errSerial">Format invalide</span></div>
                 </div>
               </div>
 
@@ -287,13 +302,13 @@
                 <div class="dropzone-box" id="fileDropzone">
                   <i class="ti ti-cloud-upload dropzone-icon"></i>
                   <div class="dropzone-text" data-i18n="dropzoneText">Glissez vos photos ici ou <strong>cliquez pour parcourir</strong></div>
-                  <div class="dropzone-hint" data-i18n="dropzoneHint">JPG, PNG ou PDF (max 10 Mo)</div>
+                  <div class="dropzone-hint" id="dropzoneHint" data-i18n="dropzoneHint">JPG, PNG ou PDF (max 10 Mo)</div>
                   <div class="dropzone-actions">
                     <button type="button" class="btn-file-sub" id="btnWebcamTrigger">
                       <i class="ti ti-camera"></i> <span data-i18n="btnWebcam">Prendre une photo</span>
                     </button>
                   </div>
-                  <input type="file" id="fileInput" accept="image/*,application/pdf" style="display:none;">
+                  <input type="file" id="fileInput" accept="image/*,application/pdf" capture="environment" style="display:none;">
                 </div>
 
                 <div class="file-preview-card" id="filePreviewCard">
@@ -302,7 +317,7 @@
                     <div class="file-meta-title" id="filePreviewTitle">fichier.jpg</div>
                     <div class="file-meta-size" id="filePreviewSize">1.2 Mo</div>
                   </div>
-                  <button type="button" class="btn-remove-file" id="btnRemoveFile" title="Supprimer"><i class="ti ti-trash"></i></button>
+                  <button type="button" class="btn-remove-file" id="btnRemoveFile" title="Supprimer" aria-label="Supprimer le fichier"><i class="ti ti-trash"></i></button>
                 </div>
               </div>
 
@@ -379,23 +394,30 @@
   </main>
 
   <!-- Serial Guide Modal -->
-  <div class="modal-overlay" id="serialGuideModal">
+  <div class="modal-overlay" id="serialGuideModal" role="dialog" aria-modal="true" aria-labelledby="serialGuideModalTitle">
     <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title-wrap">
           <div class="modal-icon"><i class="ti ti-barcode"></i></div>
           <div>
-            <div class="modal-title" data-i18n="guideModalTitle">Emplacement de la Plaque Signalétique</div>
+            <div class="modal-title" id="serialGuideModalTitle" data-i18n="guideModalTitle">Emplacement de la Plaque Signalétique</div>
             <div class="modal-subtitle" data-i18n="guideModalSubtitle">Guide pour trouver votre numéro de série (ex: PC202604150892)</div>
           </div>
         </div>
-        <button type="button" class="modal-close-btn" id="closeSerialGuideModal"><i class="ti ti-x"></i></button>
+        <button type="button" class="modal-close-btn" id="closeSerialGuideModal" aria-label="Fermer le guide"><i class="ti ti-x"></i></button>
       </div>
       <div class="modal-body" style="text-align:center;">
-        <img src="assets/icons/serial-guide.svg" alt="Emplacement Plaque Signalétique" width="480" height="260" style="display:block; margin:0 auto; border-radius:var(--radius-md); border:1px solid var(--bd);">
-        <p style="font-size:0.88rem; color:var(--tx2); margin-top:16px;" data-i18n="guideModalTip">
-          La plaque métallique est généralement collée sous le chauffe-eau ou sur le panneau latéral.
-        </p>
+        <div id="serialGuideWaterHeater">
+          <img src="assets/icons/serial-guide.svg" alt="Emplacement Plaque Signalétique" width="480" height="260" style="display:block; margin:0 auto; border-radius:var(--radius-md); border:1px solid var(--bd);">
+          <p style="font-size:0.88rem; color:var(--tx2); margin-top:16px;" data-i18n="guideModalTip">
+            La plaque métallique est généralement collée sous le chauffe-eau ou sur le panneau latéral.
+          </p>
+        </div>
+        <div id="serialGuideAppliance" style="display:none;">
+          <p style="font-size:0.95rem; color:var(--tx); margin-top:16px; padding:20px; background:var(--s2); border-radius:var(--radius-md); border:1px solid var(--bd);">
+            Le numéro de série figure généralement sur l'étiquette de l'appareil ou sur votre facture.
+          </p>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="btnUnderstood" data-i18n="btnModalUnderstood">J'ai compris</button>
@@ -404,17 +426,17 @@
   </div>
 
   <!-- GPS Map Verification Modal -->
-  <div class="modal-overlay" id="gpsMapModal">
+  <div class="modal-overlay" id="gpsMapModal" role="dialog" aria-modal="true" aria-labelledby="gpsModalTitle">
     <div class="modal-card" style="max-width:680px;">
       <div class="modal-header">
         <div class="modal-title-wrap">
           <div class="modal-icon"><i class="ti ti-map-pin"></i></div>
           <div>
-            <div class="modal-title">Positionnement de l'Intervention</div>
+            <div class="modal-title" id="gpsModalTitle">Positionnement de l'Intervention</div>
             <div class="modal-subtitle">Déplacez la carte pour caler le repère sur votre immeuble ou maison</div>
           </div>
         </div>
-        <button type="button" class="modal-close-btn" id="closeGpsModal"><i class="ti ti-x"></i></button>
+        <button type="button" class="modal-close-btn" id="closeGpsModal" aria-label="Fermer la carte"><i class="ti ti-x"></i></button>
       </div>
       <div class="modal-body">
         <div class="gps-map-frame">
@@ -436,7 +458,7 @@
   </div>
 
   <!-- Live Webcam Capture Modal -->
-  <div class="modal-overlay" id="webcamModal">
+  <div class="modal-overlay" id="webcamModal" role="dialog" aria-modal="true" aria-labelledby="webcamModalTitle">
     <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title-wrap">
@@ -446,7 +468,7 @@
             <div class="modal-subtitle">Photographiez la plaque signalétique ou le dysfonctionnement</div>
           </div>
         </div>
-        <button type="button" class="modal-close-btn" id="closeWebcamModal"><i class="ti ti-x"></i></button>
+        <button type="button" class="modal-close-btn" id="closeWebcamModal" aria-label="Fermer la caméra"><i class="ti ti-x"></i></button>
       </div>
       <div class="modal-body">
         <div class="webcam-feed-frame">
