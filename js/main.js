@@ -146,29 +146,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const tempSlider = document.getElementById('therosTempSlider');
   const tempDisplay = document.getElementById('therosTempDisplay');
   const tempDesc = document.getElementById('therosTempDesc');
-  const readyTime = document.getElementById('therosReadyTime');
-  const ecoSavings = document.getElementById('therosEcoSavings');
   const powerBtns = document.querySelectorAll('.power-mode-btn');
 
   let currentPower = 1300;
 
-  function updateTherosMetrics(temp, power) {
+  function updateTherosMetrics(temp) {
     if (tempDisplay) tempDisplay.textContent = temp;
     if (tempDesc) {
-      if (temp < 45) tempDesc.textContent = "Mode Éco Douceur · Économie Maximale";
+      if (temp < 45) tempDesc.textContent = "Mode Éco Douceur · Consommation maîtrisée";
       else if (temp <= 60) tempDesc.textContent = "Température Idéale · Confort Famille & Douche";
-      else tempDesc.textContent = "Cycle Anti-Légionelle & Grand Volume 75°C";
-    }
-
-    if (readyTime) {
-      const baseMin = Math.round((temp - 20) * 0.7);
-      const factor = power === 2000 ? 0.6 : power === 500 ? 1.8 : 1.0;
-      readyTime.textContent = `Temps de chauffe : ~${Math.round(baseMin * factor)} min`;
-    }
-
-    if (ecoSavings) {
-      const savings = Math.max(10, Math.round(55 - (temp * 0.4) - (power / 100)));
-      ecoSavings.textContent = `-${savings}% énergie estimée`;
+      else tempDesc.textContent = "Température Élevée · Grand Volume 75 °C";
     }
   }
 
@@ -227,8 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btnTestOds.addEventListener('click', () => {
       btnTestOds.disabled = true;
       odsCard.classList.add('alert');
-      if (odsTitle) odsTitle.textContent = "Coupure d'Urgence ODS Activée";
-      if (odsDesc) odsDesc.textContent = "Taux O₂ < 18.5% détecté · Électrovanne gaz coupée en < 0.14s";
+      if (odsTitle) odsTitle.textContent = "Sécurité ODS Activée";
+      if (odsDesc) odsDesc.textContent = "Arrêt automatique de l'arrivée de gaz";
       if (odsBadge) {
         odsBadge.className = "badge badge-err";
         odsBadge.textContent = "SÉCURITÉ COUPÉE";
@@ -238,8 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setTimeout(() => {
         odsCard.classList.remove('alert');
-        if (odsTitle) odsTitle.textContent = "Combustion Optimale";
-        if (odsDesc) odsDesc.textContent = "Taux d'oxygène O₂ > 19.5% · Arrivée gaz active";
+        if (odsTitle) odsTitle.textContent = "Combustion Normale";
+        if (odsDesc) odsDesc.textContent = "Sécurité ODS active · Arrivée gaz ouverte";
         if (odsBadge) {
           odsBadge.className = "badge badge-ok";
           odsBadge.textContent = "NORMAL";
