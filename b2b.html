@@ -127,6 +127,7 @@
           <p class="section-desc" style="margin-bottom:24px;">Remplissez ce formulaire. Notre équipe vous répond rapidement.</p>
 
           <form id="b2bForm" novalidate>
+            <input type="text" name="_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="form-row-2col">
               <div class="form-group">
                 <label class="form-label" for="b2bCompany">Raison Sociale / Société <span class="req">*</span></label>
@@ -176,6 +177,25 @@
               <i class="ti ti-send"></i> Transmettre ma Demande Partenaire
             </button>
           </form>
+
+          <!-- Message Ready / Hand-off Feedback Card -->
+          <div id="b2bFeedback" class="form-feedback-card" style="display:none;" role="status">
+            <div class="feedback-title"><i class="ti ti-mail text-az"></i> Votre message est prêt</div>
+            <p class="feedback-desc">Votre message est prêt : appuyez sur Envoyer pour finaliser votre demande par email.</p>
+            <a id="b2bMailtoLink" href="mailto:contact@nerobel.com" class="btn btn-primary btn-handoff">
+              <i class="ti ti-mail"></i> Envoyer par Email
+            </a>
+          </div>
+
+          <!-- Submission Error Notice -->
+          <div id="b2bSubmitError" class="form-submit-error" style="display:none;" role="alert">
+            <i class="ti ti-alert-circle"></i> <span>L'envoi a échoué. Réessayez ou écrivez-nous sur WhatsApp.</span>
+            <div style="margin-top:12px;">
+              <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="btn btn-whatsapp">
+                <i class="ti ti-brand-whatsapp"></i> Écrire sur WhatsApp
+              </a>
+            </div>
+          </div>
 
           <!-- B2B Trust Reassurance Strip -->
           <div class="b2b-trust-strip">

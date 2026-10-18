@@ -673,5 +673,42 @@ html, body {
   padding: 8px 16px;
 }
 
+/* Form Submission Hand-off & Error Components (S3-03) */
+.form-feedback-card {
+  background: var(--s2, #0d0f15);
+  border: 1px solid var(--bd, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-m, 12px);
+  padding: 28px 24px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.form-feedback-card .feedback-title {
+  font-family: var(--fd, inherit);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tx, #ffffff);
+  margin-bottom: 10px;
+}
+
+.form-feedback-card .feedback-desc {
+  font-size: 0.95rem;
+  color: var(--tx2, #94a3b8);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.form-submit-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--err, #ef4444);
+  border-radius: var(--radius-m, 12px);
+  padding: 16px 20px;
+  color: var(--err, #ef4444);
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-top: 20px;
+  text-align: center;
+}
+
 
 

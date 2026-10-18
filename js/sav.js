@@ -950,56 +950,123 @@ class SavPortal {
   }
 
   // ─────────────────────────────────────────
-  // FINAL SUBMISSION & RECEIPT
+  // FINAL SUBMISSION & RECEIPT (S3-03)
   // ─────────────────────────────────────────
   bindSubmission() {
     const submitBtn = document.getElementById('btnSubmitFinal');
+    const container = document.getElementById('savStepsContainer');
+    const successPanel = document.getElementById('savSuccessPanel');
+    const errorBox = document.getElementById('savSubmitError');
+
     if (!submitBtn) return;
 
-    submitBtn.addEventListener('click', () => {
+    submitBtn.addEventListener('click', async () => {
+      // Honeypot spam check
+      const hp = document.getElementById('savHp');
+      if (hp && hp.value) return;
+
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="ti ti-loader"></i> Envoi en cours...';
+      submitBtn.innerHTML = '<i class="ti ti-loader"></i> Traitement...';
+      if (errorBox) errorBox.style.display = 'none';
 
-      const randomNum = Math.floor(1000 + Math.random() * 9000);
-      const ticketCode = `NERO-2026-${randomNum}`;
-      this.data.ticketCode = ticketCode;
+      // Build structured WhatsApp message without photos
+      const msgLines = [
+        "Bonjour Nerobel, voici ma demande SAV :",
+        `- Nom : ${this.data.fullName}`,
+        `- Téléphone : ${this.data.phone}`,
+        `- Ville : ${this.data.city}`,
+        `- Adresse : ${this.data.address || (this.data.gps ? `Position GPS: ${this.data.gps.lat}, ${this.data.gps.lng}` : 'Non précisée')}`,
+        `- Appareil : ${this.data.brand} (${this.data.type})`,
+        `- Numéro de série : ${this.data.serial}`,
+        `- Panne : ${this.data.symptom}`
+      ];
+      if (this.data.description) {
+        msgLines.push(`- Précisions : ${this.data.description}`);
+      }
+      const waUrl = `https://wa.me/212787013201?text=${encodeURIComponent(msgLines.join('\n'))}`;
 
-      // Clear draft on successful submission
-      this.clearDraft();
-
-      setTimeout(() => {
-        document.getElementById('savStepsContainer').style.display = 'none';
-        const successPanel = document.getElementById('savSuccessPanel');
-        if (successPanel) successPanel.classList.add('visible');
-
-        const codeEl = document.getElementById('displayTicketCode');
-        if (codeEl) codeEl.textContent = ticketCode;
-
-        // WhatsApp direct link to WhatsApp Nerobel: +212 787 013 201
-        const waBtn = document.getElementById('btnWhatsAppAction');
-        if (waBtn) {
-          const msg = `Bonjour Nerobel, ma demande SAV porte le numéro ${ticketCode}`;
-          waBtn.href = `https://wa.me/212787013201?text=${encodeURIComponent(msg)}`;
-        }
-
-        const copyBtn = document.getElementById('btnCopyCode');
-        if (copyBtn) {
-          copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(ticketCode).then(() => {
-              copyBtn.textContent = 'Copié ✓';
-              setTimeout(() => copyBtn.textContent = 'Copier', 2500);
-            });
+      // If backend endpoint is configured (O-09)
+      if (window.nerobelFormEndpoint) {
+        try {
+          const res = await fetch(window.nerobelFormEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              form: 'sav',
+              fields: {
+                fullName: this.data.fullName,
+                phone: this.data.phone,
+                city: this.data.city,
+                address: this.data.address,
+                gps: this.data.gps,
+                brand: this.data.brand,
+                serial: this.data.serial,
+                symptom: this.data.symptom,
+                description: this.data.description
+              },
+              consent: true,
+              timestamp: Date.now()
+            })
           });
-        }
 
-        const pdfBtn = document.getElementById('btnDownloadPdf');
-        if (pdfBtn) {
-          pdfBtn.addEventListener('click', () => this.generatePdfReceipt());
-        }
+          if (!res.ok) throw new Error('Network error');
 
-        if (window.showToast) window.showToast("Votre demande SAV a été validée avec succès !", "success");
-        window.scrollTo({ top: 100, behavior: 'smooth' });
-      }, 1200);
+          const data = await res.json().catch(() => ({}));
+          this.clearDraft();
+
+          if (container) container.style.display = 'none';
+          if (successPanel) successPanel.classList.add('visible');
+
+          if (data && data.ticketCode) {
+            this.data.ticketCode = data.ticketCode;
+            const ticketBox = document.getElementById('savTicketBox');
+            const codeEl = document.getElementById('displayTicketCode');
+            if (ticketBox && codeEl) {
+              codeEl.textContent = data.ticketCode;
+              ticketBox.style.display = 'inline-flex';
+            }
+          }
+          window.scrollTo({ top: 100, behavior: 'smooth' });
+          return;
+        } catch (err) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="ti ti-send"></i> Transmettre ma Demande SAV';
+          if (errorBox) {
+            errorBox.style.display = 'block';
+            const errorWaBtn = document.getElementById('savErrorWhatsAppBtn');
+            if (errorWaBtn) errorWaBtn.href = waUrl;
+          }
+          if (window.showToast) {
+            window.showToast("L'envoi a échoué. Réessayez ou écrivez-nous sur WhatsApp.", "error");
+          }
+          return;
+        }
+      }
+
+      // Default hand-off mode (O-09 open): WhatsApp hand-off
+      this.clearDraft();
+      if (container) container.style.display = 'none';
+      if (successPanel) successPanel.classList.add('visible');
+
+      const waBtn = document.getElementById('btnWhatsAppAction');
+      if (waBtn) {
+        waBtn.href = waUrl;
+      }
+
+      const pdfBtn = document.getElementById('btnDownloadPdf');
+      if (pdfBtn) {
+        pdfBtn.addEventListener('click', () => this.generatePdfReceipt());
+      }
+
+      if (window.showToast) {
+        window.showToast("Votre message est prêt : appuyez sur Envoyer pour finaliser.", "info");
+      }
+
+      try {
+        window.open(waUrl, '_blank', 'noopener');
+      } catch (e) {}
+
+      window.scrollTo({ top: 100, behavior: 'smooth' });
     });
   }
 

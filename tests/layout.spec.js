@@ -150,5 +150,74 @@ test('sav.html: empty step 2 validation moves focus to the first invalid field',
   expect(errorSummaryVisible).toBe(true);
 });
 
+test('docs/forms.md exists and documents form backends', async () => {
+  const fs = require('fs');
+  expect(fs.existsSync('docs/forms.md')).toBe(true);
+  const content = fs.readFileSync('docs/forms.md', 'utf-8');
+  expect(content).toContain('sav.html');
+  expect(content).toContain('contact.html');
+  expect(content).toContain('b2b.html');
+  expect(content).toContain('wa.me/212787013201');
+});
+
+test('sav.html: endpoint route.abort shows error state and no success', async ({ page }) => {
+  await page.goto('/sav.html?brand=eurogas');
+  await page.evaluate(() => { window.nerobelFormEndpoint = '/api/sav-submit'; });
+  await page.route('/api/sav-submit', route => route.abort());
+
+  await page.fill('#savFullName', 'Mohamed Alami');
+  await page.fill('#savPhone', '0612345678');
+  await page.fill('#savSerial', 'PC202612345');
+  await page.check('#savConsent');
+  await page.click('#btn-to-step3');
+
+  await page.click('#btnSubmitFinal');
+
+  // Verify error state is shown and success panel is not shown
+  await page.waitForSelector('#savSubmitError', { state: 'visible' });
+  const isSuccessVisible = await page.$eval('#savSuccessPanel', el => el.classList.contains('visible'));
+  expect(isSuccessVisible).toBe(false);
+});
+
+test('contact.html: endpoint route.abort shows error state and no success', async ({ page }) => {
+  await page.goto('/contact.html');
+  await page.evaluate(() => { window.nerobelFormEndpoint = '/api/contact-submit'; });
+  await page.route('/api/contact-submit', route => route.abort());
+
+  await page.fill('#contactName', 'Youssef El Mansouri');
+  await page.fill('#contactPhone', '0612345678');
+  await page.fill('#contactMessage', 'Demande de renseignement commercial.');
+  await page.check('#contactConsent');
+
+  await page.click('#contactForm button[type="submit"]');
+
+  await page.waitForSelector('#contactSubmitError', { state: 'visible' });
+  const isFeedbackVisible = await page.$eval('#contactFeedback', el => window.getComputedStyle(el).display !== 'none');
+  expect(isFeedbackVisible).toBe(false);
+});
+
+test('sav.html: default hand-off shows "Votre message est prêt" and no fabricated ticket number', async ({ page }) => {
+  await page.goto('/sav.html?brand=eurogas');
+
+  await page.fill('#savFullName', 'Mohamed Alami');
+  await page.fill('#savPhone', '0612345678');
+  await page.fill('#savSerial', 'PC202612345');
+  await page.check('#savConsent');
+  await page.click('#btn-to-step3');
+
+  await page.click('#btnSubmitFinal');
+
+  await page.waitForSelector('#savSuccessPanel.visible');
+  const title = await page.$eval('#savSuccessTitle', el => el.textContent);
+  expect(title).toContain('Votre message est prêt');
+
+  const ticketBoxDisplay = await page.$eval('#savTicketBox', el => window.getComputedStyle(el).display);
+  expect(ticketBoxDisplay).toBe('none');
+
+  const waHref = await page.$eval('#btnWhatsAppAction', el => el.getAttribute('href'));
+  expect(waHref).toContain('https://wa.me/212787013201?text=');
+  expect(decodeURIComponent(waHref)).toContain('Eurogas');
+});
+
 
 

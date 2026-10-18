@@ -183,6 +183,7 @@
 
               <h2 class="step-title" data-i18n="step2Title">Détails de votre demande</h2>
               <p class="step-subtitle" data-i18n="step2Subtitle">Renseignez les coordonnées et le descriptif de votre panne</p>
+              <input type="text" id="savHp" name="_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
 
               <div id="step2ErrorSummary" class="error-summary" role="alert" style="display:none;" aria-live="assertive">
                 <div class="error-summary-title"><i class="ti ti-alert-circle"></i> Veuillez corriger les erreurs suivantes :</div>
@@ -365,20 +366,30 @@
             </div>
           </div>
 
-          <!-- SUCCESS SCREEN -->
-          <div class="sav-success-panel" id="savSuccessPanel">
-            <div class="success-check-badge"><i class="ti ti-check"></i></div>
-            <h2 class="step-title" style="font-size:2rem;" data-i18n="successTitle">Demande SAV Enregistrée avec Succès !</h2>
-            <p class="step-subtitle" data-i18n="successDesc">Votre demande a été transmise à notre service technique. Voici votre numéro de dossier :</p>
+          <!-- SUBMISSION ERROR NOTICE -->
+          <div class="sav-submit-error" id="savSubmitError" role="alert" style="display:none;">
+            <i class="ti ti-alert-circle"></i> <span>L'envoi a échoué. Réessayez ou écrivez-nous sur WhatsApp.</span>
+            <div style="margin-top:12px;">
+              <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="btn btn-whatsapp" id="savErrorWhatsAppBtn">
+                <i class="ti ti-brand-whatsapp"></i> Écrire sur WhatsApp
+              </a>
+            </div>
+          </div>
 
-            <div class="ticket-number-box">
-              <span class="ticket-code" id="displayTicketCode">NERO-2026-XXXX</span>
+          <!-- SUCCESS / READY PANEL -->
+          <div class="sav-success-panel" id="savSuccessPanel">
+            <div class="success-check-badge"><i class="ti ti-brand-whatsapp text-wa"></i></div>
+            <h2 class="step-title" style="font-size:2rem;" id="savSuccessTitle">Votre message est prêt</h2>
+            <p class="step-subtitle" id="savSuccessDesc">Votre message est prêt : appuyez sur Envoyer pour finaliser.</p>
+
+            <div class="ticket-number-box" id="savTicketBox" style="display:none;">
+              <span class="ticket-code" id="displayTicketCode"></span>
               <button type="button" class="btn-copy-code" id="btnCopyCode" data-i18n="btnCopy">Copier</button>
             </div>
 
             <div class="success-actions-row">
-              <a href="https://wa.me/212787013201?text=Bonjour%20Nerobel%2C%20ma%20demande%20SAV%20porte%20le%20num%C3%A9ro%20" class="btn btn-whatsapp" id="btnWhatsAppAction" target="_blank" rel="noopener">
-                <i class="ti ti-brand-whatsapp"></i> <span data-i18n="btnWhatsApp">Écrire sur WhatsApp</span>
+              <a href="https://wa.me/212787013201" class="btn btn-whatsapp" id="btnWhatsAppAction" target="_blank" rel="noopener">
+                <i class="ti ti-brand-whatsapp"></i> <span>Envoyer sur WhatsApp</span>
               </a>
               <button type="button" class="btn btn-primary" id="btnDownloadPdf">
                 <i class="ti ti-file-text"></i> <span data-i18n="btnDownloadPdf">Télécharger le Reçu (PDF)</span>

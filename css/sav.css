@@ -913,6 +913,18 @@
   margin-top: 24px;
 }
 
+.sav-submit-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--err);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-top: 24px;
+  text-align: center;
+  color: var(--err);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
 /* ───────────────────────────────────────────────
    MODALS: SERIAL GUIDE, WEBCAM & GPS MAP
    ─────────────────────────────────────────────── */

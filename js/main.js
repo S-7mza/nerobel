@@ -78,13 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Form Consent & Required Validation (B2B & Contact)
-  function bindStandardForm(formId, successMessage) {
+  // Form Submission & Hand-off Management (B2B & Contact, S3-03)
+  function bindStandardForm(formId, formType) {
     const form = document.getElementById(formId);
     if (!form) return;
 
     const consentCheckbox = form.querySelector('input[name="consent"]');
     const consentError = form.querySelector('.form-consent-group .field-error-msg');
+    const parent = form.parentElement;
+    const feedbackBox = parent ? parent.querySelector('.form-feedback-card') : null;
+    const errorBox = parent ? parent.querySelector('.form-submit-error') : null;
 
     if (consentCheckbox) {
       consentCheckbox.addEventListener('change', () => {
@@ -95,10 +98,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      let valid = true;
 
+      // Honeypot spam protection
+      const hp = form.querySelector('input[name="_hp"]');
+      if (hp && hp.value) return;
+
+      if (errorBox) errorBox.style.display = 'none';
+
+      let valid = true;
       form.querySelectorAll('input[required]:not([type="checkbox"]), textarea[required], select[required]').forEach((field) => {
         if (!field.value.trim()) {
           field.classList.add('has-error');
@@ -128,13 +137,108 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      window.showToast(successMessage, 'success');
-      form.reset();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      // Extract field values
+      const formData = new FormData(form);
+      const fields = {};
+      formData.forEach((val, key) => {
+        if (key !== '_hp' && key !== 'consent') {
+          fields[key] = val;
+        }
+      });
+
+      // Build WhatsApp or mailto hand-off URL
+      let handoffUrl = '';
+      if (formType === 'contact') {
+        const deptNames = {
+          commercial: 'Direction Commerciale & Ventes',
+          sav: 'Support Technique & SAV',
+          partenariat: 'Partenariat Professionnel & Distribution',
+          direction: 'Direction Générale & Presse'
+        };
+        const deptLabel = deptNames[fields.dept] || fields.dept || 'Général';
+        const lines = [
+          "Bonjour Nerobel, voici mon message de contact :",
+          `- Nom : ${fields.name || ''}`,
+          `- Téléphone : ${fields.phone || ''}`,
+          `- Email : ${fields.email || 'Non précisé'}`,
+          `- Département : ${deptLabel}`,
+          `- Message : ${fields.message || ''}`
+        ];
+        handoffUrl = `https://wa.me/212787013201?text=${encodeURIComponent(lines.join('\n'))}`;
+      } else if (formType === 'b2b') {
+        const bodyLines = [
+          "Demande d'ouverture de compte professionnel Nerobel :",
+          `- Société : ${fields.company || ''}`,
+          `- ICE / RC : ${fields.ice || 'Non précisé'}`,
+          `- Responsable : ${fields.contact || ''}`,
+          `- Téléphone : ${fields.phone || ''}`,
+          `- Email : ${fields.email || 'Non précisé'}`,
+          `- Activité : ${fields.activity || ''}`,
+          `- Message : ${fields.message || ''}`
+        ];
+        handoffUrl = `mailto:contact@nerobel.com?subject=${encodeURIComponent("Demande Compte Pro - " + (fields.company || 'Partenaire'))}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+      }
+
+      // If a real backend endpoint is configured (O-09)
+      if (window.nerobelFormEndpoint) {
+        try {
+          const res = await fetch(window.nerobelFormEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              form: formType,
+              fields,
+              consent: true,
+              timestamp: Date.now()
+            })
+          });
+
+          if (!res.ok) throw new Error('Submission error');
+
+          form.style.display = 'none';
+          if (feedbackBox) {
+            feedbackBox.style.display = 'block';
+            const link = feedbackBox.querySelector('.btn-handoff');
+            if (link && handoffUrl) link.href = handoffUrl;
+          }
+          window.showToast("Votre message a été transmis avec succès.", "success");
+          return;
+        } catch (err) {
+          if (submitBtn) submitBtn.disabled = false;
+          if (errorBox) {
+            errorBox.style.display = 'block';
+            const errorLink = errorBox.querySelector('a');
+            if (errorLink && handoffUrl) errorLink.href = handoffUrl;
+          }
+          window.showToast("L'envoi a échoué. Réessayez ou écrivez-nous sur WhatsApp.", "error");
+          return;
+        }
+      }
+
+      // Default hand-off mode (O-09 open): WhatsApp or mailto
+      form.style.display = 'none';
+      if (feedbackBox) {
+        feedbackBox.style.display = 'block';
+        const link = feedbackBox.querySelector('.btn-handoff');
+        if (link && handoffUrl) link.href = handoffUrl;
+      }
+      window.showToast("Votre message est prêt : appuyez sur Envoyer pour finaliser.", "info");
+
+      try {
+        if (handoffUrl.startsWith('https:')) {
+          window.open(handoffUrl, '_blank', 'noopener');
+        } else {
+          window.location.href = handoffUrl;
+        }
+      } catch (e) {}
     });
   }
 
-  bindStandardForm('b2bForm', 'Demande partenaire enregistrée avec succès. Notre équipe vous répond rapidement.');
-  bindStandardForm('contactForm', 'Message transmis à la direction Nerobel avec succès.');
+  bindStandardForm('b2bForm', 'b2b');
+  bindStandardForm('contactForm', 'contact');
 });
 
 /* ─────────────────────────────────────────────────────────────

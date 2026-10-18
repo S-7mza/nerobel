@@ -142,6 +142,7 @@
             <p class="section-desc" style="margin-bottom:24px;">Transmettez-nous votre message, nous vous répondrons dans les plus brefs délais.</p>
 
             <form id="contactForm" novalidate>
+              <input type="text" name="_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="form-row-2col">
                 <div class="form-group">
                   <label class="form-label" for="contactName">Nom et Prénom <span class="req">*</span></label>
@@ -185,6 +186,25 @@
                 <i class="ti ti-send"></i> Envoyer le Message
               </button>
             </form>
+
+            <!-- Message Ready / Hand-off Feedback Card -->
+            <div id="contactFeedback" class="form-feedback-card" style="display:none;" role="status">
+              <div class="feedback-title"><i class="ti ti-brand-whatsapp text-wa"></i> Votre message est prêt</div>
+              <p class="feedback-desc">Votre message est prêt : appuyez sur Envoyer pour finaliser votre demande sur WhatsApp.</p>
+              <a id="contactWhatsAppLink" href="https://wa.me/212787013201" target="_blank" rel="noopener" class="btn btn-whatsapp btn-handoff">
+                <i class="ti ti-brand-whatsapp"></i> Envoyer sur WhatsApp
+              </a>
+            </div>
+
+            <!-- Submission Error Notice -->
+            <div id="contactSubmitError" class="form-submit-error" style="display:none;" role="alert">
+              <i class="ti ti-alert-circle"></i> <span>L'envoi a échoué. Réessayez ou écrivez-nous sur WhatsApp.</span>
+              <div style="margin-top:12px;">
+                <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="btn btn-whatsapp">
+                  <i class="ti ti-brand-whatsapp"></i> Écrire sur WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
