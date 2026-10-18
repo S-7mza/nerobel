@@ -620,7 +620,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S1-08 | Claims register and reword unverifiable product claims 🔶 | B-04, B-05, B-06 | M | S0-05 | ✅ |
 | **Sprint 2 — Design system, imagery, Home** | | | | | |
 | S2-01 | Design tokens | 5.2 | M | S1-07 | ✅ |
-| S2-02 | Component classes | 5.3 | L | S2-01 | ⬜ |
+| S2-02 | Component classes | 5.3 | L | S2-01 | ✅ |
 | S2-03 | Image pipeline | H-13, B-08, B-09 | L | S2-01 | ⬜ |
 | S2-04 | Home restructure (7 sections, static hero) | H-07, H-14, M-02, M-03 | L | S2-02, S2-03 | ⬜ |
 | S2-05 | Card alignment and layout tests | 4.2 | M | S2-02 | ⬜ |
@@ -1215,3 +1215,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-18 | [S1-07] Applied French `<title>`, `<meta name="description">`, `og:title`, and `og:description` across all pages and fixed heading level jumps (`h1` → `h2` → `h3`) so `audit_meta.py` reports 0 title/description/heading errors. |
 | 2026-10-18 | [S1-08] Created `content/claims-register.md` and reworded unverifiable claims across `brands.html`, `index.html`, and `js/main.js` (Eurogas ODS/low-pressure, Pacific CE conformity, Washer energy class removal and steam programme, Theros simulator time/energy outputs removed). |
 | 2026-10-18 | [S2-01] Documented existing styles in `docs/current-styles.md`, created `assets/css/tokens.css`, mapped identical variables in `css/theme.css`, and loaded `assets/css/tokens.css` first across all pages. |
+| 2026-10-18 | [S2-02] Created `assets/css/components.css` (`.brand-card`, `.product-card`, `.spec-list`, `.cta-pair`, `.proof-strip`, `.pillar-card`, `.section-head`, `.media-frame`, `.brand-tabs`, `.btn`, `.btn--primary`, `.btn--ghost`), applied component classes on Home and Brands cards, and translated English badges to French. |
