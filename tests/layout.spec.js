@@ -540,3 +540,23 @@ for (const p of axePages) {
   });
 }
 
+test('S4-04: scripts/check_perf.js passes and initial load transfer on mobile is under 1MB', async ({ page }) => {
+  const { execSync } = require('child_process');
+  const out = execSync('node scripts/check_perf.js', { encoding: 'utf-8' });
+  expect(out).toContain('all performance budget and script defer checks passed');
+
+  let totalBytes = 0;
+  page.on('response', async res => {
+    try {
+      const buffer = await res.body();
+      totalBytes += buffer.length;
+    } catch (_) {}
+  });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/index.html', { waitUntil: 'load' });
+
+  // Initial load must be < 1 MB (1024 * 1024 bytes)
+  expect(totalBytes).toBeLessThan(1024 * 1024);
+});
+

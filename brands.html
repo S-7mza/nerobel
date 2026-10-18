@@ -21,6 +21,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <!-- High-Performance Zero-Latency Local SVG Icons (Zero Carré, Instant First Paint) -->
   <link rel="stylesheet" href="css/icons.css">
@@ -166,7 +167,7 @@
               <picture>
                 <source type="image/avif" srcset="assets/img/theros-pro-slim-page-4x3-480.avif 480w, assets/img/theros-pro-slim-page-4x3-800.avif 800w, assets/img/theros-pro-slim-page-4x3-1200.avif 1200w" sizes="(max-width: 768px) 100vw, 50vw">
                 <source type="image/webp" srcset="assets/img/theros-pro-slim-page-4x3-480.webp 480w, assets/img/theros-pro-slim-page-4x3-800.webp 800w, assets/img/theros-pro-slim-page-4x3-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 50vw">
-                <img src="assets/img/theros-pro-slim-page-4x3-800.webp" alt="Theros Pro-Slim Wi-Fi piloté depuis l'application smartphone" width="800" height="600" loading="lazy">
+                <img src="assets/img/theros-pro-slim-page-4x3-800.webp" alt="Theros Pro-Slim Wi-Fi piloté depuis l'application smartphone" width="800" height="600" loading="eager" fetchpriority="high">
               </picture>
             </div>
 
@@ -528,8 +529,8 @@
     </div>
   </footer>
 
-  <script src="js/theme.js"></script>
-  <script src="js/animations.js"></script>
-  <script src="js/main.js"></script>
+  <script defer src="js/theme.js"></script>
+  <script defer src="js/animations.js"></script>
+  <script defer src="js/main.js"></script>
 </body>
 </html>
