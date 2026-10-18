@@ -99,6 +99,19 @@
   color: #0F172A;
 }
 
+/* Mobile Touch Feedback & Active States (Sprint MS-01) */
+@media (hover: none) and (pointer: coarse) {
+  a:active,
+  button:active,
+  .btn:active,
+  .gateway-card:active,
+  .brand-tab:active,
+  .mobile-bar-btn:active {
+    transform: scale(var(--tap-active-scale, 0.98));
+    transition: transform 0.15s ease-out;
+  }
+}
+
 /* 2. Media Frame (.media-frame) — 4:3 aspect ratio */
 .media-frame {
   position: relative;

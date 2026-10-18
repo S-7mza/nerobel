@@ -35,16 +35,27 @@
   --color-error: #FF5C6C;
   --color-info: #3AA0E6;
 
-  /* 4. Spacing Scale (4, 8, 12, 16, 24, 32, 48, 64, 96 px) */
+  /* 4. Spacing Scale (4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 96 px) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --space-20: 20px;
   --space-5: 24px;
   --space-6: 32px;
+  --space-40: 40px;
   --space-7: 48px;
   --space-8: 64px;
   --space-9: 96px;
+
+  /* Mobile Grid & Margin Tokens */
+  --mobile-gutter: 12px;
+  --mobile-margin: 16px;
+
+  /* Mobile Touch Ergonomics */
+  --tap-target-min: 48px;
+  --tap-active-scale: 0.98;
+  --mobile-bar-height: 64px;
 
   /* 5. Border Radii */
   --radius-s: 8px;
@@ -67,6 +78,27 @@
   --font-size-xl: clamp(1.4rem, 1.25rem + 0.75vw, 1.85rem);
   --font-size-2xl: clamp(1.6rem, 1.35rem + 1.1vw, 2.2rem);
   --font-size-3xl: clamp(1.85rem, 1.5rem + 1.5vw, 2.6rem);
+
+  /* Mobile Specific Typography Scale (Section 2.3) */
+  --mobile-h1: clamp(1.875rem, 1.6rem + 1.4vw, 2.25rem); /* 30-36px */
+  --mobile-h2: clamp(1.5rem, 1.35rem + 0.8vw, 1.75rem); /* 24-28px */
+  --mobile-h3: 1.25rem;                                   /* 20px */
+  --mobile-body: 1rem;                                    /* 16px */
+  --mobile-secondary: 0.875rem;                           /* 14px */
+  --mobile-caption: 0.75rem;                              /* 12px */
+  --mobile-eyebrow: 0.75rem;                              /* 12px */
+}
+
+@media (min-width: 390px) and (max-width: 429px) {
+  :root {
+    --mobile-margin: 20px;
+  }
+}
+
+@media (min-width: 430px) and (max-width: 767px) {
+  :root {
+    --mobile-margin: 24px;
+  }
 }
 
 [data-theme="light"] {

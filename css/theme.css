@@ -121,8 +121,8 @@ body {
   background-attachment: fixed;
   color: var(--tx);
   font-family: var(--fb);
-  font-size: 0.96rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.55;
   min-height: 100%;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;

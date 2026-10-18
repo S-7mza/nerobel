@@ -101,26 +101,69 @@
       <div class="sav-wrapper">
         <!-- SAV Sticky Hero Sidebar -->
         <aside class="sav-sidebar">
-          <div class="sav-sidebar-eyebrow" data-i18n="savEyebrow">
-            Assistance Technique
-          </div>
-          <h2 class="sav-sidebar-title">
-            Faire une demande SAV
-          </h2>
-          <p class="sav-sidebar-lead">
-            Complétez ce formulaire pour transmettre votre demande à notre équipe technique.
-          </p>
+          <!-- Animated Background Elements -->
+          <div class="sav-sidebar-laser" aria-hidden="true"></div>
+          <div class="sav-aurora-glow sav-aurora-1" aria-hidden="true"></div>
+          <div class="sav-aurora-glow sav-aurora-2" aria-hidden="true"></div>
+          
+          <!-- Animated Diagnostic Blueprint Radar Art -->
+          <svg class="sav-radar-art" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="savRadarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.32"/>
+                <stop offset="60%" stop-color="#3AA0E6" stop-opacity="0.08"/>
+                <stop offset="100%" stop-color="#3AA0E6" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- Calibration Rings -->
+            <circle cx="230" cy="90" r="130" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.25"/>
+            <circle cx="230" cy="90" r="95" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+            <circle cx="230" cy="90" r="60" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3" opacity="0.45"/>
+            <circle cx="230" cy="90" r="28" stroke="currentColor" stroke-width="1" opacity="0.55"/>
+            <!-- Center beacon -->
+            <circle cx="230" cy="90" r="3.5" fill="#00E5FF" opacity="0.85"/>
+            <circle cx="230" cy="90" r="14" stroke="#00E5FF" stroke-width="1" class="sav-radar-ping"/>
+            <!-- Technical Grid & Crosshairs -->
+            <line x1="80" y1="90" x2="380" y2="90" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.2"/>
+            <line x1="230" y1="-50" x2="230" y2="230" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.2"/>
+            <!-- Sweeping Radar Scanner Beam -->
+            <g class="sav-radar-sweep-arm">
+              <path d="M 230 90 L 360 90 A 130 130 0 0 0 322 -2 Z" fill="url(#savRadarGrad)"/>
+            </g>
+          </svg>
 
-          <ul class="sav-perks-list">
-            <li class="sav-perk-item">
-              <div class="sav-perk-icon icon-oem"><i class="ti ti-certificate"></i></div>
-              <span data-i18n="savPerk2">Pièces d'origine pour Theros, Pacific et Eurogas</span>
-            </li>
-          </ul>
+          <!-- Sidebar Content -->
+          <div class="sav-sidebar-inner">
+            <div class="sav-sidebar-eyebrow" data-i18n="savEyebrow">
+              <span class="sav-live-beacon" aria-hidden="true">
+                <span class="sav-live-ping"></span>
+                <span class="sav-live-core"></span>
+              </span>
+              <span>Assistance Technique</span>
+            </div>
+            <h2 class="sav-sidebar-title">
+              Faire une demande SAV
+            </h2>
+            <p class="sav-sidebar-lead">
+              Complétez ce formulaire pour transmettre votre demande à notre équipe technique.
+            </p>
 
-          <div class="sav-warranty-badge">
-            <i class="ti ti-rosette-discount-check" style="color:var(--gold); font-size:1.35rem;"></i>
-            <span data-i18n="savWarrantyNotice">Garantie : conditions sur demande · Theros · Pacific · Eurogas</span>
+            <ul class="sav-perks-list">
+              <li class="sav-perk-item">
+                <div class="sav-perk-icon icon-oem"><i class="ti ti-certificate"></i></div>
+                <div class="sav-perk-info">
+                  <span class="sav-perk-title" data-i18n="savPerk2">Pièces d'origine pour Theros, Pacific et Eurogas</span>
+                  <span class="sav-perk-sub">Composants certifiés constructeur</span>
+                </div>
+              </li>
+            </ul>
+
+            <div class="sav-warranty-badge">
+              <div class="sav-warranty-icon"><i class="ti ti-shield-check"></i></div>
+              <div class="sav-warranty-text" data-i18n="savWarrantyNotice">
+                Garantie : conditions sur demande · Theros · Pacific · Eurogas
+              </div>
+            </div>
           </div>
         </aside>
 

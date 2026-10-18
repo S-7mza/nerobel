@@ -20,15 +20,22 @@
   }
 }
 
-/* SAV Hero Sidebar Card - Signature Laser Blade Edition (Attachment 2) */
+/* ─────────────────────────────────────────────────────────────
+   SAV Hero Sidebar Card - Best-In-Class Obsidian Glass & Radar Edition
+   With Continuous Fluid Aurora Glow & Precision Radar Sweep
+   ───────────────────────────────────────────────────────────── */
 .sav-sidebar {
   position: relative;
-  background: #07080B;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(168deg, rgba(16, 22, 36, 0.82) 0%, rgba(8, 11, 18, 0.95) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
   padding: 38px 30px;
   overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  isolation: isolate;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 
 @media (min-width: 1024px) {
@@ -38,80 +45,158 @@
   }
 }
 
-/* Ensure all sidebar contents sit crisply above the laser blade layer */
-.sav-sidebar > * {
+/* Ensure all sidebar contents sit crisply above background animation layers */
+.sav-sidebar-inner {
   position: relative;
   z-index: 2;
 }
 
-/* Signature Laser Blade: Precision Architectural Chiaroscuro Edge */
-.sav-sidebar::before {
-  content: '';
+/* 1. Precision Top Laser Blade (Pulsing Horizon Beam) */
+.sav-sidebar-laser {
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(58, 160, 230, 0.35) 20%, #00E5FF 50%, rgba(58, 160, 230, 0.35) 80%, transparent 100%);
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+  z-index: 1;
+  animation: savLaserShimmer 6s ease-in-out infinite;
+}
+
+@keyframes savLaserShimmer {
+  0%, 100% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.4));
+    transform: scaleX(0.96);
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.8)) drop-shadow(0 0 22px rgba(58, 160, 230, 0.45));
+    transform: scaleX(1.02);
+  }
+}
+
+/* 2. Fluid Volumetric Aurora Mesh Glows */
+.sav-aurora-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+.sav-aurora-1 {
+  width: 280px;
+  height: 280px;
+  top: -60px;
+  right: -40px;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.14) 0%, rgba(58, 160, 230, 0.06) 50%, transparent 72%);
+  animation: savAuroraPulse1 9s ease-in-out infinite alternate;
+}
+
+.sav-aurora-2 {
+  width: 240px;
+  height: 240px;
+  bottom: -40px;
+  left: -30px;
+  background: radial-gradient(circle, rgba(58, 160, 230, 0.12) 0%, rgba(14, 30, 60, 0.05) 55%, transparent 75%);
+  animation: savAuroraPulse2 11s ease-in-out infinite alternate;
+}
+
+@keyframes savAuroraPulse1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translate(-20px, 25px) scale(1.15);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-10px, 10px) scale(1.05);
+    opacity: 0.75;
+  }
+}
+
+@keyframes savAuroraPulse2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(25px, -18px) scale(1.2);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(10px, -8px) scale(1.08);
+    opacity: 0.65;
+  }
+}
+
+/* 3. Diagnostic Blueprint Radar & Rotating Scanner Beam */
+.sav-radar-art {
   position: absolute;
   top: -20px;
-  left: auto;
-  right: -25px;
-  width: 55px;
-  height: 125%;
-  background: linear-gradient(220deg, 
-    rgba(0, 229, 255, 0.04) 0%, 
-    rgba(4, 12, 28, 0.12) 40%, 
-    transparent 100%
-  );
-  border-left: 1.2px solid #00E5FF;
-  box-shadow: 
-    0 0 3px #FFFFFF,
-    -1px 0 5px rgba(0, 229, 255, 0.5),
-    -2px 0 12px rgba(58, 160, 230, 0.2);
-  transform: rotate(-3deg);
-  transform-origin: top left;
+  right: -20px;
+  width: 300px;
+  height: 300px;
   pointer-events: none;
-  z-index: 1;
+  color: var(--az);
+  opacity: 0.28;
+  z-index: 0;
+  transition: opacity 0.4s var(--ease);
 }
 
-/* Ambient Volumetric Pro-Blue Dispersion */
-.sav-sidebar::after {
-  content: '';
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(58, 160, 230, 0.05) 0%, transparent 68%);
-  pointer-events: none;
-  z-index: 1;
+.sav-radar-sweep-arm {
+  transform-origin: 230px 90px;
+  animation: savRadarSweep 14s linear infinite;
 }
 
-[dir="rtl"] .sav-sidebar::before {
-  left: -25px;
+@keyframes savRadarSweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sav-radar-ping {
+  transform-origin: 230px 90px;
+  animation: savPing 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes savPing {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* RTL Radar Flip */
+[dir="rtl"] .sav-radar-art {
   right: auto;
-  border-left: none;
-  border-right: 1.2px solid #00E5FF;
-  box-shadow: 
-    0 0 3px #FFFFFF,
-    1px 0 5px rgba(0, 229, 255, 0.5),
-    2px 0 12px rgba(58, 160, 230, 0.2);
-  transform: rotate(3deg);
-  transform-origin: top right;
-  background: linear-gradient(140deg, 
-    rgba(0, 229, 255, 0.04) 0%, 
-    rgba(4, 12, 28, 0.12) 40%, 
-    transparent 100%
-  );
+  left: -20px;
+  transform: scaleX(-1);
 }
 
-[dir="rtl"] .sav-sidebar::after {
-  left: -5px;
-  right: auto;
-}
-
+/* 4. Live Technical Assistance Beacon */
 .sav-sidebar-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--fm);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--az);
+  color: var(--azh);
   margin-bottom: 14px;
 }
 
@@ -119,15 +204,56 @@
   letter-spacing: 0;
 }
 
+.sav-live-beacon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+}
+
+.sav-live-core {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00E5FF;
+  box-shadow: 0 0 8px #00E5FF;
+}
+
+.sav-live-ping {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px solid #00E5FF;
+  animation: savLivePing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes savLivePing {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
 .sav-sidebar h1,
 .sav-sidebar h2,
 .sav-sidebar-title {
   font-family: var(--fd);
-  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
   font-weight: 700;
-  color: var(--tx);
-  line-height: 1.3;
-  margin-bottom: 14px;
+  color: #FFFFFF;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
 }
 
 .sav-sidebar h1 em,
@@ -139,41 +265,47 @@
 
 .sav-sidebar-lead {
   color: var(--tx2);
-  font-size: 0.98rem;
+  font-size: 0.94rem;
   line-height: 1.6;
-  margin-bottom: 30px;
+  margin-bottom: 26px;
 }
 
+/* 5. Refined Frosted Perks Micro-Cards */
 .sav-perks-list {
   list-style: none;
   display: grid;
-  gap: 16px;
-  margin-bottom: 36px;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding: 0;
 }
 
 .sav-perk-item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-md);
   color: var(--tx);
-  font-size: 0.92rem;
-  font-weight: 500;
-  transition: transform 0.2s ease;
+  transition: all 0.3s var(--ease);
 }
 
 .sav-perk-item:hover {
-  transform: translateX(3px);
+  background: rgba(58, 160, 230, 0.06);
+  border-color: rgba(58, 160, 230, 0.28);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 [dir="rtl"] .sav-perk-item:hover {
-  transform: translateX(-3px);
+  transform: translateY(-2px);
 }
 
-/* Precision Architectural Glass Tiles */
 .sav-perk-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -183,7 +315,7 @@
 }
 
 .sav-perk-item:hover .sav-perk-icon {
-  transform: translateY(-2px) scale(1.05);
+  transform: scale(1.06);
 }
 
 /* Channel 1: Express Rapid Dispatch (Electric Cyan) */
@@ -196,10 +328,15 @@
 
 /* Channel 2: Official OEM Components (Prestige Gold) */
 .sav-perk-icon.icon-oem {
-  background: linear-gradient(135deg, rgba(201, 169, 106, 0.18) 0%, rgba(18, 14, 8, 0.85) 100%);
-  border: 1px solid rgba(201, 169, 106, 0.45);
-  color: #E6CA85;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 18px rgba(201, 169, 106, 0.22);
+  background: linear-gradient(135deg, rgba(58, 160, 230, 0.16) 0%, rgba(10, 16, 28, 0.85) 100%);
+  border: 1px solid rgba(58, 160, 230, 0.32);
+  color: var(--azh);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.sav-perk-item:hover .sav-perk-icon.icon-oem {
+  border-color: #00E5FF;
+  color: #FFFFFF;
 }
 
 /* Channel 3: Live Concierge Hotline (Authentic VIP Emerald) */
@@ -210,23 +347,60 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 18px rgba(37, 211, 102, 0.22);
 }
 
-/* Official Manufacturer Seal Ingot */
-.sav-warranty-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 13px 20px;
-  background: linear-gradient(135deg, rgba(201, 169, 106, 0.1) 0%, rgba(12, 12, 16, 0.95) 100%);
-  border: 1px solid rgba(201, 169, 106, 0.35);
-  border-radius: 6px;
-  font-size: 0.86rem;
-  color: var(--tx);
-  box-shadow: inset 0 1px 0 rgba(201, 169, 106, 0.25), 0 10px 24px rgba(0, 0, 0, 0.4);
+.sav-perk-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.sav-warranty-badge img {
-  height: 18px;
-  width: auto;
+.sav-perk-title {
+  font-size: 0.90rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.35;
+}
+
+.sav-perk-sub {
+  font-size: 0.77rem;
+  color: var(--tx3);
+  font-family: var(--fm);
+  letter-spacing: 0.02em;
+}
+
+/* 6. Cohesive Official Warranty Badge */
+.sav-warranty-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  background: linear-gradient(135deg, rgba(201, 169, 106, 0.08) 0%, rgba(16, 22, 34, 0.5) 100%);
+  border: 1px solid rgba(201, 169, 106, 0.26);
+  border-radius: var(--radius-md);
+  font-size: 0.84rem;
+  color: var(--tx2);
+  line-height: 1.45;
+  transition: all 0.3s var(--ease);
+}
+
+.sav-warranty-badge:hover {
+  background: linear-gradient(135deg, rgba(201, 169, 106, 0.12) 0%, rgba(16, 22, 34, 0.7) 100%);
+  border-color: rgba(201, 169, 106, 0.42);
+  color: var(--tx);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.sav-warranty-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(201, 169, 106, 0.14);
+  border: 1px solid rgba(201, 169, 106, 0.32);
+  display: grid;
+  place-items: center;
+  color: #E5CA92;
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 /* SAV Main Form Card */
@@ -1908,8 +2082,63 @@
   flex-wrap: wrap;
 }
 
-/* Light Theme overrides for the tracker */
-[data-theme="light"] .sav-sidebar,
+/* Light Theme overrides for the tracker & sidebar */
+[data-theme="light"] .sav-sidebar {
+  background: linear-gradient(168deg, #FFFFFF 0%, #F8FAFC 100%);
+  border-color: #E2E8F0;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .sav-sidebar-laser {
+  background: linear-gradient(90deg, transparent 0%, rgba(2, 132, 199, 0.25) 20%, #0284C7 50%, rgba(2, 132, 199, 0.25) 80%, transparent 100%);
+}
+
+[data-theme="light"] .sav-aurora-1 {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.08) 0%, transparent 70%);
+}
+
+[data-theme="light"] .sav-aurora-2 {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.05) 0%, transparent 70%);
+}
+
+[data-theme="light"] .sav-radar-art {
+  color: #0284C7;
+  opacity: 0.14;
+}
+
+[data-theme="light"] .sav-sidebar-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .sav-sidebar-lead {
+  color: #475569;
+}
+
+[data-theme="light"] .sav-perk-item {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+}
+
+[data-theme="light"] .sav-perk-item:hover {
+  background: #F1F5F9;
+  border-color: #0284C7;
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.08);
+}
+
+[data-theme="light"] .sav-perk-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .sav-perk-sub {
+  color: #64748B;
+}
+
+[data-theme="light"] .sav-warranty-badge {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+  color: #475569;
+}
+
 [data-theme="light"] .tracker-search-card,
 [data-theme="light"] .tracker-dashboard-card {
   background: #FFFFFF;
@@ -1917,18 +2146,11 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
-[data-theme="light"] .sav-sidebar::before,
-[data-theme="light"] .sav-sidebar::after,
 [data-theme="light"] .tracker-search-card::before,
 [data-theme="light"] .tracker-search-card::after,
 [data-theme="light"] .tracker-dashboard-card::before,
 [data-theme="light"] .tracker-dashboard-card::after {
   display: none !important;
-}
-
-[data-theme="light"] .sav-warranty-badge {
-  background: #F8FAFC;
-  border-color: #E2E8F0;
 }
 
 [data-theme="light"] .sav-perk-icon.icon-speed {
@@ -1939,10 +2161,10 @@
 }
 
 [data-theme="light"] .sav-perk-icon.icon-oem {
-  background: rgba(180, 130, 40, 0.08);
-  border-color: rgba(180, 130, 40, 0.3);
-  color: #926A18;
-  box-shadow: 0 4px 12px rgba(180, 130, 40, 0.1);
+  background: rgba(2, 132, 199, 0.08);
+  border-color: rgba(2, 132, 199, 0.3);
+  color: #0284C7;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
 }
 
 [data-theme="light"] .sav-perk-icon.icon-whatsapp {

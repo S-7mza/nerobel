@@ -648,8 +648,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    function isMobileOrReducedMotion() {
+      const isMobile = window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      return isMobile || reducedMotion;
+    }
+
     function startTimer() {
       stopTimer();
+      if (isMobileOrReducedMotion()) return; // Doctrine Rule 5: No autoplay on phones
       slideTimer = setInterval(() => {
         updateSlide(currentSlide + 1);
       }, intervalDuration);
@@ -733,6 +740,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateSlide(0);
     startTimer();
+
+    // 5. Mobile Image-First Carousel Integration (Sprint MS-02)
+    const mobileTrack = document.getElementById('mobileHeroTrack');
+    const mobileDots = document.querySelectorAll('.mobile-carousel-dots .mobile-dot');
+    const mobileCounter = document.getElementById('mobileCarouselCounter');
+    const mobileSlides = document.querySelectorAll('.mobile-slide');
+
+    if (mobileTrack && mobileSlides.length > 0) {
+      function updateMobileActive(index) {
+        mobileDots.forEach((dot, idx) => {
+          const isActive = idx === index;
+          dot.classList.toggle('active', isActive);
+          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        if (mobileCounter) {
+          mobileCounter.textContent = `${index + 1} / ${mobileSlides.length}`;
+        }
+      }
+
+      mobileDots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          const targetSlide = mobileSlides[idx];
+          if (targetSlide) {
+            targetSlide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            updateMobileActive(idx);
+          }
+        });
+      });
+
+      // Synchronize scroll snap with dots
+      let scrollDebounce = null;
+      mobileTrack.addEventListener('scroll', () => {
+        if (scrollDebounce) cancelAnimationFrame(scrollDebounce);
+        scrollDebounce = requestAnimationFrame(() => {
+          const trackRect = mobileTrack.getBoundingClientRect();
+          const trackCenter = trackRect.left + trackRect.width / 2;
+          let closestIdx = 0;
+          let minDiff = Infinity;
+
+          mobileSlides.forEach((slide, idx) => {
+            const slideRect = slide.getBoundingClientRect();
+            const slideCenter = slideRect.left + slideRect.width / 2;
+            const diff = Math.abs(trackCenter - slideCenter);
+            if (diff < minDiff) {
+              minDiff = diff;
+              closestIdx = idx;
+            }
+          });
+
+          updateMobileActive(closestIdx);
+        });
+      }, { passive: true });
+    }
   }
 });
 
