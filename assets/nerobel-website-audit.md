@@ -612,7 +612,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | **Sprint 1 — Message & content** | | | | | |
 | S1-01 | Facts file and contact normalisation | H-11 | S | S0-05 | ✅ |
 | S1-02 | Vocabulary pass | H-05, N-07, P-04, C-03, S-05 | M | S0-04 | ✅ |
-| S1-03 | Product catalogue and naming continuity 🔶 | B-01, B-02, B-07 | M | S0-05 | ⬜ |
+| S1-03 | Product catalogue and naming continuity 🔶 | B-01, B-02, B-07 | M | S0-05 | ✅ |
 | S1-04 | Home hero and entry-card copy | H-03 | S | S0-07, S1-02 | ⬜ |
 | S1-05 | Uniform brand CTA pair, accessible icon links | H-09, H-12, B-11 | S | S1-02 | ⬜ |
 | S1-06 | Pacific page inside the Nerobel site | B-11 | M | S1-03, S1-05 | ⬜ |
@@ -1208,3 +1208,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-17 | [S0-09] Removed dead PDF download cards (`href="#"`) and document promises on `b2b.html`; all 10 `audit-check.sh` rules now pass. |
 | 2026-10-17 | [S1-01] Created `content/facts.json` and normalised all phone displays and labels (`Standard : +212 522 99 88 77`, `WhatsApp Nerobel : +212 787 013 201`) across all pages. |
 | 2026-10-18 | [S1-02] Unified site-wide vocabulary (`Groupe · Marques · SAV · Où acheter · Espace Pro · Contact`, `Demande SAV`, `WhatsApp Nerobel`, `double réservoir`, `écran digital`, `numéro de dossier`) and added `one vocabulary` rule to `scripts/audit-check.sh`. |
+| 2026-10-18 | [S1-03] Created `content/catalogue.json` (`confirmed: false` pending O-01) and aligned all product names (`Theros Pro-Slim`, `Pacific Horizon`, `Eurogas Master Flame`, `Réfrigérateur Multi-Portes 520 L`, `Climatiseur Split Inverter R32`, `Lave-Linge Direct Drive 10,5 kg`, `Smart TV OLED 4K 65"`), finish terms (`noir graphite brossé`, `finition titane brossé`) and specs (`écran tactile digital`, `réglable jusqu'à 75 °C`) across `index.html`, `brands.html`, and `js/main.js`. |

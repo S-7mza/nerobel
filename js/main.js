@@ -266,23 +266,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const slidesData = [
       {
         eyebrow: "Theros",
-        title: "Theros Pro-Slim 50L",
-        desc: "Connecté Wi-Fi · Écran tactile digital 55°C · Finition titane brossé"
+        title: "Theros Pro-Slim",
+        desc: "Connecté Wi-Fi · Écran tactile digital · Finition titane brossé"
       },
       {
-        eyebrow: "Theros",
-        title: "Theros Smart TV & AC",
-        desc: "Divertissement immersif · Régulation Inverter A+++ · Design acoustique bois"
+        eyebrow: "Nerobel",
+        title: "Smart TV OLED 4K 65\"",
+        desc: "Dalle OLED 4K · Finition noir graphite brossé · Google TV"
       },
       {
         eyebrow: "Eurogas",
-        title: "Eurogas Chauffe-eau Gaz",
-        desc: "Allumage automatique sans veilleuse · Sécurité ODS certifiée · Eau chaude continue"
+        title: "Eurogas Master Flame",
+        desc: "Allumage basse pression · Sécurité ODS · Eau chaude instantanée"
       },
       {
-        eyebrow: "Theros",
-        title: "Theros Master Suite & AC",
-        desc: "Climatisation Inverter 19 dB ultra-silencieuse · Nuit paisible 21°C · Confort absolu"
+        eyebrow: "Nerobel",
+        title: "Climatiseur Split Inverter R32",
+        desc: "Capacité 12 000 / 18 000 BTU · Fluide R32 · Contrôle Wi-Fi"
       }
     ];
 

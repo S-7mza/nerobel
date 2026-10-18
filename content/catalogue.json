@@ -1,0 +1,116 @@
+[
+  {
+    "id": "theros-pro-slim",
+    "brand": "Theros",
+    "range": "Pro-Slim",
+    "name": "Theros Pro-Slim",
+    "capacity_or_size": "Capacité à confirmer (O-01)",
+    "finish": "finition titane brossé",
+    "specs": [
+      "Dimensions : 46 × 85 × 25 cm",
+      "Puissances : 500 / 1 300 / 2 000 W",
+      "Double réservoir",
+      "Écran tactile digital",
+      "Température réglable jusqu'à 75 °C",
+      "Application Wi-Fi"
+    ],
+    "page_anchor": "brands.html#theros",
+    "confirmed": false
+  },
+  {
+    "id": "pacific-horizon-80l",
+    "brand": "Pacific",
+    "range": "Horizon",
+    "name": "Pacific Horizon",
+    "capacity_or_size": "80 L (à confirmer O-01)",
+    "finish": "blanc",
+    "specs": [
+      "Montage horizontal ou vertical",
+      "Double réservoir",
+      "Écran digital",
+      "Température réglable jusqu'à 75 °C",
+      "Conformité CE"
+    ],
+    "page_anchor": "pacific.html",
+    "confirmed": false
+  },
+  {
+    "id": "eurogas-master-flame",
+    "brand": "Eurogas",
+    "range": "Master Flame",
+    "name": "Eurogas Master Flame",
+    "capacity_or_size": "Instantané (débits à confirmer O-01)",
+    "finish": "acier brossé / blanc",
+    "specs": [
+      "Production d'eau chaude instantanée",
+      "Brûleur cuivre",
+      "Allumage basse pression",
+      "Sécurité ODS (arrêt automatique de l'arrivée de gaz)"
+    ],
+    "page_anchor": "brands.html#eurogas",
+    "confirmed": false
+  },
+  {
+    "id": "nerobel-refrigerateur-520l",
+    "brand": "Nerobel",
+    "range": "Multi-Portes",
+    "name": "Réfrigérateur Multi-Portes 520 L",
+    "capacity_or_size": "520 L",
+    "finish": "noir graphite brossé",
+    "specs": [
+      "Volume utile : 520 L",
+      "Technologie No-Frost Total",
+      "Compresseur Dual Inverter",
+      "Finition noir graphite brossé"
+    ],
+    "page_anchor": "brands.html#nerobel-tech",
+    "confirmed": false
+  },
+  {
+    "id": "nerobel-climatiseur-r32",
+    "brand": "Nerobel",
+    "range": "Split Inverter R32",
+    "name": "Climatiseur Split Inverter R32",
+    "capacity_or_size": "12 000 / 18 000 BTU",
+    "finish": "blanc",
+    "specs": [
+      "Capacité : 12 000 / 18 000 BTU",
+      "Fluide frigorigène R32",
+      "Contrôle Wi-Fi via application mobile"
+    ],
+    "page_anchor": "brands.html#nerobel-tech",
+    "confirmed": false
+  },
+  {
+    "id": "nerobel-lave-linge-10-5kg",
+    "brand": "Nerobel",
+    "range": "Direct Drive",
+    "name": "Lave-Linge Direct Drive 10,5 kg",
+    "capacity_or_size": "10,5 kg",
+    "finish": "noir graphite brossé",
+    "specs": [
+      "Capacité : 10,5 kg",
+      "Programme vapeur",
+      "Essorage 1 400 tr/min",
+      "Programme rapide 15 minutes"
+    ],
+    "page_anchor": "brands.html#nerobel-tech",
+    "confirmed": false
+  },
+  {
+    "id": "nerobel-smart-tv-oled-65",
+    "brand": "Nerobel",
+    "range": "OLED 4K",
+    "name": "Smart TV OLED 4K 65\"",
+    "capacity_or_size": "65\"",
+    "finish": "cadre fin noir graphite brossé",
+    "specs": [
+      "Dalle OLED 4K",
+      "Audio Dolby Atmos 40 W",
+      "Connectique HDMI 2.1 & eARC",
+      "Google TV avec commande vocale"
+    ],
+    "page_anchor": "brands.html#nerobel-tech",
+    "confirmed": false
+  }
+]
