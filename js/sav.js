@@ -506,7 +506,7 @@ class SavPortal {
         const codeEl = document.getElementById('displayTicketCode');
         if (codeEl) codeEl.textContent = ticketCode;
 
-        // WhatsApp direct link to official hotline: +212 787 013 201
+        // WhatsApp direct link to WhatsApp Nerobel: +212 787 013 201
         const waBtn = document.getElementById('btnWhatsAppAction');
         if (waBtn) {
           const msg = `Bonjour Nerobel, ma demande SAV porte le numéro ${ticketCode}`;

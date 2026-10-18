@@ -18,5 +18,6 @@ ban "no distributor wording" 'distribués par|distributeur et fabricant|conçoit
 ban "no leader claims"       'leader'
 ban "no Arabic / lang switch" '[\x{0600}-\x{06FF}]|lang-switch|lang-dropdown'
 ban "no dead # links"        'href="#"'
+ban "one vocabulary"         'réclamation|SAV Express|Support SAV|Portail|Showrooms & Distributeurs|Showrooms &amp; Distributeurs|Trouver un|Concierge|Hotline'
 [ "${1:-}" = "--gate" ] && ban "no placeholders" 'TODO|À COMPLÉTER'
 exit $fail
