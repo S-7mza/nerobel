@@ -380,28 +380,42 @@
 }
 
 .brand-card .eyebrow {
-  min-height: 28px;
-  max-height: 28px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  margin-bottom: var(--space-3);
-  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  min-height: 38px;
+  margin-bottom: 16px;
+  line-height: 1;
 }
 
-.brand-card h3 {
+.brand-card .eyebrow span {
+  line-height: 1;
+}
+
+.brand-card h3,
+.brand-card .card-title {
   font-family: var(--font-display);
   font-size: var(--font-size-md);
   font-weight: 700;
   line-height: 1.35;
   color: var(--color-text);
-  margin: 0 0 var(--space-2);
-  min-height: 2.7em;
+  margin: 0 0 12px;
+  min-height: 2.8em;
+}
+
+.brand-card .brand-card-lead {
+  min-height: 4.8em;
+  margin-bottom: 16px;
+  line-height: 1.55;
 }
 
 .brand-card .seal-nerobel--sm {
   margin-top: auto;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   padding: 8px 12px;
   display: flex;
   align-items: center;

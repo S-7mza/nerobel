@@ -653,99 +653,183 @@
   width: auto;
 }
 
-/* Badges & Eyebrows */
+/* ───────────────────────────────────────────────
+   EDITORIAL LUXURY EYEBROWS (Zero Sticker Box)
+   Refined open layout with luminous gradient hairlines
+   ─────────────────────────────────────────────── */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--fm);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-family: var(--fd);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--az);
-  background: rgba(58, 160, 230, 0.10);
-  border: 1px solid rgba(58, 160, 230, 0.28);
-  padding: 6px 14px;
-  border-radius: 4px;
+  text-shadow: 0 0 20px rgba(58, 160, 230, 0.22);
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 8px 18px;
+  border-top: 1px solid rgba(58, 160, 230, 0.28);
+  border-bottom: 1px solid rgba(58, 160, 230, 0.28);
+  position: relative;
   white-space: nowrap;
 }
 
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(58, 160, 230, 0.5), transparent);
+  pointer-events: none;
+}
+
+.eyebrow::before {
+  top: -1px;
+}
+
+.eyebrow::after {
+  bottom: -1px;
+}
+
 .eyebrow i {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  opacity: 0.85;
 }
 
 [dir="rtl"] .eyebrow {
   letter-spacing: 0;
 }
 
-/* ── Eyebrow Gold · Editorial Luxury Variant ── */
-.eyebrow-gold {
-  /* Typography: display face for prestige, not monospace */
-  font-family: var(--fd);
-  font-weight: 500;
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
+/* ── Eyebrow Brand & Semantic Color Variants ── */
 
-  /* Color & glow */
+/* 1. Electric Cyan / Azure Blue (Theros & Connected Tech) */
+.eyebrow-blue,
+.brand-card[data-brand="theros"] .eyebrow {
+  color: var(--az);
+  text-shadow: 0 0 20px rgba(58, 160, 230, 0.25);
+  border-top-color: rgba(58, 160, 230, 0.35);
+  border-bottom-color: rgba(58, 160, 230, 0.35);
+}
+.eyebrow-blue::before,
+.eyebrow-blue::after,
+.brand-card[data-brand="theros"] .eyebrow::before,
+.brand-card[data-brand="theros"] .eyebrow::after {
+  background: linear-gradient(90deg, transparent, rgba(58, 160, 230, 0.6), transparent);
+}
+
+/* 2. Prestige Gold (Pacific & Heritage / Signature) */
+.eyebrow-gold,
+.brand-card[data-brand="pacific"] .eyebrow {
   color: var(--gold);
-  text-shadow: 0 0 20px rgba(201, 169, 106, 0.18);
-
-  /* Open layout — no background box, no sticker border */
-  background: none;
-  border: none;
-  border-radius: 0;
-  padding: 10px 22px;
-
-  /* Decorative accent lines (top & bottom hairlines) */
-  border-top: 1px solid rgba(201, 169, 106, 0.28);
-  border-bottom: 1px solid rgba(201, 169, 106, 0.28);
-
-  /* Position for pseudo-element decorations */
-  position: relative;
+  text-shadow: 0 0 20px rgba(201, 169, 106, 0.25);
+  border-top-color: rgba(201, 169, 106, 0.35);
+  border-bottom-color: rgba(201, 169, 106, 0.35);
 }
-
-/* Gold gradient glow on the accent lines */
 .eyebrow-gold::before,
-.eyebrow-gold::after {
-  content: '';
-  position: absolute;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201, 169, 106, 0.5), transparent);
-  pointer-events: none;
+.eyebrow-gold::after,
+.brand-card[data-brand="pacific"] .eyebrow::before,
+.brand-card[data-brand="pacific"] .eyebrow::after {
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 106, 0.6), transparent);
 }
 
-.eyebrow-gold::before {
-  top: -1px;
+/* 3. Flame Amber (Eurogas Gas Solutions) */
+.eyebrow-flame,
+.eyebrow-amber,
+.brand-card[data-brand="eurogas"] .eyebrow {
+  color: #F2B84B;
+  text-shadow: 0 0 20px rgba(242, 184, 75, 0.25);
+  border-top-color: rgba(242, 184, 75, 0.35);
+  border-bottom-color: rgba(242, 184, 75, 0.35);
+}
+.eyebrow-flame::before,
+.eyebrow-flame::after,
+.eyebrow-amber::before,
+.eyebrow-amber::after,
+.brand-card[data-brand="eurogas"] .eyebrow::before,
+.brand-card[data-brand="eurogas"] .eyebrow::after {
+  background: linear-gradient(90deg, transparent, rgba(242, 184, 75, 0.6), transparent);
 }
 
-.eyebrow-gold::after {
-  bottom: -1px;
+/* 4. Platinum / Silver-Cyan (Nerobel Consumer Tech & Smart Living) */
+.eyebrow-silver,
+.eyebrow-tech,
+.brand-card[data-brand="nerobel"] .eyebrow {
+  color: #E2E8F0;
+  text-shadow: 0 0 20px rgba(226, 232, 240, 0.25);
+  border-top-color: rgba(226, 232, 240, 0.35);
+  border-bottom-color: rgba(226, 232, 240, 0.35);
+}
+.eyebrow-silver::before,
+.eyebrow-silver::after,
+.eyebrow-tech::before,
+.eyebrow-tech::after,
+.brand-card[data-brand="nerobel"] .eyebrow::before,
+.brand-card[data-brand="nerobel"] .eyebrow::after {
+  background: linear-gradient(90deg, transparent, rgba(226, 232, 240, 0.6), transparent);
 }
 
-/* Refined icon inside gold eyebrow */
-.eyebrow-gold i {
-  font-size: 0.95rem;
-  opacity: 0.75;
-}
-
-/* Light theme adaptation */
-[data-theme="light"] .eyebrow-gold {
+/* Light Theme Adaptations */
+[data-theme="light"] .eyebrow {
   text-shadow: none;
+  color: #1A73E8;
+  border-top-color: rgba(26, 115, 232, 0.25);
+  border-bottom-color: rgba(26, 115, 232, 0.25);
+}
+[data-theme="light"] .eyebrow::before,
+[data-theme="light"] .eyebrow::after {
+  background: linear-gradient(90deg, transparent, rgba(26, 115, 232, 0.4), transparent);
+}
+
+[data-theme="light"] .eyebrow-gold,
+[data-theme="light"] .brand-card[data-brand="pacific"] .eyebrow {
+  color: #B4883A;
   border-top-color: rgba(180, 136, 58, 0.25);
   border-bottom-color: rgba(180, 136, 58, 0.25);
 }
-
 [data-theme="light"] .eyebrow-gold::before,
-[data-theme="light"] .eyebrow-gold::after {
+[data-theme="light"] .eyebrow-gold::after,
+[data-theme="light"] .brand-card[data-brand="pacific"] .eyebrow::before,
+[data-theme="light"] .brand-card[data-brand="pacific"] .eyebrow::after {
   background: linear-gradient(90deg, transparent, rgba(180, 136, 58, 0.4), transparent);
+}
+
+[data-theme="light"] .eyebrow-flame,
+[data-theme="light"] .eyebrow-amber,
+[data-theme="light"] .brand-card[data-brand="eurogas"] .eyebrow {
+  color: #D97706;
+  border-top-color: rgba(217, 119, 6, 0.25);
+  border-bottom-color: rgba(217, 119, 6, 0.25);
+}
+[data-theme="light"] .eyebrow-flame::before,
+[data-theme="light"] .eyebrow-flame::after,
+[data-theme="light"] .brand-card[data-brand="eurogas"] .eyebrow::before,
+[data-theme="light"] .brand-card[data-brand="eurogas"] .eyebrow::after {
+  background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.4), transparent);
+}
+
+[data-theme="light"] .eyebrow-silver,
+[data-theme="light"] .eyebrow-tech,
+[data-theme="light"] .brand-card[data-brand="nerobel"] .eyebrow {
+  color: #334155;
+  border-top-color: rgba(51, 65, 85, 0.25);
+  border-bottom-color: rgba(51, 65, 85, 0.25);
+}
+[data-theme="light"] .eyebrow-silver::before,
+[data-theme="light"] .eyebrow-silver::after,
+[data-theme="light"] .brand-card[data-brand="nerobel"] .eyebrow::before,
+[data-theme="light"] .brand-card[data-brand="nerobel"] .eyebrow::after {
+  background: linear-gradient(90deg, transparent, rgba(51, 65, 85, 0.4), transparent);
 }
 
 /* Signature Laser Underline */
@@ -1624,28 +1708,40 @@
 }
 
 .brand-card .eyebrow {
-  white-space: normal;
-  max-width: 100%;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  padding: 5px 11px;
-  margin-bottom: 14px;
-  align-self: flex-start;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  min-height: 38px;
+  margin-bottom: 16px;
+  line-height: 1;
 }
 
-.brand-card-title {
+.brand-card .eyebrow span {
+  line-height: 1;
+}
+
+.brand-card-title,
+.brand-card h3,
+.brand-card .card-title {
   font-family: var(--fd);
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--tx);
-  margin-bottom: 10px;
+  line-height: 1.35;
+  margin-bottom: 12px;
+  min-height: 2.8em;
 }
 
 .brand-card-lead {
   font-size: 0.92rem;
   color: var(--tx2);
   line-height: 1.55;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  min-height: 4.8em;
 }
 
 .brand-features-list {
