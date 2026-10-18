@@ -219,5 +219,77 @@ test('sav.html: default hand-off shows "Votre message est prêt" and no fabricat
   expect(decodeURIComponent(waHref)).toContain('Eurogas');
 });
 
+test('network.html: seed data shows confirmed headquarters showroom and no unconfirmed outlet', async ({ page }) => {
+  await page.goto('/network.html');
+  await page.waitForSelector('.outlet-card');
+  const cards = await page.$$('.outlet-card');
+  expect(cards.length).toBe(1);
+
+  const title = await page.$eval('.outlet-card .outlet-card__name', el => el.textContent);
+  expect(title).toContain('Siège Social & Showroom Principal');
+
+  // Verify three buttons exist
+  const callBtn = await page.$('.outlet-card a[href^="tel:"]');
+  const waBtn = await page.$('.outlet-card a[href*="wa.me"]');
+  const dirBtn = await page.$('.outlet-card a[href*="google.com/maps"]');
+  expect(callBtn).not.toBeNull();
+  expect(waBtn).not.toBeNull();
+  expect(dirBtn).not.toBeNull();
+});
+
+test('network.html: query parameters preselect filters and filter outlets', async ({ page }) => {
+  // Test brand query param
+  await page.goto('/network.html?brand=pacific');
+  await page.waitForSelector('.outlet-card');
+  const brandVal = await page.$eval('#filterBrand', el => el.value);
+  expect(brandVal).toBe('pacific');
+  // Brands: null matches all
+  const cardsPacific = await page.$$('.outlet-card');
+  expect(cardsPacific.length).toBe(1);
+
+  // Test city query param with no confirmed outlet
+  await page.goto('/network.html?city=rabat');
+  await page.waitForSelector('.showrooms-empty-state');
+  const emptyVisible = await page.$eval('.showrooms-empty-state', el => window.getComputedStyle(el).display !== 'none');
+  expect(emptyVisible).toBe(true);
+
+  // Test city query param with confirmed outlet
+  await page.goto('/network.html?city=casablanca');
+  await page.waitForSelector('.outlet-card');
+  const cardsCasa = await page.$$('.outlet-card');
+  expect(cardsCasa.length).toBe(1);
+});
+
+test('network.html: mobile toggle at 390px shows list first and toggles map', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/network.html');
+  await page.waitForSelector('.outlet-card');
+
+  // Directory wrap is visible, map frame is hidden in view-list
+  const listVisible = await page.$eval('#networkDirectoryWrap', el => window.getComputedStyle(el).display !== 'none');
+  const mapVisible = await page.$eval('#networkMapFrame', el => window.getComputedStyle(el).display !== 'none');
+  expect(listVisible).toBe(true);
+  expect(mapVisible).toBe(false);
+
+  // Toggle map
+  await page.click('#btnToggleMap');
+  const listAfterToggle = await page.$eval('#networkDirectoryWrap', el => window.getComputedStyle(el).display !== 'none');
+  const mapAfterToggle = await page.$eval('#networkMapFrame', el => window.getComputedStyle(el).display !== 'none');
+  expect(listAfterToggle).toBe(false);
+  expect(mapAfterToggle).toBe(true);
+});
+
+test('ou-acheter/casablanca.html: static city page exists with LocalBusiness JSON-LD', async ({ page }) => {
+  await page.goto('/ou-acheter/casablanca.html');
+  const h1 = await page.$eval('h1', el => el.textContent);
+  expect(h1).toContain('Où acheter à Casablanca');
+
+  const jsonLd = await page.$eval('script[type="application/ld+json"]', el => JSON.parse(el.textContent));
+  expect(jsonLd['@type']).toBe('LocalBusiness');
+  expect(jsonLd.address.addressLocality).toBe('Casablanca');
+  expect(jsonLd.telephone).toBe('+212522998877');
+});
+
+
 
 

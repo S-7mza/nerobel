@@ -99,57 +99,130 @@
       </div>
     </section>
 
-    <!-- Map & Showrooms Directory Section (Fixed Container Nesting D6) -->
+    <!-- Map & Showrooms Directory Section -->
     <section class="section section--tight">
       <div class="container">
+        <!-- Mobile View Toggle (List First) -->
+        <div class="network-view-toggle-bar">
+          <button type="button" class="btn-network-toggle active" id="btnToggleList" aria-pressed="true">
+            <i class="ti ti-list"></i> <span>Liste</span>
+          </button>
+          <button type="button" class="btn-network-toggle" id="btnToggleMap" aria-pressed="false">
+            <i class="ti ti-map"></i> <span>Carte</span>
+          </button>
+          <button type="button" class="btn-network-toggle btn-filter-sheet-toggle" id="btnOpenFilterSheet" aria-haspopup="dialog" aria-controls="filterBottomSheet">
+            <i class="ti ti-adjustments-horizontal"></i> <span>Filtres</span>
+          </button>
+        </div>
+
+        <!-- Mobile Bottom-Sheet Filter Dialog (S3-04) -->
+        <dialog id="filterBottomSheet" class="bottom-sheet-dialog" aria-labelledby="filterSheetTitle">
+          <div class="bottom-sheet-content">
+            <div class="bottom-sheet-header">
+              <h2 id="filterSheetTitle" class="bottom-sheet-title"><i class="ti ti-adjustments-horizontal"></i> Filtrer les points de vente</h2>
+              <button type="button" class="bottom-sheet-close" id="btnCloseFilterSheet" aria-label="Fermer les filtres">
+                <i class="ti ti-x"></i>
+              </button>
+            </div>
+            <div class="bottom-sheet-body">
+              <div class="filter-group">
+                <label for="filterSheetCity"><i class="ti ti-map-pin"></i> Ville</label>
+                <select id="filterSheetCity" class="filter-select-city">
+                  <option value="all">Toutes les villes</option>
+                  <option value="casablanca">Casablanca</option>
+                  <option value="rabat">Rabat</option>
+                  <option value="marrakech">Marrakech</option>
+                  <option value="tanger">Tanger</option>
+                  <option value="fes">Fès</option>
+                  <option value="meknes">Meknès</option>
+                  <option value="agadir">Agadir</option>
+                  <option value="oujda">Oujda</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filterSheetBrand"><i class="ti ti-tag"></i> Marque</label>
+                <select id="filterSheetBrand" class="filter-select-brand">
+                  <option value="all">Toutes les marques</option>
+                  <option value="theros">Theros</option>
+                  <option value="pacific">Pacific</option>
+                  <option value="eurogas">Eurogas</option>
+                  <option value="nerobel">Nerobel</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filterSheetType"><i class="ti ti-building-store"></i> Établissement</label>
+                <select id="filterSheetType" class="filter-select-type">
+                  <option value="all">Tous les types</option>
+                  <option value="showroom">Showrooms Officiels</option>
+                  <option value="revendeur">Revendeurs agréés</option>
+                </select>
+              </div>
+              <div class="bottom-sheet-actions">
+                <button type="button" class="btn btn-primary btn-block" id="btnApplyFilterSheet">Appliquer les filtres</button>
+              </div>
+            </div>
+          </div>
+        </dialog>
+
         <!-- Standardized Filters Bar -->
         <div class="filters-bar" data-reveal="fade-up">
           <div class="filter-group">
             <label for="filterCity"><i class="ti ti-map-pin"></i> Ville</label>
             <select id="filterCity" class="filter-select-city">
-              <option value="all">Toutes les Villes</option>
-              <option value="Casablanca">Casablanca</option>
-              <option value="Rabat">Rabat</option>
-              <option value="Marrakech">Marrakech</option>
-              <option value="Tanger">Tanger</option>
-              <option value="Fès">Fès</option>
-              <option value="Agadir">Agadir</option>
+              <option value="all">Toutes les villes</option>
+              <option value="casablanca">Casablanca</option>
+              <option value="rabat">Rabat</option>
+              <option value="marrakech">Marrakech</option>
+              <option value="tanger">Tanger</option>
+              <option value="fes">Fès</option>
+              <option value="meknes">Meknès</option>
+              <option value="agadir">Agadir</option>
+              <option value="oujda">Oujda</option>
             </select>
           </div>
 
           <div class="filter-group">
-            <label for="filterBrand"><i class="ti ti-flame"></i> Marque</label>
+            <label for="filterBrand"><i class="ti ti-tag"></i> Marque</label>
             <select id="filterBrand" class="filter-select-brand">
-              <option value="all">Toutes les Marques</option>
-              <option value="Theros">Theros (Électrique)</option>
-              <option value="Pacific">Pacific (Chauffe-eau Multi-Position)</option>
-              <option value="Eurogas">Eurogas (Gaz &amp; Chaudières)</option>
-              <option value="Consumer Tech">Nerobel Consumer Tech</option>
+              <option value="all">Toutes les marques</option>
+              <option value="theros">Theros</option>
+              <option value="pacific">Pacific</option>
+              <option value="eurogas">Eurogas</option>
+              <option value="nerobel">Nerobel</option>
             </select>
           </div>
 
           <div class="filter-group">
             <label for="filterType"><i class="ti ti-building-store"></i> Établissement</label>
             <select id="filterType" class="filter-select-type">
-              <option value="all">Tous les Établissements</option>
-              <option value="showroom">Showrooms Officiels Nerobel</option>
+              <option value="all">Tous les types</option>
+              <option value="showroom">Showrooms Officiels</option>
+              <option value="revendeur">Revendeurs agréés</option>
             </select>
+          </div>
+
+          <div class="filter-group" style="display:flex; align-items:flex-end;">
+            <button type="button" class="btn-nearby" id="btnNearby" aria-label="Localiser les points de vente autour de moi">
+              <i class="ti ti-current-location"></i> <span>Autour de moi</span>
+            </button>
           </div>
         </div>
 
-        <!-- Interactive Map & Directory Grid -->
-        <div class="network-main-grid">
-          <div class="network-map-frame" data-reveal="scale">
+        <div id="nearbyFeedback" class="nearby-feedback" style="display:none;" role="status"></div>
+
+        <!-- Interactive Map & Directory Grid (List First on Phones) -->
+        <div class="network-main-grid view-list" id="networkMainGrid">
+          <div class="network-map-frame" id="networkMapFrame">
             <div id="networkLeafletMap" class="network-map-inner"></div>
           </div>
 
-          <div data-reveal="fade-left">
+          <div class="network-directory-wrap" id="networkDirectoryWrap">
             <div class="directory-header-row">
               <div>
                 <h2 class="card-title">Adresses et contacts</h2>
-                <p class="directory-subtitle">Sélectionnez un point de vente pour afficher son emplacement sur la carte</p>
+                <p class="directory-subtitle">Consultez nos points de vente confirmés au Maroc</p>
               </div>
-              <span class="showrooms-count-pill" id="showroomsCount">8 Établissements</span>
+              <span class="showrooms-count-pill" id="showroomsCount">1 Établissement</span>
             </div>
             <div id="showroomsList" class="showrooms-list-grid">
               <!-- Populated dynamically by js/network.js -->

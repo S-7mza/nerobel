@@ -2,7 +2,7 @@
 # Usage: scripts/audit-check.sh [--gate]   (--gate also bans TODO / À COMPLÉTER)
 export LC_ALL=C.UTF-8
 cd "$(dirname "$0")/.." || exit 2
-FILES=$(ls ./*.html js/*.js assets/js/*.js 2>/dev/null | grep -v 'test_')
+FILES=$(ls ./*.html ou-acheter/*.html js/*.js assets/js/*.js 2>/dev/null | grep -v 'test_')
 fail=0
 ban() {  # ban "<rule name>" "<PCRE pattern>"
   out=$(grep -nPi -- "$2" $FILES 2>/dev/null)

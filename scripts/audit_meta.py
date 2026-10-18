@@ -36,7 +36,7 @@ def bad(page, msg):
     fails += 1
     print(f"✗ {page}: {msg}")
 
-html_files = [f for f in sorted(glob.glob("*.html")) if not f.startswith("test_")]
+html_files = [f for f in sorted(glob.glob("*.html") + glob.glob("ou-acheter/*.html")) if not f.startswith("test_")]
 for f in html_files:
     p = Page(); p.feed(open(f, encoding="utf-8").read())
     if p.lang != "fr": bad(f, f"html lang={p.lang!r}, expected 'fr'")

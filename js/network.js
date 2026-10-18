@@ -1,134 +1,30 @@
 /* ─────────────────────────────────────────────────────────────
-   NEROBEL GROUP · SHOWROOM & DISTRIBUTOR NETWORK (js/network.js) - v2.0
-   Interactive Leaflet Map & City Directory across Morocco
-   Covering: Theros, Pacific, Eurogas, & Nerobel Consumer Tech
+   NEROBEL GROUP · SHOWROOM & OUTLETS NETWORK (js/network.js)
+   S3-04: Confirmed outlets locator, filters, mobile list/map toggle
    ───────────────────────────────────────────────────────────── */
 
-const SHOWROOMS_DATA = [
+const SEED_OUTLETS = [
   {
-    id: 1,
-    name: "Nerobel Flagship Showroom & Siège",
-    type: "showroom",
-    typeLabel: "Showroom Officiel",
-    city: "Casablanca",
-    address: "Angle Bd d'Anfa & Rue Mozart, Casablanca",
-    phone: "+212 522 99 88 77",
-    whatsapp: "+212787013201",
-    hours: "Lun - Sam : 08:30 - 19:30",
-    brands: ["Theros", "Pacific", "Eurogas", "Consumer Tech"],
-    lat: 33.5898,
-    lng: -7.6322,
-    confirmed: false
-  },
-  {
-    id: 2,
-    name: "Showroom Nerobel & Theros Ain Sebaa",
-    type: "showroom",
-    typeLabel: "Showroom Officiel",
-    city: "Casablanca",
-    address: "Zone Industrielle Ain Sebaa, Route de Rabat, Casablanca",
-    phone: "+212 522 354 120",
-    whatsapp: "+212787013201",
-    hours: "Lun - Ven : 08:00 - 18:00",
-    brands: ["Theros", "Pacific", "Eurogas"],
-    lat: 33.6064,
-    lng: -7.5321,
-    confirmed: false
-  },
-  {
-    id: 4,
-    name: "Showroom Régional Rabat Agdal",
-    type: "showroom",
-    typeLabel: "Showroom Officiel",
-    city: "Rabat",
-    address: "Avenue Fal Ould Oumeir, Agdal, Rabat",
-    phone: "+212 537 778 910",
-    whatsapp: "+212787013201",
-    hours: "Lun - Sam : 09:00 - 19:00",
-    brands: ["Theros", "Pacific", "Eurogas"],
-    lat: 34.0041,
-    lng: -6.8496,
-    confirmed: false
-  },
-  {
-    id: 5,
-    name: "Comptoir Sanitaire & Plomberie de Rabat",
-    type: "distributor",
-    typeLabel: "Grossiste Sanitaire Agréé",
-    city: "Rabat",
-    address: "Boulevard Hassan II, Quartier Industriel, Rabat",
-    phone: "+212 537 289 140",
-    whatsapp: "+212787013201",
-    hours: "Lun - Sam : 08:00 - 18:30",
-    brands: ["Pacific", "Eurogas"],
-    lat: 34.0152,
-    lng: -6.8321,
-    confirmed: false
-  },
-  {
-    id: 6,
-    name: "Showroom Marrakech Guéliz",
-    type: "showroom",
-    typeLabel: "Showroom Officiel",
-    city: "Marrakech",
-    address: "Boulevard Mohamed V, Guéliz, Marrakech",
-    phone: "+212 524 432 100",
-    whatsapp: "+212787013201",
-    hours: "Lun - Sam : 09:00 - 20:00",
-    brands: ["Theros", "Pacific", "Eurogas", "Consumer Tech"],
-    lat: 31.6346,
-    lng: -8.0142,
-    confirmed: false
-  },
-  {
-    id: 7,
-    name: "Showroom Tanger Malabata",
-    type: "showroom",
-    typeLabel: "Showroom Officiel",
-    city: "Tanger",
-    address: "Boulevard Mohammed VI, Baie de Tanger",
-    phone: "+212 539 340 550",
-    whatsapp: "+212787013201",
-    hours: "Lun - Sam : 09:00 - 19:30",
-    brands: ["Theros", "Pacific", "Eurogas"],
-    lat: 35.7725,
-    lng: -5.7924,
-    confirmed: false
-  },
-  {
-    id: 8,
-    name: "Showroom Fès Route d'Imouzzer",
-    type: "showroom",
-    typeLabel: "Showroom Officiel",
-    city: "Fès",
-    address: "Route d'Imouzzer, Ville Nouvelle, Fès",
-    phone: "+212 535 654 321",
-    whatsapp: "+212787013201",
-    hours: "Lun - Sam : 08:30 - 19:00",
-    brands: ["Theros", "Pacific", "Eurogas"],
-    lat: 34.0208,
-    lng: -4.9998,
-    confirmed: false
-  },
-  {
-    id: 9,
-    name: "Showroom Agadir Hassan II",
-    type: "showroom",
-    typeLabel: "Showroom Officiel",
-    city: "Agadir",
-    address: "Boulevard Hassan II, Centre-Ville, Agadir",
-    phone: "+212 528 840 920",
-    whatsapp: "+212787013201",
-    hours: "Lun - Sam : 09:00 - 19:30",
-    brands: ["Theros", "Pacific", "Eurogas"],
-    lat: 30.4211,
-    lng: -9.5982,
-    confirmed: false
+    "id": "casablanca-siege",
+    "name": "Siège Social & Showroom Principal",
+    "type": "showroom",
+    "city": "Casablanca",
+    "address": "Angle Boulevard d'Anfa & Rue Mozart, Casablanca, Maroc",
+    "phone": "+212522998877",
+    "whatsapp": "+212787013201",
+    "hours": "Lun - Sam : 08h30 - 19h30",
+    "brands": null,
+    "maps_url": null,
+    "lat": null,
+    "lng": null,
+    "confirmed": true,
+    "confirmed_on": "2026-10-17"
   }
 ];
 
 class NetworkManager {
   constructor() {
+    this.outlets = [];
     this.map = null;
     this.markers = [];
     this.markersMap = new Map();
@@ -136,12 +32,69 @@ class NetworkManager {
     this.currentCity = 'all';
     this.currentBrand = 'all';
     this.currentType = 'all';
+    this.userCoords = null;
   }
 
-  init() {
+  async init() {
+    await this.loadData();
+    this.readQueryParams();
     this.initMap();
-    this.renderDirectory();
+    this.initMobileToggle();
+    this.initFilterSheet();
+    this.initNearby();
     this.bindFilters();
+    this.renderDirectory();
+    this.updateMarkers();
+  }
+
+  async loadData() {
+    try {
+      const res = await fetch('content/outlets.json');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          // STRICT RULE: only entries with "confirmed": true
+          this.outlets = data.filter(item => item && item.confirmed === true);
+        } else {
+          this.outlets = SEED_OUTLETS.filter(item => item.confirmed === true);
+        }
+      } else {
+        this.outlets = SEED_OUTLETS.filter(item => item.confirmed === true);
+      }
+    } catch (err) {
+      this.outlets = SEED_OUTLETS.filter(item => item.confirmed === true);
+    }
+
+    if (!this.outlets.length) {
+      this.outlets = SEED_OUTLETS.filter(item => item.confirmed === true);
+    }
+  }
+
+  readQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    const brandParam = params.get('brand');
+    const cityParam = params.get('city');
+
+    if (brandParam) {
+      this.currentBrand = brandParam.toLowerCase().trim();
+      this.syncSelectValue('filterBrand', this.currentBrand);
+      this.syncSelectValue('filterSheetBrand', this.currentBrand);
+    }
+
+    if (cityParam) {
+      this.currentCity = cityParam.toLowerCase().trim();
+      this.syncSelectValue('filterCity', this.currentCity);
+      this.syncSelectValue('filterSheetCity', this.currentCity);
+    }
+  }
+
+  syncSelectValue(selectId, value) {
+    const el = document.getElementById(selectId);
+    if (!el) return;
+    const exists = Array.from(el.options).some(opt => opt.value.toLowerCase() === value.toLowerCase());
+    if (exists) {
+      el.value = value;
+    }
   }
 
   initMap() {
@@ -156,8 +109,199 @@ class NetworkManager {
       attribution: '&copy; OpenStreetMap contributors',
       maxZoom: 18
     }).addTo(this.map);
+  }
 
-    this.updateMarkers();
+  initMobileToggle() {
+    const btnList = document.getElementById('btnToggleList');
+    const btnMap = document.getElementById('btnToggleMap');
+    const grid = document.getElementById('networkMainGrid');
+
+    if (btnList && btnMap && grid) {
+      btnList.addEventListener('click', () => {
+        grid.classList.remove('view-map');
+        grid.classList.add('view-list');
+        btnList.classList.add('active');
+        btnList.setAttribute('aria-pressed', 'true');
+        btnMap.classList.remove('active');
+        btnMap.setAttribute('aria-pressed', 'false');
+      });
+
+      btnMap.addEventListener('click', () => {
+        grid.classList.remove('view-list');
+        grid.classList.add('view-map');
+        btnMap.classList.add('active');
+        btnMap.setAttribute('aria-pressed', 'true');
+        btnList.classList.remove('active');
+        btnList.setAttribute('aria-pressed', 'false');
+        if (this.map) {
+          setTimeout(() => this.map.invalidateSize(), 150);
+        }
+      });
+    }
+  }
+
+  initFilterSheet() {
+    const btnOpen = document.getElementById('btnOpenFilterSheet');
+    const dialog = document.getElementById('filterBottomSheet');
+    const btnClose = document.getElementById('btnCloseFilterSheet');
+    const btnApply = document.getElementById('btnApplyFilterSheet');
+
+    if (!dialog) return;
+
+    if (btnOpen) {
+      btnOpen.addEventListener('click', () => {
+        if (typeof dialog.showModal === 'function') {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute('open', '');
+        }
+      });
+    }
+
+    const closeDialog = () => {
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+      } else {
+        dialog.removeAttribute('open');
+      }
+    };
+
+    if (btnClose) btnClose.addEventListener('click', closeDialog);
+    if (btnApply) {
+      btnApply.addEventListener('click', () => {
+        closeDialog();
+      });
+    }
+
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+      if (!isInDialog) {
+        closeDialog();
+      }
+    });
+  }
+
+  initNearby() {
+    const btnNearby = document.getElementById('btnNearby');
+    const feedbackEl = document.getElementById('nearbyFeedback');
+    if (!btnNearby || !feedbackEl) return;
+
+    btnNearby.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        feedbackEl.style.display = 'block';
+        feedbackEl.textContent = 'Géolocalisation non supportée par votre navigateur. Choisissez votre ville.';
+        return;
+      }
+
+      feedbackEl.style.display = 'block';
+      feedbackEl.textContent = 'Recherche de votre position...';
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const userLat = pos.coords.latitude;
+          const userLng = pos.coords.longitude;
+          let anyWithCoords = false;
+
+          this.outlets.forEach(item => {
+            if (item.lat != null && item.lng != null && !isNaN(item.lat) && !isNaN(item.lng)) {
+              item._distanceKm = this.haversine(userLat, userLng, Number(item.lat), Number(item.lng));
+              anyWithCoords = true;
+            } else {
+              item._distanceKm = Infinity;
+            }
+          });
+
+          if (anyWithCoords) {
+            this.outlets.sort((a, b) => (a._distanceKm || Infinity) - (b._distanceKm || Infinity));
+            feedbackEl.textContent = 'Points de vente classés par proximité.';
+          } else {
+            feedbackEl.textContent = 'Coordonnées GPS des points de vente en cours de vérification. Choisissez votre ville.';
+          }
+
+          this.renderDirectory();
+          this.updateMarkers();
+        },
+        (err) => {
+          // Exact required message on denial
+          feedbackEl.style.display = 'block';
+          feedbackEl.textContent = 'Géolocalisation non autorisée. Choisissez votre ville.';
+        },
+        { timeout: 10000 }
+      );
+    });
+  }
+
+  haversine(lat1, lon1, lat2, lon2) {
+    const R = 6371; // km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  bindFilters() {
+    const syncAndFilter = (type, value) => {
+      if (type === 'city') {
+        this.currentCity = value;
+        this.syncSelectValue('filterCity', value);
+        this.syncSelectValue('filterSheetCity', value);
+      } else if (type === 'brand') {
+        this.currentBrand = value;
+        this.syncSelectValue('filterBrand', value);
+        this.syncSelectValue('filterSheetBrand', value);
+      } else if (type === 'type') {
+        this.currentType = value;
+        this.syncSelectValue('filterType', value);
+        this.syncSelectValue('filterSheetType', value);
+      }
+      this.renderDirectory();
+      this.updateMarkers();
+    };
+
+    const pairs = [
+      ['filterCity', 'city'],
+      ['filterSheetCity', 'city'],
+      ['filterBrand', 'brand'],
+      ['filterSheetBrand', 'brand'],
+      ['filterType', 'type'],
+      ['filterSheetType', 'type']
+    ];
+
+    pairs.forEach(([id, type]) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', (e) => syncAndFilter(type, e.target.value));
+      }
+    });
+  }
+
+  getFilteredData() {
+    return this.outlets.filter(item => {
+      const matchCity = (this.currentCity === 'all') ||
+        (item.city && item.city.toLowerCase() === this.currentCity.toLowerCase());
+
+      // "brands: null means not specified: the outlet appears under every brand filter."
+      let matchBrand = true;
+      if (this.currentBrand !== 'all') {
+        if (item.brands === null) {
+          matchBrand = true;
+        } else if (Array.isArray(item.brands)) {
+          matchBrand = item.brands.some(b => b.toLowerCase().includes(this.currentBrand));
+        } else {
+          matchBrand = false;
+        }
+      }
+
+      const matchType = (this.currentType === 'all') ||
+        (item.type && item.type.toLowerCase() === this.currentType.toLowerCase());
+
+      return matchCity && matchBrand && matchType;
+    });
   }
 
   updateMarkers() {
@@ -168,9 +312,10 @@ class NetworkManager {
     this.markersMap.clear();
 
     const filtered = this.getFilteredData();
+    const withCoords = filtered.filter(item => item.lat != null && item.lng != null && !isNaN(item.lat) && !isNaN(item.lng));
 
-    filtered.forEach(item => {
-      const pinColor = item.type === 'showroom' ? '#3AA0E6' : item.type === 'gsb' ? '#C9A96A' : '#34C77B';
+    withCoords.forEach(item => {
+      const pinColor = item.type === 'showroom' ? '#3AA0E6' : '#C9A96A';
       const customIcon = L.divIcon({
         className: 'custom-map-pin',
         html: `<div style="background:#0C0C0E; border:2px solid ${pinColor}; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; box-shadow:0 0 16px ${pinColor}55;"><i class="ti ti-building-store" style="color:${pinColor}; font-size:16px;"></i></div>`,
@@ -178,17 +323,21 @@ class NetworkManager {
         iconAnchor: [18, 18]
       });
 
-      const marker = L.marker([item.lat, item.lng], { icon: customIcon }).addTo(this.map);
+      const marker = L.marker([Number(item.lat), Number(item.lng)], { icon: customIcon }).addTo(this.map);
+
+      const cleanPhone = (item.phone || '').replace(/\s+/g, '');
+      const cleanWa = (item.whatsapp || item.phone || '').replace(/[^0-9]/g, '');
+      const encodedAddress = encodeURIComponent(item.address || '');
 
       marker.bindPopup(`
         <div class="leaflet-showroom-popup">
-          <div class="popup-type-tag" style="color:${pinColor};">${item.typeLabel}</div>
+          <div class="popup-type-tag" style="color:${pinColor};">${item.type === 'showroom' ? 'Showroom Officiel' : 'Revendeur Agréé'}</div>
           <h4 class="popup-title">${item.name}</h4>
           <p class="popup-address"><i class="ti ti-map-pin"></i> ${item.address}</p>
           <div class="popup-phone"><i class="ti ti-phone"></i> ${item.phone}</div>
-          <div class="popup-actions">
-            <a href="https://maps.google.com/?q=${item.lat},${item.lng}" target="_blank" rel="noopener" class="popup-btn popup-btn--gps"><i class="ti ti-navigation"></i> GPS</a>
-            <a href="https://wa.me/${item.whatsapp.replace(/[^0-9]/g,'')}?text=Bonjour,%20je%20souhaite%20visiter%20votre%20point%20de%20vente%20${encodeURIComponent(item.name)}" target="_blank" rel="noopener" class="popup-btn popup-btn--wa"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
+          <div class="popup-actions" style="display:flex; gap:8px; margin-top:8px;">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}" target="_blank" rel="noopener" class="popup-btn popup-btn--gps"><i class="ti ti-directions"></i> Itinéraire</a>
+            <a href="https://wa.me/${cleanWa}?text=Bonjour%2C%20je%20souhaite%20visiter%20le%20point%20de%20vente%20${encodeURIComponent(item.name)}" target="_blank" rel="noopener" class="popup-btn popup-btn--wa"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
           </div>
         </div>
       `, { maxWidth: 280, className: 'nerobel-map-popup' });
@@ -201,29 +350,24 @@ class NetworkManager {
       this.markersMap.set(item.id, marker);
     });
 
-    if (filtered.length === 1) {
-      this.map.flyTo([filtered[0].lat, filtered[0].lng], 13, { duration: 1.0 });
+    if (withCoords.length === 1) {
+      this.map.flyTo([Number(withCoords[0].lat), Number(withCoords[0].lng)], 13, { duration: 1.0 });
+    } else if (withCoords.length > 1) {
+      const group = L.featureGroup(this.markers);
+      this.map.fitBounds(group.getBounds().pad(0.15));
     }
   }
 
   highlightCard(id, shouldScroll = false) {
     this.activeId = id;
-    const cards = document.querySelectorAll('.showroom-card');
+    const cards = document.querySelectorAll('.outlet-card');
     cards.forEach(card => {
-      const cardId = parseInt(card.getAttribute('data-id'), 10);
-      card.classList.toggle('is-active', cardId === id);
-      if (cardId === id && shouldScroll) {
+      const cardId = card.getAttribute('data-id');
+      const isActive = cardId === String(id);
+      card.classList.toggle('is-active', isActive);
+      if (isActive && shouldScroll) {
         card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
-    });
-  }
-
-  getFilteredData() {
-    return SHOWROOMS_DATA.filter(item => {
-      const matchCity = (this.currentCity === 'all') || (item.city.toLowerCase() === this.currentCity.toLowerCase());
-      const matchBrand = (this.currentBrand === 'all') || (item.brands.includes(this.currentBrand));
-      const matchType = (this.currentType === 'all') || (item.type === this.currentType);
-      return matchCity && matchBrand && matchType;
     });
   }
 
@@ -239,11 +383,11 @@ class NetworkManager {
 
     if (!data.length) {
       listEl.innerHTML = `
-        <div class="showrooms-empty-state">
-          <i class="ti ti-map-pin-off"></i>
-          <p>La liste de nos points de vente est en cours de mise à jour. Contactez-nous sur WhatsApp.</p>
-          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px;">
-            <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">
+        <div class="showrooms-empty-state" style="text-align:center; padding:40px 20px; background:var(--s2, #0d0f15); border:1px solid var(--bd, rgba(255,255,255,0.1)); border-radius:12px;">
+          <i class="ti ti-map-pin-off" style="font-size:2.5rem; color:var(--tx2, #94a3b8); margin-bottom:12px; display:inline-block;"></i>
+          <p style="color:var(--tx2, #94a3b8); margin-bottom:16px;">Aucun point de vente confirmé ne correspond à ces critères pour le moment. Contactez-nous pour être orienté vers le revendeur le plus proche.</p>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <a href="https://wa.me/212787013201?text=Bonjour%2C%20je%20recherche%20un%20point%20de%20vente%20Nerobel" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">
               <i class="ti ti-brand-whatsapp"></i> Écrire sur WhatsApp
             </a>
             <button type="button" class="btn btn-secondary btn-sm" id="resetNetworkFilters">
@@ -261,119 +405,59 @@ class NetworkManager {
 
     listEl.innerHTML = data.map(item => {
       const isActive = item.id === this.activeId;
+      const typeLabel = item.type === 'showroom' ? 'Showroom Officiel' : 'Revendeur Agréé';
+      const badgeClass = item.type === 'showroom' ? 'badge--showroom' : 'badge--revendeur';
+      const cleanPhone = (item.phone || '').replace(/\s+/g, '');
+      const cleanWa = (item.whatsapp || item.phone || '').replace(/[^0-9]/g, '');
+      const encodedAddress = encodeURIComponent(item.address || '');
+      const brandsText = item.brands && Array.isArray(item.brands)
+        ? item.brands.join(', ')
+        : 'Toutes les marques Nerobel Group';
+
+      const distanceMarkup = (item._distanceKm != null && isFinite(item._distanceKm))
+        ? `<span class="outlet-distance-badge" style="display:inline-block; font-size:0.75rem; background:rgba(58,160,230,0.15); color:var(--az,#3aa0e6); padding:2px 8px; border-radius:9999px; margin-left:8px;"><i class="ti ti-navigation"></i> à ${item._distanceKm.toFixed(1)} km</span>`
+        : '';
+
       return `
-        <article class="showroom-card ${isActive ? 'is-active' : ''}" data-id="${item.id}" tabindex="0" role="button" aria-label="${item.name}">
-          <!-- Meta Top: City + Type + Status -->
-          <div class="showroom-meta-top">
-            <div class="showroom-tags">
-              <span class="showroom-city-tag">${item.city}</span>
-              <span class="showroom-type-badge showroom-type--${item.type}">
-                <span class="type-indicator-dot"></span>
-                ${item.typeLabel}
-              </span>
-            </div>
-            <span class="showroom-status-live" title="Ouvert aux horaires indiqués">
-              <span class="live-pulse"></span>
-              Ouvert
-            </span>
+        <article class="outlet-card ${isActive ? 'is-active' : ''}" data-id="${item.id}" tabindex="0" role="region" aria-label="${item.name}">
+          <div class="outlet-card__header">
+            <span class="outlet-card__badge ${badgeClass}">${typeLabel}</span>
+            ${distanceMarkup}
+            <h3 class="outlet-card__name">${item.name}</h3>
           </div>
-
-          <!-- Showroom Name -->
-          <h4 class="showroom-name">${item.name}</h4>
-
-          <!-- Address -->
-          <p class="showroom-address">
-            <i class="ti ti-map-pin"></i>
-            <span>${item.address}</span>
-          </p>
-
-          <!-- Dedicated Brand Chips Row (Flex-Wrap with Clean Spacing) -->
-          <div class="showroom-brands-wrap" aria-label="Marques distribuées">
-            ${item.brands.map(b => {
-              const slug = b.toLowerCase().replace(/[^a-z0-9]/g, '');
-              return `<span class="brand-chip brand-chip--${slug}">${b}</span>`;
-            }).join('')}
-          </div>
-
-          <!-- Meta Strip (Phone & Schedule) -->
-          <div class="showroom-info-strip">
-            <a href="tel:${item.phone.replace(/\s+/g,'')}" class="showroom-phone-link" title="Appeler le showroom">
-              <i class="ti ti-phone"></i>
-              <span>${item.phone}</span>
+          <p class="outlet-card__address"><i class="ti ti-map-pin text-az"></i> <span>${item.address}</span></p>
+          <p class="outlet-card__hours"><i class="ti ti-clock text-gold"></i> <span>${item.hours || 'Horaires non communiqués'}</span></p>
+          <p class="outlet-card__brands"><i class="ti ti-tag text-az"></i> <strong>Marques :</strong> <span>${brandsText}</span></p>
+          <div class="outlet-card__actions">
+            <a href="tel:${cleanPhone}" class="btn btn-secondary btn-sm" aria-label="Appeler ${item.name}">
+              <i class="ti ti-phone"></i> Appeler
             </a>
-            <span class="showroom-hours">
-              <i class="ti ti-clock"></i>
-              <span>${item.hours}</span>
-            </span>
-          </div>
-
-          <!-- Actions Row -->
-          <div class="showroom-actions-row">
-            <a href="https://maps.google.com/?q=${item.lat},${item.lng}" target="_blank" rel="noopener" class="btn-showroom-action btn-showroom-gps">
-              <i class="ti ti-navigation"></i>
-              <span>Itinéraire GPS</span>
+            <a href="https://wa.me/${cleanWa}?text=Bonjour%2C%20je%20souhaite%20me%20renseigner%20sur%20le%20point%20de%20vente%20${encodeURIComponent(item.name)}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm" aria-label="WhatsApp ${item.name}">
+              <i class="ti ti-brand-whatsapp"></i> WhatsApp
             </a>
-            <a href="https://wa.me/${item.whatsapp.replace(/[^0-9]/g,'')}?text=Bonjour,%20je%20souhaite%20visiter%20votre%20point%20de%20vente%20${encodeURIComponent(item.name)}" target="_blank" rel="noopener" class="btn-showroom-action btn-showroom-wa">
-              <i class="ti ti-brand-whatsapp"></i>
-              <span>WhatsApp Direct</span>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" aria-label="Itinéraire vers ${item.name}">
+              <i class="ti ti-directions"></i> Itinéraire
             </a>
           </div>
         </article>
       `;
     }).join('');
 
-    listEl.querySelectorAll('.showroom-card').forEach(card => {
+    listEl.querySelectorAll('.outlet-card').forEach(card => {
       card.addEventListener('click', (e) => {
         if (e.target.tagName === 'A' || e.target.closest('a')) return;
-        const id = parseInt(card.getAttribute('data-id'), 10);
-        const item = SHOWROOMS_DATA.find(s => s.id === id);
-        if (item && this.map) {
-          this.map.flyTo([item.lat, item.lng], 15, { duration: 1.0 });
+        const id = card.getAttribute('data-id');
+        const item = this.outlets.find(s => String(s.id) === String(id));
+        if (item && item.lat != null && item.lng != null && this.map) {
+          this.map.flyTo([Number(item.lat), Number(item.lng)], 15, { duration: 1.0 });
           const marker = this.markersMap.get(id);
           if (marker) {
             setTimeout(() => marker.openPopup(), 450);
           }
-          this.highlightCard(id, false);
         }
-      });
-
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
+        this.highlightCard(id, false);
       });
     });
-  }
-
-  bindFilters() {
-    const citySelect = document.getElementById('filterCity');
-    const brandSelect = document.getElementById('filterBrand');
-    const typeSelect = document.getElementById('filterType');
-
-    if (citySelect) {
-      citySelect.addEventListener('change', (e) => {
-        this.currentCity = e.target.value;
-        this.renderDirectory();
-        this.updateMarkers();
-      });
-    }
-
-    if (brandSelect) {
-      brandSelect.addEventListener('change', (e) => {
-        this.currentBrand = e.target.value;
-        this.renderDirectory();
-        this.updateMarkers();
-      });
-    }
-
-    if (typeSelect) {
-      typeSelect.addEventListener('change', (e) => {
-        this.currentType = e.target.value;
-        this.renderDirectory();
-        this.updateMarkers();
-      });
-    }
   }
 
   resetFilters() {
@@ -381,13 +465,10 @@ class NetworkManager {
     this.currentBrand = 'all';
     this.currentType = 'all';
 
-    const citySelect = document.getElementById('filterCity');
-    const brandSelect = document.getElementById('filterBrand');
-    const typeSelect = document.getElementById('filterType');
-
-    if (citySelect) citySelect.value = 'all';
-    if (brandSelect) brandSelect.value = 'all';
-    if (typeSelect) typeSelect.value = 'all';
+    ['filterCity', 'filterSheetCity', 'filterBrand', 'filterSheetBrand', 'filterType', 'filterSheetType'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = 'all';
+    });
 
     this.renderDirectory();
     this.updateMarkers();
@@ -399,9 +480,8 @@ class NetworkManager {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (document.getElementById('networkLeafletMap')) {
+  if (document.getElementById('networkLeafletMap') || document.getElementById('showroomsList')) {
     window.networkManager = new NetworkManager();
     window.networkManager.init();
   }
 });
-
