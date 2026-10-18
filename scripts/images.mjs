@@ -18,9 +18,16 @@ const WIDTHS = [480, 800, 1200, 1600];
 const CARD_JOBS = [
   { src: 'theros_brand_article.jpg', name: 'theros-pro-slim-card-4x3' },
   { src: 'theros_brand_page_withlogo_crop.jpg', name: 'theros-pro-slim-page-4x3' },
-  { src: 'pacific-waterheater-poster.jpg', name: 'pacific-water-heater-card-4x3' },
-  { src: 'eurogas-boiler.jpg', name: 'eurogas-boiler-card-4x3' },
+  { src: 'pacific_brand_page_withlogo.jpg', name: 'pacific-water-heater-card-4x3' },
+  { src: 'eurogas_brand_page_withlogo.jpg', name: 'eurogas-boiler-card-4x3' },
   { src: 'nerobel-tech-showcase.jpg', name: 'nerobel-tech-card-4x3' }
+];
+
+const BRAND_PAGE_JOBS = [
+  { src: 'theros_brand_page_withlogo_crop.jpg', name: 'theros_brand_page_withlogo_crop', aspect: 2 / 3 },
+  { src: 'pacific_brand_page_withlogo.jpg', name: 'pacific_brand_page_withlogo', aspect: 2 / 3 },
+  { src: 'eurogas_brand_page_withlogo.jpg', name: 'eurogas_brand_page_withlogo', aspect: 2 / 3 },
+  { src: 'nerobel-banner-appliances.jpg', name: 'nerobel-banner-appliances', aspect: 1072 / 1920 }
 ];
 
 async function processCardJobs() {
@@ -88,9 +95,33 @@ async function processBannerJobs() {
   await base45.clone().jpeg({ quality: 82 }).toFile(path.join(OUT_DIR, 'nerobel-appliances-banner-4x5.jpg'));
 }
 
+async function processBrandPageJobs() {
+  const BP_WIDTHS = [480, 800, 1200, 1800];
+  for (const job of BRAND_PAGE_JOBS) {
+    const inputPath = path.join(SRC_DIR, job.src);
+    console.log(`Processing brand page visual: ${job.name} from ${job.src}`);
+
+    for (const width of BP_WIDTHS) {
+      const height = Math.round(width * job.aspect);
+      const resizer = sharp(inputPath).resize(width, height, { fit: 'cover' });
+
+      const webpOut = path.join(OUT_DIR, `${job.name}-${width}.webp`);
+      await resizer.clone().webp({ quality: 86 }).toFile(webpOut);
+
+      const avifOut = path.join(OUT_DIR, `${job.name}-${width}.avif`);
+      await resizer.clone().avif({ quality: 78 }).toFile(avifOut);
+    }
+
+    // Full master outputs
+    await sharp(inputPath).webp({ quality: 88 }).toFile(path.join(OUT_DIR, `${job.name}.webp`));
+    await sharp(inputPath).jpeg({ quality: 86, progressive: true }).toFile(path.join(OUT_DIR, `${job.name}.jpg`));
+  }
+}
+
 async function run() {
   await processCardJobs();
   await processBannerJobs();
+  await processBrandPageJobs();
   console.log('Image pipeline complete.');
 }
 

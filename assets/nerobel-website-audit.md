@@ -859,7 +859,7 @@ test('mobile action bar targets are at least 48px', async ({ page }) => {
   ],
   "contact": {
     "address": "Angle Boulevard d'Anfa & Rue Mozart, Casablanca, Maroc",
-    "switchboard": {"label": "Standard", "display": "+212 522 99 88 77", "tel": "+212522998877"},
+    "switchboard": {"label": "Standard", "display": "+212 661 99 97 47", "tel": "+212661999747"},
     "whatsapp": {"label": "WhatsApp Nerobel", "display": "+212 787 013 201", "tel": "+212787013201"},
     "email": "contact@nerobel.com",
     "hours": "Lun - Sam : 08h30 - 19h30",
@@ -868,7 +868,7 @@ test('mobile action bar targets are at least 48px', async ({ page }) => {
 }
 ```
 - Normalise every phone display to the two formats above (replace `+212 (0) 522 99 88 77`); label each use ("Standard", "WhatsApp Nerobel"); the B2B line label "Ligne B2B" becomes "Standard".
-- Acceptance: `grep -o 'tel:[+0-9]*' *.html | sort -u` returns only `tel:+212522998877` and `tel:+212787013201`; every `wa.me` link uses `212787013201`; no `(0)` in any phone display.
+- Acceptance: `grep -o 'tel:[+0-9]*' *.html | sort -u` returns only `tel:+212661999747` and `tel:+212787013201`; every `wa.me` link uses `212787013201`; no `(0)` in any phone display.
 
 **S1-02 — Vocabulary pass** · M · closes H-05, N-07, P-04, C-03, S-05
 - Apply this mapping everywhere (visible text, `title`/`aria-label`, meta tags, JavaScript strings):

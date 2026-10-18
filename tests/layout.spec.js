@@ -287,7 +287,7 @@ test('ou-acheter/casablanca.html: static city page exists with LocalBusiness JSO
   const jsonLd = await page.$eval('script[type="application/ld+json"]', el => JSON.parse(el.textContent));
   expect(jsonLd['@type']).toBe('LocalBusiness');
   expect(jsonLd.address.addressLocality).toBe('Casablanca');
-  expect(jsonLd.telephone).toBe('+212522998877');
+  expect(jsonLd.telephone).toBe('+212661999747');
 });
 
 test('b2b.html: blocks submission without email and consent, and sends mailto hand-off on valid submit', async ({ page }) => {

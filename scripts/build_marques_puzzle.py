@@ -27,7 +27,7 @@ MASTER_W = PANEL_W * 4
 MASTER_H = PANEL_H
 
 SCENES = [
-    BRAIN / "puzzle_scene_1_theros_1792284622073.jpg",
+    Path(r"C:\Users\7mza\.gemini\antigravity\brain\88ffceae-8914-4031-990e-6dd0b7cf2253\theros_prop2_spa_suite_1792342560197.jpg"),
     BRAIN / "puzzle_scene_2_pacific_1792284630725.jpg",
     BRAIN / "puzzle_scene_3_eurogas_1792284640944.jpg",
     BRAIN / "puzzle_scene_4_nerobel_1792284650640.jpg",
@@ -284,7 +284,7 @@ def draw_continuous_puzzle_overlay(master: Image.Image) -> Image.Image:
         font_sub = ImageFont.load_default()
 
     labels = [
-        ("01 / 04", "THEROS · PRO-SLIM SMART"),
+        ("01 / 04", "THEROS · CONFORT THERMIQUE & UNIVERS BAIN"),
         ("02 / 04", "PACIFIC · HORIZON 75°C"),
         ("03 / 04", "EUROGAS™ · MASTER FLAME"),
         ("04 / 04", "NEROBEL · CONSUMER TECH"),
@@ -314,9 +314,7 @@ def main() -> None:
     for idx, path in enumerate(SCENES):
         img = Image.open(path).convert("RGB")
         panel = crop_to_panel(img, y_bias=0.5)
-        if idx == 0:
-            panel = clean_theros_wall_stencil(panel)
-        elif idx == 2:
+        if idx == 2:
             panel = refine_eurogas_heater_badge(panel)
         panel = ImageEnhance.Contrast(panel).enhance(1.05)
         panel = ImageEnhance.Sharpness(panel).enhance(1.08)
