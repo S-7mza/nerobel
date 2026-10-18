@@ -5,61 +5,61 @@
 
 :root {
   /* Surfaces & Backgrounds */
-  --black: #050505;
-  --bg-gradient: radial-gradient(circle at 50% 0%, rgba(58, 160, 230, 0.10) 0%, transparent 50%), #050505;
-  --s1: #0C0C0E;
-  --s2: #141417;
-  --s3: #1C1C21;
+  --black: var(--color-bg);
+  --bg-gradient: radial-gradient(circle at 50% 0%, rgba(58, 160, 230, 0.10) 0%, transparent 50%), var(--color-bg);
+  --s1: var(--color-surface);
+  --s2: var(--color-surface-2);
+  --s3: var(--color-surface-3);
   --s-glass: rgba(12, 12, 14, 0.75);
   --header-bg: rgba(5, 5, 5, 0.88);
 
   /* Borders & Dividers */
-  --bd: #2A2A31;
-  --bdh: #3A3A44;
+  --bd: var(--color-border);
+  --bdh: var(--color-border-hover);
   --bd-glow: rgba(58, 160, 230, 0.45);
 
   /* Typography Colors */
-  --tx: #FFFFFF;
-  --tx2: #B4B8C0;
-  --tx3: #8A8F99;
+  --tx: var(--color-text);
+  --tx2: var(--color-muted);
+  --tx3: var(--color-subtle);
 
   /* Signature Pro Blue Accent */
-  --az: #3AA0E6;
+  --az: var(--color-info);
   --azh: #5BB4F0;
   --azp: #2A8AD0;
   --glow: rgba(58, 160, 230, 0.18);
   --glow-strong: rgba(58, 160, 230, 0.35);
 
   /* Prestige Gold Accent */
-  --gold: #C9A96A;
+  --gold: var(--accent-pacific);
   --gold-glow: rgba(201, 169, 106, 0.22);
   --gold-grad: linear-gradient(135deg, #E5CA92 0%, #C9A96A 100%);
 
   /* State Colors */
-  --ok: #34C77B;
+  --ok: var(--color-success);
   --ok-bg: rgba(52, 199, 123, 0.12);
-  --warn: #F2B84B;
-  --err: #FF5C6C;
+  --warn: var(--color-warning);
+  --err: var(--color-error);
   --err-bg: rgba(255, 92, 108, 0.12);
   --wa: #25D366;
   --wa-glow: rgba(37, 211, 102, 0.22);
 
   /* Fonts */
-  --fd: 'Montserrat', system-ui, -apple-system, sans-serif;
-  --fb: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --fm: 'JetBrains Mono', Consolas, ui-monospace, monospace;
+  --fd: var(--font-display);
+  --fb: var(--font-sans);
+  --fm: var(--font-mono);
   --fa: 'Cairo', 'Inter', system-ui, sans-serif;
 
   /* Elevation & Shadows */
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.7);
+  --shadow-sm: var(--shadow-1);
+  --shadow-md: var(--shadow-2);
   --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.9);
   --shadow-glow: 0 0 25px rgba(58, 160, 230, 0.25);
 
   /* Transitions & Curves */
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --trans: 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-  --radius-sm: 8px;
+  --radius-sm: var(--radius-s);
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-pill: 9999px;

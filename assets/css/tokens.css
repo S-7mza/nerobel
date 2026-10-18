@@ -1,0 +1,92 @@
+/* ─────────────────────────────────────────────────────────────
+   NEROBEL GROUP · DESIGN TOKENS (assets/css/tokens.css)
+   Single source of truth for colours, typography, spacing, radii,
+   and elevation across all pages (Sprint 2 · S2-01).
+
+   Breakpoints (documented here; CSS custom properties cannot be
+   used inside @media queries):
+   - Mobile S : 360px
+   - Tablet   : 768px
+   - Desktop  : 1024px
+   - Wide     : 1280px
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* 1. Neutral Scale (Dark Default) */
+  --color-bg: #050505;
+  --color-surface: #0C0C0E;
+  --color-surface-2: #141417;
+  --color-surface-3: #1C1C21;
+  --color-text: #FFFFFF;
+  --color-muted: #B4B8C0;
+  --color-subtle: #8A8F99;
+  --color-border: #2A2A31;
+  --color-border-hover: #3A3A44;
+
+  /* 2. Brand Accents (pending O-11 confirmation; SVG logos in assets/icons/ use monochrome #FFFFFF fill) */
+  --accent-theros: #3AA0E6;
+  --accent-pacific: #C9A96A;
+  --accent-eurogas: #F2B84B;
+  --accent-nerobel: #FFFFFF;
+
+  /* 3. Semantic Colours */
+  --color-success: #34C77B;
+  --color-warning: #F2B84B;
+  --color-error: #FF5C6C;
+  --color-info: #3AA0E6;
+
+  /* 4. Spacing Scale (4, 8, 12, 16, 24, 32, 48, 64, 96 px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* 5. Border Radii */
+  --radius-s: 8px;
+  --radius-m: 16px;
+
+  /* 6. Elevation / Shadows (2 levels) */
+  --shadow-1: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-2: 0 12px 32px rgba(0, 0, 0, 0.7);
+
+  /* 7. Typography Families & Fluid Type Scale (body = 1rem) */
+  --font-display: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, ui-monospace, monospace;
+
+  --font-size-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+  --font-size-sm: clamp(0.84rem, 0.81rem + 0.15vw, 0.9rem);
+  --font-size-body: 1rem;
+  --font-size-md: clamp(1.05rem, 1rem + 0.25vw, 1.15rem);
+  --font-size-lg: clamp(1.2rem, 1.1rem + 0.45vw, 1.45rem);
+  --font-size-xl: clamp(1.4rem, 1.25rem + 0.75vw, 1.85rem);
+  --font-size-2xl: clamp(1.6rem, 1.35rem + 1.1vw, 2.2rem);
+  --font-size-3xl: clamp(1.85rem, 1.5rem + 1.5vw, 2.6rem);
+}
+
+[data-theme="light"] {
+  --color-bg: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F1F5F9;
+  --color-surface-3: #E2E8F0;
+  --color-text: #0F172A;
+  --color-muted: #475569;
+  --color-subtle: #64748B;
+  --color-border: #E2E8F0;
+  --color-border-hover: #CBD5E1;
+
+  --accent-theros: #0284C7;
+  --accent-pacific: #B4883A;
+  --accent-eurogas: #D97706;
+  --accent-nerobel: #0F172A;
+
+  --color-info: #0284C7;
+
+  --shadow-1: 0 4px 12px rgba(15, 23, 42, 0.05);
+  --shadow-2: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
