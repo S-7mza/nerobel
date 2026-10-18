@@ -625,7 +625,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S2-04 | Home restructure (7 sections, static hero) | H-07, H-14, M-02, M-03 | L | S2-02, S2-03 | ✅ |
 | S2-05 | Card alignment and layout tests | 4.2 | M | S2-02 | ✅ |
 | S2-06 | Mobile action bar | M-01, S-11 | S | S2-01 | ✅ |
-| S2-07 | OG images per page | H-01 | M | S2-03 | ⬜ |
+| S2-07 | OG images per page | H-01 | M | S2-03 | ✅ |
 | **Sprint 3 — Page rebuilds & mobile** | | | | | |
 | S3-01 | Brands page template and tabs | B-09, B-10, B-12, M-04, M-05 | L | S2-02, S2-03 | ⬜ |
 | S3-02 | SAV form improvements | S-07, S-08, S-10, S-12, M-07 | L | S0-08, S2-02 | ⬜ |
@@ -1220,3 +1220,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-18 | [S2-04] Restructured index.html into exactly 7 sections in order (#hero, #marques, #piliers, #produits, #sav, #ou-acheter, footer); replaced hero slider with static <picture> (4:5 mobile source, fetchpriority="high"); removed collections slider, heritage section, regional teaser, and unused slider JS; verified Playwright boundingBox (H1 and buttons inside 844px viewport). |
 | 2026-10-18 | [S2-05] Created Playwright layout test suite (tests/layout.spec.js) verifying no-horizontal-scroll across 7 pages at 5 viewport widths (360, 390, 430, 768, 1280 px), identical brand card heading baseline at 1280 px, and mobile action bar touch targets >= 48 px; generated 4 screenshot baselines under tests/__screenshots__/ for index and brands @ 390 and 1280 px; all 37 Playwright tests passing; audit_meta.py and audit-check.sh passing. |
 | 2026-10-18 | [S2-06] Implemented responsive mobile action bar (.mobile-bar) visible < 1024px with iOS safe-area insets padding and body padding-bottom (calc(72px + env(safe-area-inset-bottom))), touch target heights >= 48px, 12px text labels with ellipsis, French aria-labels on all 4 items (Appeler, WhatsApp, Demande SAV, Où acheter; and Contact on sav.html); verified with 40 Playwright layout tests. |
+| 2026-10-18 | [S2-07] Created scripts/og.mjs with sharp rendering 1200x630 JPGs with tokens dark background, vector logo, and typography for all pages into assets/img/og/{page}.jpg (all files 41-52 KB, strictly < 200 KB); updated og:image and twitter:image across all pages to unique absolute URLs; audit_meta.py and audit-check.sh passing. |
