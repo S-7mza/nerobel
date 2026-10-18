@@ -233,22 +233,31 @@
 }
 
 .brand-card .brand-card-badge {
-  height: 36px;
-  padding: 6px 14px;
+  width: 140px;
+  height: 40px;
+  padding: 0 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .brand-card__logo,
 .brand-card .brand-card-badge img {
-  height: 20px !important;
+  height: auto !important;
+  max-height: 22px !important;
   width: auto !important;
   max-width: 108px !important;
   object-fit: contain !important;
   display: block;
-  margin: 0 !important;
+  margin: 0 auto !important;
   flex-shrink: 0;
+}
+
+[data-theme="light"] .brand-card .brand-card-badge {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="light"] .brand-card__logo {

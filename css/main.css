@@ -684,10 +684,68 @@
   letter-spacing: 0;
 }
 
+/* ── Eyebrow Gold · Editorial Luxury Variant ── */
 .eyebrow-gold {
+  /* Typography: display face for prestige, not monospace */
+  font-family: var(--fd);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+
+  /* Color & glow */
   color: var(--gold);
-  background: rgba(201, 169, 106, 0.12);
-  border-color: rgba(201, 169, 106, 0.35);
+  text-shadow: 0 0 20px rgba(201, 169, 106, 0.18);
+
+  /* Open layout — no background box, no sticker border */
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 10px 22px;
+
+  /* Decorative accent lines (top & bottom hairlines) */
+  border-top: 1px solid rgba(201, 169, 106, 0.28);
+  border-bottom: 1px solid rgba(201, 169, 106, 0.28);
+
+  /* Position for pseudo-element decorations */
+  position: relative;
+}
+
+/* Gold gradient glow on the accent lines */
+.eyebrow-gold::before,
+.eyebrow-gold::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 106, 0.5), transparent);
+  pointer-events: none;
+}
+
+.eyebrow-gold::before {
+  top: -1px;
+}
+
+.eyebrow-gold::after {
+  bottom: -1px;
+}
+
+/* Refined icon inside gold eyebrow */
+.eyebrow-gold i {
+  font-size: 0.95rem;
+  opacity: 0.75;
+}
+
+/* Light theme adaptation */
+[data-theme="light"] .eyebrow-gold {
+  text-shadow: none;
+  border-top-color: rgba(180, 136, 58, 0.25);
+  border-bottom-color: rgba(180, 136, 58, 0.25);
+}
+
+[data-theme="light"] .eyebrow-gold::before,
+[data-theme="light"] .eyebrow-gold::after {
+  background: linear-gradient(90deg, transparent, rgba(180, 136, 58, 0.4), transparent);
 }
 
 /* Signature Laser Underline */
@@ -1529,19 +1587,34 @@
   position: absolute;
   top: 16px;
   inset-inline-start: 16px;
+  width: 140px;
+  height: 40px;
   background: rgba(5, 5, 5, 0.88);
   backdrop-filter: blur(8px);
   border: 1px solid var(--bd);
-  border-radius: 4px;
-  padding: 6px 14px;
+  border-radius: var(--radius-sm, 6px);
+  padding: 0 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  box-sizing: border-box;
+  z-index: 2;
 }
 
 .brand-card-badge img {
-  height: 20px;
+  max-height: 22px;
+  max-width: 108px;
   width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+[data-theme="light"] .brand-card-badge {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 .brand-card-body {
