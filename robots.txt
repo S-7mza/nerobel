@@ -1,8 +1,4 @@
-# STAGING: Disallow all crawlers until go-live (S4-06)
 User-agent: *
-Disallow: /
+Allow: /
 
-# PRODUCTION (to be activated in S4-06):
-# User-agent: *
-# Allow: /
-# Sitemap: https://s-7mza.github.io/nerobel/sitemap.xml
+Sitemap: https://nerobel.com/sitemap.xml

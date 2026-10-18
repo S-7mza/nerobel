@@ -91,8 +91,6 @@ for (const [city, cityOutlets] of cityGroups.entries()) {
   <title>${title}</title>
   <meta name="description" content="${description}">
   <link rel="canonical" href="https://nerobel.com/ou-acheter/${slug}.html">
-  <!-- STAGING: remove at go-live (S4-06) -->
-  <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 
   <!-- Open Graph -->
@@ -100,9 +98,9 @@ for (const [city, cityOutlets] of cityGroups.entries()) {
   <meta property="og:url" content="https://nerobel.com/ou-acheter/${slug}.html">
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
-  <meta property="og:image" content="https://s-7mza.github.io/nerobel/assets/img/og/network.jpg">
+  <meta property="og:image" content="https://nerobel.com/assets/img/og/network.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://s-7mza.github.io/nerobel/assets/img/og/network.jpg">
+  <meta name="twitter:image" content="https://nerobel.com/assets/img/og/network.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

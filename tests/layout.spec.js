@@ -463,28 +463,29 @@ test('S4-01: scripts/check_jsonld.py passes and index.html contains Organization
   expect(jsonLdContent.brand.length).toBe(4);
 });
 
-test('S4-02: sitemap.xml is valid XML with all pages; robots.txt disallows staging; 404.html has required links', async ({ page }) => {
+test('S4-02: sitemap.xml is valid XML with all pages; robots.txt allows production; 404.html has required links', async ({ page }) => {
   const fs = require('fs');
 
   // Verify robots.txt
   const robots = fs.readFileSync('robots.txt', 'utf8');
-  expect(robots).toMatch(/User-agent:\s*\*\s*\nDisallow:\s*\//);
+  expect(robots).toMatch(/User-agent:\s*\*\s*\nAllow:\s*\//);
+  expect(robots).toContain('Sitemap: https://nerobel.com/sitemap.xml');
 
   // Verify sitemap.xml
   const sitemap = fs.readFileSync('sitemap.xml', 'utf8');
   expect(sitemap).toContain('<?xml version="1.0" encoding="UTF-8"?>');
   expect(sitemap).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
   const expectedPages = [
-    'https://s-7mza.github.io/nerobel/',
-    'https://s-7mza.github.io/nerobel/brands.html',
-    'https://s-7mza.github.io/nerobel/pacific.html',
-    'https://s-7mza.github.io/nerobel/sav.html',
-    'https://s-7mza.github.io/nerobel/network.html',
-    'https://s-7mza.github.io/nerobel/ou-acheter/casablanca.html',
-    'https://s-7mza.github.io/nerobel/b2b.html',
-    'https://s-7mza.github.io/nerobel/contact.html',
-    'https://s-7mza.github.io/nerobel/mentions-legales.html',
-    'https://s-7mza.github.io/nerobel/confidentialite.html'
+    'https://nerobel.com/',
+    'https://nerobel.com/brands.html',
+    'https://nerobel.com/pacific.html',
+    'https://nerobel.com/sav.html',
+    'https://nerobel.com/network.html',
+    'https://nerobel.com/ou-acheter/casablanca.html',
+    'https://nerobel.com/b2b.html',
+    'https://nerobel.com/contact.html',
+    'https://nerobel.com/mentions-legales.html',
+    'https://nerobel.com/confidentialite.html'
   ];
   for (const exp of expectedPages) {
     expect(sitemap).toContain(`<loc>${exp}</loc>`);
