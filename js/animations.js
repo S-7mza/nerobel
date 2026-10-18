@@ -116,36 +116,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ─────────────────────────────────────────────────────────────
-     3. GROHE-INSPIRED SIGNATURE COLLECTION SLIDER
+     3. GROHE-INSPIRED SIGNATURE COLLECTION SLIDER & ARTISTIC MOTION
      ───────────────────────────────────────────────────────────── */
   const track = document.getElementById('collectionTrack');
   const prevBtn = document.getElementById('collPrevBtn');
   const nextBtn = document.getElementById('collNextBtn');
   const progressBar = document.getElementById('collProgressBar');
   const segments = progressBar ? progressBar.querySelectorAll('.progress-segment') : [];
+  const showcaseSection = document.getElementById('collections-signatures');
 
   if (track && prevBtn && nextBtn) {
+    const cards = track.querySelectorAll('.collection-card');
     const getScrollAmount = () => {
       const card = track.querySelector('.collection-card');
       if (!card) return 340;
       const computedGap = parseInt(window.getComputedStyle(track).gap, 10) || 24;
       return card.offsetWidth + computedGap;
     };
-
-    // Click controls
-    prevBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const isRtl = document.documentElement.dir === 'rtl';
-      const amount = getScrollAmount();
-      track.scrollBy({ left: isRtl ? amount : -amount, behavior: 'smooth' });
-    });
-
-    nextBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const isRtl = document.documentElement.dir === 'rtl';
-      const amount = getScrollAmount();
-      track.scrollBy({ left: isRtl ? -amount : amount, behavior: 'smooth' });
-    });
 
     // Update segmented progress bar and button disabled states
     const updateProgress = () => {
@@ -171,9 +158,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     track.addEventListener('scroll', updateProgress, { passive: true });
 
+    // Click controls
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof pauseArtisticMotion === 'function') pauseArtisticMotion(4500);
+      const isRtl = document.documentElement.dir === 'rtl';
+      const amount = getScrollAmount();
+      track.scrollBy({ left: isRtl ? amount : -amount, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof pauseArtisticMotion === 'function') pauseArtisticMotion(4500);
+      const isRtl = document.documentElement.dir === 'rtl';
+      const amount = getScrollAmount();
+      track.scrollBy({ left: isRtl ? -amount : amount, behavior: 'smooth' });
+    });
+
     // Direct segment click
     segments.forEach((seg, idx) => {
       seg.addEventListener('click', () => {
+        if (typeof pauseArtisticMotion === 'function') pauseArtisticMotion(4500);
         const maxScroll = track.scrollWidth - track.clientWidth;
         if (maxScroll <= 0 || segments.length <= 1) return;
         const targetScroll = (idx / (segments.length - 1)) * maxScroll;
@@ -184,5 +189,150 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial check
     setTimeout(updateProgress, 120);
     window.addEventListener('resize', updateProgress);
+
+    /* ─────────────────────────────────────────────────────────
+       ARTISTIC AUTO-MOTION CONTROLLER
+       - Moves the showcase in an artistic, continuous silky drift
+         and staggered floating wave when the mouse is NOT in any card.
+       - Immediately pauses when the cursor enters any card,
+         allowing the user to inspect specifications and click cleanly.
+       ───────────────────────────────────────────────────────── */
+    let pauseArtisticMotion = null;
+
+    if (!prefersReducedMotion) {
+      let isHovered = false;
+      let isInteracting = false;
+      let isVisible = false;
+      let driftDirection = 1; // 1: forward to TV & Fridge, -1: back to Theros & Pacific
+      let driftPos = Math.abs(track.scrollLeft);
+      let pauseUntil = performance.now() + 1600; // gentle startup breath
+      let lastTime = performance.now();
+      let driftRafId = null;
+      let resumeTimeout = null;
+      const driftSpeed = 36; // px per second: calm, elegant, museum-grade glide
+
+      pauseArtisticMotion = (durationMs = 4000) => {
+        isInteracting = true;
+        pauseUntil = performance.now() + durationMs;
+        track.classList.remove('is-auto-drifting', 'is-artistic-moving');
+        if (showcaseSection) showcaseSection.classList.add('is-interacted');
+        clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+          isInteracting = false;
+          driftPos = Math.abs(track.scrollLeft);
+          if (showcaseSection) showcaseSection.classList.remove('is-interacted');
+        }, durationMs);
+      };
+
+      const onPointerEnterCard = () => {
+        isHovered = true;
+        clearTimeout(resumeTimeout);
+        track.classList.remove('is-auto-drifting', 'is-artistic-moving');
+        track.classList.add('is-paused');
+        if (showcaseSection) showcaseSection.classList.add('is-interacted');
+        driftPos = Math.abs(track.scrollLeft);
+      };
+
+      const onPointerLeaveCard = () => {
+        clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+          const anyHovered = Array.from(cards).some(c => c.matches(':hover')) || track.matches(':hover');
+          if (!anyHovered) {
+            isHovered = false;
+            track.classList.remove('is-paused');
+            if (showcaseSection) showcaseSection.classList.remove('is-interacted');
+            driftPos = Math.abs(track.scrollLeft);
+            lastTime = performance.now();
+          }
+        }, 550);
+      };
+
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', onPointerEnterCard);
+        card.addEventListener('mouseleave', onPointerLeaveCard);
+        card.addEventListener('focusin', onPointerEnterCard);
+        card.addEventListener('focusout', onPointerLeaveCard);
+      });
+
+      track.addEventListener('mouseenter', onPointerEnterCard);
+      track.addEventListener('mouseleave', onPointerLeaveCard);
+
+      // Mobile touch interactions
+      track.addEventListener('touchstart', () => {
+        pauseArtisticMotion(3500);
+      }, { passive: true });
+
+      track.addEventListener('touchend', () => {
+        pauseArtisticMotion(3000);
+      }, { passive: true });
+
+      // Trackpad / wheel horizontal scroll
+      track.addEventListener('wheel', () => {
+        pauseArtisticMotion(2500);
+      }, { passive: true });
+
+      // Only animate when section is in viewport (saves 100% CPU when offscreen)
+      if ('IntersectionObserver' in window) {
+        const obsTarget = showcaseSection || track;
+        const visibilityObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            isVisible = entry.isIntersecting;
+            if (isVisible) {
+              lastTime = performance.now();
+              driftPos = Math.abs(track.scrollLeft);
+              if (!driftRafId) {
+                driftRafId = requestAnimationFrame(driftStep);
+              }
+            } else {
+              track.classList.remove('is-auto-drifting', 'is-artistic-moving');
+            }
+          });
+        }, { threshold: 0.05 });
+        visibilityObserver.observe(obsTarget);
+      } else {
+        isVisible = true;
+        driftRafId = requestAnimationFrame(driftStep);
+      }
+
+      function driftStep(now) {
+        if (!isVisible) {
+          driftRafId = null;
+          return;
+        }
+
+        const dt = Math.min((now - lastTime) / 1000, 0.1);
+        lastTime = now;
+
+        const maxScroll = track.scrollWidth - track.clientWidth;
+
+        if (maxScroll > 6 && !isHovered && !isInteracting && now > pauseUntil) {
+          if (!track.classList.contains('is-auto-drifting')) {
+            track.classList.add('is-auto-drifting', 'is-artistic-moving');
+          }
+
+          driftPos += driftSpeed * dt * driftDirection;
+
+          if (driftPos >= maxScroll) {
+            driftPos = maxScroll;
+            driftDirection = -1;
+            pauseUntil = now + 2400; // Pause at end to highlight Smart TV & Refrigerator
+          } else if (driftPos <= 0) {
+            driftPos = 0;
+            driftDirection = 1;
+            pauseUntil = now + 2400; // Pause at start to highlight Theros & Pacific
+          }
+
+          const isRtl = document.documentElement.dir === 'rtl';
+          track.scrollLeft = isRtl ? -driftPos : driftPos;
+          updateProgress();
+        } else if (isHovered || isInteracting) {
+          if (track.classList.contains('is-auto-drifting')) {
+            track.classList.remove('is-auto-drifting', 'is-artistic-moving');
+          }
+        }
+
+        driftRafId = requestAnimationFrame(driftStep);
+      }
+    }
   }
 });
