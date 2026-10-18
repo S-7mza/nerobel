@@ -623,7 +623,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S2-02 | Component classes | 5.3 | L | S2-01 | ✅ |
 | S2-03 | Image pipeline | H-13, B-08, B-09 | L | S2-01 | ✅ |
 | S2-04 | Home restructure (7 sections, static hero) | H-07, H-14, M-02, M-03 | L | S2-02, S2-03 | ✅ |
-| S2-05 | Card alignment and layout tests | 4.2 | M | S2-02 | ⬜ |
+| S2-05 | Card alignment and layout tests | 4.2 | M | S2-02 | ✅ |
 | S2-06 | Mobile action bar | M-01, S-11 | S | S2-01 | ⬜ |
 | S2-07 | OG images per page | H-01 | M | S2-03 | ⬜ |
 | **Sprint 3 — Page rebuilds & mobile** | | | | | |
@@ -1218,3 +1218,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-18 | [S2-02] Created `assets/css/components.css` (`.brand-card`, `.product-card`, `.spec-list`, `.cta-pair`, `.proof-strip`, `.pillar-card`, `.section-head`, `.media-frame`, `.brand-tabs`, `.btn`, `.btn--primary`, `.btn--ghost`), applied component classes on Home and Brands cards, and translated English badges to French. |
 | 2026-10-18 | [S2-03] Created image pipeline (`scripts/images.mjs`) generating responsive WebP/AVIF (480/800/1200/1600) and 4:5 mobile crop; backed up originals to `assets/img-src/`; updated HTML image references with responsive `<picture>`, explicit `width`/`height`, `loading="lazy"`, and French `alt`; all images under 150 KB budget; `audit_meta.py` reports OK. |
 | 2026-10-18 | [S2-04] Restructured index.html into exactly 7 sections in order (#hero, #marques, #piliers, #produits, #sav, #ou-acheter, footer); replaced hero slider with static <picture> (4:5 mobile source, fetchpriority="high"); removed collections slider, heritage section, regional teaser, and unused slider JS; verified Playwright boundingBox (H1 and buttons inside 844px viewport). |
+| 2026-10-18 | [S2-05] Created Playwright layout test suite (tests/layout.spec.js) verifying no-horizontal-scroll across 7 pages at 5 viewport widths (360, 390, 430, 768, 1280 px), identical brand card heading baseline at 1280 px, and mobile action bar touch targets >= 48 px; generated 4 screenshot baselines under tests/__screenshots__/ for index and brands @ 390 and 1280 px; all 37 Playwright tests passing; audit_meta.py and audit-check.sh passing. |
