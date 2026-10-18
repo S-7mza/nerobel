@@ -451,3 +451,15 @@ test('S3-07: captures screenshots for all pages across viewports 360, 390, 768, 
   expect(generatedFiles.length).toBe(screenPages.length * screenWidths.length);
 });
 
+test('S4-01: scripts/check_jsonld.py passes and index.html contains Organization and Brand structured data', async ({ page }) => {
+  const { execSync } = require('child_process');
+  const out = execSync('python scripts/check_jsonld.py', { encoding: 'utf-8' });
+  expect(out).toContain('all JSON-LD blocks valid');
+
+  await page.goto('/index.html');
+  const jsonLdContent = await page.$eval('script[type="application/ld+json"]', el => JSON.parse(el.textContent));
+  expect(jsonLdContent['@type']).toBe('Organization');
+  expect(jsonLdContent.name).toBe('Nerobel Group');
+  expect(jsonLdContent.brand.length).toBe(4);
+});
+
