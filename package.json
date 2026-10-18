@@ -1,0 +1,23 @@
+{
+  "name": "nerobel",
+  "version": "1.0.0",
+  "description": "Modern, responsive web platform for **Nerobel Group**, a premier manufacturing and distribution group specializing in water heaters, heating equipment, home appliances, and consumer electronics across Algeria and the Maghreb region.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-s7mza:S-7mza/nerobel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}

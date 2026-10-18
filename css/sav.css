@@ -44,42 +44,65 @@
   z-index: 2;
 }
 
-/* Signature Laser Blade (Attachment 2): Diagonal Architectural Chiaroscuro Edge */
+/* Signature Laser Blade: Precision Architectural Chiaroscuro Edge */
 .sav-sidebar::before {
   content: '';
   position: absolute;
-  top: -25%;
-  left: -15%;
-  width: 110%;
-  height: 155%;
-  background: linear-gradient(110deg, 
-    rgba(2, 5, 12, 0.98) 0%, 
-    rgba(4, 12, 28, 0.94) 55%, 
-    rgba(8, 24, 52, 0.45) 85%, 
-    rgba(12, 36, 75, 0.15) 100%
+  top: -20px;
+  left: auto;
+  right: -25px;
+  width: 55px;
+  height: 125%;
+  background: linear-gradient(220deg, 
+    rgba(0, 229, 255, 0.04) 0%, 
+    rgba(4, 12, 28, 0.12) 40%, 
+    transparent 100%
   );
-  border-right: 2px solid #00E5FF;
+  border-left: 1.2px solid #00E5FF;
   box-shadow: 
-    0 0 6px #FFFFFF,
-    4px 0 18px rgba(0, 229, 255, 0.85),
-    12px 0 45px rgba(0, 180, 255, 0.45),
-    28px 0 85px rgba(0, 140, 255, 0.2);
-  transform: rotate(-10deg);
+    0 0 3px #FFFFFF,
+    -1px 0 5px rgba(0, 229, 255, 0.5),
+    -2px 0 12px rgba(58, 160, 230, 0.2);
+  transform: rotate(-3deg);
+  transform-origin: top left;
   pointer-events: none;
   z-index: 1;
 }
 
-/* Ambient Volumetric Cyan Dispersion */
+/* Ambient Volumetric Pro-Blue Dispersion */
 .sav-sidebar::after {
   content: '';
   position: absolute;
-  top: -15%;
-  right: -15%;
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.08) 0%, transparent 68%);
+  top: -5px;
+  right: -5px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(58, 160, 230, 0.05) 0%, transparent 68%);
   pointer-events: none;
   z-index: 1;
+}
+
+[dir="rtl"] .sav-sidebar::before {
+  left: -25px;
+  right: auto;
+  border-left: none;
+  border-right: 1.2px solid #00E5FF;
+  box-shadow: 
+    0 0 3px #FFFFFF,
+    1px 0 5px rgba(0, 229, 255, 0.5),
+    2px 0 12px rgba(58, 160, 230, 0.2);
+  transform: rotate(3deg);
+  transform-origin: top right;
+  background: linear-gradient(140deg, 
+    rgba(0, 229, 255, 0.04) 0%, 
+    rgba(4, 12, 28, 0.12) 40%, 
+    transparent 100%
+  );
+}
+
+[dir="rtl"] .sav-sidebar::after {
+  left: -5px;
+  right: auto;
 }
 
 .sav-sidebar-eyebrow {

@@ -84,14 +84,11 @@
     </div>
   </div>
 
-  <main id="main-content" aria-label="Pacific · Chauffe-eau multi-position">
-    <!-- Hero -->
+  <main id="main-content" class="brands-page pacific-page" aria-label="Pacific · Chauffe-eau multi-position">
+    <!-- Unified Page Hero Banner -->
     <section class="page-hero">
       <div class="container text-center" data-reveal="fade-up">
         <div class="eyebrow eyebrow-gold"><i class="ti ti-award"></i> Une marque Nerobel Group</div>
-        <div class="brand-detail-badge" style="justify-content:center; margin-bottom:16px;">
-          <img src="assets/icons/pacific-logo.svg" alt="Pacific" width="140" height="40">
-        </div>
         <h1 class="page-title">Pacific</h1>
         <p class="page-subtitle">
           Chauffe-eau électrique multi-position : montage horizontal ou vertical selon l'espace disponible.
@@ -99,15 +96,16 @@
       </div>
     </section>
 
-    <!-- Pacific Presentation & Mounting Simulator -->
-    <section class="section">
+    <!-- Pacific Presentation & Interactive 360° Mounting Simulator -->
+    <section class="section" id="pacific-horizon">
       <div class="container">
         <div class="brand-detail-grid">
           <div class="brand-showcase-frame" data-reveal="scale">
             <div class="brand-showcase-media">
               <picture>
-                <source srcset="assets/img/pacific_brand_page_withlogo.webp" type="image/webp">
-                <img src="assets/img/pacific_brand_page_withlogo.jpg" alt="Chauffe-eau Pacific Montage Flexible Horizontal et Vertical" width="1800" height="1200" loading="lazy">
+                <source type="image/avif" srcset="assets/img/pacific-water-heater-card-4x3-480.avif 480w, assets/img/pacific-water-heater-card-4x3-800.avif 800w, assets/img/pacific-water-heater-card-4x3-1200.avif 1200w, assets/img/pacific-water-heater-card-4x3-1600.avif 1600w" sizes="(max-width: 768px) 100vw, 50vw">
+                <source type="image/webp" srcset="assets/img/pacific-water-heater-card-4x3-480.webp 480w, assets/img/pacific-water-heater-card-4x3-800.webp 800w, assets/img/pacific-water-heater-card-4x3-1200.webp 1200w, assets/img/pacific-water-heater-card-4x3-1600.webp 1600w" sizes="(max-width: 768px) 100vw, 50vw">
+                <img src="assets/img/pacific-water-heater-card-4x3.webp" alt="Chauffe-eau Pacific Montage Flexible Horizontal et Vertical" width="1200" height="900" loading="lazy">
               </picture>
             </div>
 
@@ -130,7 +128,7 @@
               <div class="pacific-diagram-box">
                 <div class="pacific-tank-visual" id="pacificTankVisual">
                   <div class="pacific-port cold" title="Arrivée Eau Froide"></div>
-                  <span style="font-size:0.75rem; font-weight:700; color:#fff;" id="pacificVisualLabel">PACIFIC 80L (H)</span>
+                  <span class="pacific-visual-label" id="pacificVisualLabel">PACIFIC 80L (H)</span>
                   <div class="pacific-port hot" title="Sortie Eau Chaude 75°C"></div>
                 </div>
                 <div class="pacific-spec-tag" id="pacificSpecTag">
@@ -141,14 +139,18 @@
           </div>
 
           <div data-reveal="fade-left">
+            <div class="brand-detail-badge">
+              <img src="assets/icons/pacific-logo.svg" alt="Pacific" width="140" height="40">
+            </div>
             <h2 class="brand-detail-title">
               Pacific Horizon · Confort et flexibilité d'installation
             </h2>
+            <div class="nerobel-laser-line"></div>
             <p class="section-desc">
               Conçu pour s'adapter aux différentes configurations de plomberie et d'espace intérieur au Maroc, le chauffe-eau <strong>Pacific Horizon</strong> offre un montage horizontal ou vertical, un double réservoir et un écran digital avec température réglable jusqu'à 75 °C.
             </p>
 
-            <!-- Three Proof Points -->
+            <!-- Four Balanced Proof Points (2x2 Architectural Grid) -->
             <div class="brand-features-grid">
               <div class="feature-mini-card">
                 <div class="feature-mini-icon text-az"><i class="ti ti-arrows-maximize"></i></div>
@@ -156,32 +158,21 @@
                 <p class="feature-mini-desc">Installation horizontale ou verticale, sans modifier la tuyauterie.</p>
               </div>
               <div class="feature-mini-card">
-                <div class="feature-mini-icon text-gold"><i class="ti ti-Refresh"></i><i class="ti ti-box-multiple"></i></div>
+                <div class="feature-mini-icon text-gold"><i class="ti ti-box-multiple"></i></div>
                 <h3 class="feature-mini-title">Double réservoir</h3>
                 <p class="feature-mini-desc">Conception à double réservoir pour une chauffe adaptée aux besoins du foyer.</p>
               </div>
               <div class="feature-mini-card">
-                <div class="feature-mini-icon text-ok"><i class="ti ti-device-analytics"></i></div>
+                <div class="feature-mini-icon text-az"><i class="ti ti-device-analytics"></i></div>
                 <h3 class="feature-mini-title">Écran digital</h3>
-                <p class="feature-mini-desc">Affichage sur écran digital, température réglable jusqu'à 75 °C et conformité CE.</p>
+                <p class="feature-mini-desc">Affichage sur écran digital avec température réglable jusqu'à 75 °C.</p>
+              </div>
+              <div class="feature-mini-card">
+                <div class="feature-mini-icon text-ok"><i class="ti ti-shield-check"></i></div>
+                <h3 class="feature-mini-title">Conformité CE</h3>
+                <p class="feature-mini-desc">Conception conforme aux exigences CE avec garantie (conditions sur demande).</p>
               </div>
             </div>
-
-            <!-- Spec Table from content/catalogue.json -->
-            <div class="tech-product-card" style="margin-top:24px; margin-bottom:24px;">
-              <h3 class="tech-card-title">Caractéristiques · Pacific Horizon</h3>
-              <div class="tech-specs-list">
-                <div class="tech-specs-item"><span>Gamme</span><strong>Pacific Horizon</strong></div>
-                <div class="tech-specs-item"><span>Installation</span><strong>Montage horizontal ou vertical</strong></div>
-                <div class="tech-specs-item"><span>Cuve</span><strong>Double réservoir</strong></div>
-                <div class="tech-specs-item"><span>Affichage</span><strong>Écran digital</strong></div>
-                <div class="tech-specs-item"><span>Température</span><strong>Réglable jusqu'à 75 °C</strong></div>
-                <div class="tech-specs-item"><span>Conformité</span><strong>Conformité CE</strong></div>
-                <div class="tech-specs-item"><span>Garantie</span><strong>Conditions sur demande</strong></div>
-              </div>
-            </div>
-
-            <!-- P-01: Pacific mounting schema PDF -->
 
             <div class="seal-nerobel seal-nerobel--sm">
               <span class="seal-nerobel-text">Une marque Nerobel Group</span>
@@ -195,6 +186,88 @@
                 <i class="ti ti-tool"></i> Assistance SAV
               </a>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Specifications & Installation Configurations -->
+    <section class="section section--alt" id="caracteristiques">
+      <div class="container">
+        <div class="section-header" data-reveal="fade-up">
+          <div class="eyebrow eyebrow-gold">
+            <i class="ti ti-cpu"></i> Fiche Technique &amp; Architecture
+          </div>
+          <h2 class="section-title">Caractéristiques · Pacific Horizon</h2>
+          <p class="section-desc">
+            Une conception bi-position à double réservoir pensée pour optimiser l'encombrement et s'adapter aux espaces intérieurs contemporains.
+          </p>
+        </div>
+
+        <div class="pacific-specs-grid" data-reveal-stagger>
+          <!-- Spec Table from content/catalogue.json -->
+          <div class="tech-product-card pacific-spec-card" data-reveal="fade-up">
+            <div class="tech-card-header">
+              <div class="tech-card-icon"><i class="ti ti-dimensions"></i></div>
+              <span class="tech-card-badge">PACIFIC HORIZON</span>
+            </div>
+            <h3 class="tech-card-title">Spécifications de la gamme</h3>
+            <p class="tech-card-desc">
+              Synthèse des caractéristiques techniques et d'installation du chauffe-eau électrique Pacific Horizon.
+            </p>
+            <div class="tech-specs-list">
+              <div class="tech-specs-item"><span>Gamme</span><strong>Pacific Horizon</strong></div>
+              <div class="tech-specs-item"><span>Installation</span><strong>Montage horizontal ou vertical</strong></div>
+              <div class="tech-specs-item"><span>Cuve</span><strong>Double réservoir</strong></div>
+              <div class="tech-specs-item"><span>Affichage</span><strong>Écran digital</strong></div>
+              <div class="tech-specs-item"><span>Température</span><strong>Réglable jusqu'à 75 °C</strong></div>
+              <div class="tech-specs-item"><span>Conformité</span><strong>Conformité CE</strong></div>
+              <div class="tech-specs-item"><span>Garantie</span><strong>Conditions sur demande</strong></div>
+            </div>
+          </div>
+
+          <!-- P-01: Pacific mounting schema PDF -->
+          <div class="pacific-config-stack" data-reveal="fade-up">
+            <div class="tech-product-card pacific-config-card">
+              <div class="tech-card-header">
+                <div class="tech-card-icon"><i class="ti ti-layout-navbar"></i></div>
+                <span class="tech-card-badge">POSE HORIZONTALE</span>
+              </div>
+              <h3 class="tech-card-title">Intégration en hauteur ou espace réduit</h3>
+              <p class="tech-card-desc">
+                Adapté aux faux-plafonds, couloirs étroits ou emplacements situés au-dessus d'une machine à laver, libérant l'espace mural tout en conservant un accès direct au panneau de contrôle digital.
+              </p>
+            </div>
+
+            <div class="tech-product-card pacific-config-card">
+              <div class="tech-card-header">
+                <div class="tech-card-icon"><i class="ti ti-layout-sidebar"></i></div>
+                <span class="tech-card-badge">POSE VERTICALE</span>
+              </div>
+              <h3 class="tech-card-title">Installation murale classique</h3>
+              <p class="tech-card-desc">
+                Idéal pour les salles de bain, buanderies et niches murales standards, permettant une pose directe sans modifier la tuyauterie existante.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Morocco Showroom & SAV Network Teaser -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="network-teaser-row" data-reveal="fade-up">
+          <div class="network-teaser-text">
+            <div class="eyebrow"><i class="ti ti-map"></i> Réseau National au Maroc</div>
+            <h2 class="section-title">Points de vente et assistance SAV Pacific</h2>
+            <p class="section-desc">
+              Retrouvez la gamme Pacific Horizon dans notre réseau de showrooms et de points de vente au Maroc, ou déposez votre demande d'assistance en ligne.
+            </p>
+          </div>
+          <div class="network-teaser-actions">
+            <a href="network.html?brand=pacific" class="btn btn-primary"><i class="ti ti-map-pin"></i> Où acheter</a>
+            <a href="sav.html?brand=pacific" class="btn btn-secondary"><i class="ti ti-tool"></i> Demande SAV</a>
           </div>
         </div>
       </div>
