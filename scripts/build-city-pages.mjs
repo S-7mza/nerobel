@@ -281,6 +281,7 @@ ${outletCardsHtml}
     </div>
   </footer>
 
+  <script defer src="../js/analytics.js"></script>
   <script defer src="../js/theme.js"></script>
   <script defer src="../js/animations.js"></script>
   <script defer src="../js/main.js"></script>

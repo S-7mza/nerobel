@@ -261,6 +261,13 @@ class NetworkManager {
       }
       this.renderDirectory();
       this.updateMarkers();
+      if (window.nerobelAnalytics) {
+        window.nerobelAnalytics.track('outlet_filter', {
+          brand: this.currentBrand,
+          city: this.currentCity,
+          type: this.currentType
+        });
+      }
     };
 
     const pairs = [

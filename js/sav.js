@@ -259,6 +259,9 @@ class SavPortal {
         if (window.showToast) window.showToast("Veuillez sélectionner un type d'appareil", "error");
         return;
       }
+      if (window.nerobelAnalytics) {
+        window.nerobelAnalytics.track('sav_step_complete', { step: 1, brand: this.data.brand || '' });
+      }
     }
 
     if (stepNumber === 3 && this.currentStep === 2) {
@@ -266,6 +269,9 @@ class SavPortal {
         return;
       }
       this.populateReview();
+      if (window.nerobelAnalytics) {
+        window.nerobelAnalytics.track('sav_step_complete', { step: 2, brand: this.data.brand || '' });
+      }
     }
 
     this.currentStep = stepNumber;
@@ -964,6 +970,11 @@ class SavPortal {
       // Honeypot spam check
       const hp = document.getElementById('savHp');
       if (hp && hp.value) return;
+
+      if (window.nerobelAnalytics) {
+        window.nerobelAnalytics.track('sav_step_complete', { step: 3, brand: this.data.brand || '' });
+        window.nerobelAnalytics.track('sav_submit', { brand: this.data.brand || '', category: this.data.type || '' });
+      }
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="ti ti-loader"></i> Traitement...';

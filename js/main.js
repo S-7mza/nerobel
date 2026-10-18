@@ -193,6 +193,17 @@ document.addEventListener('DOMContentLoaded', () => {
         handoffUrl = `mailto:contact@nerobel.com?subject=${encodeURIComponent("Demande Compte Pro - " + (fields.company || 'Partenaire'))}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
       }
 
+      if (formType === 'b2b' && window.nerobelAnalytics) {
+        window.nerobelAnalytics.track('b2b_submit', {
+          type: fields.activity || '',
+          city: fields.city || ''
+        });
+      } else if (formType === 'contact' && window.nerobelAnalytics) {
+        window.nerobelAnalytics.track('contact_submit', {
+          dept: fields.dept || ''
+        });
+      }
+
       // If a real backend endpoint is configured (O-09)
       if (window.nerobelFormEndpoint) {
         try {

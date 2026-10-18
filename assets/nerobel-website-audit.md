@@ -639,7 +639,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S4-02 | sitemap.xml, robots.txt, 404.html | 4.3 | S | S3-06 | ✅ |
 | S4-03 | Accessibility pass | S-12, 4.3 | M | S3-07 | ✅ |
 | S4-04 | Performance budgets | M-11 | M | S3-07 | ✅ |
-| S4-05 | Analytics events 🔶 | KPIs in 7 | M | S3-07 | ⬜ |
+| S4-05 | Analytics events 🔶 | KPIs in 7 | M | S3-07 | ✅ |
 | S4-06 | Go-live gate | all P0 | S | S4-01…S4-05 | ⬜ |
 | S4-07 | Final audit re-run and documentation | — | S | S4-06 | ⬜ |
 
@@ -1232,3 +1232,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-18 | [S4-02] Created production-ready sitemap.xml with all 10 canonical page URLs on staging base; updated robots.txt with staging Disallow: / and commented production rules; updated 404.html with shared shell (responsive header, mobile action bar, footer details accordions), French message, and links to Accueil, Où acheter, and Demande SAV; verified with 67 Playwright tests. |
 | 2026-10-18 | [S4-03] Executed accessibility pass with @axe-core/playwright across all 10 pages; added keyboard skip link (<a href="#main-content" class="skip-link">) as first child of body with :focus-visible styling; added aria-label to collection progressbar; updated .btn-whatsapp background to #075E54 (7.95:1 WCAG AA contrast against white text); added underline to text-block links in legal documents; verified 0 critical/serious violations on all 10 pages with 78 Playwright tests. |
 | 2026-10-18 | [S4-04] Enforced performance budgets: added defer attribute to all scripts across all 11 HTML pages and templates; added Google Fonts display=swap on brands.html; set hero LCP images on brands.html and pacific.html to loading="eager" fetchpriority="high"; compressed WebP assets to strictly under 150 KB budget (33-92 KB); created scripts/check_perf.js asserting budgets and deferral; verified mobile initial load payload < 1 MB with 79 Playwright tests. |
+| 2026-10-18 | [S4-05] Implemented privacy-first analytics event dispatcher in js/analytics.js supporting window.dataLayer and window.nerobelAnalytics.track without cookies or personal data; wired 10 KPI events: whatsapp_click, call_click, pdf_download, brand_tab_switch, simulator_interact, sav_step_complete, sav_submit, b2b_submit, contact_submit, outlet_filter; created tests/analytics.spec.js; verified with 8 Playwright analytics tests (total 96 Playwright tests passing). |
