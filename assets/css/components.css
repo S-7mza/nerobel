@@ -263,40 +263,109 @@
   transform: none !important;
 }
 
+.brand-card-header {
+  position: relative;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%), var(--s2);
+  border-bottom: 1px solid var(--bd);
+  padding: 0 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.brand-card-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.brand-card[data-brand="theros"]:hover .brand-card-header::after {
+  background: radial-gradient(circle at center, rgba(0, 210, 255, 0.16) 0%, transparent 70%);
+  opacity: 1;
+}
+.brand-card[data-brand="pacific"]:hover .brand-card-header::after {
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
+  opacity: 1;
+}
+.brand-card[data-brand="eurogas"]:hover .brand-card-header::after {
+  background: radial-gradient(circle at center, rgba(0, 180, 216, 0.16) 0%, transparent 70%);
+  opacity: 1;
+}
+.brand-card[data-brand="nerobel"]:hover .brand-card-header::after {
+  background: radial-gradient(circle at center, rgba(96, 165, 250, 0.16) 0%, transparent 70%);
+  opacity: 1;
+}
+
+.brand-card-header .brand-card-logo-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .brand-card .media-frame,
 .brand-card .brand-card-img-wrap {
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 16 / 10;
   height: auto !important;
   overflow: hidden;
   flex-shrink: 0;
 }
 
-.brand-card .brand-card-badge {
-  width: 140px;
-  height: 40px;
-  padding: 0 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
-.brand-card__logo,
-.brand-card .brand-card-badge img {
-  height: auto !important;
-  max-height: 22px !important;
-  width: auto !important;
-  max-width: 108px !important;
+/* Base logo style */
+.brand-card__logo {
   object-fit: contain !important;
   display: block;
   margin: 0 auto !important;
   flex-shrink: 0;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-[data-theme="light"] .brand-card .brand-card-badge {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(0, 0, 0, 0.12);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+.brand-card:hover .brand-card-logo-stage .brand-card__logo {
+  transform: scale(1.04);
+}
+
+/* Mathematically calibrated optical sizing for harmonious perceived visual mass */
+.brand-card__logo--theros {
+  height: 28px !important;
+  max-height: 28px !important;
+  width: auto !important;
+  max-width: 125px !important;
+}
+
+.brand-card__logo--pacific {
+  height: 33px !important;
+  max-height: 33px !important;
+  width: auto !important;
+  max-width: 100px !important;
+}
+
+.brand-card__logo--eurogas {
+  height: 22px !important;
+  max-height: 22px !important;
+  width: auto !important;
+  max-width: 115px !important;
+}
+
+.brand-card__logo--nerobel {
+  height: 22px !important;
+  max-height: 22px !important;
+  width: auto !important;
+  max-width: 132px !important;
+}
+
+[data-theme="light"] .brand-card-header {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="light"] .brand-card__logo {
