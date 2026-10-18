@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E8ECEF"/>
+    </linearGradient>
+    <filter id="shadow2" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <!-- White-Grey Tile with Clean Smoke Rounding Border -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bg2)" stroke="#CBD5E1" stroke-width="1.6" filter="url(#shadow2)"/>
+  <rect x="3" y="3" width="58" height="58" rx="15" stroke="rgba(0,0,0,0.06)" stroke-width="1" fill="none"/>
+  <!-- Monolithic Jet-Black Nerobel N -->
+  <polygon points="16.77,13.0 9.23,51.0 21.8,50.72 25.43,33.4 36.61,51.0 47.23,50.72 54.77,13.0 42.2,13.0 38.01,30.04 27.67,13.0" fill="#05070A"/>
+</svg>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Nerobel Favicon Rebuild Showcase · Options Blanc-Gris & N Officiel</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 40px;
+    background: #080A0E;
+    color: #F0F4F8;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .header {
+    margin-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+  }
+  .header h1 span { color: #2563EB; }
+  .header p {
+    margin: 0;
+    color: #8A92A6;
+    font-size: 14px;
+  }
+  .badge {
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(37, 99, 235, 0.4);
+    color: #60A5FA;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8A92A6;
+    margin: 24px 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* Comparison Grid */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .card {
+    background: #0E121A;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+  }
+  .card.featured {
+    border-color: #2563EB;
+    box-shadow: 0 0 24px rgba(37, 99, 235, 0.25);
+  }
+  .card.featured-opt2 {
+    border-color: #CBD5E1;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+  }
+  .card.old {
+    opacity: 0.7;
+    border-style: dashed;
+    border-color: #FF5C6C;
+  }
+  .card-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tag-old { background: rgba(255, 92, 108, 0.15); color: #FF5C6C; border: 1px solid rgba(255, 92, 108, 0.3); }
+  .tag-opt { background: rgba(37, 99, 235, 0.15); color: #60A5FA; border: 1px solid rgba(37, 99, 235, 0.3); }
+  .tag-featured { background: #2563EB; color: #FFFFFF; font-weight: 800; }
+  .tag-silver { background: rgba(255,255,255,0.15); color: #F1F5F9; border: 1px solid rgba(255,255,255,0.3); }
+
+  .hero-icon {
+    width: 64px;
+    height: 64px;
+    margin: 8px 0 16px 0;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 4px;
+    color: #FFFFFF;
+  }
+  .card-desc {
+    font-size: 11px;
+    color: #8A92A6;
+    text-align: center;
+    line-height: 1.35;
+    margin-bottom: 14px;
+    min-height: 44px;
+  }
+
+  .scale-row {
+    width: 100%;
+    background: rgba(0,0,0,0.45);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .scale-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .scale-label {
+    font-size: 9px;
+    color: #626A7F;
+    font-weight: 600;
+  }
+
+  /* Real Browser Tabs simulation */
+  .browser-simulation {
+    background: #0E121A;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .sim-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #CBD5E1;
+  }
+  .chrome-window {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    margin-bottom: 16px;
+  }
+  .chrome-top-dark {
+    background: #1F2228;
+    padding: 8px 12px 0 12px;
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+  }
+  .chrome-top-light {
+    background: #DEE1E6;
+    padding: 8px 12px 0 12px;
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+  }
+  .chrome-tab {
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+    max-width: 185px;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .tab-dark-active {
+    background: #2B2E36;
+    color: #E2E8F0;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-bottom: none;
+  }
+  .tab-light-active {
+    background: #FFFFFF;
+    color: #1E293B;
+    box-shadow: 0 -1px 2px rgba(0,0,0,0.04);
+  }
+  .tab-close {
+    margin-left: auto;
+    font-size: 12px;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1>Favicon Nerobel <span>· Rebuild Blanc-Gris &amp; Géométrie Officielle</span></h1>
+      <p>Cadrage optique haute précision de la lettre « N » • Testé en conditions réelles sous onglets sombres (#2B2E36) et clairs (#FFFFFF)</p>
+    </div>
+    <div class="badge">Sélection Haute Définition</div>
+  </div>
+
+  <div class="section-title">1. Simulation en Barre d'Onglets Réelle (Chrome Dark vs Chrome Light à l'échelle 16x16 px)</div>
+  
+  <div class="browser-simulation">
+    <div class="sim-title">Onglets Chrome Thème Sombre (#2B2E36 — Rendu 16x16 natif)</div>
+    <div class="chrome-window">
+      <div class="chrome-top-dark">
+        <!-- Option 1 -->
+        <div class="chrome-tab tab-dark-active">
+          <img src="assets/icons/favicons-candidates/opt1-platinum-luxury.svg" width="16" height="16" />
+          <span>1. Platine Laser</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 2 (Active) -->
+        <div class="chrome-tab tab-dark-active" style="border-top: 2px solid #2563EB;">
+          <img src="assets/icons/favicons-candidates/opt2-whitegrey-pure.svg" width="16" height="16" />
+          <span style="font-weight:700; color:#FFFFFF;">2. Blanc-Gris Pur (Actif)</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 3 -->
+        <div class="chrome-tab tab-dark-active">
+          <img src="assets/icons/favicons-candidates/opt3-whitegrey-rim-dark.svg" width="16" height="16" />
+          <span>3. Cœur Nuit Rim</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 4 -->
+        <div class="chrome-tab tab-dark-active">
+          <img src="assets/icons/favicons-candidates/opt4-dualtone-saphir.svg" width="16" height="16" />
+          <span>4. Split Saphir</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 5 -->
+        <div class="chrome-tab tab-dark-active">
+          <img src="assets/icons/favicons-candidates/opt5-saphir-frame.svg" width="16" height="16" />
+          <span>5. Cadre Saphir</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 6 -->
+        <div class="chrome-tab tab-dark-active">
+          <img src="assets/icons/favicons-candidates/opt6-titanium-plate.svg" width="16" height="16" />
+          <span>6. Plaque Titane</span>
+          <span class="tab-close">×</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sim-title" style="margin-top: 20px;">Onglets Chrome Thème Clair (#FFFFFF / #DEE1E6 — Rendu 16x16 natif)</div>
+    <div class="chrome-window">
+      <div class="chrome-top-light">
+        <!-- Option 1 -->
+        <div class="chrome-tab tab-light-active">
+          <img src="assets/icons/favicons-candidates/opt1-platinum-luxury.svg" width="16" height="16" />
+          <span>1. Platine Laser</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 2 (Active) -->
+        <div class="chrome-tab tab-light-active" style="border-top: 2px solid #2563EB;">
+          <img src="assets/icons/favicons-candidates/opt2-whitegrey-pure.svg" width="16" height="16" />
+          <span style="font-weight:700; color:#0F172A;">2. Blanc-Gris Pur (Actif)</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 3 -->
+        <div class="chrome-tab tab-light-active">
+          <img src="assets/icons/favicons-candidates/opt3-whitegrey-rim-dark.svg" width="16" height="16" />
+          <span>3. Cœur Nuit Rim</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 4 -->
+        <div class="chrome-tab tab-light-active">
+          <img src="assets/icons/favicons-candidates/opt4-dualtone-saphir.svg" width="16" height="16" />
+          <span>4. Split Saphir</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 5 -->
+        <div class="chrome-tab tab-light-active">
+          <img src="assets/icons/favicons-candidates/opt5-saphir-frame.svg" width="16" height="16" />
+          <span>5. Cadre Saphir</span>
+          <span class="tab-close">×</span>
+        </div>
+        <!-- Option 6 -->
+        <div class="chrome-tab tab-light-active">
+          <img src="assets/icons/favicons-candidates/opt6-titanium-plate.svg" width="16" height="16" />
+          <span>6. Plaque Titane</span>
+          <span class="tab-close">×</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">2. Inspection Détaillée Haute Résolution (64px, 32px Retina, 20px, 16px)</div>
+
+  <div class="cards-grid">
+    <!-- Option 1 -->
+    <div class="card">
+      <div class="card-tag tag-opt">Option 1</div>
+      <img src="assets/icons/favicons-candidates/opt1-platinum-luxury.svg" class="hero-icon" />
+      <div class="card-title">Platine Céramique &amp; Laser</div>
+      <div class="card-desc">Tuile blanc-gris céramique, bordure d'arrondi platine avec N obsidienne et trait laser Saphir #2563EB.</div>
+      <div class="scale-row">
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt1-platinum-luxury.svg" width="32" height="32" /><span class="scale-label">32px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt1-platinum-luxury.svg" width="20" height="20" /><span class="scale-label">20px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt1-platinum-luxury.svg" width="16" height="16" /><span class="scale-label">16px</span></div>
+      </div>
+    </div>
+
+    <!-- Option 2 (Active) -->
+    <div class="card featured">
+      <div class="card-tag tag-featured">Option 2 · Actif en Production</div>
+      <img src="assets/icons/favicons-candidates/opt2-whitegrey-pure.svg" class="hero-icon" />
+      <div class="card-title">Blanc-Gris Pur &amp; Noir Jais</div>
+      <div class="card-desc">Contraste absolu. N noir jais monolithique sur tuile blanc-gris perle avec double filet d'arrondi fumé.</div>
+      <div class="scale-row">
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt2-whitegrey-pure.svg" width="32" height="32" /><span class="scale-label">32px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt2-whitegrey-pure.svg" width="20" height="20" /><span class="scale-label">20px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt2-whitegrey-pure.svg" width="16" height="16" /><span class="scale-label">16px</span></div>
+      </div>
+    </div>
+
+    <!-- Option 3 -->
+    <div class="card">
+      <div class="card-tag tag-opt">Option 3</div>
+      <img src="assets/icons/favicons-candidates/opt3-whitegrey-rim-dark.svg" class="hero-icon" />
+      <div class="card-title">Cœur Obsidienne &amp; Bordure Blanc-Gris</div>
+      <div class="card-desc">Tuile nuit profonde soulignée par une bordure d'arrondi épaisse blanc-gris et un N blanc-gris lumineux.</div>
+      <div class="scale-row">
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt3-whitegrey-rim-dark.svg" width="32" height="32" /><span class="scale-label">32px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt3-whitegrey-rim-dark.svg" width="20" height="20" /><span class="scale-label">20px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt3-whitegrey-rim-dark.svg" width="16" height="16" /><span class="scale-label">16px</span></div>
+      </div>
+    </div>
+
+    <!-- Option 4 -->
+    <div class="card">
+      <div class="card-tag tag-opt">Option 4</div>
+      <img src="assets/icons/favicons-candidates/opt4-dualtone-saphir.svg" class="hero-icon" />
+      <div class="card-title">Split Saphir &amp; Platine</div>
+      <div class="card-desc">Tuile blanc-gris soyeuse. Pilier N en noir architectural et aile dynamique en bleu Saphir Impérial.</div>
+      <div class="scale-row">
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt4-dualtone-saphir.svg" width="32" height="32" /><span class="scale-label">32px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt4-dualtone-saphir.svg" width="20" height="20" /><span class="scale-label">20px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt4-dualtone-saphir.svg" width="16" height="16" /><span class="scale-label">16px</span></div>
+      </div>
+    </div>
+
+    <!-- Option 5 -->
+    <div class="card">
+      <div class="card-tag tag-opt">Option 5</div>
+      <img src="assets/icons/favicons-candidates/opt5-saphir-frame.svg" class="hero-icon" />
+      <div class="card-title">Cadre Saphir Impérial</div>
+      <div class="card-desc">Bordure d'arrondi royal Saphir #2563EB de 2.5px entourant une tuile blanc-gris avec le N noir d'origine.</div>
+      <div class="scale-row">
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt5-saphir-frame.svg" width="32" height="32" /><span class="scale-label">32px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt5-saphir-frame.svg" width="20" height="20" /><span class="scale-label">20px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt5-saphir-frame.svg" width="16" height="16" /><span class="scale-label">16px</span></div>
+      </div>
+    </div>
+
+    <!-- Option 6 -->
+    <div class="card">
+      <div class="card-tag tag-opt">Option 6</div>
+      <img src="assets/icons/favicons-candidates/opt6-titanium-plate.svg" class="hero-icon" />
+      <div class="card-title">Plaque Titane Satiné</div>
+      <div class="card-desc">Texture argentée blanc-gris brossée avec double biseau d'arrondi et N gravé en encre graphite #0F172A.</div>
+      <div class="scale-row">
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt6-titanium-plate.svg" width="32" height="32" /><span class="scale-label">32px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt6-titanium-plate.svg" width="20" height="20" /><span class="scale-label">20px</span></div>
+        <div class="scale-item"><img src="assets/icons/favicons-candidates/opt6-titanium-plate.svg" width="16" height="16" /><span class="scale-label">16px</span></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -35,7 +35,7 @@ Ce document recense les couleurs, polices, espacements, rayons de bordure, ombre
 ### 1.3 Accents de marque (en attente de confirmation `O-11`)
 - Les 4 fichiers SVG dans `assets/icons/` (`theros-logo.svg`, `pacific-logo.svg`, `eurogas-logo.svg`, `nerobel-logo.svg`) sont monochromes (`fill="#FFFFFF"`).
 - Dans `css/main.css` (lignes 2858–2880, `.brand-chip--*`), chaque marque est associée à une couleur d'accent distincte :
-  - **Theros** (`--accent-theros`) : `#3AA0E6` (bleu électrique `--az`)
+  - **Theros** (`--accent-theros`) : `#2563EB` (bleu saphir impérial `--az`)
   - **Pacific** (`--accent-pacific`) : `#C9A96A` (or `--gold`)
   - **Eurogas** (`--accent-eurogas`) : `#F2B84B` (ambre flamme `--warn`)
   - **Nerobel** (`--accent-nerobel`) : `#FFFFFF` (titane / blanc pur `--tx`, `#0F172A` en thème clair)
@@ -46,7 +46,7 @@ Ce document recense les couleurs, polices, espacements, rayons de bordure, ombre
 | `--ok` | `#34C77B` | `--color-success: #34C77B` |
 | `--warn` | `#F2B84B` | `--color-warning: #F2B84B` |
 | `--err` | `#FF5C6C` | `--color-error: #FF5C6C` |
-| `--az` | `#3AA0E6` | `--color-info: #3AA0E6` |
+| `--az` | `#2563EB` | `--color-info: #2563EB` |
 | `--wa` | `#25D366` | `--color-whatsapp: #25D366` |
 
 ---

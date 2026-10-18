@@ -12,7 +12,7 @@
   </defs>
 
   <rect width="420" height="240" rx="16" fill="#0C0C0E"/>
-  <rect x="20" y="20" width="380" height="200" rx="12" fill="url(#metal)" stroke="#3AA0E6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="20" y="20" width="380" height="200" rx="12" fill="url(#metal)" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="4 4"/>
 
   <!-- Metal Nameplate -->
   <rect x="50" y="45" width="320" height="150" rx="8" fill="#141417" stroke="#2A2A31" stroke-width="2"/>
@@ -21,12 +21,12 @@
   <circle cx="62" cy="183" r="4" fill="#8A8F99"/>
   <circle cx="358" cy="183" r="4" fill="#8A8F99"/>
 
-  <text x="75" y="75" font-family="'Montserrat', sans-serif" font-size="14" font-weight="700" fill="#3AA0E6">NEROBEL APPLIANCE SPECIFICATION</text>
+  <text x="75" y="75" font-family="'Montserrat', sans-serif" font-size="14" font-weight="700" fill="#2563EB">NEROBEL APPLIANCE SPECIFICATION</text>
   <text x="75" y="96" font-family="'Inter', sans-serif" font-size="11" fill="#8A8F99">Model: THEROS DUOSLIM 80L · Made in Morocco / CE</text>
 
   <!-- Serial Number Highlight Box -->
-  <rect x="75" y="112" width="270" height="42" rx="6" fill="rgba(58,160,230,0.12)" stroke="#3AA0E6" stroke-width="2"/>
-  <text x="88" y="128" font-family="'Inter', sans-serif" font-size="10" font-weight="600" fill="#3AA0E6">NUMÉRO DE SÉRIE / SERIAL NO.</text>
+  <rect x="75" y="112" width="270" height="42" rx="6" fill="rgba(37,99,235,0.15)" stroke="#2563EB" stroke-width="2"/>
+  <text x="88" y="128" font-family="'Inter', sans-serif" font-size="10" font-weight="600" fill="#2563EB">NUMÉRO DE SÉRIE / SERIAL NO.</text>
   <text x="88" y="146" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700" fill="#FFFFFF" letter-spacing="2">PC202604150892</text>
 
   <!-- Barcode Representation -->

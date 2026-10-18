@@ -6,7 +6,7 @@
 :root {
   /* Surfaces & Backgrounds */
   --black: var(--color-bg);
-  --bg-gradient: radial-gradient(circle at 50% 0%, rgba(58, 160, 230, 0.10) 0%, transparent 50%), var(--color-bg);
+  --bg-gradient: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.10) 0%, transparent 50%), var(--color-bg);
   --s1: var(--color-surface);
   --s2: var(--color-surface-2);
   --s3: var(--color-surface-3);
@@ -16,19 +16,20 @@
   /* Borders & Dividers */
   --bd: var(--color-border);
   --bdh: var(--color-border-hover);
-  --bd-glow: rgba(58, 160, 230, 0.45);
+  --bd-glow: rgba(37, 99, 235, 0.45);
 
   /* Typography Colors */
   --tx: var(--color-text);
   --tx2: var(--color-muted);
   --tx3: var(--color-subtle);
 
-  /* Signature Pro Blue Accent */
+  /* Signature Saphir Impérial Accent */
   --az: var(--color-info);
-  --azh: #5BB4F0;
-  --azp: #2A8AD0;
-  --glow: rgba(58, 160, 230, 0.18);
-  --glow-strong: rgba(58, 160, 230, 0.35);
+  --azh: #3B82F6;
+  --azp: #1D4ED8;
+  --az-text: #60A5FA;
+  --glow: rgba(37, 99, 235, 0.18);
+  --glow-strong: rgba(37, 99, 235, 0.35);
 
   /* Prestige Gold Accent */
   --gold: var(--accent-pacific);
@@ -54,7 +55,7 @@
   --shadow-sm: var(--shadow-1);
   --shadow-md: var(--shadow-2);
   --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.9);
-  --shadow-glow: 0 0 25px rgba(58, 160, 230, 0.25);
+  --shadow-glow: 0 0 25px rgba(37, 99, 235, 0.25);
 
   /* Transitions & Curves */
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -68,7 +69,7 @@
 /* Light Theme Switch */
 [data-theme="light"] {
   --black: #F8FAFC;
-  --bg-gradient: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.08) 0%, transparent 60%), #F8FAFC;
+  --bg-gradient: radial-gradient(circle at 50% 0%, rgba(29, 78, 216, 0.08) 0%, transparent 60%), #F8FAFC;
   --s1: #FFFFFF;
   --s2: #F1F5F9;
   --s3: #E2E8F0;
@@ -77,17 +78,18 @@
 
   --bd: #E2E8F0;
   --bdh: #CBD5E1;
-  --bd-glow: rgba(2, 132, 199, 0.35);
+  --bd-glow: rgba(29, 78, 216, 0.35);
 
   --tx: #0F172A;
   --tx2: #475569;
   --tx3: #64748B;
 
-  --az: #0284C7;
-  --azh: #0369A1;
-  --azp: #075985;
-  --glow: rgba(2, 132, 199, 0.12);
-  --glow-strong: rgba(2, 132, 199, 0.25);
+  --az: #1D4ED8;
+  --azh: #1E40AF;
+  --azp: #172554;
+  --az-text: #1D4ED8;
+  --glow: rgba(29, 78, 216, 0.12);
+  --glow-strong: rgba(29, 78, 216, 0.25);
 
   --gold: #B4883A;
   --gold-glow: rgba(180, 136, 58, 0.18);
@@ -95,7 +97,7 @@
   --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
   --shadow-md: 0 12px 28px rgba(15, 23, 42, 0.08);
   --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
-  --shadow-glow: 0 0 25px rgba(2, 132, 199, 0.18);
+  --shadow-glow: 0 0 25px rgba(29, 78, 216, 0.18);
 }
 
 /* Base Reset & Setup */

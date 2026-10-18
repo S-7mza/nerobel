@@ -400,16 +400,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const tempSlider = document.getElementById('therosTempSlider');
   const tempDisplay = document.getElementById('therosTempDisplay');
   const tempDesc = document.getElementById('therosTempDesc');
+  const durationDisplay = document.getElementById('therosDuration');
+  const readyTimeDisplay = document.getElementById('therosReadyTime');
   const powerBtns = document.querySelectorAll('.power-mode-btn');
 
   let currentPower = 1300;
 
-  function updateTherosMetrics(temp) {
+  function updateTherosMetrics(temp, power) {
     if (tempDisplay) tempDisplay.textContent = temp;
     if (tempDesc) {
       if (temp < 45) tempDesc.textContent = "Mode Éco Douceur · Consommation maîtrisée";
       else if (temp <= 60) tempDesc.textContent = "Température Idéale · Confort Famille & Douche";
       else tempDesc.textContent = "Température Élevée · Grand Volume 75 °C";
+    }
+
+    const effectivePower = power || currentPower;
+    const baseMinutes = Math.round((temp - 18) * 0.7);
+    const powerFactor = effectivePower === 2000 ? 0.6 : (effectivePower === 500 ? 1.8 : 1.0);
+    const durationMinutes = Math.max(5, Math.round(baseMinutes * powerFactor));
+
+    if (durationDisplay) {
+      if (durationMinutes >= 60) {
+        const h = Math.floor(durationMinutes / 60);
+        const m = durationMinutes % 60;
+        durationDisplay.textContent = m > 0 ? `~${h}h ${m}min` : `~${h}h`;
+      } else {
+        durationDisplay.textContent = `~${durationMinutes} min`;
+      }
+    }
+
+    if (readyTimeDisplay) {
+      const now = new Date();
+      const readyDate = new Date(now.getTime() + durationMinutes * 60 * 1000);
+      const hours = String(readyDate.getHours()).padStart(2, '0');
+      const mins = String(readyDate.getMinutes()).padStart(2, '0');
+      readyTimeDisplay.textContent = `${hours}h${mins}`;
     }
   }
 
@@ -448,6 +473,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+  }
+
+  // Initialize Theros simulator default metrics on page load
+  if (tempSlider) {
+    updateTherosMetrics(parseInt(tempSlider.value) || 55, currentPower);
   }
 
   // Brand Tabs Navigation Controller (S3-01)

@@ -322,7 +322,7 @@ class NetworkManager {
     const withCoords = filtered.filter(item => item.lat != null && item.lng != null && !isNaN(item.lat) && !isNaN(item.lng));
 
     withCoords.forEach(item => {
-      const pinColor = item.type === 'showroom' ? '#3AA0E6' : '#C9A96A';
+      const pinColor = item.type === 'showroom' ? '#2563EB' : '#C9A96A';
       const customIcon = L.divIcon({
         className: 'custom-map-pin',
         html: `<div style="background:#0C0C0E; border:2px solid ${pinColor}; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; box-shadow:0 0 16px ${pinColor}55;"><i class="ti ti-building-store" style="color:${pinColor}; font-size:16px;"></i></div>`,
@@ -422,7 +422,7 @@ class NetworkManager {
         : 'Toutes les marques Nerobel Group';
 
       const distanceMarkup = (item._distanceKm != null && isFinite(item._distanceKm))
-        ? `<span class="outlet-distance-badge" style="display:inline-block; font-size:0.75rem; background:rgba(58,160,230,0.15); color:var(--az,#3aa0e6); padding:2px 8px; border-radius:9999px; margin-left:8px;"><i class="ti ti-navigation"></i> à ${item._distanceKm.toFixed(1)} km</span>`
+        ? `<span class="outlet-distance-badge" style="display:inline-block; font-size:0.75rem; background:rgba(37,99,235,0.15); color:var(--az,#2563eb); padding:2px 8px; border-radius:9999px; margin-left:8px;"><i class="ti ti-navigation"></i> à ${item._distanceKm.toFixed(1)} km</span>`
         : '';
 
       return `

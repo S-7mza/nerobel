@@ -457,6 +457,19 @@
   line-height: 1.2;
 }
 
+[data-theme="light"] .brand-card .seal-nerobel--sm {
+  background: linear-gradient(135deg, rgba(229, 202, 146, 0.18) 0%, rgba(201, 169, 106, 0.08) 100%);
+  border: 1.5px solid rgba(180, 136, 58, 0.4);
+  box-shadow: 0 2px 8px rgba(180, 136, 58, 0.08);
+  border-radius: 6px;
+}
+
+[data-theme="light"] .brand-card__tag,
+[data-theme="light"] .brand-card .seal-nerobel--sm .seal-nerobel-text {
+  color: #785317 !important;
+  font-weight: 600;
+}
+
 .brand-card .cta-pair {
   margin-top: 0;
   padding-top: 0;
@@ -900,7 +913,7 @@ html, body {
     transition: all var(--trans, 0.2s ease);
   }
   .btn-network-toggle.active {
-    background: var(--az, #3aa0e6);
+    background: var(--az, #2563EB);
     color: #050505;
   }
   .network-main-grid.view-list .network-map-frame {
@@ -927,7 +940,7 @@ html, body {
 }
 
 .outlet-card:hover {
-  border-color: var(--az, #3aa0e6);
+  border-color: var(--az, #2563EB);
   transform: translateY(-2px);
 }
 
@@ -943,9 +956,9 @@ html, body {
 }
 
 .badge--showroom {
-  background: rgba(58, 160, 230, 0.15);
-  color: var(--az, #3aa0e6);
-  border: 1px solid rgba(58, 160, 230, 0.35);
+  background: rgba(37, 99, 235, 0.15);
+  color: var(--az-text, #60A5FA);
+  border: 1px solid rgba(37, 99, 235, 0.35);
 }
 
 .badge--revendeur {
@@ -986,9 +999,9 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(58, 160, 230, 0.12);
-  border: 1px solid rgba(58, 160, 230, 0.35);
-  color: var(--az, #3aa0e6);
+  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  color: var(--az-text, #60A5FA);
   font-size: 0.88rem;
   font-weight: 600;
   padding: 8px 16px;
@@ -999,8 +1012,8 @@ html, body {
 }
 
 .btn-nearby:hover {
-  background: var(--az, #3aa0e6);
-  color: #050505;
+  background: var(--az, #2563EB);
+  color: #FFFFFF;
 }
 
 .nearby-feedback {
@@ -1103,7 +1116,7 @@ html, body {
 }
 
 .contact-path-card:hover {
-  border-color: var(--az, #3aa0e6);
+  border-color: var(--az, #2563EB);
   transform: translateY(-2px);
 }
 

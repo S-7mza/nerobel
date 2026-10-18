@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="opt5Bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F1520"/>
+      <stop offset="100%" stop-color="#06090E"/>
+    </linearGradient>
+    <linearGradient id="opt5NGrad" x1="10" y1="14" x2="52" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2F1FF"/>
+    </linearGradient>
+    <filter id="beaconGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <!-- Slanted parallelogram tech badge matching 11.5 deg logo slant -->
+  <path d="M 14 3 L 58 3 C 61 3, 63 5, 62 8 L 51 59 C 50 62, 48 63, 45 63 L 3 63 C 0.5 63, -1 61, 0 58 L 10 7 C 11 4, 13 3, 14 3 Z" 
+        fill="url(#opt5Bg)" stroke="#00E5FF" stroke-width="2" />
+  <!-- Centered White N -->
+  <polygon points="15.77,13.5 7.8,52.5 20.61,52.22 24.31,34.57 35.7,52.5 46.23,52.5 54.2,13.78 41.39,13.78 37.41,31.43 26.3,13.5" fill="url(#opt5NGrad)" />
+  <!-- Smart Ecosystem Beacon / Connected Pulsar in top-right -->
+  <circle cx="53" cy="11" r="3" fill="#00E5FF" filter="url(#beaconGlow)" />
+  <circle cx="53" cy="11" r="1.5" fill="#FFFFFF" />
+</svg>

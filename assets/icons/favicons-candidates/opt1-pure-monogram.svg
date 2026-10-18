@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="opt1Grad" x1="12" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="55%" stop-color="#EBF8FF" />
+      <stop offset="100%" stop-color="#00E5FF" />
+    </linearGradient>
+    <filter id="opt1Rim" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#000000" flood-opacity="0.8" />
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#00E5FF" flood-opacity="0.4" />
+    </filter>
+  </defs>
+  <!-- Background rim for universal visibility on pitch white & pitch dark tabs -->
+  <polygon points="12.47,7.0 2.26,57.0 18.68,56.64 23.42,34.01 38.02,57.0 51.53,57.0 61.74,7.36 45.32,7.36 40.21,29.99 25.98,7.0" fill="#05070A" stroke="#00E5FF" stroke-width="3" stroke-linejoin="round" opacity="0.9" />
+  <!-- Crisp high-contrast foreground glyph -->
+  <polygon points="12.47,7.0 2.26,57.0 18.68,56.64 23.42,34.01 38.02,57.0 51.53,57.0 61.74,7.36 45.32,7.36 40.21,29.99 25.98,7.0" fill="url(#opt1Grad)" filter="url(#opt1Rim)" />
+</svg>

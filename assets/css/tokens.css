@@ -24,7 +24,7 @@
   --color-border-hover: #3A3A44;
 
   /* 2. Brand Accents (pending O-11 confirmation; SVG logos in assets/icons/ use monochrome #FFFFFF fill) */
-  --accent-theros: #3AA0E6;
+  --accent-theros: #2563EB;
   --accent-pacific: #C9A96A;
   --accent-eurogas: #F2B84B;
   --accent-nerobel: #FFFFFF;
@@ -33,7 +33,8 @@
   --color-success: #34C77B;
   --color-warning: #F2B84B;
   --color-error: #FF5C6C;
-  --color-info: #3AA0E6;
+  --color-info: #2563EB;
+  --color-info-text: #60A5FA;
 
   /* 4. Spacing Scale (4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 96 px) */
   --space-1: 4px;
@@ -112,12 +113,12 @@
   --color-border: #E2E8F0;
   --color-border-hover: #CBD5E1;
 
-  --accent-theros: #0284C7;
+  --accent-theros: #1D4ED8;
   --accent-pacific: #B4883A;
   --accent-eurogas: #D97706;
   --accent-nerobel: #0F172A;
 
-  --color-info: #0284C7;
+  --color-info: #1D4ED8;
 
   --shadow-1: 0 4px 12px rgba(15, 23, 42, 0.05);
   --shadow-2: 0 12px 28px rgba(15, 23, 42, 0.08);

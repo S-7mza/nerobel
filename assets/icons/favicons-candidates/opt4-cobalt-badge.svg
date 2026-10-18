@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="opt4Bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0A4B94"/>
+      <stop offset="45%" stop-color="#042657"/>
+      <stop offset="100%" stop-color="#011029"/>
+    </linearGradient>
+    <linearGradient id="opt4Rim" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38E8FF"/>
+      <stop offset="60%" stop-color="#0080FF"/>
+      <stop offset="100%" stop-color="#003880"/>
+    </linearGradient>
+    <filter id="opt4Shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+  <!-- High-voltage cobalt gradient tile -->
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#opt4Bg)" stroke="url(#opt4Rim)" stroke-width="2"/>
+  <!-- Monolithic White Glyph with Sub-Pixel Drop Shadow for Extreme Pop -->
+  <polygon points="15.6,11.0 7.01,53.0 20.81,52.69 24.8,33.69 37.06,53.0 48.4,53.0 56.99,11.31 43.19,11.31 38.9,30.31 26.94,11.0" fill="#FFFFFF" filter="url(#opt4Shadow)" />
+</svg>

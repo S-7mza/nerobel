@@ -678,7 +678,7 @@ class SavPortal {
       if (dataUrl) {
         previewImg.src = dataUrl;
       } else {
-        previewImg.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='%233AA0E6' stroke-width='2'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3C/svg%3E";
+        previewImg.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='2'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3C/svg%3E";
       }
     }
     if (previewTitle) previewTitle.textContent = name;
@@ -1093,10 +1093,10 @@ class SavPortal {
         <title>Reçu SAV - ${this.data.ticketCode}</title>
         <style>
           body { font-family: 'Segoe UI', Tahoma, sans-serif; padding: 40px; color: #111; }
-          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3AA0E6; padding-bottom: 20px; }
+          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2563EB; padding-bottom: 20px; }
           .logo { font-size: 26px; font-weight: 900; font-style: italic; color: #050505; }
-          .logo span { color: #3AA0E6; }
-          .ticket-badge { background: #E0F2FE; border: 1.5px solid #0284C7; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 18px; }
+          .logo span { color: #2563EB; }
+          .ticket-badge { background: #EFF6FF; border: 1.5px solid #2563EB; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 18px; color: #1D4ED8; }
           .section { margin-top: 30px; }
           .table { width: 100vw; max-width: 680px; border-collapse: collapse; margin-top: 15px; }
           .table td { padding: 12px; border-bottom: 1px solid #E2E8F0; }

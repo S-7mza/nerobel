@@ -151,12 +151,12 @@ PATTERN 5: INTERACTIVE DEALER MAP
   --tx2:          #B4B8C0;      /* Secondary text */
   --tx3:          #8A8F99;      /* Tertiary / caption */
 
-  /* Signature Pro Blue */
-  --az:           #3AA0E6;      /* Primary accent */
-  --azh:          #5BB4F0;      /* Hover state */
-  --azp:          #2A8AD0;      /* Pressed / gradient end */
-  --glow:         rgba(58,160,230,0.18); /* Subtle glow */
-  --glow-strong:  rgba(58,160,230,0.35); /* Strong glow */
+  /* Signature Saphir Impérial */
+  --az:           #2563EB;      /* Primary accent */
+  --azh:          #3B82F6;      /* Hover state */
+  --azp:          #1D4ED8;      /* Pressed / gradient end */
+  --glow:         rgba(37,99,235,0.18); /* Subtle glow */
+  --glow-strong:  rgba(37,99,235,0.35); /* Strong glow */
 
   /* Prestige Gold */
   --gold:         #C9A96A;
@@ -185,9 +185,9 @@ PATTERN 5: INTERACTIVE DEALER MAP
   --tx:           #0F172A;
   --tx2:          #475569;
   --tx3:          #64748B;
-  --az:           #0284C7;
-  --azh:          #0369A1;
-  --azp:          #075985;
+  --az:           #1D4ED8;
+  --azh:          #1E40AF;
+  --azp:          #172554;
 }
 ```
 

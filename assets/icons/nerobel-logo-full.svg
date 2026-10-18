@@ -5,11 +5,11 @@
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
     <linearGradient id="heroLaserGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#3AA0E6" stop-opacity="0" />
-      <stop offset="15%" stop-color="#3AA0E6" stop-opacity="0.4" />
-      <stop offset="50%" stop-color="#00E5FF" stop-opacity="1" />
-      <stop offset="85%" stop-color="#3AA0E6" stop-opacity="0.4" />
-      <stop offset="100%" stop-color="#3AA0E6" stop-opacity="0" />
+      <stop offset="0%" stop-color="#2563EB" stop-opacity="0" />
+      <stop offset="15%" stop-color="#2563EB" stop-opacity="0.4" />
+      <stop offset="50%" stop-color="#60A5FA" stop-opacity="1" />
+      <stop offset="85%" stop-color="#2563EB" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#2563EB" stop-opacity="0" />
     </linearGradient>
   </defs>
 
@@ -25,6 +25,6 @@
 
   <!-- Product Universe Triad -->
   <text x="500.5" y="257.0" text-anchor="middle" font-family="'Inter', -apple-system, sans-serif" font-size="16" font-weight="400" letter-spacing="1.2" fill="#8A8F99">
-    Home Appliances <tspan fill="#3AA0E6">•</tspan> Bath &amp; Kitchen <tspan fill="#3AA0E6">•</tspan> Smart TV
+    Home Appliances <tspan fill="#2563EB">•</tspan> Bath &amp; Kitchen <tspan fill="#2563EB">•</tspan> Smart TV
   </text>
 </svg>

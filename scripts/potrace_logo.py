@@ -84,18 +84,18 @@ svg_banner = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {cw} {bann
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
     <linearGradient id="heroLaserGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#3AA0E6" stop-opacity="0" />
-      <stop offset="15%" stop-color="#3AA0E6" stop-opacity="0.4" />
-      <stop offset="50%" stop-color="#00E5FF" stop-opacity="1" />
-      <stop offset="85%" stop-color="#3AA0E6" stop-opacity="0.4" />
-      <stop offset="100%" stop-color="#3AA0E6" stop-opacity="0" />
+      <stop offset="0%" stop-color="#2563EB" stop-opacity="0" />
+      <stop offset="15%" stop-color="#2563EB" stop-opacity="0.4" />
+      <stop offset="50%" stop-color="#60A5FA" stop-opacity="1" />
+      <stop offset="85%" stop-color="#2563EB" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#2563EB" stop-opacity="0" />
     </linearGradient>
   </defs>
 
   <!-- Mathematically Exact Smooth Vector Logotype -->
   <path fill-rule="evenodd" d="{combined_path}" fill="#FFFFFF" />
 
-  <!-- Cyan Laser Horizon Beam -->
+  <!-- Saphir Laser Horizon Beam -->
   <line x1="{mid_x - 380:.1f}" y1="{line_y:.1f}" x2="{mid_x + 380:.1f}" y2="{line_y:.1f}" stroke="url(#heroLaserGrad)" stroke-width="3" filter="url(#heroLaserGlow)" />
   <circle cx="{mid_x:.1f}" cy="{line_y:.1f}" r="3" fill="#FFFFFF" />
 
@@ -104,7 +104,7 @@ svg_banner = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {cw} {bann
 
   <!-- Product Universe Triad -->
   <text x="{mid_x:.1f}" y="{sub2_y:.1f}" text-anchor="middle" font-family="'Inter', -apple-system, sans-serif" font-size="16" font-weight="400" letter-spacing="1.2" fill="#8A8F99">
-    Home Appliances <tspan fill="#3AA0E6">•</tspan> Bath &amp; Kitchen <tspan fill="#3AA0E6">•</tspan> Smart TV
+    Home Appliances <tspan fill="#2563EB">•</tspan> Bath &amp; Kitchen <tspan fill="#2563EB">•</tspan> Smart TV
   </text>
 </svg>'''
 
@@ -120,7 +120,7 @@ avatar_y = (400 - scaled_h) / 2.0
 
 svg_avatar = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
   <circle cx="200" cy="200" r="195" fill="#000000" />
-  <circle cx="200" cy="200" r="188" stroke="#3AA0E6" stroke-width="7" />
+  <circle cx="200" cy="200" r="188" stroke="#2563EB" stroke-width="7" />
   <g transform="translate({avatar_x:.2f}, {avatar_y:.2f}) scale({avatar_scale:.4f})">
     <path fill-rule="evenodd" d="{combined_path}" fill="#FFFFFF" />
   </g>
