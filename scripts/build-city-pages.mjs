@@ -118,6 +118,7 @@ ${jsonLd}
   </script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
   <!-- Site Header -->
   <header class="site-header">

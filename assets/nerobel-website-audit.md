@@ -637,7 +637,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | **Sprint 4 — SEO, accessibility, performance, launch** | | | | | |
 | S4-01 | Structured data | 4.3 | S | S3-04 | ✅ |
 | S4-02 | sitemap.xml, robots.txt, 404.html | 4.3 | S | S3-06 | ✅ |
-| S4-03 | Accessibility pass | S-12, 4.3 | M | S3-07 | ⬜ |
+| S4-03 | Accessibility pass | S-12, 4.3 | M | S3-07 | ✅ |
 | S4-04 | Performance budgets | M-11 | M | S3-07 | ⬜ |
 | S4-05 | Analytics events 🔶 | KPIs in 7 | M | S3-07 | ⬜ |
 | S4-06 | Go-live gate | all P0 | S | S4-01…S4-05 | ⬜ |
@@ -1230,3 +1230,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-18 | [S3-07] Completed mobile pass: replaced all 100vh with 100dvh across main and SAV stylesheets; converted footer columns to details accordions (closed below 768px with >=48px touch summary and chevron, open on desktop); tuned mobile header (<768px shows logo, Demande SAV CTA, and mobile toggle, hiding theme button); added tablet 2-column card grid rules; added reduced-motion reset; captured 40 screenshots across 10 pages at 360, 390, 768, and 1024px into docs/screens/; verified with 61 Playwright tests. |
 | 2026-10-18 | [S4-01] Added Organization and 4 Brand JSON-LD blocks on index.html with values from content/facts.json (name, logo, address, customer service contact points for standard and WhatsApp, social links, brand websites); created scripts/check_jsonld.py validating JSON-LD across all pages against facts and prohibiting unverified Product/offers/prices/ratings; verified with 62 Playwright tests. |
 | 2026-10-18 | [S4-02] Created production-ready sitemap.xml with all 10 canonical page URLs on staging base; updated robots.txt with staging Disallow: / and commented production rules; updated 404.html with shared shell (responsive header, mobile action bar, footer details accordions), French message, and links to Accueil, Où acheter, and Demande SAV; verified with 67 Playwright tests. |
+| 2026-10-18 | [S4-03] Executed accessibility pass with @axe-core/playwright across all 10 pages; added keyboard skip link (<a href="#main-content" class="skip-link">) as first child of body with :focus-visible styling; added aria-label to collection progressbar; updated .btn-whatsapp background to #075E54 (7.95:1 WCAG AA contrast against white text); added underline to text-block links in legal documents; verified 0 critical/serious violations on all 10 pages with 78 Playwright tests. |

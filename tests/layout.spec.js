@@ -500,3 +500,43 @@ test('S4-02: sitemap.xml is valid XML with all pages; robots.txt disallows stagi
   expect(savLink).not.toBeNull();
 });
 
+test('S4-03: skip link is first element in body, becomes visible on focus, and navigates to #main-content', async ({ page }) => {
+  await page.goto('/index.html');
+  const firstChildTag = await page.evaluate(() => document.body.firstElementChild.tagName);
+  const firstChildClass = await page.evaluate(() => document.body.firstElementChild.className);
+  expect(firstChildTag).toBe('A');
+  expect(firstChildClass).toContain('skip-link');
+
+  // Tab to focus skip link
+  await page.keyboard.press('Tab');
+  const focusedHref = await page.evaluate(() => document.activeElement.getAttribute('href'));
+  expect(focusedHref).toBe('#main-content');
+  const isVisible = await page.$eval('.skip-link', el => {
+    const rect = el.getBoundingClientRect();
+    return rect.top >= 0 && rect.left >= 0 && window.getComputedStyle(el).display !== 'none';
+  });
+  expect(isVisible).toBe(true);
+});
+
+const AxeBuilder = require('@axe-core/playwright').default;
+const axePages = [
+  'index', 'brands', 'pacific', 'sav', 'network', 'b2b', 'contact', 'mentions-legales', 'confidentialite', '404'
+];
+
+for (const p of axePages) {
+  test(`S4-03: ${p}.html passes axe accessibility audit with 0 critical or serious violations`, async ({ page }) => {
+    await page.goto(`/${p}.html`);
+    const accessibilityScanResults = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa'])
+      .analyze();
+
+    const criticalOrSerious = accessibilityScanResults.violations.filter(
+      v => v.impact === 'critical' || v.impact === 'serious'
+    );
+    if (criticalOrSerious.length > 0) {
+      console.log(`Violations on ${p}.html:`, JSON.stringify(criticalOrSerious.map(v => ({ id: v.id, impact: v.impact, description: v.description, nodes: v.nodes.map(n => n.html) })), null, 2));
+    }
+    expect(criticalOrSerious.length).toBe(0);
+  });
+}
+

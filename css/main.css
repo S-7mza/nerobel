@@ -614,20 +614,20 @@
   box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
 }
 
-/* Official WhatsApp Button */
+/* Official WhatsApp Button (WCAG AA compliant contrast > 4.5:1) */
 .btn-whatsapp {
-  background: #25D366;
-  color: #FFFFFF;
-  border-color: #25D366;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.25);
+  background: #075E54;
+  color: #FFFFFF !important;
+  border-color: #075E54;
+  box-shadow: 0 4px 14px rgba(7, 94, 84, 0.25);
 }
 
 .btn-whatsapp:hover {
-  background: #20BA5A;
-  border-color: #20BA5A;
+  background: #05443d;
+  border-color: #05443d;
   transform: translateY(-2px);
-  color: #FFFFFF;
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+  color: #FFFFFF !important;
+  box-shadow: 0 8px 20px rgba(5, 68, 61, 0.35);
 }
 
 /* Official "Disponible chez NEROBEL" Seal */

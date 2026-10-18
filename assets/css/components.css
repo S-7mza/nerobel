@@ -4,6 +4,45 @@
    Loaded after tokens.css across all pages.
    ───────────────────────────────────────────────────────────── */
 
+/* 0. Accessibility & Skip Link (S4-03) */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 16px;
+  background: var(--bg-surface, #1e293b);
+  color: #FFFFFF !important;
+  padding: 12px 20px;
+  border: 2px solid var(--accent, #3b82f6);
+  border-radius: var(--radius-s, 6px);
+  z-index: 999999;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 16px;
+  outline: 3px solid #3b82f6;
+  outline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Links in text blocks must have non-color distinction (WCAG 1.4.1) */
+.legal-doc-card a,
+.legal-list a,
+.legal-section a,
+.privacy-doc-card a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* 1. Buttons (.btn, .btn--primary, .btn--ghost) — min-height 48px */
 .btn {
   display: inline-flex;
