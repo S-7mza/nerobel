@@ -616,7 +616,7 @@ Size: **S** < 2 h · **M** 2–6 h · **L** 6–16 h (agent time including check
 | S1-04 | Home hero and entry-card copy | H-03 | S | S0-07, S1-02 | ✅ |
 | S1-05 | Uniform brand CTA pair, accessible icon links | H-09, H-12, B-11 | S | S1-02 | ✅ |
 | S1-06 | Pacific page inside the Nerobel site | B-11 | M | S1-03, S1-05 | ✅ |
-| S1-07 | Titles, descriptions, heading order | H-02, N-08, P-07 | S | S1-06 | ⬜ |
+| S1-07 | Titles, descriptions, heading order | H-02, N-08, P-07 | S | S1-06 | ✅ |
 | S1-08 | Claims register and reword unverifiable product claims 🔶 | B-04, B-05, B-06 | M | S0-05 | ⬜ |
 | **Sprint 2 — Design system, imagery, Home** | | | | | |
 | S2-01 | Design tokens | 5.2 | M | S1-07 | ⬜ |
@@ -1212,3 +1212,4 @@ Arabic and English versions with RTL support · defined SLAs and warranty terms 
 | 2026-10-18 | [S1-04] Applied verbatim Home hero copy (`Nerobel Group`, `Quatre marques pour le confort de la maison`, positioning sub-line, `Choisir une marque` → `#marques`, `Demande SAV` → `sav.html`, `WhatsApp Nerobel` link) and entry-card copy (`Marques`, `SAV`, `Espace Pro`) in `index.html`. |
 | 2026-10-18 | [S1-05] Applied uniform two-button CTA pair on all brand cards across `index.html` and `brands.html`, linked Pacific to `pacific.html` in all footers, and added French `aria-label` attributes on all icon-only links (`audit_meta.py` reports 0 links without text or `aria-label`). |
 | 2026-10-18 | [S1-06] Created `pacific.html` inside the Nerobel site with Pacific presentation, 3 proof points, spec table, and interactive multi-position mounting simulator (moved from `brands.html`). |
+| 2026-10-18 | [S1-07] Applied French `<title>`, `<meta name="description">`, `og:title`, and `og:description` across all pages and fixed heading level jumps (`h1` → `h2` → `h3`) so `audit_meta.py` reports 0 title/description/heading errors. |
