@@ -19,5 +19,27 @@ ban "no leader claims"       'leader'
 ban "no Arabic / lang switch" '[\x{0600}-\x{06FF}]|lang-switch|lang-dropdown'
 ban "no dead # links"        'href="#"'
 ban "one vocabulary"         'réclamation|SAV Express|Support SAV|Portail|Showrooms & Distributeurs|Showrooms &amp; Distributeurs|Trouver un|Concierge|Hotline'
+
+# Check PDF links: every uncommented href ending in .pdf must exist on disk
+pdf_links=$(grep -vhE '<!--' $FILES 2>/dev/null | grep -oPi 'href="[^"]+\.pdf"' | sed -E 's/.*href="([^"]+)".*/\1/' | sort -u)
+pdf_err=0
+for pdf in $pdf_links; do
+  if [[ "$pdf" =~ ^https?:// ]] || [[ "$pdf" =~ ^mailto: ]]; then
+    continue
+  fi
+  clean_pdf="${pdf%%\?*}"
+  clean_pdf="${clean_pdf#\/}"
+  clean_pdf="${clean_pdf#\.\.\/}"
+  clean_pdf="${clean_pdf#\.\/}"
+  if [ ! -f "$clean_pdf" ]; then
+    echo "✗ missing pdf on disk: $pdf"
+    pdf_err=1
+    fail=1
+  fi
+done
+if [ $pdf_err -eq 0 ]; then
+  echo "✓ all pdf links exist on disk"
+fi
+
 [ "${1:-}" = "--gate" ] && ban "no placeholders" 'TODO|À COMPLÉTER'
 exit $fail

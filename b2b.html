@@ -93,36 +93,52 @@
         <div class="eyebrow eyebrow-gold"><i class="ti ti-building-community"></i> Réseau d'Excellence Professionnel</div>
         <h1 class="page-title">Espace Pro : devenez partenaire Nerobel</h1>
         <p class="page-subtitle">
-          Nerobel accompagne les bureaux d'études, promoteurs, architectes et artisans avec des solutions thermiques certifiées, un stock garanti et des conditions tarifaires réservées aux pros.
+          Nerobel accompagne les bureaux d'études, promoteurs, architectes, revendeurs et artisans avec des solutions thermiques certifiées et des conditions tarifaires réservées aux professionnels.
         </p>
       </div>
     </section>
 
     <section class="section section--tight">
       <div class="container">
-        <!-- Perks Grid -->
+        <!-- Pour qui ? 4-card row (S3-05) -->
+        <div class="section-head text-center" style="margin-bottom:32px;">
+          <div class="eyebrow eyebrow-gold"><i class="ti ti-users"></i> Partenariat Professionnel</div>
+          <h2 class="section-title">Pour qui ?</h2>
+          <p class="section-desc">Des solutions adaptées aux professionnels du bâtiment et du sanitaire au Maroc.</p>
+        </div>
+
         <div class="b2b-perks-grid" data-reveal-stagger>
           <div class="feature-mini-card" data-reveal="fade-up">
-            <div class="feature-mini-icon text-az"><i class="ti ti-certificate"></i></div>
-            <h2 class="card-title">Certifications &amp; Normes CE</h2>
-            <p class="feature-mini-desc">Accompagnement technique pour vos projets professionnels et appels d'offres.</p>
+            <div class="feature-mini-icon text-az"><i class="ti ti-tool"></i></div>
+            <h3 class="card-title">Installateurs et artisans plombiers</h3>
+            <p class="feature-mini-desc">Équipez vos chantiers avec les marques Theros, Pacific et Eurogas.</p>
+            <a href="#demande?type=installateur" class="btn btn-secondary btn-sm btn-b2b-target" data-type="installateur">Demander un compte</a>
           </div>
 
           <div class="feature-mini-card" data-reveal="fade-up">
-            <div class="feature-mini-icon text-gold"><i class="ti ti-truck-delivery"></i></div>
-            <h2 class="card-title">Disponibilité Immédiate</h2>
-            <p class="feature-mini-desc">Centres logistiques à Casablanca et Tanger assurant un approvisionnement fluide sur tous vos chantiers du Royaume.</p>
+            <div class="feature-mini-icon text-gold"><i class="ti ti-building-store"></i></div>
+            <h3 class="card-title">Revendeurs</h3>
+            <p class="feature-mini-desc">Proposez les marques du groupe à vos clients.</p>
+            <a href="#demande?type=revendeur" class="btn btn-secondary btn-sm btn-b2b-target" data-type="revendeur">Demander un compte</a>
           </div>
 
           <div class="feature-mini-card" data-reveal="fade-up">
-            <div class="feature-mini-icon text-ok"><i class="ti ti-school"></i></div>
-            <h2 class="card-title">Nerobel Academy</h2>
-            <p class="feature-mini-desc">Formations agréées pour vos techniciens sur les technologies connectées Theros, la flexibilité Pacific et la sécurité gaz Eurogas.</p>
+            <div class="feature-mini-icon text-ok"><i class="ti ti-building"></i></div>
+            <h3 class="card-title">Promoteurs et constructeurs</h3>
+            <p class="feature-mini-desc">Équipez vos programmes immobiliers.</p>
+            <a href="#demande?type=promoteur" class="btn btn-secondary btn-sm btn-b2b-target" data-type="promoteur">Demander un compte</a>
+          </div>
+
+          <div class="feature-mini-card" data-reveal="fade-up">
+            <div class="feature-mini-icon text-warn"><i class="ti ti-compass"></i></div>
+            <h3 class="card-title">Bureaux d'études et architectes</h3>
+            <p class="feature-mini-desc">Contactez-nous pour vos besoins techniques.</p>
+            <a href="#demande?type=bureau_etudes" class="btn btn-secondary btn-sm btn-b2b-target" data-type="bureau_etudes">Demander un compte</a>
           </div>
         </div>
 
         <!-- B2B Lead Form -->
-        <div class="b2b-form-card" data-reveal="scale">
+        <div class="b2b-form-card" id="demande" data-reveal="scale">
           <h2 class="card-title">Demande d'Ouverture de Compte Pro</h2>
           <p class="section-desc" style="margin-bottom:24px;">Remplissez ce formulaire. Notre équipe vous répond rapidement.</p>
 
@@ -130,38 +146,79 @@
             <input type="text" name="_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="form-row-2col">
               <div class="form-group">
-                <label class="form-label" for="b2bCompany">Raison Sociale / Société <span class="req">*</span></label>
-                <input type="text" id="b2bCompany" name="company" class="form-input" placeholder="Ex: Bâtiment &amp; Confort SARL" required autocomplete="organization">
+                <label class="form-label" for="b2bCompany">Raison sociale <span class="req">*</span></label>
+                <input type="text" id="b2bCompany" name="company" class="form-input" placeholder="Ex : Bâtiment &amp; Confort SARL" required autocomplete="organization">
               </div>
               <div class="form-group">
-                <label class="form-label" for="b2bIce">Identifiant Fiscal (ICE / RC)</label>
+                <label class="form-label" for="b2bIce">Identifiant fiscal (ICE / RC)</label>
                 <input type="text" id="b2bIce" name="ice" class="form-input" placeholder="001234567000089">
               </div>
             </div>
 
             <div class="form-row-2col">
               <div class="form-group">
-                <label class="form-label" for="b2bContact">Nom du Responsable <span class="req">*</span></label>
-                <input type="text" id="b2bContact" name="contact" class="form-input" placeholder="Ex: Mohamed Alami" required autocomplete="name">
+                <label class="form-label" for="b2bContact">Nom du responsable <span class="req">*</span></label>
+                <input type="text" id="b2bContact" name="contact" class="form-input" placeholder="Ex : Mohamed Alami" required autocomplete="name">
               </div>
               <div class="form-group">
-                <label class="form-label" for="b2bPhone">Téléphone Direct <span class="req">*</span></label>
-                <input type="tel" id="b2bPhone" name="phone" class="form-input" placeholder="0661234567" required autocomplete="tel">
+                <label class="form-label" for="b2bPhone">Téléphone <span class="req">*</span></label>
+                <input type="tel" id="b2bPhone" name="phone" class="form-input" placeholder="0661234567" required autocomplete="tel" inputmode="tel">
+              </div>
+            </div>
+
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label class="form-label" for="b2bEmail">Email <span class="req">*</span></label>
+                <input type="email" id="b2bEmail" name="email" class="form-input" placeholder="contact@entreprise.ma" required autocomplete="email">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="b2bCity">Ville <span class="req">*</span></label>
+                <select id="b2bCity" name="city" class="form-select" required>
+                  <option value="" disabled selected>Sélectionnez votre ville</option>
+                  <option value="Casablanca">Casablanca</option>
+                  <option value="Rabat">Rabat</option>
+                  <option value="Marrakech">Marrakech</option>
+                  <option value="Tanger">Tanger</option>
+                  <option value="Fès">Fès</option>
+                  <option value="Meknès">Meknès</option>
+                  <option value="Agadir">Agadir</option>
+                  <option value="Oujda">Oujda</option>
+                  <option value="Autre ville">Autre ville</option>
+                </select>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="b2bActivity">Type d'Activité <span class="req">*</span></label>
+              <label class="form-label" for="b2bActivity">Type d'activité <span class="req">*</span></label>
               <select id="b2bActivity" name="activity" class="form-select" required>
-                <option value="plombier">Installateur / Artisan Plombier</option>
-                <option value="revendeur">Revendeur Sanitaire &amp; Quincaillerie</option>
-                <option value="promoteur">Promoteur Immobilier / Constructeur</option>
-                <option value="bureau">Bureau d'Études / Architecte</option>
+                <option value="" disabled selected>Sélectionnez votre activité</option>
+                <option value="installateur">Installateurs et artisans plombiers</option>
+                <option value="revendeur">Revendeurs</option>
+                <option value="promoteur">Promoteurs et constructeurs</option>
+                <option value="bureau_etudes">Bureaux d'études et architectes</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="b2bMessage">Message / Volume Estimé</label>
+              <label class="form-label">Marques d'intérêt</label>
+              <div class="b2b-brands-checkboxes" style="display:flex; flex-wrap:wrap; gap:16px; margin-top:8px;">
+                <label class="form-checkbox-label" style="display:inline-flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="brands" value="Theros"> <span>Theros</span>
+                </label>
+                <label class="form-checkbox-label" style="display:inline-flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="brands" value="Pacific"> <span>Pacific</span>
+                </label>
+                <label class="form-checkbox-label" style="display:inline-flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="brands" value="Eurogas"> <span>Eurogas</span>
+                </label>
+                <label class="form-checkbox-label" style="display:inline-flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="brands" value="Nerobel"> <span>Nerobel</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="b2bMessage">Message / volume estimé</label>
               <textarea id="b2bMessage" name="message" class="form-textarea" placeholder="Précisez la nature de vos besoins, chantiers en cours ou marques souhaitées (Theros, Pacific, Eurogas)..."></textarea>
             </div>
 

@@ -108,10 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (errorBox) errorBox.style.display = 'none';
 
       let valid = true;
+      let firstInvalid = null;
       form.querySelectorAll('input[required]:not([type="checkbox"]), textarea[required], select[required]').forEach((field) => {
-        if (!field.value.trim()) {
+        if (!field.value.trim() || !field.checkValidity()) {
           field.classList.add('has-error');
           valid = false;
+          if (!firstInvalid) firstInvalid = field;
         } else {
           field.classList.remove('has-error');
         }
@@ -122,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
           consentCheckbox.classList.add('has-error');
           if (consentError) consentError.classList.add('visible');
           valid = false;
+          if (!firstInvalid) firstInvalid = consentCheckbox;
         } else {
           consentCheckbox.classList.remove('has-error');
           if (consentError) consentError.classList.remove('visible');
@@ -129,7 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (!valid) {
-        if (consentCheckbox && !consentCheckbox.checked) {
+        if (firstInvalid) firstInvalid.focus();
+        if (consentCheckbox && !consentCheckbox.checked && firstInvalid === consentCheckbox) {
           window.showToast("Veuillez accepter pour envoyer votre demande.", "error");
         } else {
           window.showToast("Veuillez remplir tous les champs obligatoires.", "error");
@@ -143,11 +147,17 @@ document.addEventListener('DOMContentLoaded', () => {
       // Extract field values
       const formData = new FormData(form);
       const fields = {};
+      const brandValues = [];
       formData.forEach((val, key) => {
-        if (key !== '_hp' && key !== 'consent') {
+        if (key === 'brands') {
+          brandValues.push(val);
+        } else if (key !== '_hp' && key !== 'consent') {
           fields[key] = val;
         }
       });
+      if (brandValues.length) {
+        fields.brands = brandValues.join(', ');
+      }
 
       // Build WhatsApp or mailto hand-off URL
       let handoffUrl = '';
@@ -175,9 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
           `- ICE / RC : ${fields.ice || 'Non précisé'}`,
           `- Responsable : ${fields.contact || ''}`,
           `- Téléphone : ${fields.phone || ''}`,
-          `- Email : ${fields.email || 'Non précisé'}`,
+          `- Email : ${fields.email || ''}`,
+          `- Ville : ${fields.city || ''}`,
           `- Activité : ${fields.activity || ''}`,
-          `- Message : ${fields.message || ''}`
+          `- Marques : ${fields.brands || 'Toutes les marques'}`,
+          `- Message : ${fields.message || 'Aucun message spécifique'}`
         ];
         handoffUrl = `mailto:contact@nerobel.com?subject=${encodeURIComponent("Demande Compte Pro - " + (fields.company || 'Partenaire'))}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
       }
@@ -237,8 +249,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function initB2BActivityPreselection() {
+    const select = document.getElementById('b2bActivity');
+    if (!select) return;
+
+    const setActivity = (val) => {
+      if (!val) return;
+      const normalized = val.toLowerCase().trim();
+      const map = {
+        'installateur': 'installateur',
+        'plombier': 'installateur',
+        'revendeur': 'revendeur',
+        'promoteur': 'promoteur',
+        'constructeur': 'promoteur',
+        'bureau': 'bureau_etudes',
+        'bureau_etudes': 'bureau_etudes',
+        'architecte': 'bureau_etudes'
+      };
+      const targetVal = map[normalized] || normalized;
+      for (const opt of select.options) {
+        if (opt.value === targetVal) {
+          select.value = targetVal;
+          break;
+        }
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const typeParam = params.get('type');
+    if (typeParam) {
+      setActivity(typeParam);
+    }
+
+    const checkHash = () => {
+      if (window.location.hash.includes('type=')) {
+        const hashQuery = window.location.hash.includes('?') ? window.location.hash.split('?')[1] : window.location.hash.replace('#', '');
+        const hashParams = new URLSearchParams(hashQuery);
+        if (hashParams.get('type')) {
+          setActivity(hashParams.get('type'));
+        }
+      }
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+
+    document.querySelectorAll('.btn-b2b-target').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.getAttribute('data-type');
+        if (type) setActivity(type);
+      });
+    });
+  }
+
   bindStandardForm('b2bForm', 'b2b');
   bindStandardForm('contactForm', 'contact');
+  initB2BActivityPreselection();
 });
 
 /* ─────────────────────────────────────────────────────────────

@@ -290,6 +290,52 @@ test('ou-acheter/casablanca.html: static city page exists with LocalBusiness JSO
   expect(jsonLd.telephone).toBe('+212522998877');
 });
 
+test('b2b.html: blocks submission without email and consent, and sends mailto hand-off on valid submit', async ({ page }) => {
+  await page.goto('/b2b.html');
+
+  // Fill partial required fields (without email)
+  await page.fill('#b2bCompany', 'Atlas Sanitaire SARL');
+  await page.fill('#b2bContact', 'Youssef Bennani');
+  await page.fill('#b2bPhone', '0661234567');
+  await page.selectOption('#b2bCity', 'Casablanca');
+  await page.selectOption('#b2bActivity', 'installateur');
+
+  // Attempt submit without email
+  await page.click('#b2bForm button[type="submit"]');
+  let feedbackDisplay = await page.$eval('#b2bFeedback', el => window.getComputedStyle(el).display);
+  expect(feedbackDisplay).toBe('none');
+
+  // Fill email but without consent
+  await page.fill('#b2bEmail', 'pro@atlas-sanitaire.ma');
+  await page.click('#b2bForm button[type="submit"]');
+  feedbackDisplay = await page.$eval('#b2bFeedback', el => window.getComputedStyle(el).display);
+  expect(feedbackDisplay).toBe('none');
+
+  // Tick consent and submit
+  await page.check('#b2bConsent');
+  await page.click('#b2bForm button[type="submit"]');
+
+  await page.waitForSelector('#b2bFeedback', { state: 'visible' });
+  const mailtoHref = await page.$eval('#b2bMailtoLink', el => el.getAttribute('href'));
+  expect(mailtoHref).toContain('mailto:contact@nerobel.com');
+  const decoded = decodeURIComponent(mailtoHref);
+  expect(decoded).toContain('Atlas Sanitaire SARL');
+  expect(decoded).toContain('pro@atlas-sanitaire.ma');
+  expect(decoded).toContain('installateur');
+});
+
+test('b2b.html: ?type=revendeur preselects the activity and cards update selection', async ({ page }) => {
+  await page.goto('/b2b.html?type=revendeur');
+  const activityVal = await page.$eval('#b2bActivity', el => el.value);
+  expect(activityVal).toBe('revendeur');
+
+  // Click card button for promoteur
+  await page.click('.btn-b2b-target[data-type="promoteur"]');
+  const updatedVal = await page.$eval('#b2bActivity', el => el.value);
+  expect(updatedVal).toBe('promoteur');
+});
+
+
 
 
 
