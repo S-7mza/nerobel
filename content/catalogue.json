@@ -18,6 +18,22 @@
     "confirmed": false
   },
   {
+    "id": "theros-babylon-vasques",
+    "brand": "Theros",
+    "range": "Babylon",
+    "name": "Vasques Céramiques Babylon",
+    "capacity_or_size": "Finitions : Gold, Gray, Khaki, Bronze",
+    "finish": "céramique texturée et striée",
+    "specs": [
+      "Céramique d'art haute densité",
+      "Finitions contemporaines : or brossé, anthracite, kaki",
+      "Pose sur plan de toilette ou meuble suspendu",
+      "Émaillage résistant aux chocs et rayures"
+    ],
+    "page_anchor": "brands.html#theros",
+    "confirmed": false
+  },
+  {
     "id": "pacific-horizon-80l",
     "brand": "Pacific",
     "range": "Horizon",
