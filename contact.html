@@ -100,6 +100,30 @@
 
     <section class="section section--tight">
       <div class="container">
+        <!-- Three Path Cards (S3-06) -->
+        <div class="contact-path-cards" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; margin-bottom:40px;">
+          <a href="sav.html" class="contact-path-card">
+            <div class="feature-mini-icon text-az"><i class="ti ti-tool"></i></div>
+            <h2 class="card-title">Demande SAV</h2>
+            <p class="feature-mini-desc">Un problème technique ou une réparation sous garantie ? Déposez votre demande SAV en ligne.</p>
+            <span class="btn btn-secondary btn-sm" style="margin-top:12px;">Accéder au SAV <i class="ti ti-arrow-right"></i></span>
+          </a>
+
+          <a href="contact.html?dept=commercial" class="contact-path-card" data-dept="commercial">
+            <div class="feature-mini-icon text-gold"><i class="ti ti-briefcase"></i></div>
+            <h2 class="card-title">Commercial</h2>
+            <p class="feature-mini-desc">Renseignements sur nos gammes, catalogues et tarifs pour particuliers et professionnels.</p>
+            <span class="btn btn-secondary btn-sm" style="margin-top:12px;">Écrire au Commercial <i class="ti ti-arrow-right"></i></span>
+          </a>
+
+          <a href="contact.html?dept=presse" class="contact-path-card" data-dept="presse">
+            <div class="feature-mini-icon text-ok"><i class="ti ti-news"></i></div>
+            <h2 class="card-title">Presse et partenariats</h2>
+            <p class="feature-mini-desc">Relations presse, communication institutionnelle et opportunités de partenariat groupe.</p>
+            <span class="btn btn-secondary btn-sm" style="margin-top:12px;">Contacter la Direction <i class="ti ti-arrow-right"></i></span>
+          </a>
+        </div>
+
         <div class="contact-grid">
           <!-- Left: Coordinates & WhatsApp Desk -->
           <div data-reveal="fade-right">
@@ -111,15 +135,23 @@
               <div class="contact-info-list">
                 <div><strong class="text-white">Standard :</strong> <a href="tel:+212522998877" class="text-az">+212 522 99 88 77</a></div>
                 <div><strong class="text-white">WhatsApp Nerobel :</strong> <a href="https://wa.me/212787013201" class="text-ok">+212 787 013 201</a></div>
-                <div><strong class="text-white">Direction Commerciale :</strong> <a href="mailto:contact@nerobel.com" class="text-az">contact@nerobel.com</a></div>
+                <div><strong class="text-white">Contact :</strong> <a href="mailto:contact@nerobel.com" class="text-az">contact@nerobel.com</a></div>
                 <div><strong class="text-white">Heures d'Ouverture :</strong> Lun - Sam : 08h30 - 19h30</div>
               </div>
 
+              <!-- O-06: Facade/showroom photo slot: <div class="media-frame"><img src="assets/img/siege-facade.jpg" alt="Façade du Siège Social Nerobel Group" width="600" height="400"></div> -->
+
+              <div style="margin-top:16px;">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Angle%20Boulevard%20d'Anfa%20%26%20Rue%20Mozart%2C%20Casablanca%2C%20Maroc" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" aria-label="Itinéraire vers le Siège Social Nerobel Group">
+                  <i class="ti ti-directions"></i> <span>Itinéraire</span>
+                </a>
+              </div>
+
               <!-- Dedicated WhatsApp Box -->
-              <div class="contact-wa-box">
+              <div class="contact-wa-box" style="margin-top:20px;">
                 <div>
                   <div class="fw-bold text-white"><i class="ti ti-brand-whatsapp text-wa"></i> WhatsApp Nerobel</div>
-                  <div class="text-sm text-muted">Réponse rapide pour vos demandes SAV et renseignements</div>
+                  <div class="text-sm text-muted">Pour vos questions et vos demandes SAV.</div>
                 </div>
                 <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="btn btn-whatsapp">
                   Écrire sur WhatsApp
@@ -127,19 +159,19 @@
               </div>
             </div>
 
-            <!-- Direction & Regional Showrooms Link -->
+            <!-- Need to find an outlet? -->
             <div class="feature-mini-card">
-              <div class="feature-mini-icon text-az"><i class="ti ti-map"></i></div>
-              <h3 class="feature-mini-title">Où acheter un appareil Nerobel près de chez vous ?</h3>
-              <p class="feature-mini-desc">Consultez notre carte interactive pour localiser notre réseau de showrooms et de points de vente au Maroc.</p>
-              <a href="network.html" class="gateway-link" style="margin-top:12px;">Où acheter <i class="ti ti-arrow-right"></i></a>
+              <div class="feature-mini-icon text-az"><i class="ti ti-map-pin"></i></div>
+              <h3 class="feature-mini-title">Où acheter un appareil Nerobel ?</h3>
+              <p class="feature-mini-desc">Consultez notre annuaire des points de vente confirmés au Maroc et localisez votre showroom.</p>
+              <a href="network.html" class="btn btn-secondary btn-sm" style="margin-top:12px;">Où acheter</a>
             </div>
           </div>
 
           <!-- Right: General Message Form -->
           <div class="contact-form-card" data-reveal="fade-left">
             <h2 class="card-title">Formulaire de Correspondance</h2>
-            <p class="section-desc" style="margin-bottom:24px;">Transmettez-nous votre message, nous vous répondrons dans les plus brefs délais.</p>
+            <p class="section-desc" style="margin-bottom:24px;">Nous vous répondrons dans les meilleurs délais.</p>
 
             <form id="contactForm" novalidate>
               <input type="text" name="_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -163,10 +195,12 @@
                 <label class="form-label" for="contactDept">Département Concerné</label>
                 <select id="contactDept" name="dept" class="form-select">
                   <option value="commercial">Direction Commerciale &amp; Ventes</option>
-                  <option value="sav">Support Technique &amp; SAV (Theros, Pacific, Eurogas)</option>
                   <option value="partenariat">Partenariat Professionnel &amp; Distribution</option>
-                  <option value="direction">Direction Générale &amp; Presse</option>
+                  <option value="presse">Direction Générale &amp; Presse</option>
                 </select>
+                <div id="contactPartenariatNotice" class="contact-partenariat-notice" style="display:none; margin-top:10px; padding:10px 14px; background:rgba(201,169,106,0.12); border:1px solid rgba(201,169,106,0.3); border-radius:6px; font-size:0.88rem; color:var(--tx2);">
+                  Vous êtes installateur, revendeur ou promoteur ? <a href="b2b.html#demande" class="text-gold" style="font-weight:600; text-decoration:underline;">Faites une demande d'ouverture de compte sur l'Espace Pro</a>.
+                </div>
               </div>
 
               <div class="form-group">
@@ -274,7 +308,7 @@
           <ul class="footer-links">
             <li><a href="contact.html">Siège &amp; Coordonnées</a></li>
             <li><a href="b2b.html">Espace Pro</a></li>
-            <li><a href="contact.html">Presse &amp; Partenariats</a></li>
+            <li><a href="contact.html?dept=presse">Presse &amp; Partenariats</a></li>
             <li><a href="tel:+212522998877">Standard : +212 522 99 88 77</a></li>
           </ul>
         </div>

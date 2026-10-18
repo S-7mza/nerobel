@@ -335,6 +335,35 @@ test('b2b.html: ?type=revendeur preselects the activity and cards update selecti
   expect(updatedVal).toBe('promoteur');
 });
 
+test('contact.html: department list has no SAV, ?dept=presse preselects department, and directions link opens Google Maps', async ({ page }) => {
+  await page.goto('/contact.html?dept=presse');
+
+  // Verify SAV is removed from department select
+  const deptOptions = await page.$$eval('#contactDept option', opts => opts.map(o => ({ value: o.value, text: o.text })));
+  expect(deptOptions.some(o => o.value === 'sav')).toBe(false);
+  expect(deptOptions.some(o => o.text.includes('SAV'))).toBe(false);
+
+  // Verify ?dept=presse preselected
+  const deptVal = await page.$eval('#contactDept', el => el.value);
+  expect(deptVal).toBe('presse');
+
+  // Verify Partenariat notice when selecting partenariat
+  await page.selectOption('#contactDept', 'partenariat');
+  const noticeDisplay = await page.$eval('#contactPartenariatNotice', el => window.getComputedStyle(el).display);
+  expect(noticeDisplay).toBe('block');
+  const noticeLink = await page.$eval('#contactPartenariatNotice a', el => el.getAttribute('href'));
+  expect(noticeLink).toContain('b2b.html#demande');
+
+  // Verify Google Maps directions link
+  const dirLink = await page.$eval('a[href*="google.com/maps/dir"]', el => el.getAttribute('href'));
+  expect(dirLink).toContain('destination=Angle%20Boulevard%20d\'Anfa%20%26%20Rue%20Mozart%2C%20Casablanca%2C%20Maroc');
+
+  // Verify 3 path cards exist
+  const pathCards = await page.$$('.contact-path-card');
+  expect(pathCards.length).toBe(3);
+});
+
+
 
 
 

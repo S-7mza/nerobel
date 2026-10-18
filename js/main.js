@@ -164,9 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (formType === 'contact') {
         const deptNames = {
           commercial: 'Direction Commerciale & Ventes',
-          sav: 'Support Technique & SAV',
           partenariat: 'Partenariat Professionnel & Distribution',
-          direction: 'Direction Générale & Presse'
+          presse: 'Direction Générale & Presse'
         };
         const deptLabel = deptNames[fields.dept] || fields.dept || 'Général';
         const lines = [
@@ -301,9 +300,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function initContactDeptPreselection() {
+    const deptSelect = document.getElementById('contactDept');
+    if (!deptSelect) return;
+
+    const notice = document.getElementById('contactPartenariatNotice');
+    const updateNotice = () => {
+      if (notice) {
+        notice.style.display = deptSelect.value === 'partenariat' ? 'block' : 'none';
+      }
+    };
+
+    const setDept = (dept) => {
+      if (!dept) return;
+      const normalized = dept.toLowerCase().trim();
+      const map = {
+        'commercial': 'commercial',
+        'ventes': 'commercial',
+        'partenariat': 'partenariat',
+        'distribution': 'partenariat',
+        'presse': 'presse',
+        'direction': 'presse'
+      };
+      const targetVal = map[normalized] || normalized;
+      for (const opt of deptSelect.options) {
+        if (opt.value === targetVal) {
+          deptSelect.value = targetVal;
+          break;
+        }
+      }
+      updateNotice();
+    };
+
+    deptSelect.addEventListener('change', updateNotice);
+
+    const params = new URLSearchParams(window.location.search);
+    const deptParam = params.get('dept');
+    if (deptParam) {
+      setDept(deptParam);
+    }
+
+    document.querySelectorAll('.contact-path-card[data-dept]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (window.location.pathname.endsWith('contact.html') || window.location.pathname.endsWith('contact') || window.location.pathname.endsWith('/')) {
+          const dept = card.getAttribute('data-dept');
+          if (dept) {
+            e.preventDefault();
+            setDept(dept);
+            const formEl = document.getElementById('contactForm');
+            if (formEl) {
+              formEl.scrollIntoView({ behavior: 'smooth' });
+              setTimeout(() => deptSelect.focus(), 300);
+            }
+          }
+        }
+      });
+    });
+
+    updateNotice();
+  }
+
   bindStandardForm('b2bForm', 'b2b');
   bindStandardForm('contactForm', 'contact');
   initB2BActivityPreselection();
+  initContactDeptPreselection();
 });
 
 /* ─────────────────────────────────────────────────────────────
