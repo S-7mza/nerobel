@@ -461,3 +461,66 @@
   background: var(--color-surface-2);
   border-color: var(--color-border-hover);
 }
+
+/* Static Hero Layout */
+.hero-section--static {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.hero-section--static .hero-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-section--static .hero-bg-picture,
+.hero-section--static .hero-static-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Products Grid */
+.products-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+@media (min-width: 640px) {
+  .products-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .products-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+}
+
+.products-grid-3 .product-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.products-grid-3 .product-card-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.products-grid-3 .product-card .media-frame {
+  aspect-ratio: 4 / 3;
+}
+
