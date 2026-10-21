@@ -489,9 +489,15 @@
    ─────────────────────────────────────────────── */
 .service-types-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: 1fr;
   gap: 16px;
   margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .service-types-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .type-select-card {

@@ -49,24 +49,33 @@ def verify_single_row_menus():
 
         page.screenshot(path="artifacts_single_row_network_1200.png")
 
-        # 3. Test SAV Hub Tabs at 1440px
+        # 3. Test SAV Selection Cards at 1440px
         page.set_viewport_size({"width": 1440, "height": 900})
         page.goto("http://localhost:8080/sav.html")
         page.wait_for_load_state("networkidle")
         time.sleep(1)
 
-        sav_tabs = page.locator(".sav-mode-tabs .sav-tab-btn").all()
-        sav_boxes = [st.bounding_box() for st in sav_tabs]
+        sav_cards = page.locator(".service-types-grid .type-select-card").all()
+        sav_boxes = [st.bounding_box() for st in sav_cards]
         sav_ys = [round(b['y']) for b in sav_boxes]
-        print(f"SAV tabs Y-coords at 1440px: {sav_ys}")
-        assert len(set(sav_ys)) == 1, f"SAV tabs wrapped! Y-coords: {sav_ys}"
+        print(f"SAV service cards Y-coords at 1440px: {sav_ys}")
+        assert len(set(sav_ys)) == 1, f"SAV cards wrapped! Y-coords: {sav_ys}"
+
+        sav_nav_ys = [round(b['y']) for b in [nl.bounding_box() for nl in page.locator(".nav-menu .nav-link").all()]]
+        assert len(set(sav_nav_ys)) == 1, f"SAV nav wrapped! Y-coords: {sav_nav_ys}"
 
         page.screenshot(path="artifacts_single_row_sav_1440.png")
 
-        # 4. Test Brands page Header at 1200px & 1440px
+        # 4. Test Brands page Header & Brand Tabs at 1440px
         page.goto("http://localhost:8080/brands.html")
         page.wait_for_load_state("networkidle")
         time.sleep(1)
+
+        brand_tabs = page.locator(".brand-tabs__list .brand-tabs__link").all()
+        brand_tab_ys = [round(b['y']) for b in [bt.bounding_box() for bt in brand_tabs]]
+        print(f"Brand tabs Y-coords at 1440px: {brand_tab_ys}")
+        assert len(set(brand_tab_ys)) == 1, f"Brand tabs wrapped! Y-coords: {brand_tab_ys}"
+
         brands_nav_ys = [round(b['y']) for b in [nl.bounding_box() for nl in page.locator(".nav-menu .nav-link").all()]]
         print(f"Brands page Nav Y-coords at 1440px: {brands_nav_ys}")
         assert len(set(brands_nav_ys)) == 1, f"Brands nav wrapped! Y-coords: {brands_nav_ys}"
