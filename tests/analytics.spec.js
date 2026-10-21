@@ -45,17 +45,10 @@ test.describe('S4-05: Analytics event tracking', () => {
     expect(tabEvt.brand).toBe('eurogas');
   });
 
-  test('10. simulator_interact tracks Theros and Pacific modes', async ({ page }) => {
-    await page.goto('/pacific.html');
-    await page.click('#btnPacificV');
-    let events = await page.evaluate(() => window.dataLayer);
-    let simEvt = events.find(e => e.event === 'simulator_interact' && e.brand === 'pacific');
-    expect(simEvt).toBeDefined();
-    expect(simEvt.setting).toBe('vertical');
-
+  test('10. simulator_interact tracks Theros power modes', async ({ page }) => {
     await page.goto('/brands.html');
     await page.click('.power-mode-btn[data-power="500"]');
-    events = await page.evaluate(() => window.dataLayer);
+    const events = await page.evaluate(() => window.dataLayer);
     let therosEvt = events.find(e => e.event === 'simulator_interact' && e.brand === 'theros');
     expect(therosEvt).toBeDefined();
     expect(therosEvt.setting).toBe('500');

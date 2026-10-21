@@ -272,6 +272,35 @@
   --brand-accent: var(--accent-nerobel);
 }
 
+[data-theme="light"] .brand-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-top: 3px solid var(--brand-accent);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .brand-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(29, 78, 216, 0.35);
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.08), 0 0 20px -2px rgba(29, 78, 216, 0.10);
+}
+
+[data-theme="light"] .brand-card[data-brand="pacific"]:hover {
+  border-color: rgba(180, 136, 58, 0.4);
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.08), 0 0 20px -2px rgba(180, 136, 58, 0.12);
+}
+
+[data-theme="light"] .brand-card[data-brand="eurogas"]:hover {
+  border-color: rgba(217, 119, 6, 0.4);
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.08), 0 0 20px -2px rgba(217, 119, 6, 0.12);
+}
+
+[data-theme="light"] .brand-card[data-brand="nerobel"]:hover {
+  border-color: rgba(15, 23, 42, 0.35);
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.08), 0 0 20px -2px rgba(15, 23, 42, 0.06);
+}
+
 .brands-grid-4 > .brand-card[data-reveal] {
   transform: none !important;
 }
@@ -460,7 +489,7 @@
 [data-theme="light"] .brand-card .seal-nerobel--sm {
   background: linear-gradient(135deg, rgba(229, 202, 146, 0.18) 0%, rgba(201, 169, 106, 0.08) 100%);
   border: 1.5px solid rgba(180, 136, 58, 0.4);
-  box-shadow: 0 2px 8px rgba(180, 136, 58, 0.08);
+  box-shadow: none;
   border-radius: 6px;
 }
 
@@ -495,7 +524,7 @@
   background: #F1F5F9 !important;
   color: #0F172A !important;
   border: 1px solid #CBD5E1 !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  box-shadow: none;
 }
 
 [data-theme="light"] .brand-card .cta-pair .btn--ghost:hover,

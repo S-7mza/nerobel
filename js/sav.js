@@ -71,8 +71,6 @@ class SavPortal {
     const norm = brandParam.trim().toLowerCase();
     if (norm === 'theros') {
       this.setCategoryAndBrand('electric', 'Theros', true);
-    } else if (norm === 'pacific') {
-      this.setCategoryAndBrand('electric', 'Pacific', true);
     } else if (norm === 'eurogas') {
       this.setCategoryAndBrand('gas', 'Eurogas', true);
     } else if (norm === 'nerobel') {
@@ -140,26 +138,14 @@ class SavPortal {
       brandSelect.disabled = true;
       this.data.brand = 'Nerobel';
     } else {
-      // electric: Theros and Pacific
-      const opt1 = document.createElement('option');
-      opt1.value = 'Theros';
-      opt1.textContent = 'Theros (Électrique)';
-
-      const opt2 = document.createElement('option');
-      opt2.value = 'Pacific';
-      opt2.textContent = 'Pacific (Électrique Multi-Position)';
-
-      brandSelect.appendChild(opt1);
-      brandSelect.appendChild(opt2);
-      brandSelect.disabled = false;
-
-      if (preselectedBrand === 'Pacific') {
-        brandSelect.value = 'Pacific';
-        this.data.brand = 'Pacific';
-      } else {
-        brandSelect.value = 'Theros';
-        this.data.brand = 'Theros';
-      }
+      // electric: Theros (Exclusive)
+      const opt = document.createElement('option');
+      opt.value = 'Theros';
+      opt.textContent = 'Theros (Chauffe-eau électrique & Sanitaire)';
+      opt.selected = true;
+      brandSelect.appendChild(opt);
+      brandSelect.disabled = true;
+      this.data.brand = 'Theros';
     }
   }
 
@@ -451,7 +437,7 @@ class SavPortal {
     const revIssue = document.getElementById('revIssue');
 
     const typeNames = {
-      electric: "Chauffe-eau Électrique (Theros / Pacific)",
+      electric: "Chauffe-eau Électrique (Theros)",
       gas: "Chauffe-eau à Gaz (Eurogas)",
       appliances: "Électroménager / TV (Nerobel)"
     };
@@ -1112,7 +1098,7 @@ class SavPortal {
 
         <div class="section">
           <h2>Récépissé Officiel de Demande de Service Après-Vente</h2>
-          <p>Dossier enregistré le ${new Date().toLocaleDateString('fr-FR')} - Nerobel Group · Theros · Pacific · Eurogas</p>
+          <p>Dossier enregistré le ${new Date().toLocaleDateString('fr-FR')} - Nerobel Group · Theros · Eurogas</p>
 
           <table class="table">
             <tr><td class="key">Nom du Client</td><td>${this.data.fullName}</td></tr>

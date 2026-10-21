@@ -34,23 +34,6 @@
     "confirmed": false
   },
   {
-    "id": "pacific-horizon-80l",
-    "brand": "Pacific",
-    "range": "Horizon",
-    "name": "Pacific Horizon",
-    "capacity_or_size": "80 L (à confirmer O-01)",
-    "finish": "blanc",
-    "specs": [
-      "Montage horizontal ou vertical",
-      "Double réservoir",
-      "Écran digital",
-      "Température réglable jusqu'à 75 °C",
-      "Conformité CE"
-    ],
-    "page_anchor": "pacific.html",
-    "confirmed": false
-  },
-  {
     "id": "eurogas-master-flame",
     "brand": "Eurogas",
     "range": "Master Flame",

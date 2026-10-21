@@ -82,7 +82,7 @@ def main():
                             errors.append(f"index.html: Organization sameAs missing '{s_url}'")
 
                     brands = item.get('brand', [])
-                    if len(brands) == 4:
+                    if len(brands) == len(facts['brands']):
                         index_found_brands = True
                         for b in brands:
                             b_name = b.get('name')
@@ -93,7 +93,7 @@ def main():
                                 if b.get('url') != fact_b['site']:
                                     errors.append(f"index.html: Brand '{b_name}' url '{b.get('url')}' != '{fact_b['site']}'")
                     else:
-                        errors.append(f"index.html: Expected 4 brands in Organization, found {len(brands)}")
+                        errors.append(f"index.html: Expected {len(facts['brands'])} brands in Organization, found {len(brands)}")
 
                 if rel_path.startswith('ou-acheter/') and item_type == 'LocalBusiness':
                     if facts['contact']['switchboard']['tel'] not in str(item.get('telephone', '')):

@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let isHovered = false;
       let isInteracting = false;
       let isVisible = false;
-      let driftDirection = 1; // 1: forward to TV & Fridge, -1: back to Theros & Pacific
+      let driftDirection = 1; // 1: forward to TV & Fridge, -1: back to Theros & Eurogas
       let driftPos = Math.abs(track.scrollLeft);
       let pauseUntil = performance.now() + 1600; // gentle startup breath
       let lastTime = performance.now();
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (driftPos <= 0) {
             driftPos = 0;
             driftDirection = 1;
-            pauseUntil = now + 2400; // Pause at start to highlight Theros & Pacific
+            pauseUntil = now + 2400; // Pause at start to highlight Theros & Eurogas
           }
 
           const isRtl = document.documentElement.dir === 'rtl';

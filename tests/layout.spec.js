@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const pages = ['index', 'brands', 'pacific', 'sav', 'network', 'b2b', 'contact', '404'];
+const pages = ['index', 'brands', 'sav', 'network', 'b2b', 'contact', '404'];
 const widths = [360, 390, 430, 768, 1280];
 
 for (const p of pages) for (const w of widths) {
@@ -15,7 +15,7 @@ test('brand cards share the same heading baseline @1280', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/index.html');
   const tops = await page.$$eval('.brand-card h3', els => els.map(e => Math.round(e.getBoundingClientRect().top)));
-  expect(tops.length).toBe(4);
+  expect(tops.length).toBe(2);
   expect(new Set(tops).size).toBe(1);
 });
 
@@ -57,7 +57,7 @@ test('brands.html @390px: every .brand-block has H2 above its media', async ({ p
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/brands.html');
   const blocks = await page.$$('.brand-block');
-  expect(blocks.length).toBeGreaterThanOrEqual(3);
+  expect(blocks.length).toBeGreaterThanOrEqual(2);
   for (const block of blocks) {
     const h2Top = await block.$eval('h2', el => el.getBoundingClientRect().top);
     const mediaTop = await block.$eval('.brand-block__media', el => el.getBoundingClientRect().top);
@@ -69,7 +69,7 @@ test('brand-tabs are keyboard accessible and activate on enter', async ({ page }
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/brands.html');
   const tabs = await page.$$('.brand-tabs__link');
-  expect(tabs.length).toBe(4);
+  expect(tabs.length).toBe(2);
   
   await page.focus('.brand-tabs__link[href="#eurogas"]');
   await page.keyboard.press('Enter');
@@ -239,13 +239,13 @@ test('network.html: seed data shows confirmed headquarters showroom and no uncon
 
 test('network.html: query parameters preselect filters and filter outlets', async ({ page }) => {
   // Test brand query param
-  await page.goto('/network.html?brand=pacific');
+  await page.goto('/network.html?brand=theros');
   await page.waitForSelector('.outlet-card');
   const brandVal = await page.$eval('#filterBrand', el => el.value);
-  expect(brandVal).toBe('pacific');
+  expect(brandVal).toBe('theros');
   // Brands: null matches all
-  const cardsPacific = await page.$$('.outlet-card');
-  expect(cardsPacific.length).toBe(1);
+  const cardsTheros = await page.$$('.outlet-card');
+  expect(cardsTheros.length).toBe(1);
 
   // Test city query param with no confirmed outlet
   await page.goto('/network.html?city=rabat');
@@ -426,7 +426,6 @@ test('S3-07: captures screenshots for all pages across viewports 360, 390, 768, 
   const screenPages = [
     { slug: 'index', path: '/index.html' },
     { slug: 'brands', path: '/brands.html' },
-    { slug: 'pacific', path: '/pacific.html' },
     { slug: 'sav', path: '/sav.html' },
     { slug: 'network', path: '/network.html' },
     { slug: 'b2b', path: '/b2b.html' },
@@ -460,7 +459,7 @@ test('S4-01: scripts/check_jsonld.py passes and index.html contains Organization
   const jsonLdContent = await page.$eval('script[type="application/ld+json"]', el => JSON.parse(el.textContent));
   expect(jsonLdContent['@type']).toBe('Organization');
   expect(jsonLdContent.name).toBe('Nerobel Group');
-  expect(jsonLdContent.brand.length).toBe(4);
+  expect(jsonLdContent.brand.length).toBe(2);
 });
 
 test('S4-02: sitemap.xml is valid XML with all pages; robots.txt allows production; 404.html has required links', async ({ page }) => {
@@ -478,7 +477,6 @@ test('S4-02: sitemap.xml is valid XML with all pages; robots.txt allows producti
   const expectedPages = [
     'https://nerobel.com/',
     'https://nerobel.com/brands.html',
-    'https://nerobel.com/pacific.html',
     'https://nerobel.com/sav.html',
     'https://nerobel.com/network.html',
     'https://nerobel.com/ou-acheter/casablanca.html',
@@ -521,7 +519,7 @@ test('S4-03: skip link is first element in body, becomes visible on focus, and n
 
 const AxeBuilder = require('@axe-core/playwright').default;
 const axePages = [
-  'index', 'brands', 'pacific', 'sav', 'network', 'b2b', 'contact', 'mentions-legales', 'confidentialite', '404'
+  'index', 'brands', 'sav', 'network', 'b2b', 'contact', 'mentions-legales', 'confidentialite', '404'
 ];
 
 for (const p of axePages) {

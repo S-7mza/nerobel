@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const AxeBuilder = require('@axe-core/playwright').default;
 
-const allPages = ['index', 'brands', 'pacific', 'sav', 'network', 'b2b', 'contact', 'mentions-legales', 'confidentialite', '404'];
+const allPages = ['index', 'brands', 'sav', 'network', 'b2b', 'contact', 'mentions-legales', 'confidentialite', '404'];
 const mobileWidths = [320, 360, 390, 430, 768];
 
 // 1. Zero Horizontal Scroll across all pages and mobile viewports (including 320px floor)

@@ -1,11 +1,9 @@
 {
   "group": "Nerobel Group",
-  "positioning": "Nerobel Group détient et gère quatre marques pour la maison : Theros, Pacific, Eurogas et Nerobel.",
+  "positioning": "Nerobel Group est le distributeur exclusif au Maroc des marques d'excellence Theros et Eurogas.",
   "brands": [
-    {"id": "theros", "name": "Theros", "site": "https://theros.ma/"},
-    {"id": "pacific", "name": "Pacific", "site": null, "page": "pacific.html"},
-    {"id": "eurogas", "name": "Eurogas", "site": "https://eurogas.ma/"},
-    {"id": "nerobel", "name": "Nerobel", "site": null, "page": "brands.html#nerobel"}
+    {"id": "theros", "name": "Theros", "site": "https://theros.ma/", "page": "brands.html#theros"},
+    {"id": "eurogas", "name": "Eurogas", "site": "https://eurogas.ma/", "page": "brands.html#eurogas"}
   ],
   "contact": {
     "address": "Angle Boulevard d'Anfa & Rue Mozart, Casablanca, Maroc",

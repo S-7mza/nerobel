@@ -697,7 +697,7 @@
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--az);
+  color: var(--az-text, #60A5FA);
   text-shadow: 0 0 20px rgba(37, 99, 235, 0.22);
   background: none;
   border: none;
@@ -747,7 +747,7 @@
 /* 1. Electric Cyan / Azure Blue (Theros & Connected Tech) */
 .eyebrow-blue,
 .brand-card[data-brand="theros"] .eyebrow {
-  color: var(--az);
+  color: var(--az-text, #60A5FA);
   text-shadow: 0 0 20px rgba(37, 99, 235, 0.25);
   border-top-color: rgba(37, 99, 235, 0.35);
   border-bottom-color: rgba(37, 99, 235, 0.35);
@@ -861,6 +861,17 @@
 [data-theme="light"] .brand-card[data-brand="nerobel"] .eyebrow::before,
 [data-theme="light"] .brand-card[data-brand="nerobel"] .eyebrow::after {
   background: linear-gradient(90deg, transparent, rgba(51, 65, 85, 0.4), transparent);
+}
+
+.form-checkbox-label a,
+.form-consent-label a {
+  color: var(--az-text, #60A5FA);
+  text-decoration: underline;
+}
+
+[data-theme="light"] .form-checkbox-label a,
+[data-theme="light"] .form-consent-label a {
+  color: var(--az, #1D4ED8);
 }
 
 /* Signature Laser Underline */
@@ -2359,6 +2370,18 @@
   }
 }
 
+.brands-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .brands-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .brand-card {
   position: relative;
   background: var(--s1);
@@ -2374,6 +2397,12 @@
   transform: translateY(-6px);
   border-color: var(--bd-glow);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), var(--shadow-glow);
+}
+
+[data-theme="light"] .brand-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--bd-glow);
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.08), 0 0 20px -2px var(--shadow-glow);
 }
 
 .brand-card-img-wrap {
@@ -5840,8 +5869,12 @@
 }
 
 .form-consent-label a {
-  color: var(--az);
+  color: var(--az-text, #60A5FA);
   text-decoration: underline;
+}
+
+[data-theme="light"] .form-consent-label a {
+  color: var(--az, #1D4ED8);
 }
 
 .form-input.has-error,

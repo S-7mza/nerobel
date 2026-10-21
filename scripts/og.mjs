@@ -14,20 +14,14 @@ const pages = [
   {
     id: 'index',
     title: 'Nerobel Group',
-    subtitle: 'Quatre marques pour la maison : Theros, Pacific, Eurogas, Nerobel',
-    badge: 'GROUPE INDUSTRIEL'
+    subtitle: 'Distributeur Exclusif Theros & Eurogas au Maroc',
+    badge: 'DISTRIBUTION EXCLUSIVE'
   },
   {
     id: 'brands',
     title: 'Nos marques',
-    subtitle: 'Theros · Pacific · Eurogas · Nerobel Consumer Tech',
+    subtitle: 'Theros · Eurogas · Distribution Exclusive au Maroc',
     badge: 'CATALOGUE & MARQUES'
-  },
-  {
-    id: 'pacific',
-    title: 'Pacific Horizon',
-    subtitle: 'Chauffe-eau électrique multi-position haute performance',
-    badge: 'MARQUE PACIFIC'
   },
   {
     id: 'sav',
@@ -123,7 +117,7 @@ async function generate() {
 
   <!-- Footer Metadata -->
   <text x="80" y="535" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="600" fill="#8A8F99" letter-spacing="1.5">NEROBEL GROUP · CASABLANCA, MAROC</text>
-  <text x="1120" y="535" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500" fill="#C9A96A">theros.ma · pacific · eurogas.ma</text>
+  <text x="1120" y="535" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="500" fill="#C9A96A">theros.ma · eurogas.ma</text>
 </svg>
 `;
 

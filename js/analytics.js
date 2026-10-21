@@ -79,14 +79,6 @@
       return;
     }
 
-    // 10. simulator_interact (Pacific buttons)
-    if (target.id === 'btnPacificH' || target.id === 'btnPacificV') {
-      window.nerobelAnalytics.track('simulator_interact', {
-        brand: 'pacific',
-        setting: target.id === 'btnPacificH' ? 'horizontal' : 'vertical'
-      });
-      return;
-    }
 
     // 10. simulator_interact (Theros power mode buttons)
     if (target.classList.contains('power-mode-btn')) {

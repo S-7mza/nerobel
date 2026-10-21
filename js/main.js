@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ─────────────────────────────────────────────────────────────
    INTERACTIVE PRODUCT DEMONSTRATORS CONTROLLER
-   Theros Wi-Fi, Pacific 360° Flex, Eurogas ODS Simulator
+   Theros Wi-Fi, Eurogas ODS Simulator
    ───────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Theros Wi-Fi Live Simulator
@@ -497,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    const sections = ['#theros', '#eurogas', '#nerobel']
+    const sections = ['#theros', '#eurogas']
       .map(id => document.querySelector(id))
       .filter(Boolean);
 
@@ -523,32 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 2. Pacific 360° Installation Mode Toggle
-  const btnH = document.getElementById('btnPacificH');
-  const btnV = document.getElementById('btnPacificV');
-  const tankVisual = document.getElementById('pacificTankVisual');
-  const visualLabel = document.getElementById('pacificVisualLabel');
-  const specTag = document.getElementById('pacificSpecTag');
-
-  if (btnH && btnV && tankVisual) {
-    btnH.addEventListener('click', () => {
-      btnH.classList.add('active');
-      btnV.classList.remove('active');
-      tankVisual.classList.remove('vertical');
-      if (visualLabel) visualLabel.textContent = "PACIFIC 80L (H)";
-      if (specTag) specTag.textContent = "Parfait pour faux-plafonds, couloirs étroits ou au-dessus d'une machine à laver.";
-    });
-
-    btnV.addEventListener('click', () => {
-      btnV.classList.add('active');
-      btnH.classList.remove('active');
-      tankVisual.classList.add('vertical');
-      if (visualLabel) visualLabel.textContent = "PACIFIC 80L (V)";
-      if (specTag) specTag.textContent = "Idéal pour niches de salle de bain murales et angles restreints standard.";
-    });
-  }
-
-  // 3. Eurogas ODS Safety Simulator
+  // 2. Eurogas ODS Safety Simulator
   const btnTestOds = document.getElementById('btnTestOds');
   const odsCard = document.getElementById('odsStatusCard');
   const odsTitle = document.getElementById('odsStateTitle');

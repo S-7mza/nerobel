@@ -1,15 +1,14 @@
 # Nerobel Group — Official Web Platform
 
-Modern, responsive web platform for **Nerobel Group**, a premier manufacturing and distribution group specializing in water heaters, heating equipment, home appliances, and consumer electronics across Algeria and the Maghreb region.
+Modern, responsive web platform for **Nerobel Group**, exclusive distributor in Morocco for premier heating, sanitary, and thermal comfort brands: **Theros** and **Eurogas**.
 
 ---
 
-## 🌟 Brand Portfolio
+## 🌟 Exclusive Brand Portfolio
 
-- **Theros**: Next-generation smart water heaters with Wi-Fi connectivity and Pro-Slim eco-performance.
-- **Pacific**: High-durability multi-position water heaters engineered for high pressure and longevity.
-- **Eurogas**: Gas water heaters and high-efficiency heating boilers.
-- **Nerobel**: Premium consumer electronics, OLED smart displays, and intelligent household appliances.
+- **Theros**: Exclusive distribution in Morocco. Next-generation smart electric water heaters with Wi-Fi connectivity, Pro-Slim eco-performance, and designer bath/sanitary fixtures.
+- **Eurogas**: Exclusive distribution in Morocco. High-efficiency gas water heaters and heating boilers equipped with patented ODS safety systems.
+- **Nerobel**: Premium consumer technology, OLED smart displays, and intelligent household appliances.
 
 ---
 

@@ -45,8 +45,7 @@ for (const filePath of htmlFiles) {
 
 // 3. Hero images check
 const heroChecks = [
-  { file: 'pacific.html', pattern: /<img[^>]*src="[^"]*pacific-water-heater[^"]*"[^>]*>/i },
-  { file: 'brands.html', pattern: /<img[^>]*src="[^"]*(theros-pro-slim|theros_brand_page)[^"]*"[^>]*>/i }
+  { file: 'brands.html', pattern: /<img[^>]*src="[^"]*(theros-pro-slim|theros_brand_page|brand-hero-theros)[^"]*"[^>]*>/i }
 ];
 
 for (const hc of heroChecks) {
