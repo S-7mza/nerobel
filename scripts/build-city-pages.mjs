@@ -105,11 +105,11 @@ for (const [city, cityOutlets] of cityGroups.entries()) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Montserrat:ital,wght@0,700;0,800;1,800;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/tokens.css">
-  <link rel="stylesheet" href="../css/icons.css">
-  <link rel="stylesheet" href="../css/theme.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=2.2">
+  <link rel="stylesheet" href="../css/icons.css?v=2.2">
+  <link rel="stylesheet" href="../css/theme.css?v=2.2">
+  <link rel="stylesheet" href="../css/main.css?v=2.2">
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.2">
 
   <script type="application/ld+json">
 ${jsonLd}
@@ -277,10 +277,10 @@ ${outletCardsHtml}
     </div>
   </footer>
 
-  <script defer src="../js/analytics.js"></script>
-  <script defer src="../js/theme.js"></script>
-  <script defer src="../js/animations.js"></script>
-  <script defer src="../js/main.js"></script>
+  <script defer src="../js/analytics.js?v=2.2"></script>
+  <script defer src="../js/theme.js?v=2.2"></script>
+  <script defer src="../js/animations.js?v=2.2"></script>
+  <script defer src="../js/main.js?v=2.2"></script>
 </body>
 </html>
 `;
