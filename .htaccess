@@ -72,3 +72,27 @@ ErrorDocument 404 /404.html
 </FilesMatch>
 
 Options -Indexes
+
+# ==============================================================================
+# 8. Clean Extensionless URLs (Avoids .html in URLs)
+# ==============================================================================
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # A. Canonical 301 Redirect: /index or /index.html -> /
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index(?:\.html)?[\s?] [NC]
+    RewriteRule ^ / [R=301,L]
+
+    # B. Canonical 301 Redirect: /page.html -> /page
+    # Strips .html from any direct request, updating browser address bar & SEO
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+([^.]+?)\.html[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # C. Internal Rewrite: /page -> /page.html
+    # Silently serves page.html behind the clean URL if the file exists
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*)$ $1.html [L]
+</IfModule>

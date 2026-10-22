@@ -90,12 +90,12 @@ for (const [city, cityOutlets] of cityGroups.entries()) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>${title}</title>
   <meta name="description" content="${description}">
-  <link rel="canonical" href="https://nerobel.com/ou-acheter/${slug}.html">
+  <link rel="canonical" href="https://nerobel.com/ou-acheter/${slug}">
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://nerobel.com/ou-acheter/${slug}.html">
+  <meta property="og:url" content="https://nerobel.com/ou-acheter/${slug}">
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
   <meta property="og:image" content="https://nerobel.com/assets/img/og/network.jpg">
@@ -121,18 +121,18 @@ ${jsonLd}
   <!-- Site Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../index.html" class="brand-logo" aria-label="Nerobel Group">
+      <a href="../index" class="brand-logo" aria-label="Nerobel Group">
         <img src="../assets/icons/nerobel-logo.svg" alt="NEROBEL" width="140" height="36">
       </a>
 
       <nav aria-label="Navigation Principale">
         <ul class="nav-menu">
-          <li><a href="../index.html" class="nav-link">Groupe</a></li>
-          <li><a href="../brands.html" class="nav-link">Marques</a></li>
-          <li><a href="../sav.html" class="nav-link">SAV</a></li>
-          <li><a href="../network.html" class="nav-link active">Où acheter</a></li>
-          <li><a href="../b2b.html" class="nav-link">Espace Pro</a></li>
-          <li><a href="../contact.html" class="nav-link">Contact</a></li>
+          <li><a href="../index" class="nav-link">Groupe</a></li>
+          <li><a href="../brands" class="nav-link">Marques</a></li>
+          <li><a href="../sav" class="nav-link">SAV</a></li>
+          <li><a href="../network" class="nav-link active">Où acheter</a></li>
+          <li><a href="../b2b" class="nav-link">Espace Pro</a></li>
+          <li><a href="../contact" class="nav-link">Contact</a></li>
         </ul>
       </nav>
 
@@ -141,7 +141,7 @@ ${jsonLd}
           <i class="ti ti-sun"></i>
         </button>
 
-        <a href="../sav.html" class="btn-cta-sav">
+        <a href="../sav" class="btn-cta-sav">
           <i class="ti ti-tool"></i>
           <span>Demande SAV</span>
         </a>
@@ -160,15 +160,15 @@ ${jsonLd}
       <button type="button" class="mobile-drawer-close" aria-label="Fermer"><i class="ti ti-x"></i></button>
     </div>
     <ul class="mobile-nav-links">
-      <li><a href="../index.html">Groupe</a></li>
-      <li><a href="../brands.html">Marques</a></li>
-      <li><a href="../sav.html">SAV</a></li>
-      <li><a href="../network.html" class="active">Où acheter</a></li>
-      <li><a href="../b2b.html">Espace Pro</a></li>
-      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="../index">Groupe</a></li>
+      <li><a href="../brands">Marques</a></li>
+      <li><a href="../sav">SAV</a></li>
+      <li><a href="../network" class="active">Où acheter</a></li>
+      <li><a href="../b2b">Espace Pro</a></li>
+      <li><a href="../contact">Contact</a></li>
     </ul>
     <div class="drawer-cta-wrap">
-      <a href="../sav.html" class="btn btn-primary btn-block"><i class="ti ti-tool"></i> <span>Demande SAV</span></a>
+      <a href="../sav" class="btn btn-primary btn-block"><i class="ti ti-tool"></i> <span>Demande SAV</span></a>
     </div>
   </div>
 
@@ -192,7 +192,7 @@ ${outletCardsHtml}
         </div>
 
         <div style="margin-top:40px; text-align:center;">
-          <a href="../network.html" class="btn btn-secondary">
+          <a href="../network" class="btn btn-secondary">
             <i class="ti ti-arrow-left"></i> Voir tous les points de vente au Maroc
           </a>
         </div>
@@ -210,11 +210,11 @@ ${outletCardsHtml}
       <i class="ti ti-brand-whatsapp"></i>
       <span>WhatsApp</span>
     </a>
-    <a href="../sav.html" class="mobile-bar-btn sav-highlight" aria-label="Demande SAV">
+    <a href="../sav" class="mobile-bar-btn sav-highlight" aria-label="Demande SAV">
       <i class="ti ti-tool"></i>
       <span>Demande SAV</span>
     </a>
-    <a href="../network.html" class="mobile-bar-btn" aria-label="Où acheter">
+    <a href="../network" class="mobile-bar-btn" aria-label="Où acheter">
       <i class="ti ti-map-pin"></i>
       <span>Où acheter</span>
     </a>
@@ -239,8 +239,8 @@ ${outletCardsHtml}
         <details class="footer-col" open>
           <summary class="footer-title"><span>Nos Marques</span><i class="ti ti-chevron-down footer-accordion-icon"></i></summary>
           <ul class="footer-links">
-            <li><a href="../brands.html#theros">Theros · Confort Thermique &amp; Bain</a></li>
-            <li><a href="../brands.html#eurogas">Eurogas · Systèmes Gaz &amp; Chaudières</a></li>
+            <li><a href="../brands#theros">Theros · Confort Thermique &amp; Bain</a></li>
+            <li><a href="../brands#eurogas">Eurogas · Systèmes Gaz &amp; Chaudières</a></li>
             <li><a href="https://theros.ma/" target="_blank" rel="noopener">Site Officiel Theros <i class="ti ti-external-link"></i></a></li>
             <li><a href="https://eurogas.ma/" target="_blank" rel="noopener">Site Officiel Eurogas <i class="ti ti-external-link"></i></a></li>
           </ul>
@@ -249,9 +249,9 @@ ${outletCardsHtml}
         <details class="footer-col" open>
           <summary class="footer-title"><span>Services &amp; Support</span><i class="ti ti-chevron-down footer-accordion-icon"></i></summary>
           <ul class="footer-links">
-            <li><a href="../sav.html">Demande SAV</a></li>
-            <li><a href="../network.html">Où acheter</a></li>
-            <li><a href="../b2b.html">Espace Pro</a></li>
+            <li><a href="../sav">Demande SAV</a></li>
+            <li><a href="../network">Où acheter</a></li>
+            <li><a href="../b2b">Espace Pro</a></li>
             <li><a href="tel:+212787013201">WhatsApp Nerobel : +212 787 013 201</a></li>
           </ul>
         </details>
@@ -259,9 +259,9 @@ ${outletCardsHtml}
         <details class="footer-col" open>
           <summary class="footer-title"><span>Le Groupe</span><i class="ti ti-chevron-down footer-accordion-icon"></i></summary>
           <ul class="footer-links">
-            <li><a href="../contact.html">Siège &amp; Coordonnées</a></li>
-            <li><a href="../b2b.html">Espace Pro</a></li>
-            <li><a href="../contact.html?dept=presse">Presse &amp; Partenariats</a></li>
+            <li><a href="../contact">Siège &amp; Coordonnées</a></li>
+            <li><a href="../b2b">Espace Pro</a></li>
+            <li><a href="../contact?dept=presse">Presse &amp; Partenariats</a></li>
             <li><a href="tel:+212661999747">Standard : +212 661 99 97 47</a></li>
           </ul>
         </details>
@@ -270,8 +270,8 @@ ${outletCardsHtml}
       <div class="footer-bottom">
         <div>© 2026 Nerobel Group. Tous droits réservés.</div>
         <div class="footer-legal-links">
-          <a href="../confidentialite.html">Politique de confidentialité</a>
-          <a href="../mentions-legales.html">Mentions légales</a>
+          <a href="../confidentialite">Politique de confidentialité</a>
+          <a href="../mentions-legales">Mentions légales</a>
         </div>
       </div>
     </div>

@@ -44,7 +44,17 @@ for hf in html_files:
             continue
         total_refs += 1
         target_path = os.path.normpath(os.path.join(base_dir, ref_clean))
-        if not os.path.exists(target_path):
+        
+        # Check if direct target exists
+        exists = os.path.exists(target_path)
+        # Check if clean URL resolving to .html exists
+        if not exists and os.path.exists(target_path + '.html'):
+            exists = True
+        # Check if directory index exists (e.g. ./ or ../)
+        if not exists and (os.path.isdir(target_path) and os.path.exists(os.path.join(target_path, 'index.html'))):
+            exists = True
+            
+        if not exists:
             broken.append((hf, ref, target_path))
 
 css_files = glob.glob(os.path.join(target_dir, 'css', '*.css')) + glob.glob(os.path.join(target_dir, 'assets', 'css', '*.css'))
