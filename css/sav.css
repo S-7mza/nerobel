@@ -419,9 +419,98 @@
   }
 }
 
-/* Stepper Progress Bar */
+/* Stepper Progress Bar & Top Bar */
 .stepper-header {
   margin-bottom: 32px;
+}
+
+.stepper-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--bd);
+}
+
+.sav-ticket-types-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--s2);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--bd);
+}
+
+.ticket-type-pill {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--tx2);
+  transition: all var(--trans);
+}
+
+.ticket-type-pill:hover {
+  color: var(--tx);
+  background: var(--s3);
+}
+
+.ticket-type-pill.active {
+  background: var(--az);
+  color: #050505;
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.35);
+}
+
+.ticket-type-pill i {
+  font-size: 0.95rem;
+}
+
+/* Bilingual Language Switch Pill (FR | العربية) */
+.sav-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--s2);
+  padding: 3px 6px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--bd);
+}
+
+.lang-pill {
+  all: unset;
+  cursor: pointer;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-family: var(--fm);
+  font-weight: 600;
+  color: var(--tx2);
+  transition: all var(--trans);
+}
+
+.lang-pill:hover {
+  color: var(--tx);
+}
+
+.lang-pill.active {
+  background: rgba(37, 99, 235, 0.2);
+  color: #60A5FA;
+  border: 1px solid rgba(96, 165, 250, 0.4);
+}
+
+.lang-divider {
+  color: var(--tx3);
+  font-size: 0.75rem;
+  user-select: none;
 }
 
 .stepper-progress-bars {
@@ -453,6 +542,153 @@
   font-weight: 600;
   color: var(--az-text, #60A5FA);
   text-transform: uppercase;
+}
+
+/* Dynamic Option Cards & Radio Grid */
+.sav-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sav-option-card {
+  all: unset;
+  cursor: pointer;
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--tx);
+  transition: all var(--trans);
+  position: relative;
+}
+
+.sav-option-card:hover {
+  background: var(--s3);
+  border-color: var(--bdh);
+  transform: translateY(-1px);
+}
+
+.sav-option-card.selected {
+  background: rgba(37, 99, 235, 0.12);
+  border-color: var(--az);
+  color: #FFFFFF;
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.25);
+}
+
+.sav-option-radio-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--bdh);
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  color: transparent;
+  flex-shrink: 0;
+  transition: all var(--trans);
+}
+
+.sav-option-card.selected .sav-option-radio-dot {
+  border-color: var(--az);
+  background: var(--az);
+  color: #050505;
+}
+
+/* Help media links & buttons */
+.sav-help-btn {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--az);
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  margin-top: 8px;
+  transition: all var(--trans);
+}
+
+.sav-help-btn:hover {
+  background: var(--az);
+  color: #050505;
+}
+
+.sav-help-hint {
+  font-size: 0.80rem;
+  color: var(--tx3);
+  margin-top: 6px;
+  line-height: 1.45;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.sav-help-hint i {
+  color: var(--az);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* RTL Layout Enhancements for Arabic */
+[dir="rtl"] {
+  font-family: 'Cairo', 'Inter', system-ui, sans-serif;
+  text-align: right;
+}
+
+[dir="rtl"] .sav-sidebar {
+  text-align: right;
+}
+
+[dir="rtl"] .sav-sidebar-eyebrow {
+  letter-spacing: 0;
+}
+
+[dir="rtl"] .phone-field-group {
+  direction: ltr;
+}
+
+[dir="rtl"] .review-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .review-val {
+  text-align: start;
+}
+
+[dir="rtl"] .step-nav-bar {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .step-nav-bar button i.ti-arrow-right {
+  transform: rotate(180deg);
+}
+
+[dir="rtl"] .step-nav-bar button i.ti-arrow-left {
+  transform: rotate(180deg);
+}
+
+[dir="rtl"] .ticket-type-pill {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .modal-title-wrap {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .error-summary-list {
+  padding-left: 0;
+  padding-right: 20px;
 }
 
 /* Step Container */

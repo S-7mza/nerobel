@@ -29,7 +29,7 @@
 
   <link rel="stylesheet" href="css/theme.css?v=2.2">
   <link rel="stylesheet" href="css/main.css?v=2.2">
-  <link rel="stylesheet" href="css/sav.css?v=2.2">
+  <link rel="stylesheet" href="css/sav.css?v=3.5">
   <link rel="stylesheet" href="assets/css/components.css?v=2.2">
 </head>
 <body>
@@ -174,7 +174,26 @@
           <div id="savStepsContainer">
             <!-- Stepper Header -->
             <div class="stepper-header">
-              <div class="stepper-progress-bars">
+              <div class="stepper-top-bar">
+                <div class="sav-ticket-types-selector" id="ticketTypesSelector" role="tablist" aria-label="Type de garantie">
+                  <button type="button" class="ticket-type-pill active" data-ticket-type="1" role="tab" aria-selected="true" id="tabType1">
+                    <i class="ti ti-shield-check"></i>
+                    <span class="type-name" data-i18n="typeUnderWarranty">Sous garantie</span>
+                  </button>
+                  <button type="button" class="ticket-type-pill" data-ticket-type="2" role="tab" aria-selected="false" id="tabType2">
+                    <i class="ti ti-tool"></i>
+                    <span class="type-name" data-i18n="typeOutOfWarranty">Hors garantie</span>
+                  </button>
+                </div>
+
+                <div class="sav-lang-switch" role="group" aria-label="Langue du formulaire">
+                  <button type="button" class="lang-pill active" data-lang="fr" aria-label="Français">FR</button>
+                  <span class="lang-divider">|</span>
+                  <button type="button" class="lang-pill" data-lang="ar" aria-label="العربية">العربية</button>
+                </div>
+              </div>
+
+              <div class="stepper-progress-bars" id="stepperBars">
                 <div class="step-bar active" id="bar-1"></div>
                 <div class="step-bar" id="bar-2"></div>
                 <div class="step-bar" id="bar-3"></div>
@@ -462,7 +481,7 @@
       </div>
       <div class="modal-body" style="text-align:center;">
         <div id="serialGuideWaterHeater">
-          <img src="assets/icons/serial-guide.svg" alt="Emplacement Plaque Signalétique" width="480" height="260" style="display:block; margin:0 auto; border-radius:var(--radius-md); border:1px solid var(--bd);">
+          <img src="serial-number-guide.svg" alt="Emplacement Plaque Signalétique" width="600" height="340" style="display:block; max-width:100%; height:auto; margin:0 auto; border-radius:var(--radius-md); border:1px solid var(--bd);">
           <p style="font-size:0.88rem; color:var(--tx2); margin-top:16px;" data-i18n="guideModalTip">
             La plaque métallique est généralement collée sous le chauffe-eau ou sur le panneau latéral.
           </p>
@@ -475,6 +494,36 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="btnUnderstood" data-i18n="btnModalUnderstood">J'ai compris</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sample Document Modal (Facture / Bon de Garantie) -->
+  <div class="modal-overlay" id="sampleDocumentModal" role="dialog" aria-modal="true" aria-labelledby="sampleDocModalTitle">
+    <div class="modal-card" style="max-width:680px;">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon"><i class="ti ti-file-certificate"></i></div>
+          <div>
+            <div class="modal-title" id="sampleDocModalTitle">Exemple de Document Accepté</div>
+            <div class="modal-subtitle" id="sampleDocModalSubtitle">Facture d'achat ou bon de garantie officiel Nerobel / Theros / Eurogas</div>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeSampleDocModal" aria-label="Fermer"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <img src="contract-sample.webp" alt="Exemple de bon de garantie" width="600" height="380" style="max-width:100%; height:auto; border-radius:var(--radius-md); border:1px solid var(--bd);">
+        <div class="sample-doc-instructions" id="sampleDocInstructions" style="margin-top:16px; padding:14px; background:var(--s2); border-radius:var(--radius-md); border:1px solid var(--bd); font-size:0.88rem; color:var(--tx2); text-align:start;">
+          <p style="margin:0 0 8px 0; color:var(--tx); font-weight:600;"><i class="ti ti-info-circle" style="color:var(--az);"></i> Conseils pour une validation rapide :</p>
+          <ul style="margin:0; padding-inline-start:20px; display:grid; gap:6px;">
+            <li>Prenez une photo bien éclairée à plat, sans reflets de flash.</li>
+            <li>Les 4 coins de la feuille ou carte de garantie doivent être visibles.</li>
+            <li>Le numéro de série, la date d'achat et le cachet du revendeur doivent être parfaitement lisibles.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnSampleDocClose">J'ai compris</button>
       </div>
     </div>
   </div>
@@ -626,6 +675,6 @@
   <script defer src="js/theme.js?v=2.2"></script>
   <script defer src="js/animations.js?v=2.2"></script>
   <script defer src="js/main.js?v=2.2"></script>
-  <script defer src="js/sav.js?v=3.0"></script>
+  <script defer src="js/sav.js?v=3.5"></script>
 </body>
 </html>

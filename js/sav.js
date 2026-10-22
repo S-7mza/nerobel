@@ -1,787 +1,1219 @@
 /* ─────────────────────────────────────────────────────────────
-   NEROBEL GROUP · SAV SUPPORT ENGINE (js/sav.js) - v3.0
-   Full Native 3-Step Wizard, Category Brand Routing, GPS Leaflet Modal,
-   Live Webcam / File Compression, Accessible Validation, & WhatsApp Bridge
+   NEROBEL GROUP · SCHEMA-DRIVEN DYNAMIC SAV ENGINE (js/sav.js) - v3.5
+   Powered by FlowOps Gateway · Schema-Driven Dynamic Form Engine
+   Bilingual FR/AR, Stepper by stepName, Specialized Widgets,
+   GPS Leaflet Modal, Camera/Webcam Capture, WhatsApp Bridge & PDF Receipt
    ───────────────────────────────────────────────────────────── */
 
-class SavPortal {
-  constructor() {
-    this.currentStep = 1;
-    this.data = {
-      type: 'electric',
-      fullName: '',
-      phone: '',
-      city: 'Casablanca',
-      otherCity: '',
-      address: '',
-      gps: null,
-      brand: 'Theros',
-      serial: '',
-      noSerial: false,
-      symptom: "Pas d'eau chaude",
-      description: '',
-      photo: null,
-      photoName: '',
-      rawFile: null,
-      consent: false,
-      ticketCode: null
-    };
-
-    this.leafletMap = null;
-    this.webcamStream = null;
-    this.lastTriggerElement = null;
-  }
-
-  init() {
-    this.bindTypeSelection();
-    this.bindCitySelection();
-    this.bindSerialCheckbox();
-    this.bindChangeDevice();
-    this.bindNavigation();
-    this.bindModals();
-    this.bindDropzone();
-    this.bindGps();
-    this.bindWebcam();
-    this.bindDraft();
-    this.bindSubmission();
-
-    // Check camera availability
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      const webcamBtn = document.getElementById('btnWebcamTrigger');
-      if (webcamBtn) webcamBtn.style.display = 'none';
-    }
-
-    // Load draft first if available
-    this.loadDraft();
-
-    // URL parameter ?brand= takes precedence and starts on Step 2
-    this.handleBrandParam();
-  }
-
-  // ─────────────────────────────────────────
-  // BRAND PARAMETER & CATEGORY ROUTING
-  // ─────────────────────────────────────────
-  handleBrandParam() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const brandParam = urlParams.get('brand');
-    if (!brandParam) {
-      this.updateBrandSelectForType(this.data.type || 'electric');
-      return;
-    }
-
-    const norm = brandParam.trim().toLowerCase();
-    if (norm === 'theros') {
-      this.setCategoryAndBrand('electric', 'Theros', true);
-    } else if (norm === 'eurogas') {
-      this.setCategoryAndBrand('gas', 'Eurogas', true);
-    } else if (norm === 'nerobel') {
-      this.setCategoryAndBrand('appliances', 'Nerobel', true);
-    } else {
-      this.updateBrandSelectForType(this.data.type || 'electric');
-    }
-  }
-
-  setCategoryAndBrand(type, brand, fromQueryParam = false) {
-    this.data.type = type;
-    this.data.brand = brand;
-
-    // Update Step 1 active card
-    const cards = document.querySelectorAll('.type-select-card');
-    cards.forEach(c => {
-      if (c.getAttribute('data-type') === type) {
-        c.classList.add('selected');
-      } else {
-        c.classList.remove('selected');
-      }
-    });
-
-    this.updateBrandSelectForType(type, brand);
-
-    // Update banner
-    const banner = document.getElementById('changeDeviceBanner');
-    const selectedText = document.getElementById('selectedDeviceText');
-    if (banner && selectedText) {
-      const typeNames = {
-        electric: 'Chauffe-eau Électrique',
-        gas: 'Chauffe-eau à Gaz',
-        appliances: 'Électroménager & Télévision'
-      };
-      selectedText.textContent = `${brand} (${typeNames[type] || type})`;
-      banner.style.display = 'flex';
-    }
-
-    if (fromQueryParam) {
-      this.currentStep = 2;
-      this.updateUI();
-    }
-  }
-
-  updateBrandSelectForType(type, preselectedBrand = null) {
-    const brandSelect = document.getElementById('savBrand');
-    if (!brandSelect) return;
-
-    brandSelect.innerHTML = '';
-
-    if (type === 'gas') {
-      const opt = document.createElement('option');
-      opt.value = 'Eurogas';
-      opt.textContent = 'Eurogas (Chauffe-eau à gaz)';
-      opt.selected = true;
-      brandSelect.appendChild(opt);
-      brandSelect.disabled = true;
-      this.data.brand = 'Eurogas';
-    } else if (type === 'appliances') {
-      const opt = document.createElement('option');
-      opt.value = 'Nerobel';
-      opt.textContent = 'Nerobel (Électroménager & Télévision)';
-      opt.selected = true;
-      brandSelect.appendChild(opt);
-      brandSelect.disabled = true;
-      this.data.brand = 'Nerobel';
-    } else {
-      // electric: Theros (Exclusive)
-      const opt = document.createElement('option');
-      opt.value = 'Theros';
-      opt.textContent = 'Theros (Chauffe-eau électrique & Sanitaire)';
-      opt.selected = true;
-      brandSelect.appendChild(opt);
-      brandSelect.disabled = true;
-      this.data.brand = 'Theros';
-    }
-  }
-
-  bindChangeDevice() {
-    const btn = document.getElementById('btnChangeDevice');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        this.goToStep(1);
-      });
-    }
-  }
-
-  // ─────────────────────────────────────────
-  // STEP 1: TYPE SELECTION
-  // ─────────────────────────────────────────
-  bindTypeSelection() {
-    const cards = document.querySelectorAll('.type-select-card');
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        cards.forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        const chosenType = card.getAttribute('data-type');
-        this.data.type = chosenType;
-        this.updateBrandSelectForType(chosenType);
-
-        // Update banner text if visible
-        const selectedText = document.getElementById('selectedDeviceText');
-        const typeNames = {
-          electric: 'Chauffe-eau Électrique',
-          gas: 'Chauffe-eau à Gaz',
-          appliances: 'Électroménager & Télévision'
-        };
-        if (selectedText) {
-          selectedText.textContent = `${this.data.brand} (${typeNames[chosenType] || chosenType})`;
-        }
-        this.saveDraft();
-      });
-    });
-  }
-
-  // ─────────────────────────────────────────
-  // CITIES & OTHER CITY HANDLER
-  // ─────────────────────────────────────────
-  bindCitySelection() {
-    const citySelect = document.getElementById('savCity');
-    const otherCityInput = document.getElementById('savOtherCity');
-    if (!citySelect || !otherCityInput) return;
-
-    citySelect.addEventListener('change', () => {
-      if (citySelect.value === 'Autre ville') {
-        otherCityInput.style.display = 'block';
-        otherCityInput.focus();
-      } else {
-        otherCityInput.style.display = 'none';
-        otherCityInput.value = '';
-      }
-      this.saveDraft();
-    });
-  }
-
-  // ─────────────────────────────────────────
-  // SERIAL NUMBER CHECKBOX
-  // ─────────────────────────────────────────
-  bindSerialCheckbox() {
-    const noSerialCheck = document.getElementById('savNoSerial');
-    const serialInput = document.getElementById('savSerial');
-    const reqMark = document.getElementById('savSerialReqMark');
-    const dropzoneHint = document.getElementById('dropzoneHint');
-
-    if (!noSerialCheck || !serialInput) return;
-
-    noSerialCheck.addEventListener('change', () => {
-      const isChecked = noSerialCheck.checked;
-      this.data.noSerial = isChecked;
-
-      if (isChecked) {
-        serialInput.disabled = true;
-        serialInput.value = '';
-        this.markFieldError(serialInput, false);
-        if (reqMark) reqMark.style.display = 'none';
-        if (dropzoneHint) dropzoneHint.textContent = "Ajoutez une photo de l'appareil ou de la facture (max 10 Mo)";
-      } else {
-        serialInput.disabled = false;
-        if (reqMark) reqMark.style.display = 'inline';
-        if (dropzoneHint) dropzoneHint.textContent = 'JPG, PNG ou PDF (max 10 Mo)';
-      }
-      this.saveDraft();
-    });
-  }
-
-  // ─────────────────────────────────────────
-  // STEP NAVIGATION & ACCESSIBLE VALIDATION
-  // ─────────────────────────────────────────
-  goToStep(stepNumber) {
-    if (stepNumber === 2 && this.currentStep === 1) {
-      if (!this.data.type) {
-        if (window.showToast) window.showToast("Veuillez sélectionner un type d'appareil", "error");
-        return;
-      }
-      if (window.nerobelAnalytics) {
-        window.nerobelAnalytics.track('sav_step_complete', { step: 1, brand: this.data.brand || '' });
-      }
-    }
-
-    if (stepNumber === 3 && this.currentStep === 2) {
-      if (!this.validateStep2()) {
-        return;
-      }
-      this.populateReview();
-      if (window.nerobelAnalytics) {
-        window.nerobelAnalytics.track('sav_step_complete', { step: 2, brand: this.data.brand || '' });
-      }
-    }
-
-    this.currentStep = stepNumber;
-    this.updateUI();
-    window.scrollTo({ top: document.querySelector('.sav-main-card').offsetTop - 90, behavior: 'smooth' });
-  }
-
-  validateStep2() {
-    let isValid = true;
-    const errors = [];
-
-    const nameInput = document.getElementById('savFullName');
-    const phoneInput = document.getElementById('savPhone');
-    const serialInput = document.getElementById('savSerial');
-    const noSerialCheck = document.getElementById('savNoSerial');
-    const consentInput = document.getElementById('savConsent');
-    const consentError = document.getElementById('savConsentError');
-    const errorSummary = document.getElementById('step2ErrorSummary');
-    const errorList = document.getElementById('step2ErrorList');
-
-    // Name Validation
-    if (!nameInput.value.trim()) {
-      this.markFieldError(nameInput, true);
-      errors.push({ id: 'savFullName', element: nameInput, text: 'Nom et Prénom : ce champ est obligatoire.' });
-      isValid = false;
-    } else {
-      this.markFieldError(nameInput, false);
-      this.data.fullName = nameInput.value.trim();
-    }
-
-    // Phone Validation (Moroccan numbers)
-    const phoneVal = phoneInput.value.trim().replace(/\s+/g, '');
-    const moroccoRegex = /^(?:0[5-7]\d{8}|\+212[5-7]\d{8}|[5-7]\d{8})$/;
-    if (!moroccoRegex.test(phoneVal)) {
-      this.markFieldError(phoneInput, true);
-      errors.push({ id: 'savPhone', element: phoneInput, text: 'Numéro de Téléphone : numéro marocain invalide (ex: 0612345678).' });
-      isValid = false;
-    } else {
-      this.markFieldError(phoneInput, false);
-      this.data.phone = phoneVal.startsWith('+212') ? phoneVal : phoneVal.startsWith('0') ? '+212' + phoneVal.substring(1) : '+212' + phoneVal;
-    }
-
-    // Serial Number Validation
-    const isNoSerial = noSerialCheck ? noSerialCheck.checked : false;
-    if (isNoSerial) {
-      this.markFieldError(serialInput, false);
-      this.data.serial = 'Non renseigné (sans plaque visible)';
-    } else {
-      const serialVal = serialInput.value.trim();
-      const serialErrorText = document.getElementById('savSerialErrorText');
-      if (!serialVal) {
-        if (serialErrorText) serialErrorText.textContent = 'Ce champ est obligatoire';
-        this.markFieldError(serialInput, true);
-        errors.push({ id: 'savSerial', element: serialInput, text: 'Numéro de Série : ce champ est obligatoire (ou cochez « Je ne trouve pas mon numéro de série »).' });
-        isValid = false;
-      } else if (serialVal.length < 6) {
-        if (serialErrorText) serialErrorText.textContent = 'Format invalide';
-        this.markFieldError(serialInput, true);
-        errors.push({ id: 'savSerial', element: serialInput, text: 'Numéro de Série : format invalide (minimum 6 caractères).' });
-        isValid = false;
-      } else {
-        this.markFieldError(serialInput, false);
-        this.data.serial = serialVal.toUpperCase();
-      }
-    }
-
-    // City and Address
-    const citySelect = document.getElementById('savCity');
-    const otherCityInput = document.getElementById('savOtherCity');
-    if (citySelect) {
-      if (citySelect.value === 'Autre ville' && otherCityInput && otherCityInput.value.trim()) {
-        this.data.city = otherCityInput.value.trim();
-      } else {
-        this.data.city = citySelect.value;
-      }
-    }
-
-    const addressInput = document.getElementById('savAddress');
-    this.data.address = addressInput ? addressInput.value.trim() : '';
-
-    const brandSelect = document.getElementById('savBrand');
-    if (brandSelect) {
-      this.data.brand = brandSelect.value;
-    }
-
-    const problemSelect = document.getElementById('savProblem');
-    if (problemSelect) {
-      this.data.symptom = problemSelect.value;
-    }
-
-    const descInput = document.getElementById('savDescription');
-    if (descInput) {
-      this.data.description = descInput.value.trim();
-    }
-
-    // Consent Validation
-    if (consentInput) {
-      if (!consentInput.checked) {
-        consentInput.classList.add('has-error');
-        if (consentError) consentError.classList.add('visible');
-        consentInput.setAttribute('aria-invalid', 'true');
-        consentInput.setAttribute('aria-describedby', 'savConsentError');
-        errors.push({ id: 'savConsent', element: consentInput, text: 'Consentement : veuillez accepter l\'utilisation de vos données pour envoyer votre demande.' });
-        isValid = false;
-      } else {
-        consentInput.classList.remove('has-error');
-        if (consentError) consentError.classList.remove('visible');
-        consentInput.removeAttribute('aria-invalid');
-        consentInput.removeAttribute('aria-describedby');
-        this.data.consent = true;
-      }
-    }
-
-    // Error Summary Management
-    if (!isValid && errors.length > 0) {
-      if (errorSummary && errorList) {
-        errorList.innerHTML = errors.map(err => `<li><a href="#${err.id}">${err.text}</a></li>`).join('');
-        errorSummary.style.display = 'block';
-      }
-      // Move focus to first invalid field
-      errors[0].element.focus();
-      if (window.showToast) {
-        window.showToast("Veuillez corriger les champs en rouge avant de continuer", "error");
-      }
-    } else {
-      if (errorSummary) errorSummary.style.display = 'none';
-    }
-
-    return isValid;
-  }
-
-  markFieldError(inputEl, isError) {
-    if (!inputEl) return;
-    inputEl.classList.toggle('has-error', isError);
-    if (isError) {
-      inputEl.setAttribute('aria-invalid', 'true');
-      inputEl.setAttribute('aria-describedby', `${inputEl.id}Error`);
-    } else {
-      inputEl.removeAttribute('aria-invalid');
-      inputEl.removeAttribute('aria-describedby');
-    }
-    const errorMsg = document.getElementById(`${inputEl.id}Error`) || inputEl.parentElement.querySelector('.field-error-msg');
-    if (errorMsg) {
-      errorMsg.classList.toggle('visible', isError);
-    }
-  }
-
-  updateUI() {
-    document.querySelectorAll('.sav-step').forEach(step => step.classList.remove('active'));
-    const targetStep = document.getElementById(`sav-step-${this.currentStep}`);
-    if (targetStep) targetStep.classList.add('active');
-
-    const b1 = document.getElementById('bar-1');
-    const b2 = document.getElementById('bar-2');
-    const b3 = document.getElementById('bar-3');
-
-    if (b1 && b2 && b3) {
-      b1.className = `step-bar ${this.currentStep > 1 ? 'completed' : 'active'}`;
-      b2.className = `step-bar ${this.currentStep > 2 ? 'completed' : this.currentStep === 2 ? 'active' : ''}`;
-      b3.className = `step-bar ${this.currentStep === 3 ? 'active' : ''}`;
-    }
-
-    const indicator = document.getElementById('stepIndicator');
-    if (indicator) {
-      const stepName = (this.currentStep === 1) ? "Type d'Appareil" : (this.currentStep === 2) ? "Informations & Panne" : "Récapitulatif & Validation";
-      indicator.textContent = `Étape ${this.currentStep} sur 3 · ${stepName}`;
-    }
-  }
-
-  populateReview() {
-    const revType = document.getElementById('revType');
-    const revName = document.getElementById('revName');
-    const revPhone = document.getElementById('revPhone');
-    const revCity = document.getElementById('revCity');
-    const revAddress = document.getElementById('revAddress');
-    const revSerial = document.getElementById('revSerial');
-    const revIssue = document.getElementById('revIssue');
-
-    const typeNames = {
-      electric: "Chauffe-eau Électrique (Theros)",
-      gas: "Chauffe-eau à Gaz (Eurogas)",
-      appliances: "Électroménager / TV (Nerobel)"
-    };
-
-    if (revType) revType.textContent = typeNames[this.data.type] || this.data.type;
-    if (revName) revName.textContent = this.data.fullName;
-    if (revPhone) revPhone.textContent = this.data.phone;
-    if (revCity) revCity.textContent = this.data.city;
-    if (revAddress) revAddress.textContent = this.data.address || (this.data.gps ? 'Position GPS confirmée' : 'Non précisée');
-    if (revSerial) revSerial.textContent = `${this.data.brand} · ${this.data.serial}`;
-    if (revIssue) revIssue.textContent = this.data.description || this.data.symptom;
-  }
-
-  bindNavigation() {
-    const btnToStep2 = document.getElementById('btn-to-step2');
-    const btnBackToStep1 = document.getElementById('btn-back-to-step1');
-    const btnToStep3 = document.getElementById('btn-to-step3');
-    const btnBackToStep2 = document.getElementById('btn-back-to-step2');
-    const consentInput = document.getElementById('savConsent');
-    const consentError = document.getElementById('savConsentError');
-
-    if (btnToStep2) btnToStep2.addEventListener('click', () => this.goToStep(2));
-    if (btnBackToStep1) btnBackToStep1.addEventListener('click', () => this.goToStep(1));
-    if (btnToStep3) btnToStep3.addEventListener('click', () => this.goToStep(3));
-    if (btnBackToStep2) btnBackToStep2.addEventListener('click', () => this.goToStep(2));
-    if (consentInput) {
-      consentInput.addEventListener('change', () => {
-        if (consentInput.checked) {
-          consentInput.classList.remove('has-error');
-          consentInput.removeAttribute('aria-invalid');
-          if (consentError) consentError.classList.remove('visible');
-        }
-      });
-    }
-  }
-
-  // ─────────────────────────────────────────
-  // MODALS & ACCESSIBILITY TRAP
-  // ─────────────────────────────────────────
-  bindModals() {
-    const guideBtn = document.getElementById('btnSerialGuide');
-    const guideModal = document.getElementById('serialGuideModal');
-    const closeBtn = document.getElementById('closeSerialGuideModal');
-    const understoodBtn = document.getElementById('btnUnderstood');
-
-    const waterHeaterGuide = document.getElementById('serialGuideWaterHeater');
-    const applianceGuide = document.getElementById('serialGuideAppliance');
-
-    const openGuide = () => {
-      this.lastTriggerElement = guideBtn;
-      if (this.data.type === 'appliances') {
-        if (waterHeaterGuide) waterHeaterGuide.style.display = 'none';
-        if (applianceGuide) applianceGuide.style.display = 'block';
-      } else {
-        if (waterHeaterGuide) waterHeaterGuide.style.display = 'block';
-        if (applianceGuide) applianceGuide.style.display = 'none';
-      }
-      guideModal.classList.add('active');
-      this.trapModalFocus(guideModal, closeBtn);
-    };
-
-    const closeGuide = () => {
-      guideModal.classList.remove('active');
-      if (this.lastTriggerElement) this.lastTriggerElement.focus();
-    };
-
-    if (guideBtn && guideModal) guideBtn.addEventListener('click', openGuide);
-    if (closeBtn && guideModal) closeBtn.addEventListener('click', closeGuide);
-    if (understoodBtn && guideModal) understoodBtn.addEventListener('click', closeGuide);
-
-    // Global escape listener for modals
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (guideModal && guideModal.classList.contains('active')) closeGuide();
-        const gpsModal = document.getElementById('gpsMapModal');
-        if (gpsModal && gpsModal.classList.contains('active')) {
-          gpsModal.classList.remove('active');
-          const trigger = document.getElementById('btnGpsTrigger');
-          if (trigger) trigger.focus();
-        }
-        const webcamModal = document.getElementById('webcamModal');
-        if (webcamModal && webcamModal.classList.contains('active')) {
-          this.stopWebcam();
-        }
-      }
-    });
-  }
-
-  trapModalFocus(modal, defaultFocusEl) {
-    if (!modal) return;
-    const focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-    if (!focusables.length) return;
-    const firstFocusable = focusables[0];
-    const lastFocusable = focusables[focusables.length - 1];
-
-    if (defaultFocusEl) {
-      defaultFocusEl.focus();
-    } else {
-      firstFocusable.focus();
-    }
-
-    modal.onkeydown = (e) => {
-      if (e.key !== 'Tab') return;
-      if (e.shiftKey) {
-        if (document.activeElement === firstFocusable) {
-          lastFocusable.focus();
-          e.preventDefault();
-        }
-      } else {
-        if (document.activeElement === lastFocusable) {
-          firstFocusable.focus();
-          e.preventDefault();
-        }
-      }
-    };
-  }
-
-  // ─────────────────────────────────────────
-  // CLIENT-SIDE PHOTO COMPRESSION & DROPZONE
-  // ─────────────────────────────────────────
-  bindDropzone() {
-    const dropzone = document.getElementById('fileDropzone');
-    const fileInput = document.getElementById('fileInput');
-    const removeBtn = document.getElementById('btnRemoveFile');
-
-    if (!dropzone || !fileInput) return;
-
-    dropzone.addEventListener('click', (e) => {
-      if (e.target.closest('#btnWebcamTrigger')) return;
-      fileInput.click();
-    });
-
-    dropzone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropzone.classList.add('dragover');
-    });
-
-    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-
-    dropzone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropzone.classList.remove('dragover');
-      if (e.dataTransfer.files.length) {
-        this.handleFile(e.dataTransfer.files[0]);
-      }
-    });
-
-    fileInput.addEventListener('change', () => {
-      if (fileInput.files.length) {
-        this.handleFile(fileInput.files[0]);
-      }
-    });
-
-    if (removeBtn) {
-      removeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.data.photo = null;
-        this.data.photoName = '';
-        this.data.rawFile = null;
-        fileInput.value = '';
-        const previewCard = document.getElementById('filePreviewCard');
-        if (previewCard) previewCard.classList.remove('visible');
-      });
-    }
-  }
-
-  handleFile(file) {
-    if (file.size > 10 * 1024 * 1024) {
-      if (window.showToast) window.showToast("Le fichier est trop volumineux (max 10 Mo)", "error");
-      return;
-    }
-
-    this.data.photoName = file.name;
-    this.data.rawFile = file;
-
-    if (file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          let { width, height } = img;
-          const maxSide = 1600;
-          if (width > maxSide || height > maxSide) {
-            if (width > height) {
-              height = Math.round((height * maxSide) / width);
-              width = maxSide;
-            } else {
-              width = Math.round((width * maxSide) / height);
-              height = maxSide;
-            }
+(function () {
+  'use strict';
+
+  // Embedded Offline Fallback Schema (FlowOps Service ID: 6 - SAV Nerobel)
+  const FALLBACK_SCHEMA = {
+    serviceId: 6,
+    serviceName: "SAV",
+    defaultTicketTypeId: 1,
+    ticketTypes: [
+      {
+        id: 1,
+        name: "Sous garantie / تحت الضمان",
+        description: "Demande sous garantie constructeur",
+        fields: [
+          {
+            id: 13,
+            name: "Nom complet / الاسم الكامل",
+            stepName: "1. Vos coordonnées / معلومات الاتصال",
+            fieldType: "TEXT",
+            required: true,
+            displayOrder: 10,
+            mappingTarget: "CONTACT_NAME",
+            validators: JSON.stringify({ minLength: 3, placeholder: { fr: "Ex: Mohamed Alami", ar: "مثال: محمد العلمي" } })
+          },
+          {
+            id: 15,
+            name: "Téléphone / رقم الهاتف",
+            stepName: "1. Vos coordonnées / معلومات الاتصال",
+            fieldType: "PHONE",
+            required: true,
+            displayOrder: 11,
+            mappingTarget: "CONTACT_PHONE",
+            validators: JSON.stringify({ pattern: "^0[567][0-9]{8}$", placeholder: { fr: "0612345678", ar: "0612345678" } })
+          },
+          {
+            id: 82,
+            name: "Email / بريد إلكتروني",
+            stepName: "1. Vos coordonnées / معلومات الاتصال",
+            fieldType: "EMAIL",
+            required: false,
+            displayOrder: 13,
+            mappingTarget: null,
+            validators: JSON.stringify({ pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", placeholder: { fr: "exemple@email.com", ar: "exemple@email.com" } })
+          },
+          {
+            id: 35,
+            name: "Description détaillée / وصف مفصل",
+            stepName: "2. Description du problème / وصف المشكلة",
+            fieldType: "TEXTAREA",
+            required: false,
+            displayOrder: 31,
+            mappingTarget: null,
+            validators: JSON.stringify({ minLength: 10, placeholder: { fr: "Précisez les symptômes, code erreur ou circonstances de la panne...", ar: "صف المشكلة والأعراض أو رمز الخطأ بالتفصيل..." } })
+          },
+          {
+            id: 20,
+            name: "Adresse complète / العنوان الكامل",
+            stepName: "3. Adresse d'intervention / عنوان التدخل",
+            fieldType: "TEXTAREA",
+            required: true,
+            displayOrder: 50,
+            mappingTarget: "ADDRESS",
+            validators: JSON.stringify({ minLength: 10, placeholder: { fr: "Quartier, N° Rue, Résidence, Ville...", ar: "الحي، رقم الشارع، الإقامة، المدينة..." } })
+          },
+          {
+            id: 22,
+            name: "Localisation GPS / الموقع الجغرافي",
+            stepName: "3. Adresse d'intervention / عنوان التدخل",
+            fieldType: "GPS",
+            required: false,
+            displayOrder: 51,
+            mappingTarget: null
+          },
+          {
+            id: 29,
+            name: "Numéro de série de l'appareil / الرقم التسلسلي للجهاز",
+            stepName: "4. Contrat & Garantie / العقد والضمان",
+            fieldType: "TEXT",
+            required: true,
+            displayOrder: 85,
+            mappingTarget: "EQUIPMENT_SERIAL",
+            helpMediaUrl: "serial-number-guide.svg",
+            helpText: "Le numéro de série se trouve sur la plaque signalétique en métal à l'arrière ou sur le côté de l'appareil (ex: PC202508300133). / يوجد الرقم التسلسلي على اللوحة المعدنية خلف أو جانب الجهاز (مثال: PC202508300133).",
+            validators: JSON.stringify({ pattern: "^[A-Za-z0-9-/ ]{5,50}$", placeholder: { fr: "Ex: PC202508300133 ou TH2026...", ar: "مثال: PC202508300133 أو TH2026..." } })
+          },
+          {
+            id: 84,
+            name: "Date d'achat / تاريخ الشراء",
+            stepName: "4. Contrat & Garantie / العقد والضمان",
+            fieldType: "DATE",
+            required: true,
+            displayOrder: 86,
+            mappingTarget: null,
+            helpText: "Indiquez la date d'achat figurant sur votre facture ou bon de garantie pour vérifier l'éligibilité. / أدخل تاريخ الشراء الموضح على الفاتورة أو بطاقة الضمان."
+          },
+          {
+            id: 26,
+            name: "Photo du bon de garantie ou facture / صورة الضمان أو الفاتورة",
+            stepName: "4. Contrat & Garantie / العقد والضمان",
+            fieldType: "PHOTO_ONLY",
+            required: true,
+            displayOrder: 90,
+            mappingTarget: null,
+            helpMediaUrl: "contract-sample.webp",
+            helpText: "Prenez une photo nette à plat de votre bon de garantie ou facture d'achat. Les 4 coins doivent être visibles sans reflets de flash. / التقط صورة واضحة ومستوية لبطاقة الضمان أو فاتورة الشراء مع إظهار الزوايا الأربع وتجنب انعكاس الفلاش."
           }
+        ]
+      },
+      {
+        id: 2,
+        name: "Hors garantie / خارج الضمان",
+        description: "Demande hors garantie constructeur",
+        fields: [
+          {
+            id: 12,
+            name: "Nom complet / الاسم الكامل",
+            stepName: "1. Vos coordonnées / معلومات الاتصال",
+            fieldType: "TEXT",
+            required: true,
+            displayOrder: 10,
+            mappingTarget: "CONTACT_NAME",
+            validators: JSON.stringify({ minLength: 3, placeholder: { fr: "Ex: Mohamed Alami", ar: "مثال: محمد العلمي" } })
+          },
+          {
+            id: 14,
+            name: "Téléphone / رقم الهاتف",
+            stepName: "1. Vos coordonnées / معلومات الاتصال",
+            fieldType: "PHONE",
+            required: true,
+            displayOrder: 11,
+            mappingTarget: "CONTACT_PHONE",
+            validators: JSON.stringify({ pattern: "^0[567][0-9]{8}$", placeholder: { fr: "0612345678", ar: "0612345678" } })
+          },
+          {
+            id: 37,
+            name: "Numéro de série / الرقم التسلسلي",
+            stepName: "2. Informations de l'équipement / معلومات الجهاز",
+            fieldType: "TEXT",
+            required: true,
+            displayOrder: 20,
+            mappingTarget: "EQUIPMENT_SERIAL",
+            helpMediaUrl: "serial-number-guide.svg",
+            validators: JSON.stringify({ pattern: "^[A-Za-z0-9-/ ]{5,50}$", placeholder: { fr: "Ex: PC202508300133", ar: "مثال: PC202508300133" } })
+          },
+          {
+            id: 38,
+            name: "Marque / الماركة",
+            stepName: "2. Informations de l'équipement / معلومات الجهاز",
+            fieldType: "SELECT",
+            required: true,
+            displayOrder: 21,
+            options: ["Theros", "Eurogas", "Saunier Duval", "Vaillant", "Bosch", "Ariston", "Ferroli", "Autre"],
+            validators: JSON.stringify({ optionLabels: { Autre: { fr: "Autre", ar: "أخرى" } } })
+          },
+          {
+            id: 43,
+            name: "Type de panne / نوع العطل",
+            stepName: "3. Description du problème / وصف المشكلة",
+            fieldType: "SELECT",
+            required: true,
+            displayOrder: 30,
+            options: ["no_hot_water", "circuit_breaker", "thermostat", "heating_element", "water_leak", "noise", "limescale", "other"],
+            validators: JSON.stringify({
+              optionLabels: {
+                no_hot_water: { fr: "Pas d'eau chaude", ar: "لا يوجد ماء ساخن" },
+                circuit_breaker: { fr: "Disjoncteur saute", ar: "القاطع يفصل" },
+                thermostat: { fr: "Thermostat défectueux", ar: "ترموستات معطل" },
+                heating_element: { fr: "Résistance grillée", ar: "مقاومة محترقة" },
+                water_leak: { fr: "Fuite d'eau", ar: "تسرب ماء" },
+                noise: { fr: "Bruit anormal", ar: "ضجيج غير طبيعي" },
+                limescale: { fr: "Tartre / Eau tiède", ar: "كلس / ماء فاتر" },
+                other: { fr: "Autre problème", ar: "عطل آخر" }
+              }
+            })
+          },
+          {
+            id: 44,
+            name: "Description détaillée / وصف مفصل",
+            stepName: "3. Description du problème / وصف المشكلة",
+            fieldType: "TEXTAREA",
+            required: false,
+            displayOrder: 31,
+            validators: JSON.stringify({ minLength: 10, placeholder: { fr: "Précisez les symptômes, bruits ou circonstances de la panne...", ar: "صف المشكلة والأعراض أو الظروف بالتفصيل..." } })
+          },
+          {
+            id: 19,
+            name: "Adresse complète / العنوان الكامل",
+            stepName: "4. Adresse d'intervention / عنوان التدخل",
+            fieldType: "TEXTAREA",
+            required: true,
+            displayOrder: 50,
+            mappingTarget: "ADDRESS",
+            validators: JSON.stringify({ minLength: 10, placeholder: { fr: "Quartier, N° Rue, Résidence, Ville...", ar: "الحي، رقم الشارع، الإقامة، المدينة..." } })
+          },
+          {
+            id: 21,
+            name: "Localisation GPS / الموقع الجغرافي",
+            stepName: "4. Adresse d'intervention / عنوان التدخل",
+            fieldType: "GPS",
+            required: false,
+            displayOrder: 51
+          },
+          {
+            id: 27,
+            name: "Photo de l'appareil ou facture / صورة الجهاز أو الفاتورة",
+            stepName: "5. Pièce jointe / المرفقات",
+            fieldType: "FILE",
+            required: false,
+            displayOrder: 90,
+            helpMediaUrl: "contract-sample.webp"
+          }
+        ]
+      }
+    ]
+  };
 
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
+  class NerobelSavEngine {
+    constructor() {
+      this.apiEndpoint = window.FLOWOPS_SAV_API || '/api/public/sav-requests';
+      this.serviceId = 6;
+      this.whatsappNumber = '212718999867';
+      this.lang = localStorage.getItem('nerobel_sav_lang') || (document.documentElement.lang === 'ar' ? 'ar' : 'fr');
+      
+      this.config = null;
+      this.activeTicketTypeId = 1;
+      this.currentStep = 0;
+      this.steps = [];
+      this.formData = {};
+      this.fileAttachment = null;
+      this.fileAttachmentName = '';
+      this.gpsData = null;
 
-          // Compress to JPEG 0.8
-          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-          this.data.photo = compressedDataUrl;
-
-          this.updateFilePreview(file.name, compressedDataUrl, 'Image compressée');
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    } else {
-      // PDF or non-image
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.data.photo = e.target.result;
-        this.updateFilePreview(file.name, null, `${(file.size / (1024 * 1024)).toFixed(2)} Mo`);
-      };
-      reader.readAsDataURL(file);
+      this.leafletMap = null;
+      this.webcamStream = null;
     }
-  }
 
-  updateFilePreview(name, dataUrl, sizeText) {
-    const previewCard = document.getElementById('filePreviewCard');
-    const previewImg = document.getElementById('filePreviewImg');
-    const previewTitle = document.getElementById('filePreviewTitle');
-    const previewSize = document.getElementById('filePreviewSize');
+    async init() {
+      this.applyLanguageDirection();
+      this.bindGlobalModals();
+      await this.fetchSchema();
+      this.setupForm();
+      this.loadDraft();
+      this.render();
+    }
 
-    if (previewImg) {
-      if (dataUrl) {
-        previewImg.src = dataUrl;
-      } else {
-        previewImg.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='2'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3C/svg%3E";
+    // ─────────────────────────────────────────
+    // 1. LANGUAGE & BILINGUAL UTILITIES
+    // ─────────────────────────────────────────
+    applyLanguageDirection() {
+      document.documentElement.lang = this.lang;
+      document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
+      
+      // Update top bar toggle buttons if present
+      document.querySelectorAll('.lang-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === this.lang);
+      });
+    }
+
+    toggleLanguage(newLang) {
+      if (this.lang === newLang) return;
+      this.saveCurrentStepInputs();
+      this.lang = newLang;
+      localStorage.setItem('nerobel_sav_lang', newLang);
+      this.applyLanguageDirection();
+      this.render();
+    }
+
+    parseLabel(raw) {
+      if (!raw) return '';
+      if (typeof raw === 'object') {
+        return raw[this.lang] || raw.fr || raw.ar || '';
+      }
+      const parts = String(raw).split('/');
+      if (this.lang === 'ar' && parts[1]) {
+        return parts[1].trim();
+      }
+      return parts[0].trim();
+    }
+
+    getParsedPlaceholder(validators) {
+      if (!validators) return '';
+      try {
+        const valObj = typeof validators === 'string' ? JSON.parse(validators) : validators;
+        if (valObj && valObj.placeholder) {
+          if (typeof valObj.placeholder === 'object') {
+            return valObj.placeholder[this.lang] || valObj.placeholder.fr || '';
+          }
+          return valObj.placeholder;
+        }
+      } catch (e) {}
+      return '';
+    }
+
+    getParsedHelpText(field) {
+      if (field.validators) {
+        try {
+          const valObj = typeof field.validators === 'string' ? JSON.parse(field.validators) : field.validators;
+          if (valObj && valObj.helpText) {
+            if (typeof valObj.helpText === 'object') {
+              return valObj.helpText[this.lang] || valObj.helpText.fr || '';
+            }
+            return valObj.helpText;
+          }
+        } catch (e) {}
+      }
+      if (field.helpText) {
+        return this.parseLabel(field.helpText);
+      }
+      return '';
+    }
+
+    // ─────────────────────────────────────────
+    // 2. SCHEMA FETCHING & STEP CONSTRUCTION
+    // ─────────────────────────────────────────
+    async fetchSchema() {
+      try {
+        const res = await fetch(`${this.apiEndpoint}?serviceId=${this.serviceId}`);
+        if (!res.ok) throw new Error(`Status ${res.status}`);
+        const data = await res.json();
+        if (data && data.ticketTypes && data.ticketTypes.length > 0) {
+          this.config = data;
+          this.activeTicketTypeId = data.defaultTicketTypeId || data.ticketTypes[0].id || 1;
+          return;
+        }
+      } catch (err) {
+        console.warn('[Nerobel SAV Engine] Could not fetch remote schema, using embedded offline schema:', err);
+      }
+      this.config = FALLBACK_SCHEMA;
+      this.activeTicketTypeId = FALLBACK_SCHEMA.defaultTicketTypeId;
+    }
+
+    setupForm() {
+      const ticketType = (this.config.ticketTypes || []).find(t => t.id === this.activeTicketTypeId) || this.config.ticketTypes[0];
+      const fields = (ticketType && ticketType.fields) ? [...ticketType.fields] : [];
+      fields.sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
+
+      // Group fields by stepName
+      const stepsMap = new Map();
+      fields.forEach(f => {
+        const stepKey = f.stepName || (this.lang === 'ar' ? '1. المعلومات' : '1. Informations');
+        if (!stepsMap.has(stepKey)) {
+          stepsMap.set(stepKey, []);
+        }
+        stepsMap.get(stepKey).push(f);
+      });
+
+      this.steps = [];
+      for (const [stepTitle, stepFields] of stepsMap.entries()) {
+        this.steps.push({
+          type: 'fields',
+          title: stepTitle,
+          fields: stepFields
+        });
+      }
+
+      // Add final Review & Submit step
+      this.steps.push({
+        type: 'review',
+        title: this.lang === 'ar' ? 'التأكيد والإرسال' : 'Confirmation & Envoi',
+        fields: []
+      });
+
+      if (this.currentStep >= this.steps.length) {
+        this.currentStep = 0;
       }
     }
-    if (previewTitle) previewTitle.textContent = name;
-    if (previewSize) previewSize.textContent = sizeText;
-    if (previewCard) previewCard.classList.add('visible');
-  }
 
-  // ─────────────────────────────────────────
-  // GPS LEAFLET MODAL & CAPTURE
-  // ─────────────────────────────────────────
-  bindGps() {
-    const gpsBtn = document.getElementById('btnGpsTrigger');
-    const gpsModal = document.getElementById('gpsMapModal');
-    const closeGpsBtn = document.getElementById('closeGpsModal');
-    const confirmGpsBtn = document.getElementById('btnConfirmGps');
-    const gpsFeedback = document.getElementById('gpsFeedback');
-    const addressInput = document.getElementById('savAddress');
+    setTicketType(typeId) {
+      if (this.activeTicketTypeId === typeId) return;
+      this.saveCurrentStepInputs();
+      this.activeTicketTypeId = typeId;
+      this.currentStep = 0;
+      this.setupForm();
+      this.render();
+    }
 
-    if (!gpsBtn || !gpsModal) return;
+    // ─────────────────────────────────────────
+    // 3. RENDERING ENGINE
+    // ─────────────────────────────────────────
+    render() {
+      const container = document.getElementById('savStepsContainer');
+      if (!container) return;
 
-    gpsBtn.addEventListener('click', () => {
-      this.lastTriggerElement = gpsBtn;
+      const isAr = this.lang === 'ar';
+      const totalSteps = this.steps.length;
+      const stepIdx = this.currentStep;
+      const currentStepObj = this.steps[stepIdx] || this.steps[0];
+      const currentStepTitle = this.parseLabel(currentStepObj.title);
+
+      // 1. Render Stepper Header Top Bar
+      let html = `
+        <div class="stepper-header">
+          <div class="stepper-top-bar">
+            <div class="sav-ticket-types-selector" role="tablist" aria-label="${isAr ? 'نوع الضمان' : 'Type de garantie'}">
+      `;
+
+      (this.config.ticketTypes || []).forEach(tt => {
+        const isActive = tt.id === this.activeTicketTypeId;
+        const iconClass = tt.id === 1 ? 'ti-shield-check' : 'ti-tool';
+        html += `
+          <button type="button" class="ticket-type-pill ${isActive ? 'active' : ''}" data-ticket-type="${tt.id}" role="tab" aria-selected="${isActive}">
+            <i class="ti ${iconClass}"></i>
+            <span>${this.parseLabel(tt.name)}</span>
+          </button>
+        `;
+      });
+
+      html += `
+            </div>
+            <div class="sav-lang-switch" role="group" aria-label="${isAr ? 'لغة النموذج' : 'Langue du formulaire'}">
+              <button type="button" class="lang-pill ${!isAr ? 'active' : ''}" data-lang="fr" aria-label="Français">FR</button>
+              <span class="lang-divider">|</span>
+              <button type="button" class="lang-pill ${isAr ? 'active' : ''}" data-lang="ar" aria-label="العربية">العربية</button>
+            </div>
+          </div>
+
+          <div class="stepper-progress-bars">
+      `;
+
+      for (let i = 0; i < totalSteps; i++) {
+        let cls = 'step-bar';
+        if (i < stepIdx) cls += ' completed';
+        if (i === stepIdx) cls += ' active';
+        html += `<div class="${cls}"></div>`;
+      }
+
+      html += `
+          </div>
+          <div class="step-indicator-text">
+            ${isAr ? `المرحلة ${stepIdx + 1} من ${totalSteps} · ${currentStepTitle}` : `Étape ${stepIdx + 1} sur ${totalSteps} · ${currentStepTitle}`}
+          </div>
+        </div>
+      `;
+
+      // 2. Render Step Body
+      html += `<div class="sav-step active" id="savDynamicStepBody">`;
+      html += `<h2 class="step-title">${currentStepTitle}</h2>`;
+      html += `<p class="step-subtitle">${isAr ? 'يرجى ملء الحقول المطلوبة للمتابعة' : 'Complétez les informations requises pour continuer'}</p>`;
+
+      // Honeypot anti-spam
+      html += `<input type="text" id="savHp" name="_hp_check" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true">`;
+
+      // Accessible Error summary
+      html += `
+        <div id="stepErrorSummary" class="error-summary" role="alert" style="display:none;" aria-live="assertive">
+          <div class="error-summary-title"><i class="ti ti-alert-circle"></i> ${isAr ? 'يرجى تصحيح الأخطاء التالية :' : 'Veuillez corriger les erreurs suivantes :'}</div>
+          <ul class="error-summary-list" id="stepErrorList"></ul>
+        </div>
+      `;
+
+      if (currentStepObj.type === 'review') {
+        html += this.renderReviewScreen();
+      } else {
+        html += `<div class="sav-step-fields-wrap">`;
+        currentStepObj.fields.forEach(field => {
+          html += this.renderFieldWidget(field);
+        });
+        html += `</div>`;
+      }
+
+      // Step Navigation buttons
+      html += `
+        <div class="step-nav-bar">
+          ${stepIdx > 0 ? `
+            <button type="button" class="btn btn-secondary" id="btnStepPrev">
+              <i class="ti ti-arrow-left"></i> <span>${isAr ? 'السابق' : 'Retour'}</span>
+            </button>
+          ` : `<div></div>`}
+          ${stepIdx < totalSteps - 1 ? `
+            <button type="button" class="btn btn-primary" id="btnStepNext">
+              <span>${isAr ? 'متابعة' : 'Continuer'}</span> <i class="ti ti-arrow-right"></i>
+            </button>
+          ` : `
+            <button type="button" class="btn btn-primary" id="btnSubmitFinal">
+              <i class="ti ti-send"></i> <span>${isAr ? 'إرسال طلب الصيانة' : 'Transmettre ma Demande SAV'}</span>
+            </button>
+          `}
+        </div>
+      `;
+
+      html += `</div>`; // end sav-step
+
+      container.innerHTML = html;
+      this.bindStepEvents();
+    }
+
+    // ─────────────────────────────────────────
+    // 4. WIDGET FACTORY
+    // ─────────────────────────────────────────
+    renderFieldWidget(field) {
+      const isAr = this.lang === 'ar';
+      const label = this.parseLabel(field.name);
+      const reqStar = field.required ? '<span class="req">*</span>' : '';
+      const fieldId = `field_${field.id}`;
+      const savedValue = this.formData[field.id] !== undefined ? this.formData[field.id] : '';
+      const helpText = this.getParsedHelpText(field);
+      const placeholder = this.getParsedPlaceholder(field.validators);
+
+      let widgetHtml = `<div class="form-group" data-field-id="${field.id}" data-required="${field.required}">`;
+      widgetHtml += `<label class="form-label" for="${fieldId}"><span>${label}</span> ${reqStar}</label>`;
+
+      if (field.fieldType === 'TEXTAREA') {
+        widgetHtml += `<textarea id="${fieldId}" class="form-textarea" placeholder="${placeholder || ''}" rows="3">${this.escapeHtml(savedValue)}</textarea>`;
+      } else if (field.fieldType === 'PHONE') {
+        widgetHtml += `
+          <div class="phone-field-group">
+            <div class="phone-flag-box" aria-hidden="true"><span>🇲🇦 +212</span></div>
+            <input type="tel" id="${fieldId}" class="form-input" placeholder="${placeholder || '0612345678'}" value="${this.escapeHtml(savedValue)}" inputmode="tel" autocomplete="tel-national">
+          </div>
+        `;
+      } else if (field.fieldType === 'EMAIL') {
+        widgetHtml += `<input type="email" id="${fieldId}" class="form-input" placeholder="${placeholder || 'nom@exemple.com'}" value="${this.escapeHtml(savedValue)}" autocomplete="email">`;
+      } else if (field.fieldType === 'DATE') {
+        widgetHtml += `<input type="date" id="${fieldId}" class="form-input" value="${this.escapeHtml(savedValue)}">`;
+      } else if (field.fieldType === 'SELECT' || field.fieldType === 'RADIO') {
+        const options = field.options || [];
+        let optionLabels = {};
+        try {
+          const valObj = typeof field.validators === 'string' ? JSON.parse(field.validators) : field.validators;
+          if (valObj && valObj.optionLabels) optionLabels = valObj.optionLabels;
+        } catch (e) {}
+
+        if (options.length <= 8) {
+          // Visual chips / radio cards
+          widgetHtml += `<div class="sav-options-grid" role="radiogroup" aria-label="${label}">`;
+          options.forEach(opt => {
+            const isSelected = String(savedValue) === String(opt);
+            let optText = opt;
+            if (optionLabels[opt]) {
+              optText = optionLabels[opt][this.lang] || optionLabels[opt].fr || opt;
+            } else {
+              optText = this.parseLabel(opt);
+            }
+            widgetHtml += `
+              <button type="button" class="sav-option-card ${isSelected ? 'selected' : ''}" data-field-id="${field.id}" data-value="${this.escapeHtml(opt)}">
+                <span class="sav-option-radio-dot">${isSelected ? '<i class="ti ti-check"></i>' : ''}</span>
+                <span>${optText}</span>
+              </button>
+            `;
+          });
+          widgetHtml += `</div>`;
+          widgetHtml += `<input type="hidden" id="${fieldId}" value="${this.escapeHtml(savedValue)}">`;
+        } else {
+          widgetHtml += `<select id="${fieldId}" class="form-select">`;
+          widgetHtml += `<option value="">${isAr ? '— اختر خياراً —' : '— Sélectionnez une option —'}</option>`;
+          options.forEach(opt => {
+            let optText = opt;
+            if (optionLabels[opt]) {
+              optText = optionLabels[opt][this.lang] || optionLabels[opt].fr || opt;
+            } else {
+              optText = this.parseLabel(opt);
+            }
+            const isSelected = String(savedValue) === String(opt) ? 'selected' : '';
+            widgetHtml += `<option value="${this.escapeHtml(opt)}" ${isSelected}>${optText}</option>`;
+          });
+          widgetHtml += `</select>`;
+        }
+      } else if (field.fieldType === 'FILE' || field.fieldType === 'PHOTO_ONLY') {
+        widgetHtml += `
+          <div class="dropzone-box" id="fileDropzone_${field.id}">
+            <i class="ti ti-camera dropzone-icon"></i>
+            <div class="dropzone-text">${isAr ? 'التقط صورة واضحة أو اسحب الملف هنا' : 'Prenez une photo ou glissez votre document ici'}</div>
+            <div class="dropzone-hint">${isAr ? 'صيغة JPG أو PNG أو PDF (بحد أقصى 10 ميغابايت)' : 'JPG, PNG ou PDF (max 10 Mo)'}</div>
+            <div class="dropzone-actions">
+              <button type="button" class="btn-file-sub btn-webcam-trigger" data-field-id="${field.id}">
+                <i class="ti ti-camera"></i> <span>${isAr ? 'فتح الكاميرا' : 'Prendre une photo'}</span>
+              </button>
+              ${field.helpMediaUrl ? `
+                <button type="button" class="btn-file-sub btn-sample-doc-trigger" data-url="${field.helpMediaUrl}">
+                  <i class="ti ti-file-certificate"></i> <span>${isAr ? 'معاينة نموذج' : 'Exemple de document'}</span>
+                </button>
+              ` : ''}
+            </div>
+            <input type="file" id="fileInput_${field.id}" accept="image/*,application/pdf" capture="environment" style="display:none;">
+          </div>
+          <div class="file-preview-card ${this.fileAttachment ? 'visible' : ''}" id="filePreviewCard_${field.id}">
+            <img src="${this.fileAttachment && this.fileAttachment.startsWith('data:') ? this.fileAttachment : 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'64\' height=\'64\'%3E%3C/svg%3E'}" alt="Aperçu" class="file-preview-img" id="filePreviewImg_${field.id}" width="48" height="48">
+            <div class="file-meta-box">
+              <div class="file-meta-title" id="filePreviewTitle_${field.id}">${this.escapeHtml(this.fileAttachmentName || (isAr ? 'وثيقة مرفقة' : 'Document joint'))}</div>
+              <div class="file-meta-size" id="filePreviewSize_${field.id}">${isAr ? 'جاهز للإرسال' : 'Prêt pour validation'}</div>
+            </div>
+            <button type="button" class="btn-remove-file" data-field-id="${field.id}" title="${isAr ? 'حذف' : 'Supprimer'}"><i class="ti ti-trash"></i></button>
+          </div>
+          <div class="serial-checkbox-wrap" style="margin-top:8px;">
+            <label for="checkNoDoc_${field.id}">
+              <input type="checkbox" id="checkNoDoc_${field.id}" class="check-no-doc" data-field-id="${field.id}" ${this.formData.noDoc ? 'checked' : ''}>
+              <span>${isAr ? 'لا تتوفر لدي الفاتورة حالياً (سأرسلها عبر واتساب)' : 'Je n\'ai pas la facture sous la main (je l\'enverrai sur WhatsApp)'}</span>
+            </label>
+          </div>
+        `;
+      } else if (field.fieldType === 'GPS') {
+        const hasGps = this.gpsData && this.gpsData.lat;
+        widgetHtml += `
+          <div class="gps-box">
+            <button type="button" class="btn-gps" id="btnGpsTrigger_${field.id}">
+              <i class="ti ti-map-pin"></i> <span>${isAr ? 'تحديد موقعي عبر GPS' : 'Capturer ma Position GPS'}</span>
+            </button>
+            <div class="gps-feedback-text" id="gpsFeedback_${field.id}" style="${hasGps ? 'display:flex;' : 'display:none;'}">
+              ${hasGps ? `<i class="ti ti-check"></i> ${isAr ? 'تم تحديد الإحداثيات' : 'Position GPS enregistrée'} (${this.gpsData.lat}, ${this.gpsData.lng})` : ''}
+            </div>
+          </div>
+          <input type="hidden" id="${fieldId}" value="${hasGps ? `${this.gpsData.lat},${this.gpsData.lng}` : ''}">
+        `;
+      } else {
+        // Standard TEXT (or mapped serial/name/address)
+        const isSerial = field.mappingTarget === 'EQUIPMENT_SERIAL' || (field.helpMediaUrl && field.helpMediaUrl.includes('serial'));
+        if (isSerial) {
+          const noSerialChecked = this.formData.noSerial === true;
+          widgetHtml += `
+            <div class="input-with-action">
+              <input type="text" id="${fieldId}" class="form-input" placeholder="${placeholder || 'Ex: PC202508300133'}" value="${this.escapeHtml(savedValue)}" autocapitalize="characters" autocomplete="off" ${noSerialChecked ? 'disabled' : ''}>
+              <button type="button" class="input-action-btn btn-serial-guide-trigger" title="${isAr ? 'دليل الرقم التسلسلي' : 'Guide numéro de série'}">
+                <i class="ti ti-help"></i> <span>${isAr ? 'أين أجده؟' : 'Aide'}</span>
+              </button>
+            </div>
+            <div class="serial-checkbox-wrap">
+              <label for="checkNoSerial_${field.id}">
+                <input type="checkbox" id="checkNoSerial_${field.id}" class="check-no-serial" data-input-id="${fieldId}" ${noSerialChecked ? 'checked' : ''}>
+                <span>${isAr ? 'لا أجد الرقم التسلسلي على جهازي' : 'Je ne trouve pas mon numéro de série'}</span>
+              </label>
+            </div>
+          `;
+        } else {
+          const isName = field.mappingTarget === 'CONTACT_NAME';
+          const isAddr = field.mappingTarget === 'ADDRESS';
+          const autoAttr = isName ? 'autocomplete="name"' : (isAddr ? 'autocomplete="street-address"' : '');
+          widgetHtml += `<input type="text" id="${fieldId}" class="form-input" placeholder="${placeholder || ''}" value="${this.escapeHtml(savedValue)}" ${autoAttr}>`;
+        }
+      }
+
+      if (helpText) {
+        widgetHtml += `<div class="sav-help-hint"><i class="ti ti-info-circle"></i> <span>${helpText}</span></div>`;
+      }
+
+      widgetHtml += `<div class="field-error-msg" id="err_${field.id}"><i class="ti ti-alert-circle"></i> <span>${isAr ? 'هذا الحقل إجباري' : 'Ce champ est obligatoire'}</span></div>`;
+      widgetHtml += `</div>`; // end form-group
+      return widgetHtml;
+    }
+
+    // ─────────────────────────────────────────
+    // 5. REVIEW SCREEN
+    // ─────────────────────────────────────────
+    renderReviewScreen() {
+      const isAr = this.lang === 'ar';
+      let rows = [];
+
+      // Collect data from each field across all steps
+      this.steps.forEach(s => {
+        if (s.type === 'fields') {
+          s.fields.forEach(f => {
+            const rawVal = this.formData[f.id];
+            let displayVal = '—';
+            if (f.fieldType === 'FILE' || f.fieldType === 'PHOTO_ONLY') {
+              displayVal = this.fileAttachmentName ? `📷 ${this.fileAttachmentName}` : (isAr ? 'لم يتم إرفاق ملف' : 'Aucun fichier');
+            } else if (f.fieldType === 'GPS') {
+              displayVal = this.gpsData ? `📍 ${this.gpsData.lat}, ${this.gpsData.lng}` : (isAr ? 'غير محدد' : 'Non précisé');
+            } else if (f.mappingTarget === 'EQUIPMENT_SERIAL' && this.formData.noSerial) {
+              displayVal = isAr ? 'غير متوفر (سيتم التحقق عبر الفاتورة)' : 'Non trouvé (vérification par photo)';
+            } else if (rawVal) {
+              displayVal = String(rawVal);
+            }
+            rows.push({
+              label: this.parseLabel(f.name),
+              val: displayVal
+            });
+          });
+        }
+      });
+
+      let reviewHtml = `
+        <div class="review-card">
+          <div class="review-row">
+            <span class="review-key">${isAr ? 'نوع الخدمة' : 'Prestation'}</span>
+            <span class="review-val">${this.activeTicketTypeId === 1 ? (isAr ? 'تحت الضمان' : 'Sous garantie constructeur') : (isAr ? 'خارج الضمان' : 'Hors garantie')}</span>
+          </div>
+      `;
+
+      rows.forEach(r => {
+        reviewHtml += `
+          <div class="review-row">
+            <span class="review-key">${r.label}</span>
+            <span class="review-val">${this.escapeHtml(r.val)}</span>
+          </div>
+        `;
+      });
+
+      reviewHtml += `</div>`;
+
+      // Consent group
+      reviewHtml += `
+        <div class="form-group form-consent-group">
+          <label class="form-consent-label" for="savConsent">
+            <input type="checkbox" id="savConsent" required ${this.formData.consent ? 'checked' : ''}>
+            <span>${isAr ? 'أوافق على معالجة معطياتي الشخصية لإتمام طلب الصيانة وفقاً لـ <a href="confidentialite" target="_blank">سياسة الخصوصية</a>.' : 'J\'accepte que mes données soient traitées dans le cadre de ma demande SAV. Voir la <a href="confidentialite" target="_blank">politique de confidentialité</a>.'}</span>
+          </label>
+          <div class="field-error-msg" id="savConsentError"><i class="ti ti-alert-circle"></i> <span>${isAr ? 'يرجى تأكيد الموافقة للمتابعة' : 'Veuillez accepter pour envoyer votre demande'}</span></div>
+        </div>
+      `;
+
+      return reviewHtml;
+    }
+
+    // ─────────────────────────────────────────
+    // 6. EVENT BINDINGS FOR ACTIVE STEP
+    // ─────────────────────────────────────────
+    bindStepEvents() {
+      const container = document.getElementById('savStepsContainer');
+      if (!container) return;
+
+      // Ticket type tabs
+      container.querySelectorAll('.ticket-type-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tid = parseInt(btn.getAttribute('data-ticket-type'), 10);
+          this.setTicketType(tid);
+        });
+      });
+
+      // Language switcher pills
+      container.querySelectorAll('.lang-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.toggleLanguage(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // Option cards (radios/selects)
+      container.querySelectorAll('.sav-option-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const fid = card.getAttribute('data-field-id');
+          const val = card.getAttribute('data-value');
+          const parentGrid = card.closest('.sav-options-grid');
+          if (parentGrid) {
+            parentGrid.querySelectorAll('.sav-option-card').forEach(c => {
+              c.classList.remove('selected');
+              const dot = c.querySelector('.sav-option-radio-dot');
+              if (dot) dot.innerHTML = '';
+            });
+          }
+          card.classList.add('selected');
+          const dot = card.querySelector('.sav-option-radio-dot');
+          if (dot) dot.innerHTML = '<i class="ti ti-check"></i>';
+
+          const hiddenInput = document.getElementById(`field_${fid}`);
+          if (hiddenInput) hiddenInput.value = val;
+          this.formData[fid] = val;
+          this.saveDraft();
+        });
+      });
+
+      // Serial helper modals
+      container.querySelectorAll('.btn-serial-guide-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modal = document.getElementById('serialGuideModal');
+          if (modal) modal.classList.add('active');
+        });
+      });
+
+      // Sample document modal trigger
+      container.querySelectorAll('.btn-sample-doc-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modal = document.getElementById('sampleDocumentModal');
+          if (modal) modal.classList.add('active');
+        });
+      });
+
+      // "No serial" checkbox
+      container.querySelectorAll('.check-no-serial').forEach(chk => {
+        chk.addEventListener('change', () => {
+          const targetInputId = chk.getAttribute('data-input-id');
+          const inputEl = document.getElementById(targetInputId);
+          this.formData.noSerial = chk.checked;
+          if (inputEl) {
+            inputEl.disabled = chk.checked;
+            if (chk.checked) inputEl.value = '';
+          }
+          this.saveDraft();
+        });
+      });
+
+      // "No doc" checkbox
+      container.querySelectorAll('.check-no-doc').forEach(chk => {
+        chk.addEventListener('change', () => {
+          this.formData.noDoc = chk.checked;
+          this.saveDraft();
+        });
+      });
+
+      // Dropzone and file attachments
+      container.querySelectorAll('.dropzone-box').forEach(dz => {
+        const fid = dz.id.replace('fileDropzone_', '');
+        const fileInput = document.getElementById(`fileInput_${fid}`);
+        if (!fileInput) return;
+
+        dz.addEventListener('click', (e) => {
+          if (e.target.closest('.btn-file-sub')) return;
+          fileInput.click();
+        });
+
+        dz.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dz.classList.add('dragover');
+        });
+        dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+        dz.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dz.classList.remove('dragover');
+          if (e.dataTransfer.files.length) {
+            this.handleUploadedFile(e.dataTransfer.files[0], fid);
+          }
+        });
+
+        fileInput.addEventListener('change', () => {
+          if (fileInput.files.length) {
+            this.handleUploadedFile(fileInput.files[0], fid);
+          }
+        });
+      });
+
+      // Remove file button
+      container.querySelectorAll('.btn-remove-file').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const fid = btn.getAttribute('data-field-id');
+          this.fileAttachment = null;
+          this.fileAttachmentName = '';
+          this.fileAttachmentRaw = null;
+          const previewCard = document.getElementById(`filePreviewCard_${fid}`);
+          if (previewCard) previewCard.classList.remove('visible');
+          const fileInput = document.getElementById(`fileInput_${fid}`);
+          if (fileInput) fileInput.value = '';
+          this.formData[fid] = '';
+          this.saveDraft();
+        });
+      });
+
+      // Live webcam trigger
+      container.querySelectorAll('.btn-webcam-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.activeWebcamFieldId = btn.getAttribute('data-field-id');
+          this.openWebcamModal();
+        });
+      });
+
+      // GPS trigger
+      container.querySelectorAll('.btn-gps').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const fid = btn.id.replace('btnGpsTrigger_', '');
+          this.captureGps(fid);
+        });
+      });
+
+      // Navigation: Next
+      const nextBtn = document.getElementById('btnStepNext');
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          if (this.validateCurrentStep()) {
+            this.saveCurrentStepInputs();
+            this.currentStep++;
+            this.render();
+            window.scrollTo({ top: document.querySelector('.sav-main-card')?.offsetTop - 70 || 0, behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Navigation: Prev
+      const prevBtn = document.getElementById('btnStepPrev');
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          this.saveCurrentStepInputs();
+          if (this.currentStep > 0) {
+            this.currentStep--;
+            this.render();
+            window.scrollTo({ top: document.querySelector('.sav-main-card')?.offsetTop - 70 || 0, behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Navigation: Submit
+      const submitBtn = document.getElementById('btnSubmitFinal');
+      if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+          this.submitForm();
+        });
+      }
+    }
+
+    // ─────────────────────────────────────────
+    // 7. INPUT PERSISTENCE & DRAFTS
+    // ─────────────────────────────────────────
+    saveCurrentStepInputs() {
+      const stepObj = this.steps[this.currentStep];
+      if (!stepObj) return;
+
+      if (stepObj.type === 'fields') {
+        stepObj.fields.forEach(f => {
+          const el = document.getElementById(`field_${f.id}`);
+          if (el) {
+            this.formData[f.id] = el.value.trim();
+          }
+        });
+      } else if (stepObj.type === 'review') {
+        const consentEl = document.getElementById('savConsent');
+        if (consentEl) {
+          this.formData.consent = consentEl.checked;
+        }
+      }
+      this.saveDraft();
+    }
+
+    saveDraft() {
+      try {
+        const draft = {
+          lang: this.lang,
+          activeTicketTypeId: this.activeTicketTypeId,
+          currentStep: this.currentStep,
+          formData: this.formData,
+          gpsData: this.gpsData,
+          fileAttachmentName: this.fileAttachmentName
+        };
+        sessionStorage.setItem('nerobel_sav_engine_draft', JSON.stringify(draft));
+      } catch (e) {}
+    }
+
+    loadDraft() {
+      try {
+        const raw = sessionStorage.getItem('nerobel_sav_engine_draft');
+        if (!raw) return;
+        const draft = JSON.parse(raw);
+        if (draft && draft.formData) {
+          this.formData = draft.formData;
+          if (draft.activeTicketTypeId) this.activeTicketTypeId = draft.activeTicketTypeId;
+          if (draft.gpsData) this.gpsData = draft.gpsData;
+          if (draft.fileAttachmentName) this.fileAttachmentName = draft.fileAttachmentName;
+        }
+      } catch (e) {}
+    }
+
+    clearDraft() {
+      try {
+        sessionStorage.removeItem('nerobel_sav_engine_draft');
+      } catch (e) {}
+    }
+
+    // ─────────────────────────────────────────
+    // 8. STEP VALIDATION
+    // ─────────────────────────────────────────
+    validateCurrentStep() {
+      const isAr = this.lang === 'ar';
+      const stepObj = this.steps[this.currentStep];
+      if (!stepObj || stepObj.type !== 'fields') return true;
+
+      let errors = [];
+      const errorSummary = document.getElementById('stepErrorSummary');
+      const errorList = document.getElementById('stepErrorList');
+
+      stepObj.fields.forEach(field => {
+        const fieldEl = document.getElementById(`field_${field.id}`);
+        const errEl = document.getElementById(`err_${field.id}`);
+        const val = fieldEl ? fieldEl.value.trim() : '';
+
+        let isInvalid = false;
+        let message = isAr ? 'هذا الحقل إجباري' : 'Ce champ est obligatoire';
+
+        // Required check
+        if (field.required) {
+          if (field.mappingTarget === 'EQUIPMENT_SERIAL' && this.formData.noSerial) {
+            // Allowed without serial if checked
+          } else if (field.fieldType === 'FILE' || field.fieldType === 'PHOTO_ONLY') {
+            if (!this.fileAttachment && !this.fileAttachmentRaw && !this.formData.noDoc) {
+              isInvalid = true;
+              message = isAr ? 'يرجى إرفاق صورة للوثيقة أو بطاقة الضمان' : 'Veuillez joindre une photo de votre garantie ou facture';
+            }
+          } else if (!val) {
+            isInvalid = true;
+          }
+        }
+
+        // Regex / MinLength validators
+        if (!isInvalid && val && field.validators) {
+          try {
+            const valObj = typeof field.validators === 'string' ? JSON.parse(field.validators) : field.validators;
+            if (valObj.minLength && val.length < valObj.minLength) {
+              isInvalid = true;
+              message = isAr ? `يجب أن يحتوي على ${valObj.minLength} أحرف على الأقل` : `Doit contenir au moins ${valObj.minLength} caractères`;
+            }
+            if (!isInvalid && valObj.pattern) {
+              const regex = new RegExp(valObj.pattern);
+              if (!regex.test(val)) {
+                isInvalid = true;
+                message = isAr ? 'الصيغة المدخلة غير صحيحة' : 'Format invalide';
+              }
+            }
+          } catch (e) {}
+        }
+
+        // Phone specific check
+        if (!isInvalid && val && field.fieldType === 'PHONE') {
+          const cleanPhone = val.replace(/[\s.-]/g, '');
+          if (!cleanPhone.match(/^(?:0[567][0-9]{8}|\+212[567][0-9]{8})$/)) {
+            isInvalid = true;
+            message = isAr ? 'رقم هاتف مغربي غير صحيح (مثال: 0612345678)' : 'Numéro marocain invalide (ex: 0612345678)';
+          }
+        }
+
+        if (isInvalid) {
+          if (fieldEl) fieldEl.classList.add('has-error');
+          if (errEl) {
+            errEl.querySelector('span').textContent = message;
+            errEl.classList.add('visible');
+          }
+          errors.push({ label: this.parseLabel(field.name), msg: message, id: `field_${field.id}` });
+        } else {
+          if (fieldEl) fieldEl.classList.remove('has-error');
+          if (errEl) errEl.classList.remove('visible');
+        }
+      });
+
+      if (errors.length > 0) {
+        if (errorSummary && errorList) {
+          errorList.innerHTML = errors.map(e => `<li><a href="#${e.id}"><strong>${e.label}</strong>: ${e.msg}</a></li>`).join('');
+          errorSummary.style.display = 'block';
+          errorSummary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return false;
+      }
+
+      if (errorSummary) errorSummary.style.display = 'none';
+      return true;
+    }
+
+    // ─────────────────────────────────────────
+    // 9. FILE COMPRESSION & ATTACHMENT
+    // ─────────────────────────────────────────
+    handleUploadedFile(file, fieldId) {
+      const isAr = this.lang === 'ar';
+      if (file.size > 10 * 1024 * 1024) {
+        if (window.showToast) window.showToast(isAr ? 'الملف كبير جداً (الحد الأقصى 10 ميغابايت)' : 'Le fichier est trop volumineux (max 10 Mo)', 'error');
+        return;
+      }
+
+      this.fileAttachmentName = file.name;
+      this.fileAttachmentRaw = file;
+
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            let { width, height } = img;
+            const maxSide = 1600;
+            if (width > maxSide || height > maxSide) {
+              if (width > height) {
+                height = Math.round((height * maxSide) / width);
+                width = maxSide;
+              } else {
+                width = Math.round((width * maxSide) / height);
+                height = maxSide;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+            this.fileAttachment = compressedDataUrl;
+            this.updateFilePreviewCard(fieldId, file.name, compressedDataUrl, isAr ? 'صورة محسنة' : 'Image compressée');
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.fileAttachment = e.target.result;
+          this.updateFilePreviewCard(fieldId, file.name, null, `${(file.size / (1024 * 1024)).toFixed(2)} Mo`);
+        };
+        reader.readAsDataURL(file);
+      }
+      this.saveDraft();
+    }
+
+    updateFilePreviewCard(fieldId, name, dataUrl, sizeText) {
+      const previewCard = document.getElementById(`filePreviewCard_${fieldId}`);
+      const previewImg = document.getElementById(`filePreviewImg_${fieldId}`);
+      const previewTitle = document.getElementById(`filePreviewTitle_${fieldId}`);
+      const previewSize = document.getElementById(`filePreviewSize_${fieldId}`);
+
+      if (previewImg) {
+        if (dataUrl) {
+          previewImg.src = dataUrl;
+        } else {
+          previewImg.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='2'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3C/svg%3E";
+        }
+      }
+      if (previewTitle) previewTitle.textContent = name;
+      if (previewSize) previewSize.textContent = sizeText;
+      if (previewCard) previewCard.classList.add('visible');
+    }
+
+    // ─────────────────────────────────────────
+    // 10. GPS GEOLOCATION & LEAFLET MAP
+    // ─────────────────────────────────────────
+    captureGps(fieldId) {
+      const isAr = this.lang === 'ar';
+      const feedback = document.getElementById(`gpsFeedback_${fieldId}`);
+      const hiddenInput = document.getElementById(`field_${fieldId}`);
+      const gpsModal = document.getElementById('gpsMapModal');
 
       if (!navigator.geolocation) {
-        if (gpsFeedback) {
-          gpsFeedback.innerHTML = '<i class="ti ti-alert-triangle"></i> Position non autorisée. Saisissez votre adresse.';
-          gpsFeedback.style.color = 'var(--err)';
-          gpsFeedback.style.display = 'flex';
+        if (feedback) {
+          feedback.innerHTML = `<i class="ti ti-alert-triangle"></i> ${isAr ? 'الموقع غير متاح، يرجى كتابة العنوان' : 'Position non autorisée. Saisissez votre adresse.'}`;
+          feedback.style.color = 'var(--err)';
+          feedback.style.display = 'flex';
         }
-        if (addressInput) addressInput.focus();
         return;
       }
 
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          const { latitude, longitude } = pos.coords;
-          gpsModal.classList.add('active');
-          this.initLeafletMap(latitude, longitude);
-          this.trapModalFocus(gpsModal, closeGpsBtn);
+          const { latitude, longitude, accuracy } = pos.coords;
+          this.gpsData = {
+            lat: latitude.toFixed(6),
+            lng: longitude.toFixed(6),
+            acc: accuracy ? Math.round(accuracy) : null
+          };
+
+          if (hiddenInput) hiddenInput.value = `${this.gpsData.lat},${this.gpsData.lng}`;
+          if (feedback) {
+            feedback.innerHTML = `<i class="ti ti-check"></i> ${isAr ? 'تم تحديد الإحداثيات' : 'Position GPS enregistrée'} (${this.gpsData.lat}, ${this.gpsData.lng})`;
+            feedback.style.color = 'var(--ok)';
+            feedback.style.display = 'flex';
+          }
+
+          if (gpsModal) {
+            gpsModal.classList.add('active');
+            this.initLeafletMap(latitude, longitude, fieldId);
+          }
+          this.saveDraft();
         },
         (err) => {
-          // Denied or error
-          if (gpsFeedback) {
-            gpsFeedback.innerHTML = '<i class="ti ti-alert-triangle"></i> Position non autorisée. Saisissez votre adresse.';
-            gpsFeedback.style.color = 'var(--err)';
-            gpsFeedback.style.display = 'flex';
+          if (feedback) {
+            feedback.innerHTML = `<i class="ti ti-alert-triangle"></i> ${isAr ? 'تعذر جلب الموقع. يرجى كتابة العنوان كاملاً.' : 'Position non autorisée. Saisissez votre adresse.'}`;
+            feedback.style.color = 'var(--err)';
+            feedback.style.display = 'flex';
           }
-          if (addressInput) addressInput.focus();
         },
         { timeout: 8000 }
       );
-    });
-
-    const closeMap = () => {
-      gpsModal.classList.remove('active');
-      if (this.lastTriggerElement) this.lastTriggerElement.focus();
-    };
-
-    if (closeGpsBtn) closeGpsBtn.addEventListener('click', closeMap);
-
-    if (confirmGpsBtn) {
-      confirmGpsBtn.addEventListener('click', () => {
-        if (this.leafletMap) {
-          const center = this.leafletMap.getCenter();
-          this.data.gps = { lat: center.lat.toFixed(6), lng: center.lng.toFixed(6) };
-          gpsModal.classList.remove('active');
-          if (gpsFeedback) {
-            gpsFeedback.innerHTML = `<i class="ti ti-check"></i> Position enregistrée (${this.data.gps.lat}, ${this.data.gps.lng})`;
-            gpsFeedback.style.color = 'var(--ok)';
-            gpsFeedback.style.display = 'flex';
-          }
-          if (this.lastTriggerElement) this.lastTriggerElement.focus();
-          if (window.showToast) window.showToast("Coordonnées GPS confirmées !", "success");
-        }
-      });
     }
-  }
 
-  initLeafletMap(initialLat = 33.5731, initialLng = -7.5898) {
-    setTimeout(() => {
-      if (!this.leafletMap && typeof L !== 'undefined') {
-        this.leafletMap = L.map('leafletMap').setView([initialLat, initialLng], 15);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; OpenStreetMap contributors',
-          maxZoom: 19
-        }).addTo(this.leafletMap);
-      } else if (this.leafletMap) {
-        this.leafletMap.setView([initialLat, initialLng], 15);
-        this.leafletMap.invalidateSize();
-      }
-    }, 200);
-  }
+    initLeafletMap(lat, lng, fieldId) {
+      setTimeout(() => {
+        if (typeof L === 'undefined') return;
+        const mapContainer = document.getElementById('leafletMap');
+        if (!mapContainer) return;
 
-  // ─────────────────────────────────────────
-  // LIVE WEBCAM MODAL
-  // ─────────────────────────────────────────
-  bindWebcam() {
-    const triggerBtn = document.getElementById('btnWebcamTrigger');
-    const modal = document.getElementById('webcamModal');
-    const closeBtn = document.getElementById('closeWebcamModal');
-    const captureBtn = document.getElementById('btnCapturePhoto');
-    const retakeBtn = document.getElementById('btnRetakePhoto');
-    const confirmBtn = document.getElementById('btnConfirmWebcamPhoto');
+        if (!this.leafletMap) {
+          this.leafletMap = L.map('leafletMap').setView([lat, lng], 15);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 19
+          }).addTo(this.leafletMap);
+        } else {
+          this.leafletMap.setView([lat, lng], 15);
+          this.leafletMap.invalidateSize();
+        }
 
-    const video = document.getElementById('webcamVideo');
-    const previewImg = document.getElementById('webcamCapturedPreview');
+        const confirmBtn = document.getElementById('btnConfirmGps');
+        if (confirmBtn) {
+          confirmBtn.onclick = () => {
+            const center = this.leafletMap.getCenter();
+            this.gpsData = { lat: center.lat.toFixed(6), lng: center.lng.toFixed(6) };
+            const modal = document.getElementById('gpsMapModal');
+            if (modal) modal.classList.remove('active');
 
-    if (!triggerBtn || !modal) return;
+            const feedback = document.getElementById(`gpsFeedback_${fieldId}`);
+            if (feedback) {
+              const isAr = this.lang === 'ar';
+              feedback.innerHTML = `<i class="ti ti-check"></i> ${isAr ? 'تم تأكيد الموقع على الخريطة' : 'Position confirmée sur la carte'} (${this.gpsData.lat}, ${this.gpsData.lng})`;
+              feedback.style.color = 'var(--ok)';
+              feedback.style.display = 'flex';
+            }
+            this.saveDraft();
+          };
+        }
+      }, 200);
+    }
 
-    triggerBtn.addEventListener('click', async () => {
-      this.lastTriggerElement = triggerBtn;
+    // ─────────────────────────────────────────
+    // 11. LIVE WEBCAM CAPTURE
+    // ─────────────────────────────────────────
+    async openWebcamModal() {
+      const isAr = this.lang === 'ar';
+      const modal = document.getElementById('webcamModal');
+      const video = document.getElementById('webcamVideo');
+      const previewImg = document.getElementById('webcamCapturedPreview');
+      const captureBtn = document.getElementById('btnCapturePhoto');
+      const retakeBtn = document.getElementById('btnRetakePhoto');
+      const confirmBtn = document.getElementById('btnConfirmWebcamPhoto');
+
+      if (!modal) return;
       modal.classList.add('active');
+
       try {
-        this.webcamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        this.webcamStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' }
+        });
         if (video) {
           video.srcObject = this.webcamStream;
           video.style.display = 'block';
@@ -790,451 +1222,345 @@ class SavPortal {
           if (retakeBtn) retakeBtn.style.display = 'none';
           if (confirmBtn) confirmBtn.style.display = 'none';
         }
-        this.trapModalFocus(modal, closeBtn);
       } catch (err) {
-        if (window.showToast) window.showToast("Accès à la caméra non autorisé ou indisponible", "error");
         modal.classList.remove('active');
-        triggerBtn.style.display = 'none';
+        if (window.showToast) window.showToast(isAr ? 'تعذر الوصول إلى الكاميرا' : 'Accès caméra indisponible', 'error');
       }
-    });
 
-    if (closeBtn) closeBtn.addEventListener('click', () => this.stopWebcam());
+      if (captureBtn && video) {
+        captureBtn.onclick = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth || 640;
+          canvas.height = video.videoHeight || 480;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
 
-    if (captureBtn && video) {
-      captureBtn.addEventListener('click', () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth || 640;
-        canvas.height = video.videoHeight || 480;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-
-        video.style.display = 'none';
-        if (previewImg) {
-          previewImg.src = dataUrl;
-          previewImg.style.display = 'block';
-        }
-
-        captureBtn.style.display = 'none';
-        if (retakeBtn) retakeBtn.style.display = 'inline-flex';
-        if (confirmBtn) confirmBtn.style.display = 'inline-flex';
-      });
-    }
-
-    if (retakeBtn && video) {
-      retakeBtn.addEventListener('click', () => {
-        video.style.display = 'block';
-        if (previewImg) previewImg.style.display = 'none';
-        captureBtn.style.display = 'inline-flex';
-        retakeBtn.style.display = 'none';
-        if (confirmBtn) confirmBtn.style.display = 'none';
-      });
-    }
-
-    if (confirmBtn && previewImg) {
-      confirmBtn.addEventListener('click', () => {
-        this.data.photo = previewImg.src;
-        this.data.photoName = 'photo_camera_sav.jpg';
-        this.data.rawFile = null;
-
-        this.updateFilePreview('Photo prise en direct', previewImg.src, 'Capture Caméra');
-        this.stopWebcam();
-        if (window.showToast) window.showToast("Photo capturée avec succès !", "success");
-      });
-    }
-  }
-
-  stopWebcam() {
-    const modal = document.getElementById('webcamModal');
-    if (this.webcamStream) {
-      this.webcamStream.getTracks().forEach(t => t.stop());
-      this.webcamStream = null;
-    }
-    if (modal) modal.classList.remove('active');
-    if (this.lastTriggerElement) this.lastTriggerElement.focus();
-  }
-
-  // ─────────────────────────────────────────
-  // DRAFT PERSISTENCE (sessionStorage)
-  // ─────────────────────────────────────────
-  bindDraft() {
-    const fields = [
-      'savFullName',
-      'savPhone',
-      'savCity',
-      'savOtherCity',
-      'savAddress',
-      'savSerial',
-      'savProblem',
-      'savDescription'
-    ];
-
-    fields.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.addEventListener('input', () => this.saveDraft());
-        el.addEventListener('change', () => this.saveDraft());
-      }
-    });
-  }
-
-  saveDraft() {
-    try {
-      const draft = {
-        fullName: document.getElementById('savFullName')?.value || '',
-        phone: document.getElementById('savPhone')?.value || '',
-        city: document.getElementById('savCity')?.value || 'Casablanca',
-        otherCity: document.getElementById('savOtherCity')?.value || '',
-        address: document.getElementById('savAddress')?.value || '',
-        serial: document.getElementById('savSerial')?.value || '',
-        noSerial: document.getElementById('savNoSerial')?.checked || false,
-        problem: document.getElementById('savProblem')?.value || '',
-        description: document.getElementById('savDescription')?.value || ''
-      };
-      sessionStorage.setItem('nerobel_sav_draft', JSON.stringify(draft));
-    } catch (e) {}
-  }
-
-  loadDraft() {
-    try {
-      const raw = sessionStorage.getItem('nerobel_sav_draft');
-      if (!raw) return;
-      const draft = JSON.parse(raw);
-      if (!draft) return;
-
-      if (draft.fullName) document.getElementById('savFullName').value = draft.fullName;
-      if (draft.phone) document.getElementById('savPhone').value = draft.phone;
-
-      if (draft.city) {
-        const citySelect = document.getElementById('savCity');
-        if (citySelect) {
-          citySelect.value = draft.city;
-          if (draft.city === 'Autre ville') {
-            const otherCityInput = document.getElementById('savOtherCity');
-            if (otherCityInput) {
-              otherCityInput.style.display = 'block';
-              if (draft.otherCity) otherCityInput.value = draft.otherCity;
-            }
+          video.style.display = 'none';
+          if (previewImg) {
+            previewImg.src = dataUrl;
+            previewImg.style.display = 'block';
           }
-        }
+          captureBtn.style.display = 'none';
+          if (retakeBtn) retakeBtn.style.display = 'inline-flex';
+          if (confirmBtn) confirmBtn.style.display = 'inline-flex';
+        };
       }
 
-      if (draft.address) document.getElementById('savAddress').value = draft.address;
-      if (draft.problem) document.getElementById('savProblem').value = draft.problem;
-      if (draft.description) document.getElementById('savDescription').value = draft.description;
-
-      if (draft.noSerial) {
-        const noSerialCheck = document.getElementById('savNoSerial');
-        const serialInput = document.getElementById('savSerial');
-        const reqMark = document.getElementById('savSerialReqMark');
-        if (noSerialCheck && serialInput) {
-          noSerialCheck.checked = true;
-          serialInput.disabled = true;
-          if (reqMark) reqMark.style.display = 'none';
-          this.data.noSerial = true;
-        }
-      } else if (draft.serial) {
-        document.getElementById('savSerial').value = draft.serial;
+      if (retakeBtn && video) {
+        retakeBtn.onclick = () => {
+          video.style.display = 'block';
+          if (previewImg) previewImg.style.display = 'none';
+          captureBtn.style.display = 'inline-flex';
+          retakeBtn.style.display = 'none';
+          confirmBtn.style.display = 'none';
+        };
       }
-    } catch (e) {}
-  }
 
-  clearDraft() {
-    try {
-      sessionStorage.removeItem('nerobel_sav_draft');
-    } catch (e) {}
-  }
+      if (confirmBtn && previewImg) {
+        confirmBtn.onclick = () => {
+          this.fileAttachment = previewImg.src;
+          this.fileAttachmentName = 'photo_camera_sav.jpg';
+          this.fileAttachmentRaw = null;
+          if (this.activeWebcamFieldId) {
+            this.updateFilePreviewCard(this.activeWebcamFieldId, this.fileAttachmentName, previewImg.src, isAr ? 'التقاط مباشر' : 'Capture Caméra');
+          }
+          this.stopWebcam();
+          if (window.showToast) window.showToast(isAr ? 'تم التقاط الصورة بنجاح' : 'Photo capturée avec succès', 'success');
+        };
+      }
+    }
 
-  // ─────────────────────────────────────────
-  // FINAL SUBMISSION & RECEIPT (S3-03)
-  // ─────────────────────────────────────────
-  bindSubmission() {
-    const submitBtn = document.getElementById('btnSubmitFinal');
-    const container = document.getElementById('savStepsContainer');
-    const successPanel = document.getElementById('savSuccessPanel');
-    const errorBox = document.getElementById('savSubmitError');
-    const errorText = document.getElementById('savSubmitErrorText');
+    stopWebcam() {
+      const modal = document.getElementById('webcamModal');
+      if (this.webcamStream) {
+        this.webcamStream.getTracks().forEach(t => t.stop());
+        this.webcamStream = null;
+      }
+      if (modal) modal.classList.remove('active');
+    }
 
-    if (!submitBtn) return;
+    // ─────────────────────────────────────────
+    // 12. GLOBAL MODALS BINDINGS
+    // ─────────────────────────────────────────
+    bindGlobalModals() {
+      // Close serial modal
+      const closeSerial = document.getElementById('closeSerialGuideModal');
+      const btnUnderstood = document.getElementById('btnUnderstood');
+      const serialModal = document.getElementById('serialGuideModal');
+      const closeSerialFn = () => serialModal && serialModal.classList.remove('active');
+      if (closeSerial) closeSerial.addEventListener('click', closeSerialFn);
+      if (btnUnderstood) btnUnderstood.addEventListener('click', closeSerialFn);
 
-    submitBtn.addEventListener('click', async () => {
-      // Honeypot spam check
+      // Close sample doc modal
+      const closeDoc = document.getElementById('closeSampleDocModal');
+      const btnDocClose = document.getElementById('btnSampleDocClose');
+      const docModal = document.getElementById('sampleDocumentModal');
+      const closeDocFn = () => docModal && docModal.classList.remove('active');
+      if (closeDoc) closeDoc.addEventListener('click', closeDocFn);
+      if (btnDocClose) btnDocClose.addEventListener('click', closeDocFn);
+
+      // Close GPS modal
+      const closeGps = document.getElementById('closeGpsModal');
+      const gpsModal = document.getElementById('gpsMapModal');
+      if (closeGps && gpsModal) {
+        closeGps.addEventListener('click', () => gpsModal.classList.remove('active'));
+      }
+
+      // Close Webcam modal
+      const closeWebcam = document.getElementById('closeWebcamModal');
+      if (closeWebcam) {
+        closeWebcam.addEventListener('click', () => this.stopWebcam());
+      }
+
+      // Escape listener
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (serialModal && serialModal.classList.contains('active')) closeSerialFn();
+          if (docModal && docModal.classList.contains('active')) closeDocFn();
+          if (gpsModal && gpsModal.classList.contains('active')) gpsModal.classList.remove('active');
+          if (this.webcamStream) this.stopWebcam();
+        }
+      });
+    }
+
+    // ─────────────────────────────────────────
+    // 13. FORM SUBMISSION (MULTIPART)
+    // ─────────────────────────────────────────
+    async submitForm() {
+      const isAr = this.lang === 'ar';
+      const submitBtn = document.getElementById('btnSubmitFinal');
+      const consentEl = document.getElementById('savConsent');
+      const consentErr = document.getElementById('savConsentError');
+      const errorBox = document.getElementById('savSubmitError');
+      const errorText = document.getElementById('savSubmitErrorText');
+
+      // Honeypot check
       const hp = document.getElementById('savHp');
-      if (hp && hp.value) return;
-
-      if (window.nerobelAnalytics) {
-        window.nerobelAnalytics.track('sav_step_complete', { step: 3, brand: this.data.brand || '' });
-        window.nerobelAnalytics.track('sav_submit', { brand: this.data.brand || '', category: this.data.type || '' });
+      if (hp && hp.value) {
+        console.warn('Spam submission detected by honeypot.');
+        return;
       }
+
+      // Check consent
+      if (consentEl && !consentEl.checked) {
+        if (consentErr) consentErr.classList.add('visible');
+        consentEl.focus();
+        return;
+      }
+      if (consentErr) consentErr.classList.remove('visible');
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="ti ti-loader"></i> Envoi en cours...';
+      submitBtn.innerHTML = `<i class="ti ti-loader"></i> <span>${isAr ? 'جاري الإرسال...' : 'Envoi en cours...'}</span>`;
       if (errorBox) errorBox.style.display = 'none';
-
-      const FLOWOPS_SAV_API = window.FLOWOPS_SAV_API || window.nerobelFormEndpoint || '/api/public/sav-requests';
-      const FALLBACK_SAV_API = 'https://savnerobel.nexenflow.com/api/public/sav-requests';
-      const WHATSAPP_NUMBER = '212718999867';
 
       try {
         const formData = new FormData();
+        const activeTicket = (this.config.ticketTypes || []).find(t => t.id === this.activeTicketTypeId) || this.config.ticketTypes[0];
+        const fields = activeTicket.fields || [];
 
-        // 1. Mandatory Identity & Contact Fields
-        const fullName = this.data.fullName || document.getElementById('savFullName')?.value.trim() || '';
-        const phone = this.data.phone || document.getElementById('savPhone')?.value.trim() || '';
-        
-        let serial = this.data.serial || document.getElementById('savSerial')?.value.trim() || '';
-        if (this.data.noSerial || !serial) {
-          serial = 'SANS-NUMERO';
+        // 1. Map Core Identity Fields
+        let fullName = '';
+        let phone = '';
+        let serialNumber = '';
+        let address = '';
+
+        fields.forEach(f => {
+          const val = this.formData[f.id] || '';
+          if (f.mappingTarget === 'CONTACT_NAME') fullName = val;
+          if (f.mappingTarget === 'CONTACT_PHONE') phone = val;
+          if (f.mappingTarget === 'EQUIPMENT_SERIAL') serialNumber = val;
+          if (f.mappingTarget === 'ADDRESS') address = val;
+        });
+
+        // Fallback search by field name / types
+        if (!fullName) {
+          const f = fields.find(x => x.name.toLowerCase().includes('nom') || x.name.toLowerCase().includes('client'));
+          if (f) fullName = this.formData[f.id] || '';
+        }
+        if (!phone) {
+          const f = fields.find(x => x.fieldType === 'PHONE');
+          if (f) phone = this.formData[f.id] || '';
+        }
+        if (!serialNumber) {
+          const f = fields.find(x => x.name.toLowerCase().includes('série') || x.name.toLowerCase().includes('تسلسلي'));
+          if (f) serialNumber = this.formData[f.id] || '';
+        }
+        if (!address) {
+          const f = fields.find(x => x.name.toLowerCase().includes('adresse') || x.name.toLowerCase().includes('عنوان'));
+          if (f) address = this.formData[f.id] || '';
         }
 
-        const address = this.data.address || document.getElementById('savAddress')?.value.trim() || '';
-        const city = this.data.city || document.getElementById('savCity')?.value || 'Casablanca';
-        let fullAddress = address ? `${address}, ${city}` : `Adresse à confirmer par contact (${city})`;
+        if (this.formData.noSerial || !serialNumber) {
+          serialNumber = 'SANS-NUMERO';
+        }
+
+        let fullAddress = address.trim();
         if (fullAddress.length < 10) {
-          fullAddress = `${fullAddress}, Maroc`;
+          fullAddress = `${fullAddress}, Casablanca, Maroc`;
         }
 
-        formData.append('fullName', fullName);
-        formData.append('phone', phone);
-        formData.append('serialNumber', serial);
+        formData.append('fullName', fullName || 'Client Nerobel');
+        formData.append('phone', phone || '0600000000');
+        formData.append('serialNumber', serialNumber);
         formData.append('address', fullAddress);
+        formData.append('serviceId', String(this.serviceId));
+        formData.append('ticketTypeId', String(this.activeTicketTypeId));
+        formData.append('websiteKey', 'nerobel.com');
 
-        // 2. Fixed Service and Ticket Type IDs
-        formData.append('serviceId', '6'); // ID 6 = Service SAV Nerobel
-        formData.append('ticketTypeId', '1'); // 1 = Sous garantie constructeur
+        // 2. Custom Fields Object (FlowOps expects numeric string IDs as keys)
+        const customFields = {};
+        fields.forEach(f => {
+          const val = this.formData[f.id];
+          if (val !== undefined && val !== null && val !== '') {
+            customFields[String(f.id)] = val;
+          }
+        });
 
-        // 3. Custom Fields (FlowOps expects numeric field IDs as keys)
-        const symptom = this.data.symptom || document.getElementById('savProblem')?.value || "Pas d'eau chaude";
-        const desc = this.data.description || document.getElementById('savDescription')?.value.trim() || '';
-        const fullDescription = desc ? `[Panne: ${symptom}] ${desc}` : `Panne signalée : ${symptom}`;
-
-        const symptomMap = {
-          "Pas d'eau chaude": "no_hot_water",
-          "Fuite d'eau": "water_leak",
-          "Défaut d'allumage gaz": "other",
-          "Disjonction électrique": "circuit_breaker",
-          "Code erreur digital": "other",
-          "Autre problème": "other"
-        };
-        const symptomCode = symptomMap[symptom] || 'other';
-        const todayIso = new Date().toISOString().split('T')[0];
-
-        const customFields = {
-          "84": todayIso, // Date d'achat (Obligatoire TicketType 1)
-          "35": fullDescription, // Description détaillée
-          "38": this.data.brand || "Theros", // Marque (Obligatoire TicketType 2)
-          "43": symptomCode, // Type de panne enum
-          "44": fullDescription
-        };
+        // Ensure required TicketType 1 fields are populated if missing
+        if (this.activeTicketTypeId === 1 && !customFields["84"]) {
+          customFields["84"] = new Date().toISOString().split('T')[0];
+        }
         formData.append('customFieldsJson', JSON.stringify(customFields));
 
-        // 4. GPS Coordinates (if available)
-        if (this.data.gps && this.data.gps.lat && this.data.gps.lng) {
-          formData.append('gpsLat', String(this.data.gps.lat));
-          formData.append('gpsLng', String(this.data.gps.lng));
-          if (this.data.gps.acc) formData.append('gpsAccuracy', String(this.data.gps.acc));
+        // 3. GPS Coordinates
+        if (this.gpsData && this.gpsData.lat && this.gpsData.lng) {
+          formData.append('gpsLat', String(this.gpsData.lat));
+          formData.append('gpsLng', String(this.gpsData.lng));
+          if (this.gpsData.acc) formData.append('gpsAccuracy', String(this.gpsData.acc));
         }
 
-        // 5. Attachment / Photo Contract
-        if (this.data.rawFile) {
-          formData.append('contractFile', this.data.rawFile, this.data.photoName || this.data.rawFile.name);
-        } else if (this.data.photo && typeof this.data.photo === 'string' && this.data.photo.startsWith('data:')) {
-          const photoBlob = await fetch(this.data.photo).then(r => r.blob());
-          formData.append('contractFile', photoBlob, this.data.photoName || 'photo_sav.jpg');
-        } else {
-          // FlowOps ticketTypeId=1 requires a contract file; supply a 1x1 png if customer didn't attach one
+        // 4. File Attachment
+        if (this.fileAttachmentRaw) {
+          formData.append('contractFile', this.fileAttachmentRaw, this.fileAttachmentName || this.fileAttachmentRaw.name);
+        } else if (this.fileAttachment && typeof this.fileAttachment === 'string' && this.fileAttachment.startsWith('data:')) {
+          const photoBlob = await fetch(this.fileAttachment).then(r => r.blob());
+          formData.append('contractFile', photoBlob, this.fileAttachmentName || 'photo_sav.jpg');
+        } else if (this.activeTicketTypeId === 1) {
+          // FlowOps ticketTypeId=1 requires a contract file; supply fallback 1x1 png
           const dummyBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
           const byteChars = atob(dummyBase64);
           const byteNums = new Array(byteChars.length);
-          for (let i = 0; i < byteChars.length; i++) {
-            byteNums[i] = byteChars.charCodeAt(i);
-          }
+          for (let i = 0; i < byteChars.length; i++) byteNums[i] = byteChars.charCodeAt(i);
           const dummyBlob = new Blob([new Uint8Array(byteNums)], { type: 'image/png' });
           formData.append('contractFile', dummyBlob, 'sans_photo.png');
         }
 
-        // 6. Asynchronous Request to FlowOps Gateway (Proxy or Direct)
-        let response;
-        try {
-          response = await fetch(FLOWOPS_SAV_API, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-          });
-          if (response.status === 404 && FLOWOPS_SAV_API !== FALLBACK_SAV_API) {
-            response = await fetch(FALLBACK_SAV_API, {
-              method: 'POST',
-              body: formData,
-              headers: { 'Accept': 'application/json' }
-            });
-          }
-        } catch (fetchErr) {
-          if (FLOWOPS_SAV_API !== FALLBACK_SAV_API) {
-            response = await fetch(FALLBACK_SAV_API, {
-              method: 'POST',
-              body: formData,
-              headers: { 'Accept': 'application/json' }
-            });
-          } else {
-            throw fetchErr;
-          }
-        }
+        // 5. Send POST
+        const response = await fetch(this.apiEndpoint, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
 
         const result = await response.json().catch(() => ({}));
-
         if (!response.ok || (!result.publicCode && !result.ticketNumber && !result.ticketId)) {
-          const errorMsg = result.detail || result.message || `Erreur serveur (${response.status})`;
-          throw new Error(errorMsg);
+          const errDetail = result.detail || result.message || `HTTP ${response.status}`;
+          throw new Error(errDetail);
         }
 
-        // 7. Success Handling
         const publicCode = result.publicCode || result.ticketNumber || `SAV-${result.ticketId}`;
-        this.data.ticketCode = publicCode;
-        this.clearDraft();
-
-        if (container) container.style.display = 'none';
-        if (successPanel) successPanel.classList.add('visible');
-
-        // Ticket code badge
-        const ticketBox = document.getElementById('savTicketBox');
-        const codeEl = document.getElementById('displayTicketCode');
-        if (ticketBox && codeEl) {
-          codeEl.textContent = publicCode;
-          ticketBox.style.display = 'inline-flex';
-        }
-
-        // Copy button
-        const copyBtn = document.getElementById('btnCopyCode');
-        if (copyBtn) {
-          copyBtn.onclick = () => {
-            navigator.clipboard.writeText(publicCode).then(() => {
-              const orig = copyBtn.textContent;
-              copyBtn.textContent = 'Copié !';
-              setTimeout(() => { copyBtn.textContent = orig; }, 2500);
-            }).catch(() => {});
-          };
-        }
-
-        // WhatsApp direct follow-up
-        const waMessage = encodeURIComponent(`Bonjour Nerobel, j'ai enregistré ma demande SAV sous le N° ${publicCode}. Merci de m'indiquer la prise en charge.`);
-        const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMessage}`;
-        const waBtn = document.getElementById('btnWhatsAppAction');
-        if (waBtn) {
-          waBtn.href = waUrl;
-          const waSpan = waBtn.querySelector('span');
-          if (waSpan) waSpan.textContent = 'Suivre sur WhatsApp';
-        }
-
-        // Official FlowOps PDF Receipt download
-        const receiptUrl = `https://savnerobel.nexenflow.com/api/public/sav-requests/${encodeURIComponent(publicCode)}/receipt`;
-        const pdfBtn = document.getElementById('btnDownloadPdf');
-        if (pdfBtn) {
-          pdfBtn.onclick = (e) => {
-            e.preventDefault();
-            window.open(receiptUrl, '_blank', 'noopener');
-          };
-        }
-
-        if (window.nerobelAnalytics) {
-          window.nerobelAnalytics.track('sav_submit_success', { publicCode, brand: this.data.brand });
-        }
-
-        if (window.showToast) {
-          window.showToast("Votre demande SAV a été enregistrée avec succès !", "success");
-        }
-
-        window.scrollTo({ top: document.querySelector('.sav-main-card')?.offsetTop - 60 || 0, behavior: 'smooth' });
+        this.renderSuccessPanel(publicCode);
 
       } catch (err) {
-        console.error('[Nerobel SAV Error]', err);
+        console.error('[Nerobel SAV Submission Error]', err);
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="ti ti-send"></i> <span data-i18n="btnSubmit">Transmettre ma Demande SAV</span>';
+        submitBtn.innerHTML = `<i class="ti ti-send"></i> <span>${isAr ? 'إرسال طلب الصيانة' : 'Transmettre ma Demande SAV'}</span>`;
 
         if (errorBox) {
           errorBox.style.display = 'block';
           if (errorText) {
-            errorText.textContent = `Échec de transmission : ${err.message || 'Vérifiez votre connexion et les champs saisis.'}`;
-          }
-          const errorWaBtn = document.getElementById('savErrorWhatsAppBtn');
-          if (errorWaBtn) {
-            errorWaBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Bonjour Nerobel, j'ai rencontré une difficulté lors de l'envoi de mon formulaire SAV.")}`;
+            errorText.textContent = isAr 
+              ? `تعذر الإرسال: ${err.message || 'يرجى التحقق من اتصال الإنترنت والبيانات المدخلة'}`
+              : `Échec de l'envoi : ${err.message || 'Veuillez vérifier votre connexion et les champs saisis.'}`;
           }
           errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-
-        if (window.showToast) {
-          window.showToast(err.message || "Échec de l'envoi du formulaire SAV", "error");
-        }
       }
-    });
-  }
-
-  generatePdfReceipt() {
-    if (this.data.ticketCode) {
-      const receiptUrl = `https://savnerobel.nexenflow.com/api/public/sav-requests/${encodeURIComponent(this.data.ticketCode)}/receipt`;
-      window.open(receiptUrl, '_blank', 'noopener');
-      return;
     }
 
-    const printableWindow = window.open('', '_blank');
-    if (!printableWindow) return;
+    // ─────────────────────────────────────────
+    // 14. SUCCESS PANEL & POST-PROCESSING
+    // ─────────────────────────────────────────
+    renderSuccessPanel(publicCode) {
+      const isAr = this.lang === 'ar';
+      this.clearDraft();
 
-    printableWindow.document.write(`
-      <!DOCTYPE html>
-      <html lang="fr">
-      <head>
-        <meta charset="utf-8">
-        <title>Reçu SAV - ${this.data.ticketCode}</title>
-        <style>
-          body { font-family: 'Segoe UI', Tahoma, sans-serif; padding: 40px; color: #111; }
-          .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2563EB; padding-bottom: 20px; }
-          .logo { font-size: 26px; font-weight: 900; font-style: italic; color: #050505; }
-          .logo span { color: #2563EB; }
-          .ticket-badge { background: #EFF6FF; border: 1.5px solid #2563EB; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 18px; color: #1D4ED8; }
-          .section { margin-top: 30px; }
-          .table { width: 100vw; max-width: 680px; border-collapse: collapse; margin-top: 15px; }
-          .table td { padding: 12px; border-bottom: 1px solid #E2E8F0; }
-          .table td.key { font-weight: 600; width: 35%; color: #64748B; }
-          .footer { margin-top: 50px; font-size: 12px; color: #64748B; text-align: center; border-top: 1px solid #E2E8F0; padding-top: 20px; }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <div class="logo">NEROBEL <span>GROUP</span></div>
-          <div class="ticket-badge">RÉFÉRENCE : ${this.data.ticketCode}</div>
-        </div>
+      const container = document.getElementById('savStepsContainer');
+      const successPanel = document.getElementById('savSuccessPanel');
+      if (container) container.style.display = 'none';
+      if (!successPanel) return;
 
-        <div class="section">
-          <h2>Récépissé Officiel de Demande de Service Après-Vente</h2>
-          <p>Dossier enregistré le ${new Date().toLocaleDateString('fr-FR')} - Nerobel Group · Theros · Eurogas</p>
+      successPanel.classList.add('visible');
 
-          <table class="table">
-            <tr><td class="key">Nom du Client</td><td>${this.data.fullName}</td></tr>
-            <tr><td class="key">Téléphone (WhatsApp)</td><td>${this.data.phone}</td></tr>
-            <tr><td class="key">Ville & Adresse</td><td>${this.data.city} - ${this.data.address || 'Précisée au technicien'}</td></tr>
-            <tr><td class="key">Marque & Modèle</td><td>${this.data.brand} (${this.data.type})</td></tr>
-            <tr><td class="key">Numéro de Série</td><td><strong>${this.data.serial}</strong></td></tr>
-            <tr><td class="key">Panne Déclarée</td><td>${this.data.description || this.data.symptom}</td></tr>
-            <tr><td class="key">Suivi</td><td>Notre équipe vous répond rapidement</td></tr>
-          </table>
-        </div>
+      const titleEl = document.getElementById('savSuccessTitle');
+      const descEl = document.getElementById('savSuccessDesc');
+      const ticketBox = document.getElementById('savTicketBox');
+      const codeEl = document.getElementById('displayTicketCode');
+      const copyBtn = document.getElementById('btnCopyCode');
+      const waBtn = document.getElementById('btnWhatsAppAction');
+      const pdfBtn = document.getElementById('btnDownloadPdf');
 
-        <div class="footer">
-          Nerobel Group · Service Après-Vente National · Assistance WhatsApp : +212 787 013 201<br>
-          Conservez ce document pour le présenter au technicien agréé lors de son passage.
-        </div>
-      </body>
-      </html>
-    `);
-    printableWindow.document.close();
-    printableWindow.focus();
-    setTimeout(() => printableWindow.print(), 500);
+      if (titleEl) titleEl.textContent = isAr ? 'تم استلام طلبكم بنجاح !' : 'Demande SAV enregistrée avec succès !';
+      if (descEl) descEl.textContent = isAr ? 'تم تحويل ملفكم إلى فريق الدعم الفني Nerobel. يرجى الاحتفاظ برمز التتبع الخاص بكم :' : 'Votre dossier a été transmis à nos équipes techniques. Conservez votre numéro de dossier :';
+
+      if (codeEl) codeEl.textContent = publicCode;
+      if (ticketBox) ticketBox.style.display = 'inline-flex';
+
+      if (copyBtn) {
+        copyBtn.textContent = isAr ? 'نسخ' : 'Copier';
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText(publicCode).then(() => {
+            copyBtn.textContent = isAr ? 'تم النسخ !' : 'Copié !';
+            setTimeout(() => { copyBtn.textContent = isAr ? 'نسخ' : 'Copier'; }, 2500);
+          }).catch(() => {});
+        };
+      }
+
+      // WhatsApp bilingual link
+      const waMsg = encodeURIComponent(isAr 
+        ? `مرحباً Nerobel، قمت بتسجيل طلب صيانة برقم الملف: ${publicCode}. يرجى إفادتي بموعد تدخل التقني.`
+        : `Bonjour Nerobel, j'ai enregistré ma demande SAV sous le N° ${publicCode}. Merci de m'indiquer la prise en charge.`);
+      if (waBtn) {
+        waBtn.href = `https://wa.me/${this.whatsappNumber}?text=${waMsg}`;
+        const waSpan = waBtn.querySelector('span');
+        if (waSpan) waSpan.textContent = isAr ? 'متابعة عبر واتساب' : 'Suivre sur WhatsApp';
+      }
+
+      // Official FlowOps PDF receipt link
+      const receiptUrl = `https://savnerobel.nexenflow.com/api/public/sav-requests/${encodeURIComponent(publicCode)}/receipt`;
+      if (pdfBtn) {
+        const pdfSpan = pdfBtn.querySelector('span');
+        if (pdfSpan) pdfSpan.textContent = isAr ? 'تحميل وصل الاستلام (PDF)' : 'Télécharger le Reçu (PDF)';
+        pdfBtn.onclick = (e) => {
+          e.preventDefault();
+          window.open(receiptUrl, '_blank', 'noopener');
+        };
+      }
+
+      if (window.nerobelAnalytics) {
+        window.nerobelAnalytics.track('sav_submit_success', { publicCode, ticketTypeId: this.activeTicketTypeId });
+      }
+
+      window.scrollTo({ top: document.querySelector('.sav-main-card')?.offsetTop - 60 || 0, behavior: 'smooth' });
+    }
+
+    escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
   }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (document.getElementById('savStepsContainer')) {
-    window.savPortal = new SavPortal();
-    window.savPortal.init();
-  }
-});
+  // Auto-boot on DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('savStepsContainer')) {
+      window.nerobelSavEngine = new NerobelSavEngine();
+      window.nerobelSavEngine.init();
+    }
+  });
+
+})();
