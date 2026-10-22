@@ -48,5 +48,6 @@ node_modules/
 test-results/
 playwright-report/
 blob-report/
-playwright/.cache/
-
+# Distribution and server upload packages
+dist/
+*.zip
