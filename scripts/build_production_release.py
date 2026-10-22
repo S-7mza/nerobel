@@ -7,9 +7,9 @@ import glob
 WORKSPACE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 BRAIN_BACKUP = r'C:\Users\7mza\.gemini\antigravity-ide\brain\b27782e0-ec6c-4cf2-8644-7ccf8f45ae3c\scratch\backup_pre_clean'
 DIST_DIR = os.path.join(WORKSPACE_ROOT, 'dist')
+FTP_DIR = os.path.join(WORKSPACE_ROOT, 'nerobel_prod_ftp')
 ZIP_NAME = 'nerobel-website-production.zip'
 ZIP_PATH = os.path.join(WORKSPACE_ROOT, ZIP_NAME)
-DIST_ZIP_PATH = os.path.join(DIST_DIR, ZIP_NAME)
 
 CORE_PAGES = [
     'index.html',
@@ -206,7 +206,17 @@ def step2_build_dist():
     
     # assets/img
     shutil.copytree(os.path.join(WORKSPACE_ROOT, 'assets', 'img'), os.path.join(dst_assets, 'img'))
-    print("  + Copied: assets/img/ (production optimized images)")
+    # 9. Create nerobel_prod_ftp as clean FTP mirror (excluding candidate favicons)
+    print("\n--- STEP 2B: Creating nerobel_prod_ftp directory for FTP clients ---")
+    if os.path.exists(FTP_DIR):
+        shutil.rmtree(FTP_DIR)
+    shutil.copytree(DIST_DIR, FTP_DIR)
+    
+    # Remove favicons-candidates from FTP if present
+    ftp_candidates = os.path.join(FTP_DIR, 'assets', 'icons', 'favicons-candidates')
+    if os.path.exists(ftp_candidates):
+        shutil.rmtree(ftp_candidates)
+    print("  + nerobel_prod_ftp assembled (100% production files, zero test assets)")
 
 def step3_create_zip():
     print("\n--- STEP 3: Creating ready-to-upload ZIP package ---")
@@ -214,15 +224,11 @@ def step3_create_zip():
         os.remove(ZIP_PATH)
         
     with zipfile.ZipFile(ZIP_PATH, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as zipf:
-        for root, dirs, files in os.walk(DIST_DIR):
+        for root, dirs, files in os.walk(FTP_DIR):
             for file in files:
                 file_path = os.path.join(root, file)
-                # Compute relative path inside the zip archive
-                arcname = os.path.relpath(file_path, DIST_DIR)
+                arcname = os.path.relpath(file_path, FTP_DIR)
                 zipf.write(file_path, arcname)
-                
-    # Also place a copy inside dist/
-    shutil.copy2(ZIP_PATH, DIST_ZIP_PATH)
     
     zip_size_mb = os.path.getsize(ZIP_PATH) / (1024 * 1024)
     print(f"Generated ZIP package: {ZIP_NAME}")

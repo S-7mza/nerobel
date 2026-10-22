@@ -50,4 +50,5 @@ playwright-report/
 blob-report/
 # Distribution and server upload packages
 dist/
+nerobel_prod_ftp/
 *.zip

@@ -1,8 +1,12 @@
 import os
 import re
 import glob
+import sys
 
-html_files = glob.glob('*.html') + glob.glob('ou-acheter/*.html')
+target_dir = sys.argv[1] if len(sys.argv) > 1 else '.'
+target_dir = os.path.abspath(target_dir)
+
+html_files = glob.glob(os.path.join(target_dir, '*.html')) + glob.glob(os.path.join(target_dir, 'ou-acheter', '*.html'))
 
 broken = []
 total_refs = 0
@@ -43,7 +47,7 @@ for hf in html_files:
         if not os.path.exists(target_path):
             broken.append((hf, ref, target_path))
 
-css_files = glob.glob('css/*.css') + glob.glob('assets/css/*.css')
+css_files = glob.glob(os.path.join(target_dir, 'css', '*.css')) + glob.glob(os.path.join(target_dir, 'assets', 'css', '*.css'))
 total_css_refs = 0
 for cf in css_files:
     base_dir = os.path.dirname(cf)
@@ -60,7 +64,8 @@ for cf in css_files:
         if not os.path.exists(target_path):
             broken.append((cf, ref, target_path))
 
-print(f"Checked {len(html_files) - len(ignore_pages)} pages ({total_refs} refs) and {len(css_files)} CSS files ({total_css_refs} refs).")
+checked_pages = [hf for hf in html_files if os.path.basename(hf) not in ignore_pages]
+print(f"Checked {len(checked_pages)} pages ({total_refs} refs) and {len(css_files)} CSS files ({total_css_refs} refs).")
 if broken:
     print(f"Found {len(broken)} broken references:")
     for page, ref, target in broken:
