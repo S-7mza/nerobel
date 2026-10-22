@@ -221,8 +221,10 @@
     ]
   };
 
-  // FlowOps SAV API Gateway Configuration
-  const SAV_API_ENDPOINT = 'https://savnerobel.nexenflow.com/api/public/sav-requests';
+  // FlowOps SAV API Gateway Configuration (Zero-CORS via sav-proxy.php or local dev proxy)
+  const SAV_API_ENDPOINT = (typeof window !== 'undefined' && window.location.protocol.startsWith('http') && (window.location.hostname.includes('nerobel.com') || window.location.hostname === 'localhost'))
+    ? (window.location.port === '8099' ? '/api/public/sav-requests' : '/sav-proxy.php')
+    : 'https://savnerobel.nexenflow.com/api/public/sav-requests';
   const SAV_SERVICE_ID = 6;
 
   class NerobelSavEngine {

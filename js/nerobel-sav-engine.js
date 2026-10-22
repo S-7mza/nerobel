@@ -20,7 +20,9 @@
 
   const SERVICE_ID = 6;
   const WHATSAPP_NUMBER = '212718999867';
-  const PRIMARY_API = '/api/public/sav-requests';
+  const PRIMARY_API = (typeof window !== 'undefined' && window.location.protocol.startsWith('http') && (window.location.hostname.includes('nerobel.com') || window.location.hostname === 'localhost'))
+    ? (window.location.port === '8099' ? '/api/public/sav-requests' : '/sav-proxy.php')
+    : '/api/public/sav-requests';
   const REMOTE_API = 'https://savnerobel.nexenflow.com/api/public/sav-requests';
 
   // Offline schema fallback to ensure the form always renders even if network is offline

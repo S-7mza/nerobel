@@ -29,7 +29,8 @@ CORE_CONFIG = [
     'robots.txt',
     'sitemap.xml',
     'serial-number-guide.svg',
-    'contract-sample.webp'
+    'contract-sample.webp',
+    'sav-proxy.php'
 ]
 
 HTACCESS_CONTENT = """# ==============================================================================
@@ -134,6 +135,10 @@ Options -Indexes
 # ==============================================================================
 # 9. FlowOps SAV Gateway Reverse Proxy (Zero-CORS Production Gateway)
 # ==============================================================================
+<IfModule mod_rewrite.c>
+    RewriteRule ^api/public/sav-requests/(.*)$ sav-proxy.php?__proxy_path=$1 [QSA,L]
+    RewriteRule ^api/public/sav-requests$ sav-proxy.php [QSA,L]
+</IfModule>
 <IfModule mod_proxy.c>
     SSLProxyEngine On
     ProxyPass /api/public/sav-requests https://savnerobel.nexenflow.com/api/public/sav-requests

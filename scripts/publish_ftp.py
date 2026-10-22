@@ -39,7 +39,11 @@ SAV_TARGET_FILES = [
     'contract-sample.webp',
     'assets/icons/serial-number-guide.svg',
     'assets/icons/contract-sample.webp',
-    'assets/icons/serial-guide.svg'
+    'assets/icons/serial-guide.svg',
+    'js/nerobel-sav-engine.js',
+    'css/nerobel-sav-engine.css',
+    'embed-sav-demo.html',
+    'sav-proxy.php'
 ]
 
 def print_banner():
@@ -153,6 +157,9 @@ def connect_ftp(creds):
 
 def ensure_remote_dir(ftp, remote_path):
     parts = [p for p in remote_path.replace('\\', '/').strip('/').split('/') if p]
+    if not parts:
+        ftp.cwd('/')
+        return
     cur = ''
     for p in parts:
         cur += '/' + p
@@ -239,11 +246,14 @@ def upload_files(ftp, files_to_upload, remote_root):
     new_manifest = {}
 
     for full_path, rel_path in files_to_upload:
-        remote_rel_dir = os.path.dirname(rel_path)
+        remote_rel_dir = os.path.dirname(rel_path).replace('\\', '/')
         if remote_rel_dir:
-            target_dir = f"{remote_root.rstrip('/')}/{remote_rel_dir}"
+            if remote_root == '/' or not remote_root:
+                target_dir = '/' + remote_rel_dir.lstrip('/')
+            else:
+                target_dir = f"{remote_root.rstrip('/')}/{remote_rel_dir.lstrip('/')}"
         else:
-            target_dir = remote_root.rstrip('/')
+            target_dir = remote_root.rstrip('/') or '/'
 
         ensure_remote_dir(ftp, target_dir)
         ftp.cwd(target_dir)
@@ -331,7 +341,7 @@ def main():
     try:
         ftp = connect_ftp(creds)
         try:
-            upload_files(ftp, files, creds.get('remote_dir', '/public_html'))
+            upload_files(ftp, files, creds.get('remote_dir', '/'))
         finally:
             try:
                 ftp.quit()
