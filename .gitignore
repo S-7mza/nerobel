@@ -52,3 +52,9 @@ blob-report/
 dist/
 nerobel_prod_ftp/
 *.zip
+
+# FTP Credentials and Deploy Manifests (Secret - Never commit)
+.ftp_credentials.json
+.ftp_manifest.json
+*.ftp.json
+.env.ftp
