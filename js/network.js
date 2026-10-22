@@ -14,9 +14,9 @@ const SEED_OUTLETS = [
     "whatsapp": "+212787013201",
     "hours": "Lun - Sam : 08h30 - 19h30",
     "brands": null,
-    "maps_url": null,
-    "lat": null,
-    "lng": null,
+    "maps_url": "https://maps.google.com/?q=33.5892,-7.6322",
+    "lat": 33.5892,
+    "lng": -7.6322,
     "confirmed": true,
     "confirmed_on": "2026-10-17"
   }
@@ -112,6 +112,19 @@ class NetworkManager {
 
     this.map.fitBounds(this.moroccoBounds, { padding: [25, 25] });
 
+    // Enable RTL text plugin if available
+    if (typeof maplibregl !== 'undefined' && maplibregl.getRTLTextPluginStatus && maplibregl.getRTLTextPluginStatus() === 'unavailable') {
+      try {
+        maplibregl.setRTLTextPlugin(
+          'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
+          null,
+          true
+        );
+      } catch (e) {
+        // Plugin may already be queued or initialized
+      }
+    }
+
     // 1. Vector Tiles via MapLibre GL with sanitized Moroccan worldview (no Sahara dividing line)
     try {
       if (typeof maplibregl !== 'undefined' && typeof L.maplibreGL !== 'undefined') {
@@ -119,24 +132,18 @@ class NetworkManager {
         if (res.ok) {
           const style = await res.json();
 
-          // Remove disputed boundaries layer
-          style.layers = style.layers.filter(l => l.id !== 'boundary_disputed');
+          // Remove all OpenFreeMap boundary layers to eliminate baked internal dividing lines
+          style.layers = style.layers.filter(l => !(l.id && l.id.includes('boundary')) && l['source-layer'] !== 'boundary');
 
-          // Filter boundary_2 to eliminate internal dividing border separating Moroccan Sahara
+          // Ensure clean French / Latin typography on all place labels (removes reversed unshaped Arabic)
           style.layers.forEach(l => {
-            if (l.id === 'boundary_2') {
-              l.filter = [
-                'all',
-                ['==', ['get', 'admin_level'], 2],
-                ['!=', ['get', 'maritime'], 1],
-                ['!=', ['get', 'disputed'], 1],
-                ['!', ['has', 'claimed_by']],
-                ['!', ['has', 'disputed_name']],
-                // Exclude border where MAR borders empty/undefined territory (27.66°N parallel)
-                ['!', ['all', ['==', ['get', 'adm0_l'], 'MAR'], ['!', ['has', 'adm0_r']]]],
-                ['!', ['all', ['==', ['get', 'adm0_r'], 'MAR'], ['!', ['has', 'adm0_l']]]],
-                ['!=', ['get', 'adm0_l'], 'ESH'],
-                ['!=', ['get', 'adm0_r'], 'ESH']
+            if (l.layout && l.layout['text-field']) {
+              l.layout['text-field'] = [
+                'coalesce',
+                ['get', 'name:fr'],
+                ['get', 'name:latin'],
+                ['get', 'name:en'],
+                ['get', 'name']
               ];
             }
           });
@@ -174,7 +181,25 @@ class NetworkManager {
       }).addTo(this.map);
     }
 
-    // 2. Add the official unified Moroccan sovereign boundary polygon overlay
+    // 2. Surrounding regional boundaries (Spain/Portugal, Mauritania/Algeria, etc.)
+    try {
+      const regRes = await fetch('content/boundaries_regional.geojson');
+      if (regRes.ok) {
+        const regGeo = await regRes.json();
+        this.regionalBoundariesLayer = L.geoJSON(regGeo, {
+          style: {
+            color: '#94a3b8',
+            weight: 1.2,
+            opacity: 0.65,
+            dashArray: '3, 4'
+          }
+        }).addTo(this.map);
+      }
+    } catch (e) {
+      console.warn('Regional boundaries failed to load:', e);
+    }
+
+    // 3. Add the official unified Moroccan sovereign boundary polygon overlay
     try {
       const geoRes = await fetch('content/morocco.geojson');
       if (geoRes.ok) {
@@ -182,10 +207,10 @@ class NetworkManager {
         this.moroccoLayer = L.geoJSON(moroccoGeo, {
           style: {
             color: '#2563EB',
-            weight: 2,
-            opacity: 0.85,
+            weight: 2.2,
+            opacity: 0.9,
             fillColor: '#2563EB',
-            fillOpacity: 0.03
+            fillOpacity: 0.04
           }
         }).addTo(this.map);
       }
