@@ -26,7 +26,9 @@ CORE_PAGES = [
 
 CORE_CONFIG = [
     'robots.txt',
-    'sitemap.xml'
+    'sitemap.xml',
+    'serial-number-guide.svg',
+    'contract-sample.webp'
 ]
 
 HTACCESS_CONTENT = """# ==============================================================================
@@ -103,14 +105,48 @@ ErrorDocument 404 /404.html
 </FilesMatch>
 
 Options -Indexes
+
+# ==============================================================================
+# 8. Clean Extensionless URLs (Avoids .html in URLs)
+# ==============================================================================
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # A. Canonical 301 Redirect: /index or /index.html -> /
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index(?:\.html)?[\s?] [NC]
+    RewriteRule ^ / [R=301,L]
+
+    # B. Canonical 301 Redirect: /page.html -> /page
+    # Strips .html from any direct request, updating browser address bar & SEO
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+([^.]+?)\.html[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # C. Internal Rewrite: /page -> /page.html
+    # Silently serves page.html behind the clean URL if the file exists
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+# ==============================================================================
+# 9. FlowOps SAV Gateway Reverse Proxy (Zero-CORS Production Gateway)
+# ==============================================================================
+<IfModule mod_proxy.c>
+    SSLProxyEngine On
+    ProxyPass /api/public/sav-requests https://savnerobel.nexenflow.com/api/public/sav-requests
+    ProxyPassReverse /api/public/sav-requests https://savnerobel.nexenflow.com/api/public/sav-requests
+</IfModule>
 """
 
 def step1_backup_and_clean_workspace():
     print("--- STEP 1: Backing up and cleaning loose scratch files from workspace root ---")
     os.makedirs(BRAIN_BACKUP, exist_ok=True)
     
+    EXCLUDE_FROM_CLEAN = {'contract-sample.webp', 'serial-number-guide.svg'}
     root_files = os.listdir(WORKSPACE_ROOT)
-    loose_images = [f for f in root_files if os.path.isfile(os.path.join(WORKSPACE_ROOT, f)) and f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))]
+    loose_images = [f for f in root_files if f not in EXCLUDE_FROM_CLEAN and os.path.isfile(os.path.join(WORKSPACE_ROOT, f)) and f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))]
     scratch_html = [f for f in root_files if os.path.isfile(os.path.join(WORKSPACE_ROOT, f)) and (f.startswith(('test_', 'debug_')) and f.endswith('.html'))]
     
     to_clean = loose_images + scratch_html
@@ -261,7 +297,7 @@ def step4_verify_dist():
                 continue
             total_refs += 1
             target_path = os.path.normpath(os.path.join(base_dir, ref_clean))
-            if not os.path.exists(target_path):
+            if not os.path.exists(target_path) and not os.path.exists(target_path + '.html') and not os.path.exists(os.path.join(target_path, 'index.html')):
                 broken.append((os.path.relpath(hf, DIST_DIR), ref, target_path))
 
     css_files = glob.glob(os.path.join(DIST_DIR, 'css', '*.css')) + glob.glob(os.path.join(DIST_DIR, 'assets', 'css', '*.css'))
