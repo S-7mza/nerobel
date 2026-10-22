@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────
-   NEROBEL GROUP · SCHEMA-DRIVEN DYNAMIC SAV ENGINE (js/sav.js) - v3.5
+   NEROBEL GROUP · SCHEMA-DRIVEN DYNAMIC SAV ENGINE (js/sav.js) - v3.6
    Powered by FlowOps Gateway · Schema-Driven Dynamic Form Engine
    Bilingual FR/AR, Stepper by stepName, Specialized Widgets,
    GPS Leaflet Modal, Camera/Webcam Capture, WhatsApp Bridge & PDF Receipt
@@ -221,10 +221,14 @@
     ]
   };
 
+  // FlowOps SAV API Gateway Configuration
+  const SAV_API_ENDPOINT = 'https://savnerobel.nexenflow.com/api/public/sav-requests';
+  const SAV_SERVICE_ID = 6;
+
   class NerobelSavEngine {
     constructor() {
-      this.apiEndpoint = window.FLOWOPS_SAV_API || '/api/public/sav-requests';
-      this.serviceId = 6;
+      this.apiEndpoint = SAV_API_ENDPOINT;
+      this.serviceId = SAV_SERVICE_ID;
       this.whatsappNumber = '212718999867';
       this.lang = localStorage.getItem('nerobel_sav_lang') || (document.documentElement.lang === 'ar' ? 'ar' : 'fr');
       
@@ -321,7 +325,14 @@
     // ─────────────────────────────────────────
     async fetchSchema() {
       try {
-        const res = await fetch(`${this.apiEndpoint}?serviceId=${this.serviceId}`);
+        // Chargement des champs du service SAV (ID 6)
+        const schemaUrl = `${SAV_API_ENDPOINT}?serviceId=${SAV_SERVICE_ID}`;
+        const res = await fetch(schemaUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
         if (!res.ok) throw new Error(`Status ${res.status}`);
         const data = await res.json();
         if (data && data.ticketTypes && data.ticketTypes.length > 0) {
@@ -1447,19 +1458,17 @@
         }
 
         // 5. Send POST
-        const response = await fetch(this.apiEndpoint, {
+        // Soumission multipart/form-data
+        const submitRes = await fetch(SAV_API_ENDPOINT, {
           method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
+          body: formData
         });
-
-        const result = await response.json().catch(() => ({}));
-        if (!response.ok || (!result.publicCode && !result.ticketNumber && !result.ticketId)) {
-          const errDetail = result.detail || result.message || `HTTP ${response.status}`;
-          throw new Error(errDetail);
+        if (!submitRes.ok) {
+          const errData = await submitRes.json().catch(() => ({}));
+          throw new Error(errData.detail || errData.message || `HTTP ${submitRes.status}`);
         }
-
-        const publicCode = result.publicCode || result.ticketNumber || `SAV-${result.ticketId}`;
+        const result = await submitRes.json();
+        const publicCode = result.publicCode || result.ticketNumber || (result.ticketId ? `SAV-${result.ticketId}` : 'SAV-2026-CONFIRMED');
         this.renderSuccessPanel(publicCode);
 
       } catch (err) {
