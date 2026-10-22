@@ -38,7 +38,7 @@ class NetworkManager {
   async init() {
     await this.loadData();
     this.readQueryParams();
-    this.initMap();
+    await this.initMap();
     this.initMobileToggle();
     this.initFilterSheet();
     this.initNearby();
@@ -97,18 +97,101 @@ class NetworkManager {
     }
   }
 
-  initMap() {
+  async initMap() {
     const mapEl = document.getElementById('networkLeafletMap');
     if (!mapEl || typeof L === 'undefined') return;
 
-    this.map = L.map('networkLeafletMap', {
-      scrollWheelZoom: false
-    }).setView([32.5, -6.5], 6);
+    // Full sovereign Moroccan territory bounds (Tangier to Lagouira)
+    this.moroccoBounds = [[20.76, -17.2], [36.0, -1.0]];
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
+    this.map = L.map('networkLeafletMap', {
+      scrollWheelZoom: false,
+      minZoom: 4,
       maxZoom: 18
-    }).addTo(this.map);
+    });
+
+    this.map.fitBounds(this.moroccoBounds, { padding: [25, 25] });
+
+    // 1. Vector Tiles via MapLibre GL with sanitized Moroccan worldview (no Sahara dividing line)
+    try {
+      if (typeof maplibregl !== 'undefined' && typeof L.maplibreGL !== 'undefined') {
+        const res = await fetch('https://tiles.openfreemap.org/styles/positron');
+        if (res.ok) {
+          const style = await res.json();
+
+          // Remove disputed boundaries layer
+          style.layers = style.layers.filter(l => l.id !== 'boundary_disputed');
+
+          // Filter boundary_2 to eliminate internal dividing border separating Moroccan Sahara
+          style.layers.forEach(l => {
+            if (l.id === 'boundary_2') {
+              l.filter = [
+                'all',
+                ['==', ['get', 'admin_level'], 2],
+                ['!=', ['get', 'maritime'], 1],
+                ['!=', ['get', 'disputed'], 1],
+                ['!', ['has', 'claimed_by']],
+                ['!', ['has', 'disputed_name']],
+                // Exclude border where MAR borders empty/undefined territory (27.66°N parallel)
+                ['!', ['all', ['==', ['get', 'adm0_l'], 'MAR'], ['!', ['has', 'adm0_r']]]],
+                ['!', ['all', ['==', ['get', 'adm0_r'], 'MAR'], ['!', ['has', 'adm0_l']]]],
+                ['!=', ['get', 'adm0_l'], 'ESH'],
+                ['!=', ['get', 'adm0_r'], 'ESH']
+              ];
+            }
+          });
+
+          // Filter out Western Sahara country labels from place/label layers
+          style.layers.forEach(l => {
+            if (l.id && l.id.includes('country')) {
+              const origFilter = l.filter || ['all'];
+              l.filter = [
+                'all',
+                origFilter,
+                ['!=', ['get', 'name:en'], 'Western Sahara'],
+                ['!=', ['get', 'name:fr'], 'Sahara occidental'],
+                ['!=', ['get', 'name:ar'], 'الصحراء الغربية'],
+                ['!=', ['get', 'name'], 'Western Sahara']
+              ];
+            }
+          });
+
+          this.maplibreLayer = L.maplibreGL({
+            style: style,
+            attribution: '&copy; <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> &copy; OpenStreetMap contributors'
+          }).addTo(this.map);
+        } else {
+          throw new Error('Could not load vector style');
+        }
+      } else {
+        throw new Error('MapLibre GL not available');
+      }
+    } catch (err) {
+      console.warn('MapLibre GL vector layer fallback to raster:', err);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        maxZoom: 18
+      }).addTo(this.map);
+    }
+
+    // 2. Add the official unified Moroccan sovereign boundary polygon overlay
+    try {
+      const geoRes = await fetch('content/morocco.geojson');
+      if (geoRes.ok) {
+        const moroccoGeo = await geoRes.json();
+        this.moroccoLayer = L.geoJSON(moroccoGeo, {
+          style: {
+            color: '#2563EB',
+            weight: 2,
+            opacity: 0.85,
+            fillColor: '#2563EB',
+            fillOpacity: 0.03
+          }
+        }).addTo(this.map);
+      }
+    } catch (e) {
+      console.warn('Morocco GeoJSON layer failed to load:', e);
+    }
   }
 
   initMobileToggle() {
@@ -134,7 +217,16 @@ class NetworkManager {
         btnList.classList.remove('active');
         btnList.setAttribute('aria-pressed', 'false');
         if (this.map) {
-          setTimeout(() => this.map.invalidateSize(), 150);
+          setTimeout(() => {
+            this.map.invalidateSize();
+            if (this.maplibreLayer && this.maplibreLayer.getMaplibreMap) {
+              const glMap = this.maplibreLayer.getMaplibreMap();
+              if (glMap) glMap.resize();
+            }
+            if (this.moroccoBounds) {
+              this.map.fitBounds(this.moroccoBounds, { padding: [25, 25] });
+            }
+          }, 150);
         }
       });
     }
@@ -357,11 +449,13 @@ class NetworkManager {
       this.markersMap.set(item.id, marker);
     });
 
-    if (withCoords.length === 1) {
+    if (this.currentCity !== 'all' && withCoords.length === 1) {
       this.map.flyTo([Number(withCoords[0].lat), Number(withCoords[0].lng)], 13, { duration: 1.0 });
-    } else if (withCoords.length > 1) {
+    } else if (this.currentCity !== 'all' && withCoords.length > 1) {
       const group = L.featureGroup(this.markers);
       this.map.fitBounds(group.getBounds().pad(0.15));
+    } else if (this.moroccoBounds) {
+      this.map.fitBounds(this.moroccoBounds, { padding: [25, 25] });
     }
   }
 
