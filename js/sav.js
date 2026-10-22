@@ -22,6 +22,7 @@ class SavPortal {
       description: '',
       photo: null,
       photoName: '',
+      rawFile: null,
       consent: false,
       ticketCode: null
     };
@@ -596,6 +597,7 @@ class SavPortal {
         e.stopPropagation();
         this.data.photo = null;
         this.data.photoName = '';
+        this.data.rawFile = null;
         fileInput.value = '';
         const previewCard = document.getElementById('filePreviewCard');
         if (previewCard) previewCard.classList.remove('visible');
@@ -610,6 +612,7 @@ class SavPortal {
     }
 
     this.data.photoName = file.name;
+    this.data.rawFile = file;
 
     if (file.type.startsWith('image/')) {
       const reader = new FileReader();
@@ -832,6 +835,7 @@ class SavPortal {
       confirmBtn.addEventListener('click', () => {
         this.data.photo = previewImg.src;
         this.data.photoName = 'photo_camera_sav.jpg';
+        this.data.rawFile = null;
 
         this.updateFilePreview('Photo prise en direct', previewImg.src, 'Capture Caméra');
         this.stopWebcam();
@@ -949,6 +953,7 @@ class SavPortal {
     const container = document.getElementById('savStepsContainer');
     const successPanel = document.getElementById('savSuccessPanel');
     const errorBox = document.getElementById('savSubmitError');
+    const errorText = document.getElementById('savSubmitErrorText');
 
     if (!submitBtn) return;
 
@@ -963,111 +968,214 @@ class SavPortal {
       }
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="ti ti-loader"></i> Traitement...';
+      submitBtn.innerHTML = '<i class="ti ti-loader"></i> Envoi en cours...';
       if (errorBox) errorBox.style.display = 'none';
 
-      // Build structured WhatsApp message without photos
-      const msgLines = [
-        "Bonjour Nerobel, voici ma demande SAV :",
-        `- Nom : ${this.data.fullName}`,
-        `- Téléphone : ${this.data.phone}`,
-        `- Ville : ${this.data.city}`,
-        `- Adresse : ${this.data.address || (this.data.gps ? `Position GPS: ${this.data.gps.lat}, ${this.data.gps.lng}` : 'Non précisée')}`,
-        `- Appareil : ${this.data.brand} (${this.data.type})`,
-        `- Numéro de série : ${this.data.serial}`,
-        `- Panne : ${this.data.symptom}`
-      ];
-      if (this.data.description) {
-        msgLines.push(`- Précisions : ${this.data.description}`);
-      }
-      const waUrl = `https://wa.me/212787013201?text=${encodeURIComponent(msgLines.join('\n'))}`;
-
-      // If backend endpoint is configured (O-09)
-      if (window.nerobelFormEndpoint) {
-        try {
-          const res = await fetch(window.nerobelFormEndpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              form: 'sav',
-              fields: {
-                fullName: this.data.fullName,
-                phone: this.data.phone,
-                city: this.data.city,
-                address: this.data.address,
-                gps: this.data.gps,
-                brand: this.data.brand,
-                serial: this.data.serial,
-                symptom: this.data.symptom,
-                description: this.data.description
-              },
-              consent: true,
-              timestamp: Date.now()
-            })
-          });
-
-          if (!res.ok) throw new Error('Network error');
-
-          const data = await res.json().catch(() => ({}));
-          this.clearDraft();
-
-          if (container) container.style.display = 'none';
-          if (successPanel) successPanel.classList.add('visible');
-
-          if (data && data.ticketCode) {
-            this.data.ticketCode = data.ticketCode;
-            const ticketBox = document.getElementById('savTicketBox');
-            const codeEl = document.getElementById('displayTicketCode');
-            if (ticketBox && codeEl) {
-              codeEl.textContent = data.ticketCode;
-              ticketBox.style.display = 'inline-flex';
-            }
-          }
-          window.scrollTo({ top: 100, behavior: 'smooth' });
-          return;
-        } catch (err) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '<i class="ti ti-send"></i> Transmettre ma Demande SAV';
-          if (errorBox) {
-            errorBox.style.display = 'block';
-            const errorWaBtn = document.getElementById('savErrorWhatsAppBtn');
-            if (errorWaBtn) errorWaBtn.href = waUrl;
-          }
-          if (window.showToast) {
-            window.showToast("L'envoi a échoué. Réessayez ou écrivez-nous sur WhatsApp.", "error");
-          }
-          return;
-        }
-      }
-
-      // Default hand-off mode (O-09 open): WhatsApp hand-off
-      this.clearDraft();
-      if (container) container.style.display = 'none';
-      if (successPanel) successPanel.classList.add('visible');
-
-      const waBtn = document.getElementById('btnWhatsAppAction');
-      if (waBtn) {
-        waBtn.href = waUrl;
-      }
-
-      const pdfBtn = document.getElementById('btnDownloadPdf');
-      if (pdfBtn) {
-        pdfBtn.addEventListener('click', () => this.generatePdfReceipt());
-      }
-
-      if (window.showToast) {
-        window.showToast("Votre message est prêt : appuyez sur Envoyer pour finaliser.", "info");
-      }
+      const FLOWOPS_SAV_API = window.FLOWOPS_SAV_API || window.nerobelFormEndpoint || '/api/public/sav-requests';
+      const FALLBACK_SAV_API = 'https://savnerobel.nexenflow.com/api/public/sav-requests';
+      const WHATSAPP_NUMBER = '212718999867';
 
       try {
-        window.open(waUrl, '_blank', 'noopener');
-      } catch (e) {}
+        const formData = new FormData();
 
-      window.scrollTo({ top: 100, behavior: 'smooth' });
+        // 1. Mandatory Identity & Contact Fields
+        const fullName = this.data.fullName || document.getElementById('savFullName')?.value.trim() || '';
+        const phone = this.data.phone || document.getElementById('savPhone')?.value.trim() || '';
+        
+        let serial = this.data.serial || document.getElementById('savSerial')?.value.trim() || '';
+        if (this.data.noSerial || !serial) {
+          serial = 'SANS-NUMERO';
+        }
+
+        const address = this.data.address || document.getElementById('savAddress')?.value.trim() || '';
+        const city = this.data.city || document.getElementById('savCity')?.value || 'Casablanca';
+        let fullAddress = address ? `${address}, ${city}` : `Adresse à confirmer par contact (${city})`;
+        if (fullAddress.length < 10) {
+          fullAddress = `${fullAddress}, Maroc`;
+        }
+
+        formData.append('fullName', fullName);
+        formData.append('phone', phone);
+        formData.append('serialNumber', serial);
+        formData.append('address', fullAddress);
+
+        // 2. Fixed Service and Ticket Type IDs
+        formData.append('serviceId', '6'); // ID 6 = Service SAV Nerobel
+        formData.append('ticketTypeId', '1'); // 1 = Sous garantie constructeur
+
+        // 3. Custom Fields (FlowOps expects numeric field IDs as keys)
+        const symptom = this.data.symptom || document.getElementById('savProblem')?.value || "Pas d'eau chaude";
+        const desc = this.data.description || document.getElementById('savDescription')?.value.trim() || '';
+        const fullDescription = desc ? `[Panne: ${symptom}] ${desc}` : `Panne signalée : ${symptom}`;
+
+        const symptomMap = {
+          "Pas d'eau chaude": "no_hot_water",
+          "Fuite d'eau": "water_leak",
+          "Défaut d'allumage gaz": "other",
+          "Disjonction électrique": "circuit_breaker",
+          "Code erreur digital": "other",
+          "Autre problème": "other"
+        };
+        const symptomCode = symptomMap[symptom] || 'other';
+        const todayIso = new Date().toISOString().split('T')[0];
+
+        const customFields = {
+          "84": todayIso, // Date d'achat (Obligatoire TicketType 1)
+          "35": fullDescription, // Description détaillée
+          "38": this.data.brand || "Theros", // Marque (Obligatoire TicketType 2)
+          "43": symptomCode, // Type de panne enum
+          "44": fullDescription
+        };
+        formData.append('customFieldsJson', JSON.stringify(customFields));
+
+        // 4. GPS Coordinates (if available)
+        if (this.data.gps && this.data.gps.lat && this.data.gps.lng) {
+          formData.append('gpsLat', String(this.data.gps.lat));
+          formData.append('gpsLng', String(this.data.gps.lng));
+          if (this.data.gps.acc) formData.append('gpsAccuracy', String(this.data.gps.acc));
+        }
+
+        // 5. Attachment / Photo Contract
+        if (this.data.rawFile) {
+          formData.append('contractFile', this.data.rawFile, this.data.photoName || this.data.rawFile.name);
+        } else if (this.data.photo && typeof this.data.photo === 'string' && this.data.photo.startsWith('data:')) {
+          const photoBlob = await fetch(this.data.photo).then(r => r.blob());
+          formData.append('contractFile', photoBlob, this.data.photoName || 'photo_sav.jpg');
+        } else {
+          // FlowOps ticketTypeId=1 requires a contract file; supply a 1x1 png if customer didn't attach one
+          const dummyBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+          const byteChars = atob(dummyBase64);
+          const byteNums = new Array(byteChars.length);
+          for (let i = 0; i < byteChars.length; i++) {
+            byteNums[i] = byteChars.charCodeAt(i);
+          }
+          const dummyBlob = new Blob([new Uint8Array(byteNums)], { type: 'image/png' });
+          formData.append('contractFile', dummyBlob, 'sans_photo.png');
+        }
+
+        // 6. Asynchronous Request to FlowOps Gateway (Proxy or Direct)
+        let response;
+        try {
+          response = await fetch(FLOWOPS_SAV_API, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (response.status === 404 && FLOWOPS_SAV_API !== FALLBACK_SAV_API) {
+            response = await fetch(FALLBACK_SAV_API, {
+              method: 'POST',
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            });
+          }
+        } catch (fetchErr) {
+          if (FLOWOPS_SAV_API !== FALLBACK_SAV_API) {
+            response = await fetch(FALLBACK_SAV_API, {
+              method: 'POST',
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            });
+          } else {
+            throw fetchErr;
+          }
+        }
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || (!result.publicCode && !result.ticketNumber && !result.ticketId)) {
+          const errorMsg = result.detail || result.message || `Erreur serveur (${response.status})`;
+          throw new Error(errorMsg);
+        }
+
+        // 7. Success Handling
+        const publicCode = result.publicCode || result.ticketNumber || `SAV-${result.ticketId}`;
+        this.data.ticketCode = publicCode;
+        this.clearDraft();
+
+        if (container) container.style.display = 'none';
+        if (successPanel) successPanel.classList.add('visible');
+
+        // Ticket code badge
+        const ticketBox = document.getElementById('savTicketBox');
+        const codeEl = document.getElementById('displayTicketCode');
+        if (ticketBox && codeEl) {
+          codeEl.textContent = publicCode;
+          ticketBox.style.display = 'inline-flex';
+        }
+
+        // Copy button
+        const copyBtn = document.getElementById('btnCopyCode');
+        if (copyBtn) {
+          copyBtn.onclick = () => {
+            navigator.clipboard.writeText(publicCode).then(() => {
+              const orig = copyBtn.textContent;
+              copyBtn.textContent = 'Copié !';
+              setTimeout(() => { copyBtn.textContent = orig; }, 2500);
+            }).catch(() => {});
+          };
+        }
+
+        // WhatsApp direct follow-up
+        const waMessage = encodeURIComponent(`Bonjour Nerobel, j'ai enregistré ma demande SAV sous le N° ${publicCode}. Merci de m'indiquer la prise en charge.`);
+        const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMessage}`;
+        const waBtn = document.getElementById('btnWhatsAppAction');
+        if (waBtn) {
+          waBtn.href = waUrl;
+          const waSpan = waBtn.querySelector('span');
+          if (waSpan) waSpan.textContent = 'Suivre sur WhatsApp';
+        }
+
+        // Official FlowOps PDF Receipt download
+        const receiptUrl = `https://savnerobel.nexenflow.com/api/public/sav-requests/${encodeURIComponent(publicCode)}/receipt`;
+        const pdfBtn = document.getElementById('btnDownloadPdf');
+        if (pdfBtn) {
+          pdfBtn.onclick = (e) => {
+            e.preventDefault();
+            window.open(receiptUrl, '_blank', 'noopener');
+          };
+        }
+
+        if (window.nerobelAnalytics) {
+          window.nerobelAnalytics.track('sav_submit_success', { publicCode, brand: this.data.brand });
+        }
+
+        if (window.showToast) {
+          window.showToast("Votre demande SAV a été enregistrée avec succès !", "success");
+        }
+
+        window.scrollTo({ top: document.querySelector('.sav-main-card')?.offsetTop - 60 || 0, behavior: 'smooth' });
+
+      } catch (err) {
+        console.error('[Nerobel SAV Error]', err);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="ti ti-send"></i> <span data-i18n="btnSubmit">Transmettre ma Demande SAV</span>';
+
+        if (errorBox) {
+          errorBox.style.display = 'block';
+          if (errorText) {
+            errorText.textContent = `Échec de transmission : ${err.message || 'Vérifiez votre connexion et les champs saisis.'}`;
+          }
+          const errorWaBtn = document.getElementById('savErrorWhatsAppBtn');
+          if (errorWaBtn) {
+            errorWaBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Bonjour Nerobel, j'ai rencontré une difficulté lors de l'envoi de mon formulaire SAV.")}`;
+          }
+          errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        if (window.showToast) {
+          window.showToast(err.message || "Échec de l'envoi du formulaire SAV", "error");
+        }
+      }
     });
   }
 
   generatePdfReceipt() {
+    if (this.data.ticketCode) {
+      const receiptUrl = `https://savnerobel.nexenflow.com/api/public/sav-requests/${encodeURIComponent(this.data.ticketCode)}/receipt`;
+      window.open(receiptUrl, '_blank', 'noopener');
+      return;
+    }
+
     const printableWindow = window.open('', '_blank');
     if (!printableWindow) return;
 

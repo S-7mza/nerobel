@@ -411,19 +411,19 @@
 
           <!-- SUBMISSION ERROR NOTICE -->
           <div class="sav-submit-error" id="savSubmitError" role="alert" style="display:none;">
-            <i class="ti ti-alert-circle"></i> <span>L'envoi a échoué. Réessayez ou écrivez-nous sur WhatsApp.</span>
+            <i class="ti ti-alert-circle"></i> <span id="savSubmitErrorText">L'envoi a échoué. Réessayez ou écrivez-nous sur WhatsApp.</span>
             <div style="margin-top:12px;">
-              <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="btn btn-whatsapp" id="savErrorWhatsAppBtn">
-                <i class="ti ti-brand-whatsapp"></i> Écrire sur WhatsApp
+              <a href="https://wa.me/212718999867" target="_blank" rel="noopener" class="btn btn-whatsapp" id="savErrorWhatsAppBtn">
+                <i class="ti ti-brand-whatsapp"></i> Contacter l'Assistance WhatsApp
               </a>
             </div>
           </div>
 
           <!-- SUCCESS / READY PANEL -->
           <div class="sav-success-panel" id="savSuccessPanel">
-            <div class="success-check-badge"><i class="ti ti-brand-whatsapp text-wa"></i></div>
-            <h2 class="step-title" style="font-size:2rem;" id="savSuccessTitle">Votre message est prêt</h2>
-            <p class="step-subtitle" id="savSuccessDesc">Votre message est prêt : appuyez sur Envoyer pour finaliser.</p>
+            <div class="success-check-badge"><i class="ti ti-check"></i></div>
+            <h2 class="step-title" style="font-size:2rem;" id="savSuccessTitle">Demande SAV enregistrée avec succès !</h2>
+            <p class="step-subtitle" id="savSuccessDesc">Votre demande d'intervention a été transmise à nos équipes techniques. Conservez votre numéro de suivi :</p>
 
             <div class="ticket-number-box" id="savTicketBox" style="display:none;">
               <span class="ticket-code" id="displayTicketCode"></span>
@@ -431,8 +431,8 @@
             </div>
 
             <div class="success-actions-row">
-              <a href="https://wa.me/212787013201" class="btn btn-whatsapp" id="btnWhatsAppAction" target="_blank" rel="noopener">
-                <i class="ti ti-brand-whatsapp"></i> <span>Envoyer sur WhatsApp</span>
+              <a href="https://wa.me/212718999867" class="btn btn-whatsapp" id="btnWhatsAppAction" target="_blank" rel="noopener">
+                <i class="ti ti-brand-whatsapp"></i> <span>Suivre sur WhatsApp</span>
               </a>
               <button type="button" class="btn btn-primary" id="btnDownloadPdf">
                 <i class="ti ti-file-text"></i> <span data-i18n="btnDownloadPdf">Télécharger le Reçu (PDF)</span>
@@ -626,6 +626,6 @@
   <script defer src="js/theme.js?v=2.2"></script>
   <script defer src="js/animations.js?v=2.2"></script>
   <script defer src="js/main.js?v=2.2"></script>
-  <script defer src="js/sav.js?v=2.2"></script>
+  <script defer src="js/sav.js?v=3.0"></script>
 </body>
 </html>
