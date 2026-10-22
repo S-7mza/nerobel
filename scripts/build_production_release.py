@@ -21,6 +21,7 @@ CORE_PAGES = [
     'confidentialite.html',
     'mentions-legales.html',
     'pacific.html',
+    'embed-sav-demo.html',
     '404.html'
 ]
 

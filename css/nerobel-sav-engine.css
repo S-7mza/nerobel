@@ -1,0 +1,636 @@
+/* ─────────────────────────────────────────────────────────────
+   NEROBEL GROUP · AUTONOMOUS EMBED ENGINE STYLES
+   Scoped for #nerobel-sav-app / #nerobel-sav-root
+   Compatible with any CMS or external site (WordPress, Webflow, etc.)
+   ───────────────────────────────────────────────────────────── */
+
+.nerobel-sav-app,
+#nerobel-sav-app,
+#nerobel-sav-root {
+  --sav-bg: #0B0E14;
+  --sav-card-bg: #101624;
+  --sav-surface: #172033;
+  --sav-surface-hover: #1E2B45;
+  --sav-border: rgba(255, 255, 255, 0.1);
+  --sav-border-active: #3B82F6;
+  --sav-primary: #2563EB;
+  --sav-primary-hover: #1D4ED8;
+  --sav-primary-glow: rgba(59, 130, 246, 0.35);
+  --sav-cyan: #60A5FA;
+  --sav-text: #F8FAFC;
+  --sav-text-muted: #94A3B8;
+  --sav-text-sub: #64748B;
+  --sav-success: #10B981;
+  --sav-success-bg: rgba(16, 185, 129, 0.12);
+  --sav-error: #EF4444;
+  --sav-error-bg: rgba(239, 68, 68, 0.12);
+  --sav-radius: 12px;
+  --sav-font: 'Inter', system-ui, -apple-system, sans-serif;
+  --sav-font-ar: 'Cairo', 'Inter', system-ui, sans-serif;
+
+  box-sizing: border-box;
+  font-family: var(--sav-font);
+  color: var(--sav-text);
+  line-height: 1.5;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  background: var(--sav-card-bg);
+  border: 1px solid var(--sav-border);
+  border-radius: var(--sav-radius);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  position: relative;
+}
+
+.nerobel-sav-app *,
+#nerobel-sav-app *,
+#nerobel-sav-root * {
+  box-sizing: border-box;
+}
+
+/* RTL layout */
+.nerobel-sav-app[dir="rtl"],
+#nerobel-sav-app[dir="rtl"],
+#nerobel-sav-root[dir="rtl"] {
+  font-family: var(--sav-font-ar);
+  text-align: right;
+  direction: rtl;
+}
+
+/* Header & Top Bar */
+.sav-engine-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--sav-border);
+}
+
+.sav-engine-type-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sav-surface);
+  padding: 4px;
+  border-radius: 30px;
+  border: 1px solid var(--sav-border);
+}
+
+.sav-engine-type-btn {
+  all: unset;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sav-text-muted);
+  transition: all 0.2s ease;
+}
+
+.sav-engine-type-btn.active {
+  background: var(--sav-primary);
+  color: #FFFFFF;
+  box-shadow: 0 0 12px var(--sav-primary-glow);
+}
+
+.sav-engine-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--sav-surface);
+  padding: 3px 6px;
+  border-radius: 20px;
+  border: 1px solid var(--sav-border);
+}
+
+.sav-engine-lang-btn {
+  all: unset;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--sav-text-muted);
+  transition: all 0.2s ease;
+}
+
+.sav-engine-lang-btn.active {
+  background: rgba(59, 130, 246, 0.25);
+  color: var(--sav-cyan);
+  border: 1px solid rgba(96, 165, 250, 0.4);
+}
+
+/* Stepper Progress */
+.sav-engine-progress-wrap {
+  margin-bottom: 24px;
+}
+
+.sav-engine-bars {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.sav-engine-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--sav-border);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.sav-engine-bar.completed {
+  background: var(--sav-primary);
+}
+
+.sav-engine-bar.active {
+  background: var(--sav-cyan);
+  box-shadow: 0 0 8px var(--sav-primary-glow);
+}
+
+.sav-engine-indicator {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sav-cyan);
+}
+
+/* Titles */
+.sav-engine-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: #FFFFFF;
+}
+
+.sav-engine-subtitle {
+  font-size: 0.90rem;
+  color: var(--sav-text-muted);
+  margin: 0 0 24px 0;
+}
+
+/* Form Groups & Inputs */
+.sav-engine-group {
+  margin-bottom: 20px;
+}
+
+.sav-engine-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--sav-text);
+}
+
+.sav-engine-label .req {
+  color: var(--sav-cyan);
+}
+
+.sav-engine-input,
+.sav-engine-select,
+.sav-engine-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--sav-surface);
+  border: 1px solid var(--sav-border);
+  border-radius: 8px;
+  color: var(--sav-text);
+  font-family: inherit;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
+}
+
+.sav-engine-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.sav-engine-input:focus,
+.sav-engine-select:focus,
+.sav-engine-textarea:focus {
+  outline: none;
+  border-color: var(--sav-border-active);
+  box-shadow: 0 0 0 3px var(--sav-primary-glow);
+}
+
+.sav-engine-input.has-error,
+.sav-engine-select.has-error,
+.sav-engine-textarea.has-error {
+  border-color: var(--sav-error);
+}
+
+.sav-engine-error-text {
+  display: none;
+  font-size: 0.80rem;
+  color: var(--sav-error);
+  margin-top: 6px;
+  align-items: center;
+  gap: 4px;
+}
+
+.sav-engine-error-text.visible {
+  display: flex;
+}
+
+/* Moroccan Phone input */
+.sav-engine-phone-box {
+  display: flex;
+  gap: 8px;
+  direction: ltr !important;
+}
+
+.sav-engine-flag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 12px;
+  background: var(--sav-surface-hover);
+  border: 1px solid var(--sav-border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--sav-text);
+  flex-shrink: 0;
+}
+
+/* Chips / Radio Options */
+.sav-engine-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.sav-engine-chip {
+  all: unset;
+  cursor: pointer;
+  background: var(--sav-surface);
+  border: 1px solid var(--sav-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--sav-text);
+  transition: all 0.2s ease;
+}
+
+.sav-engine-chip:hover {
+  background: var(--sav-surface-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sav-engine-chip.selected {
+  background: rgba(37, 99, 235, 0.16);
+  border-color: var(--sav-primary);
+  color: #FFFFFF;
+  box-shadow: 0 0 10px var(--sav-primary-glow);
+}
+
+.sav-engine-chip-radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--sav-text-sub);
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.sav-engine-chip.selected .sav-engine-chip-radio {
+  border-color: var(--sav-primary);
+  background: var(--sav-primary);
+  color: #FFFFFF;
+}
+
+/* Dropzone & File upload */
+.sav-engine-dropzone {
+  border: 1.5px dashed var(--sav-border);
+  border-radius: 8px;
+  background: var(--sav-surface);
+  padding: 22px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.sav-engine-dropzone:hover,
+.sav-engine-dropzone.dragover {
+  border-color: var(--sav-primary);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.sav-engine-drop-icon {
+  font-size: 2rem;
+}
+
+.sav-engine-drop-title {
+  font-size: 0.90rem;
+  font-weight: 600;
+}
+
+.sav-engine-drop-hint {
+  font-size: 0.78rem;
+  color: var(--sav-text-muted);
+}
+
+.sav-engine-file-preview {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  background: var(--sav-surface-hover);
+  border: 1px solid var(--sav-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 10px;
+}
+
+.sav-engine-file-preview.visible {
+  display: flex;
+}
+
+.sav-engine-file-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid var(--sav-border);
+}
+
+.sav-engine-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.sav-engine-file-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sav-engine-file-size {
+  font-size: 0.75rem;
+  color: var(--sav-text-muted);
+}
+
+.sav-engine-btn-remove {
+  all: unset;
+  cursor: pointer;
+  color: var(--sav-error);
+  padding: 6px;
+  border-radius: 4px;
+}
+
+/* Serial & GPS Helper Links */
+.sav-engine-help-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.80rem;
+  color: var(--sav-cyan);
+  text-decoration: none;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.sav-engine-help-link:hover {
+  text-decoration: underline;
+}
+
+.sav-engine-checkbox-row {
+  margin-top: 8px;
+}
+
+.sav-engine-checkbox-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--sav-text-muted);
+  cursor: pointer;
+}
+
+/* Review Card */
+.sav-engine-review-card {
+  background: var(--sav-surface);
+  border: 1px solid var(--sav-border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.sav-engine-review-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 0.88rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sav-engine-review-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sav-engine-review-key {
+  color: var(--sav-text-muted);
+}
+
+.sav-engine-review-val {
+  font-weight: 600;
+  color: var(--sav-text);
+  text-align: end;
+  max-width: 60%;
+}
+
+[dir="rtl"] .sav-engine-review-val {
+  text-align: start;
+}
+
+/* Nav Actions */
+.sav-engine-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--sav-border);
+}
+
+.sav-engine-btn {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.90rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.sav-engine-btn-primary {
+  background: var(--sav-primary);
+  color: #FFFFFF;
+}
+
+.sav-engine-btn-primary:hover {
+  background: var(--sav-primary-hover);
+  box-shadow: 0 0 14px var(--sav-primary-glow);
+}
+
+.sav-engine-btn-secondary {
+  background: var(--sav-surface);
+  border: 1px solid var(--sav-border);
+  color: var(--sav-text);
+}
+
+.sav-engine-btn-secondary:hover {
+  background: var(--sav-surface-hover);
+}
+
+/* Success Card */
+.sav-engine-success-box {
+  text-align: center;
+  padding: 30px 10px;
+}
+
+.sav-engine-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--sav-success-bg);
+  border: 2px solid var(--sav-success);
+  color: var(--sav-success);
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  margin: 0 auto 18px;
+}
+
+.sav-engine-code-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--sav-surface);
+  border: 1.5px solid var(--sav-primary);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: monospace;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 18px 0 24px;
+}
+
+.sav-engine-copy-btn {
+  all: unset;
+  cursor: pointer;
+  font-size: 0.80rem;
+  font-family: var(--sav-font);
+  font-weight: 600;
+  color: var(--sav-cyan);
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(59, 130, 246, 0.18);
+}
+
+.sav-engine-actions-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.sav-engine-btn-wa {
+  background: #10B981;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sav-engine-btn-pdf {
+  background: #FFFFFF;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Modals */
+.sav-engine-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: none;
+  place-items: center;
+  padding: 16px;
+}
+
+.sav-engine-modal-overlay.active {
+  display: grid;
+}
+
+.sav-engine-modal-card {
+  background: var(--sav-card-bg);
+  border: 1px solid var(--sav-border);
+  border-radius: var(--sav-radius);
+  max-width: 620px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+}
+
+.sav-engine-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--sav-border);
+}
+
+.sav-engine-modal-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.sav-engine-modal-close {
+  all: unset;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--sav-text-muted);
+  padding: 4px;
+}
+
+.sav-engine-modal-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.sav-engine-modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--sav-border);
+  display: flex;
+  justify-content: flex-end;
+}

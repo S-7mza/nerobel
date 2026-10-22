@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Démo Intégration SAV Option A · Nerobel Group</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/nerobel-sav-engine.css">
+  <style>
+    body {
+      background: #06090F;
+      color: #F8FAFC;
+      margin: 0;
+      padding: 48px 16px 80px;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .demo-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+    .demo-eyebrow {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #60A5FA;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .demo-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin: 0 0 10px;
+      color: #FFFFFF;
+    }
+    .demo-lead {
+      color: #94A3B8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .demo-code-box {
+      margin-top: 14px;
+      padding: 10px 16px;
+      background: #0D131F;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #60A5FA;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="demo-header">
+    <div class="demo-eyebrow">Option A · Intégration Embarquée</div>
+    <h1 class="demo-title">Moteur SAV Dynamique Autonome</h1>
+    <p class="demo-lead">
+      Composant prêt pour intégration directe dans n'importe quelle page web ou CMS (WordPress, Webflow, Prestashop, etc.) en seulement 2 lignes de code :
+    </p>
+    <div class="demo-code-box">
+      &lt;div id="nerobel-sav-app"&gt;&lt;/div&gt;&lt;script src="js/nerobel-sav-engine.js" defer&gt;&lt;/script&gt;
+    </div>
+  </header>
+
+  <!-- Conteneur d'Accueil Option A -->
+  <main>
+    <div id="nerobel-sav-app"></div>
+  </main>
+
+  <!-- Script Autonome Option A -->
+  <script src="js/nerobel-sav-engine.js" defer></script>
+</body>
+</html>
