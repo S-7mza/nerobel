@@ -53,16 +53,16 @@
 
       <div class="header-actions">
         <button type="button" class="theme-btn" aria-label="Changer de thème">
-          <i class="ti ti-sun"></i>
+          <i class="ti ti-sun" aria-hidden="true"></i>
         </button>
 
-        <a href="sav" class="btn-cta-sav">
-          <i class="ti ti-tool"></i>
+        <a href="sav" class="btn-cta-sav" aria-label="Demande SAV en ligne">
+          <i class="ti ti-tool" aria-hidden="true"></i>
           <span data-i18n="ctaSav">Demande SAV</span>
         </a>
 
         <button type="button" class="mobile-nav-toggle" aria-label="Menu Mobile">
-          <i class="ti ti-menu-2"></i>
+          <i class="ti ti-menu-2" aria-hidden="true"></i>
         </button>
       </div>
     </div>
@@ -72,7 +72,7 @@
   <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu Navigation Mobile">
     <div class="mobile-drawer-header">
       <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL" width="140" height="36">
-      <button type="button" class="mobile-drawer-close" aria-label="Fermer"><i class="ti ti-x"></i></button>
+      <button type="button" class="mobile-drawer-close" aria-label="Fermer le menu"><i class="ti ti-x" aria-hidden="true"></i></button>
     </div>
     <ul class="mobile-nav-links">
       <li><a href="./" data-i18n="navHome">Groupe</a></li>
@@ -131,7 +131,7 @@
             <div class="contact-card-info">
               <h2 class="card-title">Siège Social &amp; Showroom Principal</h2>
               <p class="section-desc">
-                <i class="ti ti-map-pin text-az"></i> Angle Boulevard d'Anfa &amp; Rue Mozart, Casablanca, Maroc
+                <i class="ti ti-map-pin text-az"></i> The Gold Center, Bureau 12, Bd El Qods, Casablanca 20600, Maroc
               </p>
               <div class="contact-info-list">
                 <div><strong class="text-white">Standard :</strong> <a href="tel:+212661999747" class="text-az">+212 661 99 97 47</a></div>
@@ -142,8 +142,11 @@
 
               <!-- O-06: Facade/showroom photo slot: <div class="media-frame"><img src="assets/img/siege-facade.jpg" alt="Façade du Siège Social Nerobel Group" width="600" height="400"></div> -->
 
-              <div style="margin-top:16px;">
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Angle%20Boulevard%20d'Anfa%20%26%20Rue%20Mozart%2C%20Casablanca%2C%20Maroc" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" aria-label="Itinéraire vers le Siège Social Nerobel Group">
+              <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+                <a href="https://www.google.com/maps/search/Nerobel%20Si%C3%A8ge/@33.5340898,-7.61266232,17z?hl=fr" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" aria-label="Voir Nerobel Siège sur Google Maps">
+                  <i class="ti ti-map-pin"></i> <span>Google Maps</span>
+                </a>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=33.5340898,-7.61266232" target="_blank" rel="noopener" class="btn btn-primary btn-sm" aria-label="Itinéraire vers le Siège Social Nerobel Group">
                   <i class="ti ti-directions"></i> <span>Itinéraire</span>
                 </a>
               </div>
@@ -276,9 +279,9 @@
             Nerobel Group est le distributeur exclusif au Maroc des marques Theros et Eurogas : chauffe-eaux connectés, univers bain et solutions gaz haute performance.
           </p>
           <div class="footer-social-row">
-            <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="social-btn" title="WhatsApp Nerobel" aria-label="Écrire sur WhatsApp"><i class="ti ti-brand-whatsapp text-wa"></i></a>
-            <a href="https://www.facebook.com/nerobel" target="_blank" rel="noopener" class="social-btn" title="Facebook" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
-            <a href="https://www.linkedin.com/company/nerobel/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+            <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="social-btn" title="WhatsApp Nerobel" aria-label="Contacter Nerobel Group sur WhatsApp"><i class="ti ti-brand-whatsapp text-wa" aria-hidden="true"></i></a>
+            <a href="https://www.facebook.com/nerobel" target="_blank" rel="noopener" class="social-btn" title="Facebook" aria-label="Page Facebook de Nerobel Group"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/company/nerobel/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="Page LinkedIn de Nerobel Group"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></a>
           </div>
         </div>
 

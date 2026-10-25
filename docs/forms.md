@@ -55,7 +55,7 @@ The client executes a `fetch` `POST` request with JSON content:
     "fullName": "Mohamed Alami",
     "phone": "+212612345678",
     "city": "Casablanca",
-    "address": "Angle Boulevard d'Anfa & Rue Mozart",
+    "address": "The Gold Center, Bureau 12, Bd El Qods",
     "brand": "Eurogas",
     "serial": "PC202604150892",
     "symptom": "Fuite d'eau",

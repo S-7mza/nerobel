@@ -33,7 +33,7 @@ CORE_CONFIG = [
     'sav-proxy.php'
 ]
 
-HTACCESS_CONTENT = """# ==============================================================================
+HTACCESS_CONTENT = r"""# ==============================================================================
 # Nerobel Group — Production Server Configuration (.htaccess)
 # ==============================================================================
 
@@ -95,9 +95,9 @@ ErrorDocument 404 /404.html
     ExpiresByType font/woff2 "access plus 1 year"
     ExpiresByType font/woff "access plus 1 year"
 
-    # Data
-    ExpiresByType application/json "access plus 1 day"
-    ExpiresByType application/xml "access plus 1 day"
+    # Data (revalidate immediately so store locator and content updates appear instantly)
+    ExpiresByType application/json "access plus 0 seconds"
+    ExpiresByType application/xml "access plus 1 hour"
 </IfModule>
 
 # 7. Protect Hidden Files and Prevent Directory Listing

@@ -4,15 +4,15 @@
     "name": "Siège Social & Showroom Principal",
     "type": "showroom",
     "city": "Casablanca",
-    "address": "Angle Boulevard d'Anfa & Rue Mozart, Casablanca, Maroc",
+    "address": "The Gold Center, Bureau 12, Bd El Qods, Casablanca 20600, Maroc",
     "phone": "+212661999747",
     "whatsapp": "+212787013201",
     "hours": "Lun - Sam : 08h30 - 19h30",
     "brands": null,
-    "maps_url": "https://maps.google.com/?q=33.5892,-7.6322",
-    "lat": 33.5892,
-    "lng": -7.6322,
+    "maps_url": "https://www.google.com/maps/search/Nerobel%20Si%C3%A8ge/@33.5340898,-7.61266232,17z?hl=fr",
+    "lat": 33.5340898,
+    "lng": -7.61266232,
     "confirmed": true,
-    "confirmed_on": "2026-10-17"
+    "confirmed_on": "2026-10-23"
   }
 ]

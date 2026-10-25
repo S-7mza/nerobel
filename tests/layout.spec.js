@@ -352,11 +352,11 @@ test('contact.html: department list has no SAV, ?dept=presse preselects departme
   const noticeDisplay = await page.$eval('#contactPartenariatNotice', el => window.getComputedStyle(el).display);
   expect(noticeDisplay).toBe('block');
   const noticeLink = await page.$eval('#contactPartenariatNotice a', el => el.getAttribute('href'));
-  expect(noticeLink).toContain('b2b.html#demande');
+  expect(noticeLink).toMatch(/b2b(\.html)?#demande/);
 
   // Verify Google Maps directions link
   const dirLink = await page.$eval('a[href*="google.com/maps/dir"]', el => el.getAttribute('href'));
-  expect(dirLink).toContain('destination=Angle%20Boulevard%20d\'Anfa%20%26%20Rue%20Mozart%2C%20Casablanca%2C%20Maroc');
+  expect(dirLink).toContain('destination=33.5340898,-7.61266232');
 
   // Verify 3 path cards exist
   const pathCards = await page.$$('.contact-path-card');

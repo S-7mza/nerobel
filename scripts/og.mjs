@@ -44,7 +44,7 @@ const pages = [
   {
     id: 'contact',
     title: 'Contact',
-    subtitle: 'Siège Nerobel Group · Angle Bd d\'Anfa & Rue Mozart, Casablanca',
+    subtitle: 'Siège Nerobel Group · The Gold Center, Bd El Qods, Casablanca',
     badge: 'CONTACT & SIÈGE'
   },
   {

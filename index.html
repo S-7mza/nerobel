@@ -10,6 +10,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
 
+  <!-- Search Engine Verification -->
+  <meta name="google-site-verification" content="0NZMSg0h1dTZsdorKdj-Nr7XLDEasNNQyAFpKCfIgr4">
+
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nerobel.com/">
@@ -46,8 +49,9 @@
     "email": "contact@nerobel.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Angle Boulevard d'Anfa & Rue Mozart, Casablanca, Maroc",
+      "streetAddress": "The Gold Center, Bureau 12, Bd El Qods, Casablanca 20600, Maroc",
       "addressLocality": "Casablanca",
+      "postalCode": "20600",
       "addressCountry": "MA"
     },
     "contactPoint": [
@@ -110,18 +114,18 @@
       <div class="header-actions">
         <!-- Theme Toggle -->
         <button type="button" class="theme-btn" aria-label="Changer de thème">
-          <i class="ti ti-sun"></i>
+          <i class="ti ti-sun" aria-hidden="true"></i>
         </button>
 
         <!-- Direct SAV CTA -->
-        <a href="sav" class="btn-cta-sav">
-          <i class="ti ti-tool"></i>
+        <a href="sav" class="btn-cta-sav" aria-label="Demande SAV en ligne">
+          <i class="ti ti-tool" aria-hidden="true"></i>
           <span data-i18n="ctaSav">Demande SAV</span>
         </a>
 
         <!-- Mobile Menu Toggle -->
         <button type="button" class="mobile-nav-toggle" aria-label="Menu Mobile">
-          <i class="ti ti-menu-2"></i>
+          <i class="ti ti-menu-2" aria-hidden="true"></i>
         </button>
       </div>
     </div>
@@ -131,7 +135,7 @@
   <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu Navigation Mobile">
     <div class="mobile-drawer-header">
       <img src="assets/icons/nerobel-logo.svg" alt="NEROBEL" width="140" height="36">
-      <button type="button" class="mobile-drawer-close" aria-label="Fermer"><i class="ti ti-x"></i></button>
+      <button type="button" class="mobile-drawer-close" aria-label="Fermer le menu"><i class="ti ti-x" aria-hidden="true"></i></button>
     </div>
     <ul class="mobile-nav-links">
       <li><a href="./" class="active" data-i18n="navHome">Groupe</a></li>
@@ -188,10 +192,10 @@
 
             <!-- Reassurance Trust Badges -->
             <div class="hero-badges-row">
-              <span><i class="ti ti-shield-check"></i> <strong data-i18n="statWarrantyLabel">Garantie : conditions sur demande</strong></span>
-              <span><i class="ti ti-map-pin"></i> <span data-i18n="statDistributorsLabel">Un réseau de showrooms et de points de vente au Maroc</span></span>
-              <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="hero-wa-link">
-                <i class="ti ti-brand-whatsapp text-wa"></i>
+              <span><i class="ti ti-shield-check" aria-hidden="true"></i> <strong data-i18n="statWarrantyLabel">Garantie constructeur officielle (pièces d'origine et SAV agréé)</strong></span>
+              <span><i class="ti ti-map-pin" aria-hidden="true"></i> <span data-i18n="statDistributorsLabel">Un réseau de showrooms et de points de vente au Maroc</span></span>
+              <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="hero-wa-link" aria-label="Contacter le support commercial sur WhatsApp">
+                <i class="ti ti-brand-whatsapp text-wa" aria-hidden="true"></i>
                 <span>WhatsApp Nerobel</span>
               </a>
             </div>
@@ -238,7 +242,7 @@
                   <span class="mobile-slide-tag">02 // NEROBEL</span>
                   <h2 class="mobile-slide-title">Smart TV OLED 4K 65"</h2>
                   <p class="mobile-slide-desc">Dalle OLED 4K · Finition noir graphite · Google TV</p>
-                  <a href="brands#nerobel-tech" class="mobile-slide-btn">
+                  <a href="brands#smart-tv-oled" class="mobile-slide-btn">
                     <span>Découvrir Nerobel</span>
                     <i class="ti ti-arrow-right" aria-hidden="true"></i>
                   </a>
@@ -296,7 +300,7 @@
               <button type="button" class="mobile-dot active" role="tab" aria-selected="true" aria-label="Aller à la diapositive 1 : Theros Pro-Slim" data-index="0"></button>
               <button type="button" class="mobile-dot" role="tab" aria-selected="false" aria-label="Aller à la diapositive 2 : Smart TV OLED" data-index="1"></button>
               <button type="button" class="mobile-dot" role="tab" aria-selected="false" aria-label="Aller à la diapositive 3 : Eurogas Master Flame" data-index="2"></button>
-              <button type="button" class="mobile-dot" role="tab" aria-selected="false" aria-label="Aller à la diapositive 4 : Climatiseur Split" data-index="3"></button>
+              <button type="button" class="mobile-dot" role="tab" aria-selected="false" aria-label="Aller à la diapositive 4 : Réfrigérateur Multi-Portes" data-index="3"></button>
             </div>
           </div>
         </div>
@@ -314,25 +318,25 @@
           <div class="hero-mini-divider"></div>
 
           <div class="hero-mini-controls">
-            <button type="button" class="hero-nav-arrow" id="heroPrevSlide" aria-label="Précédent">
-              <i class="ti ti-chevron-left"></i>
+            <button type="button" class="hero-nav-arrow" id="heroPrevSlide" aria-label="Diapositive précédente">
+              <i class="ti ti-chevron-left" aria-hidden="true"></i>
             </button>
             <div class="hero-nav-indicators" id="heroIndicators">
-              <button type="button" class="indicator-bar active" data-slide="0" aria-label="Slide 1">
+              <button type="button" class="indicator-bar active" data-slide="0" aria-label="Aller à la diapositive 1 : Theros Pro-Slim">
                 <span class="bar-fill"></span>
               </button>
-              <button type="button" class="indicator-bar" data-slide="1" aria-label="Slide 2">
+              <button type="button" class="indicator-bar" data-slide="1" aria-label="Aller à la diapositive 2 : Smart TV OLED">
                 <span class="bar-fill"></span>
               </button>
-              <button type="button" class="indicator-bar" data-slide="2" aria-label="Slide 3">
+              <button type="button" class="indicator-bar" data-slide="2" aria-label="Aller à la diapositive 3 : Eurogas Master Flame">
                 <span class="bar-fill"></span>
               </button>
-              <button type="button" class="indicator-bar" data-slide="3" aria-label="Slide 4">
+              <button type="button" class="indicator-bar" data-slide="3" aria-label="Aller à la diapositive 4 : Réfrigérateur Multi-Portes">
                 <span class="bar-fill"></span>
               </button>
             </div>
-            <button type="button" class="hero-nav-arrow" id="heroNextSlide" aria-label="Suivant">
-              <i class="ti ti-chevron-right"></i>
+            <button type="button" class="hero-nav-arrow" id="heroNextSlide" aria-label="Diapositive suivante">
+              <i class="ti ti-chevron-right" aria-hidden="true"></i>
             </button>
           </div>
           <span class="sr-only" id="heroContextEyebrow">Theros · Confort Thermique</span>
@@ -544,10 +548,10 @@
           <!-- Commandes de navigation de type GROHE -->
           <div class="collection-controls" role="group" aria-label="Contrôles du carrousel">
             <button type="button" class="ctrl-btn ctrl-prev" id="collPrevBtn" aria-label="Collection précédente">
-              <i class="ti ti-chevron-left"></i>
+              <i class="ti ti-chevron-left" aria-hidden="true"></i>
             </button>
             <button type="button" class="ctrl-btn ctrl-next" id="collNextBtn" aria-label="Collection suivante">
-              <i class="ti ti-chevron-right"></i>
+              <i class="ti ti-chevron-right" aria-hidden="true"></i>
             </button>
           </div>
         </div>
@@ -602,7 +606,7 @@
 
             <!-- Carte 3 : Smart TV OLED 4K 65" -->
             <article class="collection-card" role="group" aria-roledescription="slide" aria-label="3 sur 4 : Smart TV OLED 4K 65&quot;">
-              <a href="brands#theros" class="collection-card-link">
+              <a href="brands#smart-tv-oled" class="collection-card-link">
                 <div class="collection-visual-pane">
                   <picture>
                     <source srcset="assets/img/collection-smart-tv.webp" type="image/webp">
@@ -624,7 +628,7 @@
 
             <!-- Carte 4 : Réfrigérateur Multi-Portes 520 L -->
             <article class="collection-card" role="group" aria-roledescription="slide" aria-label="4 sur 4 : Réfrigérateur Multi-Portes 520 L">
-              <a href="brands#theros" class="collection-card-link">
+              <a href="brands#refrigerateur-520l" class="collection-card-link">
                 <div class="collection-visual-pane">
                   <picture>
                     <source srcset="assets/img/collection-refrigerator.webp" type="image/webp">
@@ -829,9 +833,9 @@
             Nerobel Group est le distributeur exclusif au Maroc des marques Theros et Eurogas : chauffe-eaux connectés, univers bain et solutions gaz haute performance.
           </p>
           <div class="footer-social-row">
-            <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="social-btn" title="WhatsApp Nerobel" aria-label="Écrire sur WhatsApp"><i class="ti ti-brand-whatsapp text-wa"></i></a>
-            <a href="https://www.facebook.com/nerobel" target="_blank" rel="noopener" class="social-btn" title="Facebook" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
-            <a href="https://www.linkedin.com/company/nerobel/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+            <a href="https://wa.me/212787013201" target="_blank" rel="noopener" class="social-btn" title="WhatsApp Nerobel" aria-label="Contacter Nerobel Group sur WhatsApp"><i class="ti ti-brand-whatsapp text-wa" aria-hidden="true"></i></a>
+            <a href="https://www.facebook.com/nerobel" target="_blank" rel="noopener" class="social-btn" title="Facebook" aria-label="Page Facebook de Nerobel Group"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/company/nerobel/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="Page LinkedIn de Nerobel Group"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></a>
           </div>
         </div>
 
