@@ -252,8 +252,18 @@
         if (res.ok) {
           const data = await res.json();
           if (data && data.ticketTypes && data.ticketTypes.length > 0) {
+            data.ticketTypes.sort((a, b) => {
+              const aSous = a.id === 1 || (a.name && /sous/i.test(a.name));
+              const bSous = b.id === 1 || (b.name && /sous/i.test(b.name));
+              if (aSous && !bSous) return -1;
+              if (!aSous && bSous) return 1;
+              return (a.id || 0) - (b.id || 0);
+            });
             this.schema = data;
-            this.activeTicketTypeId = data.defaultTicketTypeId || 1;
+            const sousType = data.ticketTypes.find(t => t.id === 1 || (t.name && /sous/i.test(t.name)));
+            const defaultId = sousType ? sousType.id : 1;
+            this.activeTicketTypeId = defaultId;
+            this.schema.defaultTicketTypeId = defaultId;
             return;
           }
         }
@@ -265,8 +275,18 @@
         if (res.ok) {
           const data = await res.json();
           if (data && data.ticketTypes && data.ticketTypes.length > 0) {
+            data.ticketTypes.sort((a, b) => {
+              const aSous = a.id === 1 || (a.name && /sous/i.test(a.name));
+              const bSous = b.id === 1 || (b.name && /sous/i.test(b.name));
+              if (aSous && !bSous) return -1;
+              if (!aSous && bSous) return 1;
+              return (a.id || 0) - (b.id || 0);
+            });
             this.schema = data;
-            this.activeTicketTypeId = data.defaultTicketTypeId || 1;
+            const sousType = data.ticketTypes.find(t => t.id === 1 || (t.name && /sous/i.test(t.name)));
+            const defaultId = sousType ? sousType.id : 1;
+            this.activeTicketTypeId = defaultId;
+            this.schema.defaultTicketTypeId = defaultId;
             return;
           }
         }
@@ -274,7 +294,8 @@
 
       // 3. Fallback schema snapshot
       this.schema = FALLBACK_SCHEMA;
-      this.activeTicketTypeId = FALLBACK_SCHEMA.defaultTicketTypeId;
+      const sousFallback = (FALLBACK_SCHEMA.ticketTypes || []).find(t => t.id === 1 || (t.name && /sous/i.test(t.name)));
+      this.activeTicketTypeId = sousFallback ? sousFallback.id : 1;
     }
 
     buildSteps() {

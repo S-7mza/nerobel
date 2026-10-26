@@ -251,9 +251,24 @@
       this.applyLanguageDirection();
       this.bindGlobalModals();
       await this.fetchSchema();
-      this.setupForm();
       this.loadDraft();
+      this.applyUrlOverrides();
+      this.setupForm();
       this.render();
+    }
+
+    applyUrlOverrides() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const typeParam = (urlParams.get('type') || urlParams.get('ticketType') || urlParams.get('garantie') || '').toLowerCase().trim();
+        if (typeParam) {
+          if (typeParam === '2' || typeParam === 'hors' || typeParam === 'hors-garantie' || typeParam === 'out-of-warranty') {
+            this.activeTicketTypeId = 2;
+          } else if (typeParam === '1' || typeParam === 'sous' || typeParam === 'sous-garantie' || typeParam === 'under-warranty') {
+            this.activeTicketTypeId = 1;
+          }
+        }
+      } catch (e) {}
     }
 
     // ─────────────────────────────────────────
@@ -338,15 +353,28 @@
         if (!res.ok) throw new Error(`Status ${res.status}`);
         const data = await res.json();
         if (data && data.ticketTypes && data.ticketTypes.length > 0) {
+          // Sort ticketTypes so "Sous garantie" (id: 1) is always the first tab
+          data.ticketTypes.sort((a, b) => {
+            const aSous = a.id === 1 || (a.name && /sous/i.test(a.name));
+            const bSous = b.id === 1 || (b.name && /sous/i.test(b.name));
+            if (aSous && !bSous) return -1;
+            if (!aSous && bSous) return 1;
+            return (a.id || 0) - (b.id || 0);
+          });
           this.config = data;
-          this.activeTicketTypeId = data.defaultTicketTypeId || data.ticketTypes[0].id || 1;
+          // The default value MUST always be "Sous garantie" (id: 1) instead of "Hors garantie" (id: 2)
+          const sousGarantieType = data.ticketTypes.find(t => t.id === 1 || (t.name && /sous/i.test(t.name)));
+          const defaultTypeId = sousGarantieType ? sousGarantieType.id : 1;
+          this.activeTicketTypeId = defaultTypeId;
+          this.config.defaultTicketTypeId = defaultTypeId;
           return;
         }
       } catch (err) {
         console.warn('[Nerobel SAV Engine] Could not fetch remote schema, using embedded offline schema:', err);
       }
       this.config = FALLBACK_SCHEMA;
-      this.activeTicketTypeId = FALLBACK_SCHEMA.defaultTicketTypeId;
+      const sousFallback = (FALLBACK_SCHEMA.ticketTypes || []).find(t => t.id === 1 || (t.name && /sous/i.test(t.name)));
+      this.activeTicketTypeId = sousFallback ? sousFallback.id : 1;
     }
 
     setupForm() {
@@ -945,11 +973,16 @@
         const raw = sessionStorage.getItem('nerobel_sav_engine_draft');
         if (!raw) return;
         const draft = JSON.parse(raw);
-        if (draft && draft.formData) {
+        // Only restore draft if the user actually had filled-in form fields
+        const hasMeaningfulData = draft && draft.formData && Object.values(draft.formData).some(val => val !== null && val !== undefined && val !== '' && val !== false);
+        if (hasMeaningfulData) {
           this.formData = draft.formData;
           if (draft.activeTicketTypeId) this.activeTicketTypeId = draft.activeTicketTypeId;
           if (draft.gpsData) this.gpsData = draft.gpsData;
           if (draft.fileAttachmentName) this.fileAttachmentName = draft.fileAttachmentName;
+        } else {
+          // Empty or stale draft from simple browsing - clear it so default remains "Sous garantie"
+          this.clearDraft();
         }
       } catch (e) {}
     }
